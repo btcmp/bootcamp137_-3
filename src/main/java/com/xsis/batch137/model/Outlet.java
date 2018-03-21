@@ -1,10 +1,14 @@
 package com.xsis.batch137.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -49,6 +53,10 @@ public class Outlet {
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	
+	//relate to itemInveroty
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="outlet",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<ItemInventory> itemInventories;
 	
 	
 	public long getId() {
@@ -135,7 +143,11 @@ public class Outlet {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
-	
+	public List<ItemInventory> getItemInventories() {
+		return itemInventories;
+	}
+	public void setItemInventories(List<ItemInventory> itemInventories) {
+		this.itemInventories = itemInventories;
+	}
 	
 }
