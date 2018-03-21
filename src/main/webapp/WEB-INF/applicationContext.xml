@@ -24,17 +24,18 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.xsis.batch137.model.Category</value>
+				<value>com.xsis.batch137.model.District</value>
 				<value>com.xsis.batch137.model.Employee</value>
-				<value>com.xsis.batch137.model.Province</value>
-				<value>com.xsis.batch137.model.Region</value>
-				<value>com.xsis.batch137.model.Supplier</value>
+				<value>com.xsis.batch137.model.EmployeeOutlet</value>
 				<value>com.xsis.batch137.model.Item</value>
 				<value>com.xsis.batch137.model.ItemInventory</value>
 				<value>com.xsis.batch137.model.ItemVariant</value>
 				<value>com.xsis.batch137.model.Outlet</value>
+				<value>com.xsis.batch137.model.Province</value>
+				<value>com.xsis.batch137.model.Region</value>
 				<value>com.xsis.batch137.model.Role</value>
+				<value>com.xsis.batch137.model.Supplier</value>
 				<value>com.xsis.batch137.model.User</value>
-				<value>com.xsis.batch137.model.District</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
