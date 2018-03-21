@@ -38,6 +38,7 @@ public class Role {
 	private Date createdOn;
 	
 	// modified by
+	@ManyToOne
 	@JoinColumn(name="modified_by",nullable=true)
 	private User modifiedBy;
 	

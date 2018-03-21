@@ -1,6 +1,7 @@
 package com.xsis.batch137.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -70,8 +71,8 @@ public class Employee {
 	@NotNull
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
-	private EmployeeOutlet empOutlet;
+	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+	private List<EmployeeOutlet> empOutlet;*/
 
 	public long getId() {
 		return id;
@@ -160,14 +161,4 @@ public class Employee {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
-	public EmployeeOutlet getEmpOutlet() {
-		return empOutlet;
-	}
-
-	public void setEmpOutlet(EmployeeOutlet empOutlet) {
-		this.empOutlet = empOutlet;
-	}
-	
-	
 }

@@ -67,8 +67,8 @@ public class Outlet {
 	@NotEmpty
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL)
-	private EmployeeOutlet empOutlet;
+	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL)
+	private EmployeeOutlet empOutlet;*/
 	
 	//relate to itemInveroty
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="outlet",cascade=CascadeType.ALL,orphanRemoval=true)
@@ -165,5 +165,5 @@ public class Outlet {
 	public void setItemInventories(List<ItemInventory> itemInventories) {
 		this.itemInventories = itemInventories;
 	}
-	
+
 }
