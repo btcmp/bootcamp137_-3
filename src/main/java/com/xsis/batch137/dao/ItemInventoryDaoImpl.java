@@ -7,44 +7,44 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xsis.batch137.model.Item;
+import com.xsis.batch137.model.ItemInventory;
 
 @Repository
-public class ItemDaoImpl implements ItemDao {
+public class ItemInventoryDaoImpl implements ItemInventoryDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	public void save(Item item) {
+	public void save(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		session.save(item);
+		session.save(itemInventory);
 		session.flush();
 	}
 
-	public List<Item> selectAll() {
+	public List<ItemInventory> selectAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createCriteria(Item.class).list();
+		return session.createCriteria(ItemInventory.class).list();
 	}
 	
-	public Item getOne(Item item) {
+	public ItemInventory getOne(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		return session.get(Item.class, item.getId());
+		return session.get(ItemInventory.class, itemInventory.getId());
 	}
 
-	public void delete(Item item) {
+	public void delete(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		session.delete(item);
+		session.delete(itemInventory);
 		session.flush();
 	}
 
-	public void update(Item item) {
+	public void update(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		session.update(item);
+		session.update(itemInventory);
 		session.flush();
 	}
 
-	public void saveAtauUpdate(Item item) {
+	public void saveAtauUpdate(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		session.saveOrUpdate(item);
+		session.saveOrUpdate(itemInventory);
 		session.flush();
 	}
 }
