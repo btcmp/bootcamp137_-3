@@ -17,7 +17,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.sun.istack.internal.NotNull;
+import com.sun.istack.NotNull;
+
+
 
 @Entity
 @Table(name="pos_item_variant")
@@ -57,6 +59,8 @@ public class ItemVariant {
 	
 	//relate to item
 	@ManyToOne
+	@NotNull
+	@NotEmpty
 	private Item item;
 	
 	//relate to intemInvetory
