@@ -1,6 +1,7 @@
 /Category.class
 /District.class
 /Employee.class
+/EmployeeOutlet.class
 /ItemInventory.class
 /ItemVariant.class
 /Outlet.class
@@ -9,4 +10,3 @@
 /Role.class
 /Supplier.class
 /User.class
-/EmployeeOutlet.class

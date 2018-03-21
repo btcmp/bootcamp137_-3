@@ -1,10 +1,10 @@
+/CategoryService.class
 /DistrictService.class
 /EmployeeService.class
 /ItemInventoryService.class
 /ItemService.class
 /ItemVariantService.class
+/OutletService.class
 /ProvinceService.class
 /RegionService.class
-/CategoryService.class
-/OutletService.class
 /SupplierService.class
