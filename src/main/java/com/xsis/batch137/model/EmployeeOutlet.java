@@ -1,6 +1,8 @@
 package com.xsis.batch137.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ public class EmployeeOutlet {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="employee_id", nullable=false)
 	private Employee employee;
 	

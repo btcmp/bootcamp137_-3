@@ -1,7 +1,4 @@
-<html>
-<body>
-<<<<<<< HEAD
-<h2>Hello World!</h2>
+<%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 Yusuf Fahmi Adiputera 2
 =======
 <h2>Hello World!AAHDAHAH</h2>

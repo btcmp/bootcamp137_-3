@@ -23,36 +23,52 @@ public class Outlet {
 
 	@Id
 	private long id;
+	
 	@NotNull
 	@NotEmpty
 	@Size(max=50)
 	private String name;
+	
 	private String address;
+	
 	@Email
 	@Size(max=50)
 	private String email;
+	
 	@Size(max=16)
 	private String phone;
+	
 	@Column(name="province_id")
 	private long provinceId;
+	
 	@Column(name="region_id")
 	private long regionId;
+	
 	@Column(name="district_id")
 	private long districtId;
+	
 	@Column(name="postal_code")
 	@Size(max=6)
 	private String postalCode;
+	
 	@Column(name="created_by")
 	private long createdBy;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@Column(name="modified_by")
 	private long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL)
+	private EmployeeOutlet empOutlet;
 	
 	//relate to itemInveroty
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="outlet",cascade=CascadeType.ALL,orphanRemoval=true)

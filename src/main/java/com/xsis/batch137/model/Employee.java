@@ -2,11 +2,14 @@ package com.xsis.batch137.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,21 +53,24 @@ public class Employee {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_on", nullable=true)
-	public Date createdOn;
+	private Date createdOn;
 	
 	@Column(name="created_by", nullable=true)
-	public long createdBy;
+	private long createdBy;
 	
 	@Column(name="modified_by", nullable=true)
-	public long modifiedBy;
+	private long modifiedBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on", nullable=true)
-	public Date modifiedOn;
+	private Date modifiedOn;
 	
 	@Column(nullable=false)
 	@NotNull
-	public boolean active;
+	private boolean active;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
+	private EmployeeOutlet empOutlet;
 
 	public long getId() {
 		return id;
