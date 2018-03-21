@@ -46,6 +46,8 @@ public class Outlet {
 	private long modifiedBy;
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	@NotNull
+	@NotEmpty
 	private boolean active;
 	
 	
