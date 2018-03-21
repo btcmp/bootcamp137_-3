@@ -138,4 +138,6 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	//sesuatu
 }
