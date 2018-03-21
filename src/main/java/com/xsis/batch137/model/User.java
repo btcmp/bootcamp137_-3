@@ -78,6 +78,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Role> modifiedRole;
 	
+	// list employee
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Employee> createdEmp;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Employee> modifiedEmp;
+	
 	public long getId() {
 		return id;
 	}
@@ -188,6 +195,22 @@ public class User {
 
 	public void setModifiedRole(List<Role> modifiedRole) {
 		this.modifiedRole = modifiedRole;
+	}
+
+	public List<Employee> getCreatedEmp() {
+		return createdEmp;
+	}
+
+	public void setCreatedEmp(List<Employee> createdEmp) {
+		this.createdEmp = createdEmp;
+	}
+
+	public List<Employee> getModifiedEmp() {
+		return modifiedEmp;
+	}
+
+	public void setModifiedEmp(List<Employee> modifiedEmp) {
+		this.modifiedEmp = modifiedEmp;
 	}
 	
 	//sesuatu

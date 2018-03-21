@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -57,11 +59,13 @@ public class Employee {
 	@Column(name="created_on", nullable=true)
 	private Date createdOn;
 	
-	@Column(name="created_by", nullable=true)
-	private long createdBy;
+	@ManyToOne
+	@JoinColumn(name="created_by", nullable=true)
+	private User createdBy;
 	
-	@Column(name="modified_by", nullable=true)
-	private long modifiedBy;
+	@ManyToOne
+	@JoinColumn(name="modified_by", nullable=true)
+	private User modifiedBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on", nullable=true)
@@ -130,22 +134,6 @@ public class Employee {
 		this.createdOn = createdOn;
 	}
 
-	public long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(long createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(long modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
@@ -168,5 +156,21 @@ public class Employee {
 
 	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
 		this.empOutlet = empOutlet;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 }
