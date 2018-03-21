@@ -10,12 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name="pos_item_inventory")
 public class ItemInventory {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
+	@NotNull
+	@NotEmpty
 	private int beginning;
 	@Column(name="purchase_qty")
 	private int purchaseQty;
@@ -26,8 +32,12 @@ public class ItemInventory {
 	@Column(name="adjustment_qty")
 	private int adjustmentQty;
 	@Column(name="ending_qty")
+	@NotNull
+	@NotEmpty
 	private int endingQty;
-	@Column(name="alert")
+	@Column(name="alert_at_qty")
+	@NotNull
+	@NotEmpty
 	private int alertAtQty;
 	@Column(name="created_by")
 	private long createdBy;
@@ -37,11 +47,13 @@ public class ItemInventory {
 	private long modifiedBy;
 	@Column(name="modified_on")
 	private Date modifiedOn;
-	
+
 	@ManyToOne
 	private ItemVariant itemVariant;
 	
 	@ManyToOne
+	@NotNull
+	@NotEmpty
 	private Outlet outlet;
 
 	public long getId() {
