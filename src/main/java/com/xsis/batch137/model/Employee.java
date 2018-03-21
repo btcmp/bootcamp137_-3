@@ -21,7 +21,6 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	
 	private long id;
 	
 	@Size(min=1, max = 50, message="Harus 1-50 karakter")

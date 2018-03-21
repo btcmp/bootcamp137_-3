@@ -14,5 +14,5 @@ public interface EmployeeDao {
 	
 	List<Employee> selectAll();
 	
-	Employee getOne();
+	Employee getOne(Employee emp);
 }
