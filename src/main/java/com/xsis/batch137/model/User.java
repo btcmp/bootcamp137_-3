@@ -120,6 +120,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<ItemVariant> modifiedItemVariant;
 	
+	// list outlet
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Outlet> createdOutlet;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Outlet> modifiedOutlet;
+	
 	public long getId() {
 		return id;
 	}

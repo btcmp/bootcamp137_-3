@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -51,14 +53,16 @@ public class Outlet {
 	@Size(max = 6)
 	private String postalCode;
 
-	@Column(name = "created_by")
-	private long createdBy;
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
 
 	@Column(name = "created_on")
 	private Date createdOn;
 
-	@Column(name = "modified_by")
-	private long modifiedBy;
+	@ManyToOne
+	@JoinColumn(name = "modified_by")
+	private User modifiedBy;
 
 	@Column(name = "modified_on")
 	private Date modifiedOn;
@@ -147,28 +151,12 @@ public class Outlet {
 		this.postalCode = postalCode;
 	}
 
-	public long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	public long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(long modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -201,6 +189,22 @@ public class Outlet {
 
 	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
 		this.empOutlet = empOutlet;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 }
