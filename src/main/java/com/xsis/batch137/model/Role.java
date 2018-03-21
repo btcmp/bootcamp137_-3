@@ -32,6 +32,7 @@ public class Role {
 	@JoinColumn(name="created_by", nullable=true)
 	private User createdBy;
 	
+	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true, name="created_on")
 	private Date createdOn;
