@@ -19,7 +19,7 @@ public class EmployeeOutlet {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="employee_id", nullable=false)
 	private Employee employee;
 	
