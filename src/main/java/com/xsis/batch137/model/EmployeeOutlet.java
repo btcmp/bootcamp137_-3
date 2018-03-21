@@ -21,11 +21,11 @@ public class EmployeeOutlet {
 	
 	/*@ManyToOne
 	@JoinColumn(name="employee_id", nullable=false)
-	private Employee employee;
+	private Employee employee;*/
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id", nullable=false)
-	private Outlet outlet;*/
+	private Outlet outlet;
 
 	public int getId() {
 		return id;
