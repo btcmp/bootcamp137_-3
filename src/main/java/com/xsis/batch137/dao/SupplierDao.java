@@ -5,7 +5,7 @@ import java.util.List;
 import com.xsis.batch137.model.Supplier;
 
 public interface SupplierDao {
-
+//
 	public void save(Supplier sup);
 	
 	public void delete(Supplier sup);

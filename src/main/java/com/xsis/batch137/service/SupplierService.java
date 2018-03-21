@@ -15,7 +15,7 @@ public class SupplierService {
 
 	@Autowired
 	SupplierDao supplierDao;
-	
+	//
 	public void save(Supplier sup) {
 		supplierDao.save(sup);
 	}
