@@ -24,4 +24,28 @@ public class EmployeeOutlet {
 	@ManyToOne
 	@JoinColumn(name="outlet_id", nullable=false)
 	private Outlet outlet;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Outlet getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
+	}
 }
