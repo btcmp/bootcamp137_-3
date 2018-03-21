@@ -44,7 +44,7 @@ public class CategoryDaoImpl implements CategoryDao{
 		return session.createCriteria(Category.class).list();
 	}
 
-	public Category getOne(String id) {
+	public Category getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Category.class, id);
