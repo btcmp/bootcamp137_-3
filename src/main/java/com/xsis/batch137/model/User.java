@@ -127,6 +127,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Outlet> modifiedOutlet;
 	
+	//list province
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Province> createdProvince;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Province> modifiedProvince;
+	
 	public long getId() {
 		return id;
 	}
@@ -333,6 +340,38 @@ public class User {
 
 	public void setModifiedItemVariant(List<ItemVariant> modifiedItemVariant) {
 		this.modifiedItemVariant = modifiedItemVariant;
+	}
+
+	public List<Outlet> getCreatedOutlet() {
+		return createdOutlet;
+	}
+
+	public void setCreatedOutlet(List<Outlet> createdOutlet) {
+		this.createdOutlet = createdOutlet;
+	}
+
+	public List<Outlet> getModifiedOutlet() {
+		return modifiedOutlet;
+	}
+
+	public void setModifiedOutlet(List<Outlet> modifiedOutlet) {
+		this.modifiedOutlet = modifiedOutlet;
+	}
+
+	public List<Province> getCreatedProvince() {
+		return createdProvince;
+	}
+
+	public void setCreatedProvince(List<Province> createdProvince) {
+		this.createdProvince = createdProvince;
+	}
+
+	public List<Province> getModifiedProvince() {
+		return modifiedProvince;
+	}
+
+	public void setModifiedProvince(List<Province> modifiedProvince) {
+		this.modifiedProvince = modifiedProvince;
 	}
 	
 	//sesuatu
