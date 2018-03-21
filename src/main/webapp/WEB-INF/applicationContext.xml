@@ -28,6 +28,12 @@
 				<value>com.xsis.batch137.model.Province</value>
 				<value>com.xsis.batch137.model.Region</value>
 				<value>com.xsis.batch137.model.Supplier</value>
+				<value>com.xsis.batch137.model.Item</value>
+				<value>com.xsis.batch137.model.ItemInventory</value>
+				<value>com.xsis.batch137.model.ItemVariant</value>
+				<value>com.xsis.batch137.model.Outlet</value>
+				<value>com.xsis.batch137.model.Role</value>
+				<value>com.xsis.batch137.model.User</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
