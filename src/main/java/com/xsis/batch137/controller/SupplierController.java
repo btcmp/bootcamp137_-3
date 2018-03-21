@@ -39,8 +39,8 @@ public class SupplierController {
 		supplierService.save(supplier);
 	}
 	
-	@RequestMapping(value="/take", method=RequestMethod.GET)
-	public void getOne(long id, Model model) {
+	@RequestMapping(value="/take/{id}", method=RequestMethod.GET)
+	public void getOne(@PathVariable long id, Model model) {
 		Supplier supplier = supplierService.getOne(id);
 		model.addAttribute("supplier", supplier);
 	}
