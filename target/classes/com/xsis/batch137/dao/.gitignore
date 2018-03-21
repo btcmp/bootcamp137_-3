@@ -1,3 +1,6 @@
+/OutletDao.java
+/CategoryDao.class
+/CategoryDaoImpl.class
 /DistrictDao.class
 /DistrictDaoImpl.class
 /EmployeeDao.class
@@ -8,10 +11,8 @@
 /ItemInventoryDaoImpl.class
 /ItemVariantDao.class
 /ItemVariantDaoImpl.class
+/OutletDaoImpl.class
 /ProvinceDao.class
 /ProvinceDaoImpl.class
 /RegionDao.class
 /RegionDaoImpl.class
-/CategoryDao.class
-/CategoryDaoImpl.class
-/OutletDao.class
