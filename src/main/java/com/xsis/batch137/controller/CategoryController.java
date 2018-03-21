@@ -23,10 +23,11 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@RequestMapping
 	public String view(Model model) {
 		List<Category> categories = categoryService.selectAll();
 		model.addAttribute("categories", categories);
-		return "category-view";
+		return "/category/category-view";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
