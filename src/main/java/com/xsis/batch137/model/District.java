@@ -1,18 +1,14 @@
 package com.xsis.batch137.model;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -21,8 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name="REGION")
-public class Region {
+@Table(name="DISTRICT")
+public class District {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -43,20 +39,11 @@ public class Region {
 	@NotEmpty
 	private boolean active;
 	@ManyToOne
-	@JoinColumn(name="province_id")
+	@JoinColumn(name="region_id")
 	@NotNull
 	@NotEmpty
-	private Province province;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<District> districts;
+	private Region region;
 	
-	
-	public List<District> getDistricts() {
-		return districts;
-	}
-	public void setDistricts(List<District> districts) {
-		this.districts = districts;
-	}
 	public long getId() {
 		return id;
 	}
@@ -68,12 +55,6 @@ public class Region {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Province getProvince() {
-		return province;
-	}
-	public void setProvince(Province province) {
-		this.province = province;
 	}
 	public long getCreatedBy() {
 		return createdBy;
@@ -104,6 +85,12 @@ public class Region {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public Region getRegion() {
+		return region;
+	}
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 	
 	
