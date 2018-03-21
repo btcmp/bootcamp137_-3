@@ -27,11 +27,6 @@ public class Region {
 	@NotEmpty
 	@Size(max=50)
 	private String name;
-	@ManyToOne
-	@JoinColumn(name="province_id")
-	@NotNull
-	@NotEmpty
-	private Province province;
 	@Column(name="created_by")
 	private long createdBy;
 	@Column(name="created_on")
@@ -43,6 +38,11 @@ public class Region {
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	@ManyToOne
+	@JoinColumn(name="province_id")
+	@NotNull
+	@NotEmpty
+	private Province province;
 	
 	
 	public long getId() {
