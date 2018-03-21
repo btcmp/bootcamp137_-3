@@ -23,7 +23,11 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				
+				<value>com.xsis.batch137.model.Category</value>
+				<value>com.xsis.batch137.model.Employee</value>
+				<value>com.xsis.batch137.model.Province</value>
+				<value>com.xsis.batch137.model.Region</value>
+				<value>com.xsis.batch137.model.Supplier</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
