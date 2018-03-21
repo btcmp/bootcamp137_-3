@@ -42,7 +42,7 @@ public class OutletController {
 	}
 	
 	@RequestMapping(value="/take", method=RequestMethod.GET)
-	public void getOne(@RequestParam long id, Model model) {
+	public void getOne(@RequestParam("id") long id, Model model) {
 		Outlet outlet = outletService.getOne(id);
 		model.addAttribute("outlet", outlet);
 	}
