@@ -87,6 +87,12 @@ public class Category {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	public List<Item> getItems() {
+		return items;
+	}
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
 	
-	 
+	
 }
