@@ -1,5 +1,6 @@
 package com.xsis.batch137.controller;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ public class SupplierController {
 		model.addAttribute("supplier", supplier);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody Supplier supplier) {
 		supplierService.update(supplier);
