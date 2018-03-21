@@ -113,6 +113,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<ItemInventory> modifiedItemInventory;
 	
+	// list Item Variant
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<ItemVariant> createdItemVariant;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<ItemVariant> modifiedItemVariant;
+	
 	public long getId() {
 		return id;
 	}
@@ -271,6 +278,54 @@ public class User {
 
 	public void setModifiedDistrict(List<District> modifiedDistrict) {
 		this.modifiedDistrict = modifiedDistrict;
+	}
+
+	public List<Item> getCreatedItem() {
+		return createdItem;
+	}
+
+	public void setCreatedItem(List<Item> createdItem) {
+		this.createdItem = createdItem;
+	}
+
+	public List<Item> getModifiedItem() {
+		return modifiedItem;
+	}
+
+	public void setModifiedItem(List<Item> modifiedItem) {
+		this.modifiedItem = modifiedItem;
+	}
+
+	public List<ItemInventory> getCreatedItemInventory() {
+		return createdItemInventory;
+	}
+
+	public void setCreatedItemInventory(List<ItemInventory> createdItemInventory) {
+		this.createdItemInventory = createdItemInventory;
+	}
+
+	public List<ItemInventory> getModifiedItemInventory() {
+		return modifiedItemInventory;
+	}
+
+	public void setModifiedItemInventory(List<ItemInventory> modifiedItemInventory) {
+		this.modifiedItemInventory = modifiedItemInventory;
+	}
+
+	public List<ItemVariant> getCreatedItemVariant() {
+		return createdItemVariant;
+	}
+
+	public void setCreatedItemVariant(List<ItemVariant> createdItemVariant) {
+		this.createdItemVariant = createdItemVariant;
+	}
+
+	public List<ItemVariant> getModifiedItemVariant() {
+		return modifiedItemVariant;
+	}
+
+	public void setModifiedItemVariant(List<ItemVariant> modifiedItemVariant) {
+		this.modifiedItemVariant = modifiedItemVariant;
 	}
 	
 	//sesuatu
