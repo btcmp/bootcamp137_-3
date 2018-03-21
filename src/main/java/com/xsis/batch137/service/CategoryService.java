@@ -31,7 +31,7 @@ public class CategoryService {
 		category.setActive(false);
 		categoryDao.delete(category);
 	}
-	
+	//
 	public List<Category> selectAll() {
 		return categoryDao.selectAll();
 	}
