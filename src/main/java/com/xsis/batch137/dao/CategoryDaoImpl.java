@@ -21,6 +21,8 @@ public class CategoryDaoImpl implements CategoryDao{
 		session.save(category);
 		session.flush();
 	}
+	
+	//
 
 	public void update(Category category) {
 		// TODO Auto-generated method stub

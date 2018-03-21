@@ -5,7 +5,7 @@ import java.util.List;
 import com.xsis.batch137.model.Category;
 
 public interface CategoryDao {
-
+//
 	public void save(Category category);
 	
 	public void update(Category category);
