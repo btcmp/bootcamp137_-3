@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,42 +16,56 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name="pos_item_inventory")
+@Table(name = "pos_item_inventory")
 public class ItemInventory {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+
 	@NotNull
 	@NotEmpty
 	private int beginning;
-	@Column(name="purchase_qty")
+
+	@Column(name = "purchase_qty")
 	private int purchaseQty;
-	@Column(name="sales_order_qty")
+
+	@Column(name = "sales_order_qty")
 	private int salesOrderQty;
-	@Column(name="transfer_stock_qty")
+
+	@Column(name = "transfer_stock_qty")
 	private int transferStockQty;
-	@Column(name="adjustment_qty")
+
+	@Column(name = "adjustment_qty")
 	private int adjustmentQty;
-	@Column(name="ending_qty")
+
+	@Column(name = "ending_qty")
 	@NotNull
 	@NotEmpty
 	private int endingQty;
-	@Column(name="alert_at_qty")
+
+	@Column(name = "alert_at_qty")
 	@NotNull
 	@NotEmpty
 	private int alertAtQty;
-	@Column(name="created_by")
-	private long createdBy;
-	@Column(name="created_on")
+
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
+
+	@Column(name = "created_on")
 	private Date createdOn;
-	@Column(name="modified_by")
-	private long modifiedBy;
-	@Column(name="modified_on")
+
+	@ManyToOne
+	@JoinColumn(name = "modified_by")
+	private User modifiedBy;
+
+	@Column(name = "modified_on")
 	private Date modifiedOn;
 
 	@ManyToOne
 	private ItemVariant itemVariant;
-	
+
 	@ManyToOne
 	@NotNull
 	@NotEmpty
@@ -120,28 +135,12 @@ public class ItemInventory {
 		this.alertAtQty = alertAtQty;
 	}
 
-	public long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	public long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(long modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -167,7 +166,21 @@ public class ItemInventory {
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
 	}
-	
-	
-	
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
 }

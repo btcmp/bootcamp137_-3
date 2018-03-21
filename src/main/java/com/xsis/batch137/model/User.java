@@ -106,6 +106,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Item> modifiedItem;
 	
+	// list Item Inventory
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<ItemInventory> createdItemInventory;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<ItemInventory> modifiedItemInventory;
+	
 	public long getId() {
 		return id;
 	}
