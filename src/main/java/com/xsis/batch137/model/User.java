@@ -141,6 +141,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Region> modifiedRegion;
 	
+	// list supplier
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Supplier> createdSupplier;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Supplier> modifiedSupplier;
+	
 	public long getId() {
 		return id;
 	}
@@ -395,6 +402,22 @@ public class User {
 
 	public void setModifiedRegion(List<Region> modifiedRegion) {
 		this.modifiedRegion = modifiedRegion;
+	}
+
+	public List<Supplier> getCreatedSupplier() {
+		return createdSupplier;
+	}
+
+	public void setCreatedSupplier(List<Supplier> createdSupplier) {
+		this.createdSupplier = createdSupplier;
+	}
+
+	public List<Supplier> getModifiedSupplier() {
+		return modifiedSupplier;
+	}
+
+	public void setModifiedSupplier(List<Supplier> modifiedSupplier) {
+		this.modifiedSupplier = modifiedSupplier;
 	}
 	
 	//sesuatu
