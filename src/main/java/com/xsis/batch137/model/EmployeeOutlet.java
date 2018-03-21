@@ -19,9 +19,9 @@ public class EmployeeOutlet {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	
-	/*@ManyToOne
+	@ManyToOne
 	@JoinColumn(name="employee_id", nullable=false)
-	private Employee employee;*/
+	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id", nullable=false)
@@ -33,5 +33,21 @@ public class EmployeeOutlet {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Outlet getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
 	}
 }

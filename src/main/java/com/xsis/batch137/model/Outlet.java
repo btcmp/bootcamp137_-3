@@ -195,4 +195,12 @@ public class Outlet {
 		this.itemInventories = itemInventories;
 	}
 
+	public List<EmployeeOutlet> getEmpOutlet() {
+		return empOutlet;
+	}
+
+	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
+		this.empOutlet = empOutlet;
+	}
+
 }

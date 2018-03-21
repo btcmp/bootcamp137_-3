@@ -71,8 +71,8 @@ public class Employee {
 	@NotNull
 	private boolean active;
 	
-	/*@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
-	private List<EmployeeOutlet> empOutlet;*/
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval=true)
+	private List<EmployeeOutlet> empOutlet;
 
 	public long getId() {
 		return id;
@@ -160,5 +160,13 @@ public class Employee {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public List<EmployeeOutlet> getEmpOutlet() {
+		return empOutlet;
+	}
+
+	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
+		this.empOutlet = empOutlet;
 	}
 }
