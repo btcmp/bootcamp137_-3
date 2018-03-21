@@ -92,6 +92,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Category> modifiedCategory;
 	
+	//list district
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<District> createdDistrict;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<District> modifiedDistrict;
+	
 	public long getId() {
 		return id;
 	}
@@ -234,6 +241,22 @@ public class User {
 
 	public void setModifiedCategory(List<Category> modifiedCategory) {
 		this.modifiedCategory = modifiedCategory;
+	}
+
+	public List<District> getCreatedDistrict() {
+		return createdDistrict;
+	}
+
+	public void setCreatedDistrict(List<District> createdDistrict) {
+		this.createdDistrict = createdDistrict;
+	}
+
+	public List<District> getModifiedDistrict() {
+		return modifiedDistrict;
+	}
+
+	public void setModifiedDistrict(List<District> modifiedDistrict) {
+		this.modifiedDistrict = modifiedDistrict;
 	}
 	
 	//sesuatu
