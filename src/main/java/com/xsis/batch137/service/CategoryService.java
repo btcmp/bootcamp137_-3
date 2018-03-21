@@ -36,7 +36,7 @@ public class CategoryService {
 		return categoryDao.selectAll();
 	}
 	
-	public Category getOne(String id) {
+	public Category getOne(long id) {
 		return categoryDao.getOne(id);
 	}
 }
