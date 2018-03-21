@@ -27,27 +27,35 @@ public class Region {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
+	
 	@NotNull
 	@NotEmpty
 	@Size(max=50)
 	private String name;
+	
 	@Column(name="created_by")
 	private long createdBy;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@Column(name="modified_by")
 	private long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	
 	@ManyToOne
 	@JoinColumn(name="province_id")
 	@NotNull
 	@NotEmpty
 	private Province province;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="region", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<District> districts;
 	
 	

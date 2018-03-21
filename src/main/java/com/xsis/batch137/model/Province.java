@@ -25,25 +25,30 @@ public class Province {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private String id;
+	
 	@NotNull
 	@NotEmpty
 	@Size(max=50)
 	private String name;
+	
 	@Column(name="created_by")
 	private long createdBy;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@Column(name="modified_by")
 	private long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="province", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Region> regions;
-	
-	
 	
 	public List<Region> getRegions() {
 		return regions;

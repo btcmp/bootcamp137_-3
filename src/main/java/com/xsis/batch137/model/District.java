@@ -23,21 +23,28 @@ public class District {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
+	
 	@NotNull
 	@NotEmpty
 	@Size(max=50)
 	private String name;
+	
 	@Column(name="created_by")
 	private long createdBy;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@Column(name="modified_by")
 	private long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
 	@NotNull
 	@NotEmpty
 	private boolean active;
+	
 	@ManyToOne
 	@JoinColumn(name="region_id")
 	@NotNull
