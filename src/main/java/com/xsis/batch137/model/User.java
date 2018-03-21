@@ -85,6 +85,13 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Employee> modifiedEmp;
 	
+	//list category
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Category> createdCategory;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Category> modifiedCategory;
+	
 	public long getId() {
 		return id;
 	}
@@ -211,6 +218,22 @@ public class User {
 
 	public void setModifiedEmp(List<Employee> modifiedEmp) {
 		this.modifiedEmp = modifiedEmp;
+	}
+
+	public List<Category> getCreatedCategory() {
+		return createdCategory;
+	}
+
+	public void setCreatedCategory(List<Category> createdCategory) {
+		this.createdCategory = createdCategory;
+	}
+
+	public List<Category> getModifiedCategory() {
+		return modifiedCategory;
+	}
+
+	public void setModifiedCategory(List<Category> modifiedCategory) {
+		this.modifiedCategory = modifiedCategory;
 	}
 	
 	//sesuatu
