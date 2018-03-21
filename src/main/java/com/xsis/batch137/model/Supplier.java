@@ -2,6 +2,7 @@ package com.xsis.batch137.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -27,6 +30,7 @@ public class Supplier {
 	@NotNull
 	@NotEmpty
 	@Size(max = 50)
+	@Column(nullable=false)
 	private String name;
 	
 	private String address;
@@ -38,29 +42,41 @@ public class Supplier {
 	@Size(max = 50)
 	private String email;
 	
-	private long provinceId;
+	@ManyToOne
+	@JoinColumn(name="province_id", nullable=false)
+	private Province provinceId;
 	
-	private long regionId;
+	@ManyToOne
+	@JoinColumn(name="region_id", nullable=false)
+	private Region regionId;
 	
-	private long districtId;
+	@ManyToOne
+	@JoinColumn(name="district_id", nullable=false)
+	private District districtId;
 	
 	@Size(max = 6)
+	@Column(name="postal_code", nullable=true)
 	private String postalCode;
 	
 	@ManyToOne
 	@JoinColumn(name="created_by")
 	private User createdBy;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name="created_on")
 	private Date createdOn;
 	
 	@ManyToOne
 	@JoinColumn(name="modified_by")
 	private User modifiedBy;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name="modified_on")
 	private Date modifiedOn;
 	
 	@NotNull
 	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 
 	public long getId() {
@@ -101,30 +117,6 @@ public class Supplier {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public long getProvinceId() {
-		return provinceId;
-	}
-
-	public void setProvinceId(long provinceId) {
-		this.provinceId = provinceId;
-	}
-
-	public long getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(long regionId) {
-		this.regionId = regionId;
-	}
-
-	public long getDistrictId() {
-		return districtId;
-	}
-
-	public void setDistrictId(long districtId) {
-		this.districtId = districtId;
 	}
 
 	public String getPostalCode() {
@@ -173,6 +165,30 @@ public class Supplier {
 
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public Province getProvinceId() {
+		return provinceId;
+	}
+
+	public void setProvinceId(Province provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public Region getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Region regionId) {
+		this.regionId = regionId;
+	}
+
+	public District getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(District districtId) {
+		this.districtId = districtId;
 	}
 
 }

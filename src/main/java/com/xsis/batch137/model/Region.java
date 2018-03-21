@@ -31,6 +31,7 @@ public class Region {
 	@NotNull
 	@NotEmpty
 	@Size(max = 50)
+	@Column(nullable=false)
 	private String name;
 
 	@ManyToOne
@@ -49,16 +50,20 @@ public class Region {
 
 	@NotNull
 	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 
 	@ManyToOne
-	@JoinColumn(name = "province_id")
+	@JoinColumn(name = "province_id", nullable=false)
 	@NotNull
 	@NotEmpty
 	private Province province;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<District> districts;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "regionId", cascade = CascadeType.ALL)
+	private List<Supplier> supplier;
 
 	public List<District> getDistricts() {
 		return districts;
@@ -130,6 +135,14 @@ public class Region {
 
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public List<Supplier> getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(List<Supplier> supplier) {
+		this.supplier = supplier;
 	}
 
 }

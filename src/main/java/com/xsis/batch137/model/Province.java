@@ -31,6 +31,7 @@ public class Province {
 	@NotNull
 	@NotEmpty
 	@Size(max = 50)
+	@Column(nullable=false)
 	private String name;
 
 	@ManyToOne
@@ -49,10 +50,14 @@ public class Province {
 
 	@NotNull
 	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Region> regions;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provinceId", cascade = CascadeType.ALL)
+	private List<Supplier> supplier;
 
 	public List<Region> getRegions() {
 		return regions;
@@ -116,6 +121,14 @@ public class Province {
 
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public List<Supplier> getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(List<Supplier> supplier) {
+		this.supplier = supplier;
 	}
 
 }
