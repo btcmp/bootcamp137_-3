@@ -26,7 +26,7 @@ public class Province {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private String id;
+	private long id;
 
 	@NotNull
 	@NotEmpty
@@ -58,6 +58,9 @@ public class Province {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provinceId", cascade = CascadeType.ALL)
 	private List<Supplier> supplier;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provinceId", cascade = CascadeType.ALL)
+	private List<Outlet> outlet;
 
 	public List<Region> getRegions() {
 		return regions;
@@ -65,14 +68,6 @@ public class Province {
 
 	public void setRegions(List<Region> regions) {
 		this.regions = regions;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -130,5 +125,22 @@ public class Province {
 	public void setSupplier(List<Supplier> supplier) {
 		this.supplier = supplier;
 	}
+
+	public List<Outlet> getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(List<Outlet> outlet) {
+		this.outlet = outlet;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 }

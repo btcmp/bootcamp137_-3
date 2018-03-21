@@ -62,6 +62,9 @@ public class District {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "districtId", cascade = CascadeType.ALL)
 	private List<Supplier> supplier;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "districtId", cascade = CascadeType.ALL)
+	private List<Outlet> outlet;
+	
 	public long getId() {
 		return id;
 	}
@@ -133,5 +136,14 @@ public class District {
 	public void setSupplier(List<Supplier> supplier) {
 		this.supplier = supplier;
 	}
+
+	public List<Outlet> getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(List<Outlet> outlet) {
+		this.outlet = outlet;
+	}
+
 
 }

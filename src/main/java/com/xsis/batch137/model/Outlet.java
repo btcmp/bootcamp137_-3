@@ -29,6 +29,7 @@ public class Outlet {
 	@NotNull
 	@NotEmpty
 	@Size(max = 50)
+	@Column(nullable=false)
 	private String name;
 
 	private String address;
@@ -40,14 +41,17 @@ public class Outlet {
 	@Size(max = 16)
 	private String phone;
 
-	@Column(name = "province_id")
-	private long provinceId;
+	@ManyToOne
+	@JoinColumn(name = "province_id", nullable=false)
+	private Province provinceId;
 
-	@Column(name = "region_id")
-	private long regionId;
+	@ManyToOne
+	@JoinColumn(name = "region_id", nullable=false)
+	private Region regionId;
 
-	@Column(name = "district_id")
-	private long districtId;
+	@ManyToOne
+	@JoinColumn(name = "district_id", nullable=false)
+	private District districtId;
 
 	@Column(name = "postal_code")
 	@Size(max = 6)
@@ -119,30 +123,6 @@ public class Outlet {
 		this.phone = phone;
 	}
 
-	public long getProvinceId() {
-		return provinceId;
-	}
-
-	public void setProvinceId(long provinceId) {
-		this.provinceId = provinceId;
-	}
-
-	public long getRegionId() {
-		return regionId;
-	}
-
-	public void setRegionId(long regionId) {
-		this.regionId = regionId;
-	}
-
-	public long getDistrictId() {
-		return districtId;
-	}
-
-	public void setDistrictId(long districtId) {
-		this.districtId = districtId;
-	}
-
 	public String getPostalCode() {
 		return postalCode;
 	}
@@ -205,6 +185,30 @@ public class Outlet {
 
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public District getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(District districtId) {
+		this.districtId = districtId;
+	}
+
+	public Region getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Region regionId) {
+		this.regionId = regionId;
+	}
+
+	public Province getProvinceId() {
+		return provinceId;
+	}
+
+	public void setProvinceId(Province provinceId) {
+		this.provinceId = provinceId;
 	}
 
 }
