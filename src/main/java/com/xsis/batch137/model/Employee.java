@@ -159,6 +159,14 @@ public class Employee {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	public EmployeeOutlet getEmpOutlet() {
+		return empOutlet;
+	}
+
+	public void setEmpOutlet(EmployeeOutlet empOutlet) {
+		this.empOutlet = empOutlet;
+	}
 	
 	
 }

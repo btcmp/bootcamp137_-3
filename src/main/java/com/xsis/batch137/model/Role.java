@@ -28,15 +28,16 @@ public class Role {
 	@Size(max=250)
 	private String description;
 	
+	// created by
 	@ManyToOne
 	@JoinColumn(name="created_by", nullable=true)
 	private User createdBy;
-	
 	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=true, name="created_on")
 	private Date createdOn;
 	
+	// modified by
 	@JoinColumn(name="modified_by",nullable=true)
 	private User modifiedBy;
 	

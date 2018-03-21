@@ -1,14 +1,18 @@
 package com.xsis.batch137.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,17 +43,25 @@ public class User {
 	@JoinColumn(name="employee_id", nullable=false)
 	private Employee employee;
 	
+	//crated by
 	@ManyToOne
 	@JoinColumn(name="created_by", nullable=true)
 	private User createdBy;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<User> createdUser;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_on", nullable=true)
 	private Date createdOn;
 	
+	//modified by
 	@ManyToOne
 	@JoinColumn(name="modified_by", nullable=true)
 	private User modifiedBy;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<User> modifiedUser;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on", nullable=true)
@@ -59,6 +71,13 @@ public class User {
 	private boolean active;
 	//
 
+	//list Role
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Role> createdRole;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<Role> modifiedRole;
+	
 	public long getId() {
 		return id;
 	}
@@ -137,6 +156,38 @@ public class User {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public List<User> getCreatedUser() {
+		return createdUser;
+	}
+
+	public void setCreatedUser(List<User> createdUser) {
+		this.createdUser = createdUser;
+	}
+
+	public List<User> getModifiedUser() {
+		return modifiedUser;
+	}
+
+	public void setModifiedUser(List<User> modifiedUser) {
+		this.modifiedUser = modifiedUser;
+	}
+
+	public List<Role> getCreatedRole() {
+		return createdRole;
+	}
+
+	public void setCreatedRole(List<Role> createdRole) {
+		this.createdRole = createdRole;
+	}
+
+	public List<Role> getModifiedRole() {
+		return modifiedRole;
+	}
+
+	public void setModifiedRole(List<Role> modifiedRole) {
+		this.modifiedRole = modifiedRole;
 	}
 	
 	//sesuatu
