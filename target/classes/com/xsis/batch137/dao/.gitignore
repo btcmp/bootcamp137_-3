@@ -1,5 +1,6 @@
 /CategoryDao.class
 /CategoryDaoImpl.class
+/DistrictDao.class
 /DistrictDaoImpl.class
 /EmployeeDao.class
 /EmployeeDaoImpl.class
@@ -11,7 +12,6 @@
 /ItemVariantDaoImpl.class
 /OutletDao.class
 /OutletDaoImpl.class
-/DistrictDao.class
 /ProvinceDao.class
 /ProvinceDaoImpl.class
 /RegionDao.class
