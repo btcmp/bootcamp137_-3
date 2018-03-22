@@ -6,44 +6,45 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.xsis.batch137.model.User;
+import com.xsis.batch137.model.EmployeeOutlet;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 
 	SessionFactory sessionFactory;
 	
-	public void save(User user) {
+	public void save(EmployeeOutlet eo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		session.save(eo);
 		session.flush();
 	}
 
-	public void update(User user) {
+	public void update(EmployeeOutlet eo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		session.update(eo);
 		session.flush();
 	}
 
-	public List<User> selectAll() {
+	public void delete(EmployeeOutlet eo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(User.class).list();
-	}
-
-	public User getOne(User user) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		return session.get(User.class, user.getId());
-	}
-
-	public void delete(User user) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.delete(user);
+		session.delete(eo);
 		session.flush();
 	}
 
+	public List<EmployeeOutlet> selectAll() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(EmployeeOutlet.class).list();
+	}
+
+	public EmployeeOutlet getOne(EmployeeOutlet eo) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(EmployeeOutlet.class, eo.getId());
+	}
+
+	
 }
