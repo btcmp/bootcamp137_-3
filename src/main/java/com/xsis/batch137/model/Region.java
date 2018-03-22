@@ -49,7 +49,6 @@ public class Region {
 	private Date modifiedOn;
 
 	@NotNull
-	@NotEmpty
 	@Column(nullable=false)
 	private boolean active;
 

@@ -57,7 +57,7 @@ public class ItemVariant {
 	private Date modifiedOn;
 
 	@NotNull
-	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 
 	// relate to item

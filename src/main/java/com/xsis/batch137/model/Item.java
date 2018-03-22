@@ -45,7 +45,7 @@ public class Item {
 	private Date modifiedOn;
 	
 	@NotNull
-	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 	
 	@ManyToOne

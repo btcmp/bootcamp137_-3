@@ -12,9 +12,27 @@
 					<form id="formdepartemen" data-parsley-validate method="post">
 						<table>
 							<tr>
-								<td>Category Name</td>
+								<td>Outlet Name</td>
 								<td>:</td>
-								<td><input type="text" name="create-category" id="create-category" data-parsley-required="true" /></td>
+								<td><input type="text" name="outlet-name" id="outlet-name" data-parsley-required="true" /></td>
+							</tr>
+							
+							<tr>
+								<td>Address</td>
+								<td>:</td>
+								<td><input type="text" name="outlet-address" id="outlet-address" data-parsley-required="true" /></td>
+							</tr>
+							
+							<tr>
+								<td>Phone</td>
+								<td>:</td>
+								<td><input type="text" name="outlet-phone" id="outlet-phone" data-parsley-required="true" /></td>
+							</tr>
+							
+							<tr>
+								<td>Email</td>
+								<td>:</td>
+								<td><input type="text" name="outlet-email" id="outlet-email" data-parsley-required="true" /></td>
 							</tr>
 							
 							<tr>

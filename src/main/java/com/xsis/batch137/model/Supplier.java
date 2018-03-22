@@ -75,7 +75,6 @@ public class Supplier {
 	private Date modifiedOn;
 	
 	@NotNull
-	@NotEmpty
 	@Column(nullable=false)
 	private boolean active;
 
