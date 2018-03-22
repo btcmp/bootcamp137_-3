@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,6 +26,7 @@ import com.sun.istack.NotNull;
 public class Outlet {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
 
 	@NotNull
@@ -43,15 +46,15 @@ public class Outlet {
 
 	@ManyToOne
 	@JoinColumn(name = "province_id", nullable=false)
-	private Province provinceId;
+	private Province province;
 
 	@ManyToOne
 	@JoinColumn(name = "region_id", nullable=false)
-	private Region regionId;
+	private Region region;
 
 	@ManyToOne
 	@JoinColumn(name = "district_id", nullable=false)
-	private District districtId;
+	private District district;
 
 	@Column(name = "postal_code")
 	@Size(max = 6)
@@ -187,28 +190,29 @@ public class Outlet {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public District getDistrictId() {
-		return districtId;
+	public Province getProvince() {
+		return province;
 	}
 
-	public void setDistrictId(District districtId) {
-		this.districtId = districtId;
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
-	public Region getRegionId() {
-		return regionId;
+	public Region getRegion() {
+		return region;
 	}
 
-	public void setRegionId(Region regionId) {
-		this.regionId = regionId;
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 
-	public Province getProvinceId() {
-		return provinceId;
+	public District getDistrict() {
+		return district;
 	}
 
-	public void setProvinceId(Province provinceId) {
-		this.provinceId = provinceId;
+	public void setDistrict(District district) {
+		this.district = district;
 	}
+
 
 }

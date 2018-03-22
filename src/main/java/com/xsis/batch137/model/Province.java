@@ -56,10 +56,10 @@ public class Province {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Region> regions;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provinceId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province", cascade = CascadeType.ALL)
 	private List<Supplier> supplier;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provinceId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "province", cascade = CascadeType.ALL)
 	private List<Outlet> outlet;
 
 	public List<Region> getRegions() {

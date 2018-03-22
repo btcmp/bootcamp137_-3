@@ -59,10 +59,10 @@ public class District {
 	@NotEmpty
 	private Region region;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "districtId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district", cascade = CascadeType.ALL)
 	private List<Supplier> supplier;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "districtId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district", cascade = CascadeType.ALL)
 	private List<Outlet> outlet;
 	
 	public long getId() {
