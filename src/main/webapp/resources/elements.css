@@ -1,0 +1,28 @@
+@import "http://fonts.googleapis.com/css?family=Raleway";
+/*----------------------------------------------
+CSS settings for HTML div Exact Center
+------------------------------------------------*/
+form {
+	min-width: 250px;
+	padding: 10px;
+	border: 2px solid gray;
+	border-radius: 10px;
+	font-family: raleway;
+	background-color: #fff
+}
+
+input[type=text] {
+	border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 16px;
+	font-family: raleway;
+	min-width: 250px;
+}
+
+input[type=email] {
+	border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 16px;
+	font-family: raleway;
+	min-width: 250px;
+}
