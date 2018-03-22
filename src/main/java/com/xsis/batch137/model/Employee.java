@@ -78,6 +78,9 @@ public class Employee {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<EmployeeOutlet> empOutlet;
 
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
+	private User user;
+	
 	public long getId() {
 		return id;
 	}
