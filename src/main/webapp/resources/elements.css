@@ -3,7 +3,6 @@
 CSS settings for HTML div Exact Center
 ------------------------------------------------*/
 form {
-	min-width: 250px;
 	padding: 10px;
 	border: 2px solid gray;
 	border-radius: 10px;
@@ -16,7 +15,7 @@ input[type=text] {
 	padding: 10px;
 	font-size: 16px;
 	font-family: raleway;
-	min-width: 250px;
+	width: 100%;
 }
 
 input[type=email] {
@@ -24,5 +23,5 @@ input[type=email] {
 	padding: 10px;
 	font-size: 16px;
 	font-family: raleway;
-	min-width: 250px;
+	width : 100%;
 }
