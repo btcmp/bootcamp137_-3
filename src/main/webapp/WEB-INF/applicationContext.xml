@@ -36,6 +36,7 @@
 				<value>com.xsis.batch137.model.Role</value>
 				<value>com.xsis.batch137.model.Supplier</value>
 				<value>com.xsis.batch137.model.User</value>
+				<value>com.xsis.batch137.model.Customer</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
