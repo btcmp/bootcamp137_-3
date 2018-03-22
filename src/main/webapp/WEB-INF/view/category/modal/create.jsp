@@ -18,14 +18,14 @@
 							</tr>
 							
 							<tr>
-								<td colspan="2"><button type="button" class="btn btn-primary" id="tblsimpan">Save</button></td>
 								<td><input type="hidden" name="id" id="id"></td>
 							</tr>
 						</table>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
 				</div>
 			</div>
 
