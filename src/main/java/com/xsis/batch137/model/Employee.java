@@ -44,7 +44,7 @@ public class Employee {
 	
 	@Email
 	@Size(min=1, max=50, message="Harus 1-50 karakter")
-	@Column(nullable=true)
+	@Column(nullable=true, unique=true)
 	private String email;
 	
 	@Column(nullable=true)
