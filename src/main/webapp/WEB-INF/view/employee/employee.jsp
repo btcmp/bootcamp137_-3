@@ -1,24 +1,26 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-	<h2>Data Employee</h2>
-	<button type="button" class="tbladd btn btn-info btn-lg">Tambah
-		Employee</button>
+	
+	<h2>Staff List</h2>
+	<hr>
 	<table id="data-emp"
 		class="table table-striped table-bordered table-hover">
 		<thead>
-			<th>ID</th>
 			<th>Name</th>
-			<th>alamat</th>
 			<th>Email</th>
-			<th>Action</th>
+			<th>Have Account</th>
+			<th>Outlet Access</th>
+			<th>Role</th>
+			<th>#</th>
 		</thead>
 		<tbody id="isi-emp">
 			<c:forEach items="${emps }" var="emp">
 				<tr>
-					<td>${emp.id }</td>
-					<td>${emp.name }</td>
-					<td>${emp.address }</td>
+					<td>${emp.firstName } ${emp.lastName }</td>
 					<td>${emp.email }</td>
+					<td>${emp.haveAccount }</td>
+					<td></td>
+					<td>${emp.user.role.name }
 					<td><a href="#" key-id="${emp.id }" class="tbldetail btn btn-success">Detail</a> | 
 						<a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Update</a> | 
 						<a href="#" key-id="${emp.id }" class="delete btn btn-danger">Delete</a></td>

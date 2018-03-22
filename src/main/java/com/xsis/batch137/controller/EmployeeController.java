@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.Employee;
+import com.xsis.batch137.model.Role;
 import com.xsis.batch137.service.EmployeeService;
+import com.xsis.batch137.service.OutletService;
+import com.xsis.batch137.service.RoleService;
 
 @Controller
 @RequestMapping("/employee")
@@ -24,10 +27,16 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService empService;
 	
+	@Autowired
+	RoleService rs;
+	
+	@RequestMapping
 	public String index(Model model) {
 		List<Employee> emps = empService.selectAll();
+		List<Role> roles = rs.selectAll();
+		model.addAttribute("roles", roles);
 		model.addAttribute("emps", emps);
-		return "employee";
+		return "employee/employee";
 	}
 	
 	@ModelAttribute("employee")
