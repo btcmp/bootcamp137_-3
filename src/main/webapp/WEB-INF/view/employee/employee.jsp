@@ -1,8 +1,47 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-	
+	<form>
+		<table>
+			<tr>
+				<td><input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true"></td>
+				<td><input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true"></td>
+				<td><input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email"></td>
+				<td>
+					<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;">
+						<option value="Mr.">Mr.</option>
+						<option value="Mrs.">Mrs.</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" class="btn btn-info" id="btn-outlet" value="Assign Outlet">
+				</td>
+				<td>
+					<input type="checkbox" id="cek-akun"> Create Account
+				</td>
+			</tr>
+			<tr id = "buat-akun" style="display:none;">
+				<td>
+					<select id = "pilih-role">
+						<c:forEach items = "${roles }" var= "role">
+							<option value="${role.id }">${role.name }</option>
+						</c:forEach>
+					</select>
+				<td>
+				<td>
+					<input type="text" data-parsley-required="true" placeholder="username" id="in-username" class="form-control">
+				</td>
+				<td>
+					<input type="password" data-parsley-required="true" placeholder="password" id="in-password" class="form-control">
+				</td>
+			</tr>
+		</table>
+		<input type="button" class="btn btn-info" value="Save" id="btn-simpan">
+		<input type="reset" class="btn btn-warning" value="Cancel" id="btn-batal">
+	</form>
 	<h2>Staff List</h2>
-	<hr>
+	<hr />
 	<table id="data-emp"
 		class="table table-striped table-bordered table-hover">
 		<thead>
@@ -30,8 +69,8 @@
 	</table>
 	<!-- end table employee -->
 
-	<!-- begin form save -->
-	<div class="modal fade" id="frminsert" role="dialog">
+	<!-- begin form outlet -->
+	<div class="modal fade" id="frm-outlet" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -39,36 +78,12 @@
 
 					<button type="button" class="close modalcancel"
 						data-dismiss="modal">&times;</button>
-					<h4 id="judul-modal">Tambahkan Employee</h4>
+					<h4 id="judul-modal">Assign Outlet to Employee</h4>
 				</div>
 				<div class="modal-body">
-					<form data-parsley-validate method="post" id="form-emp">
-						<table>
-							<tr>
-								<td>Nama</td>
-								<td>:</td>
-								<td><input type="text" name="name" id="name"
-									data-parsley-required="true" /></td>
-							</tr>
-							<tr>
-								<td>Alamat</td>
-								<td>:</td>
-								<td><input type="text" name="address" id="address"
-									data-parsley-required="true" /></td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td>:</td>
-								<td><input type="email" name="email" id="email"
-									data-parsley-required="true" data-parsley-type="email"/></td>
-							</tr>
-							<tr>
-								<td colspan="2"><button type="button"
-										class="btn btn-primary" id="tblsimpan">Simpan</button></td>
-								<td><input type="hidden" name="id" id="id"></td>
-							</tr>
-						</table>
-					</form>
+					<c:forEach items="${outlets }" var="outlet">
+						<input type="checkbox" class="in-outlet" name="in-outlet" value="${outlet.id }"> ${outlet.name }
+					</c:forEach>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
@@ -84,12 +99,12 @@
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Hapus Data?</h4>
+					<h4 class="modal-title">Non-aktifkan Employee ?</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>Apakah Anda Yakin Ingin Menghapus Data Ini?</p>
+					<p>Apakah Anda Yakin Ingin Menon-aktifkan Employee ini ?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"
@@ -101,216 +116,160 @@
 		</div>
 	</div>
 
-	<!-- begin pop detail -->
-	<div id="popdetail" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Detail Employee</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<table>
-						<tr>
-							<td>ID</td>
-							<td>:</td>
-							<td id="pop-id" style="padding: 10px;"></td>
-						</tr>
-						<tr>
-							<td>Nama</td>
-							<td>:</td>
-							<td id="pop-name" style="padding: 10px;"></td>
-						</tr>
-						<tr>
-							<td>Alamat</td>
-							<td>:</td>
-							<td id="pop-address" style="padding: 10px;"></td>
-						</tr>
-						<tr>
-							<td>Email</td>
-							<td>:</td>
-							<td id="pop-email" style="padding: 10px;"></td>
-						</tr>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"
-						id="batal-insert">Tutup</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 </section>
 </body>
 
 <script>
 	$(document).ready(function() {
+		
+		$('#cek-akun').change(function () {
+	        if (this.checked) 
+	            $('#buat-akun').fadeIn('slow');
+	        else 
+	            $('#buat-akun').fadeOut('slow');
+	    });
+	    $('#cek-akun').change();
+	    
 		$('#data-emp').on('click', '.delete',function() {
 			var id = $(this).attr('key-id');
 			$('#tblkonfdel').attr('key', id);
 			$('#konfirmdel').modal('show')
 		});
+		
+		$('#btn-outlet').on('click', function() {
+			$('#frm-outlet').modal('show');
+			clearForm();
+		});
+		
 		$('#tblkonfdel').on('click', function() {
-							var id = $(this).attr('key');
-							console.log('klik tombol hapus')
-							$.ajax({
-								url : '${pageContext.request.contextPath}/emp/delete/'+ id,
-								type : 'DELETE',
-								success : function(response) {
-									$('#konfirmdel').modal('hide');
-									reloadTable();
-								},
-								error : function() {
-	
-								}
-							});
-						}); // end fungsi delete
+			var id = $(this).attr('key');
+			console.log('klik tombol hapus')
+			$.ajax({
+				url : '${pageContext.request.contextPath}/emp/delete/'+ id,
+				type : 'DELETE',
+				success : function(response) {
+					$('#konfirmdel').modal('hide');
+					reloadTable();
+				},
+				error : function() {
+
+				}
+			});
+		}); // end fungsi delete
+		
 		function reloadTable() {
-			$
-					.ajax({
-						url : '${pageContext.request.contextPath}/emp/get-all',
-						type : "GET",
-						dataType : "json",
-						success : function(data) {
-							$('#data-emp').DataTable()
-									.destroy();
-							$('#isi-emp').empty();
-							$.each(data,function(key, val) {
-								$('#isi-emp').append(
-												'<tr><td>'
-														+ val.id
-														+ '</td><td>'
-														+ val.name
-														+ '</td><td>'
-														+ val.address
-														+ '</td><td>'
-														+ val.email
-														+ '</td>'
-														+ '<td><a href="#" key-id="'+val.id+'" class="tbldetail btn btn-success">Detail</a>'
-														+ ' | '
-														+ '<a href="#" key-id="'+val.id+'" class="tblupdate btn btn-info">Update</a>'
-														+ ' | '
-														+ '<a href="#" key-id="'+val.id+'" class="delete btn btn-danger">Delete</a>');
-							});
-							$('#data-emp').DataTable({
-								'paging' : true,
-								'lengthChange' : false,
-								'searching' : true,
-								'ordering' : true,
-								'info' : true,
-								'autoWidth' : false
-							});
-						}
+			$.ajax({
+				url : '${pageContext.request.contextPath}/emp/get-all',
+				type : "GET",
+				dataType : "json",
+				success : function(data) {
+					$('#data-emp').DataTable().destroy();
+					$('#isi-emp').empty();
+					$.each(data,function(key, val) {
+						$('#isi-emp').append(
+							'<tr><td>'
+								+ val.id
+								+ '</td><td>'
+								+ val.name
+								+ '</td><td>'
+								+ val.address
+								+ '</td><td>'
+								+ val.email
+								+ '</td>'
+								+ '<td><a href="#" key-id="'+val.id+'" class="tbldetail btn btn-success">Detail</a>'
+								+ ' | '
+								+ '<a href="#" key-id="'+val.id+'" class="tblupdate btn btn-info">Update</a>'
+								+ ' | '
+								+ '<a href="#" key-id="'+val.id+'" class="delete btn btn-danger">Delete</a>');
 					});
+					$('#data-emp').DataTable({
+						'paging' : true,
+						'lengthChange' : false,
+						'searching' : true,
+						'ordering' : true,
+						'info' : true,
+						'autoWidth' : false
+					});
+				}
+			});
 		} // end fungsi reload table
 		$('.tbladd').on('click', function() {
 			$('#judul-modal').html('Tambah Data Employee');
 			$('#frminsert').modal('show');
 			clearForm();
 		});
-		$('#tblsimpan').on('click',function(evt) {
+		
+		
+		$('#btn-simpan').on('click',function(evt) {
 			console.log('click tombol simpan');
 			evt.preventDefault();
-			var id = $('#id').val();
-			var name = $('#name').val();
-			var address = $('#address').val();
-			var email = $('#email').val();
+			var empOut = [];
+			$('.in-outlet:checked').each(function(){
+				var eo = {
+					outlet : {
+						id : $(this).val
+					}
+				};
+				empOut.push(eo);
+			});
 			var employee = {
-				'id' : id,
-				'name' : name,
-				'address' : address,
-				'email' : email
+				"firstName" : $('#in-firstname').val(),
+				"lastName" : $('#in-lastname').val(),
+				"title" : $('#in-title').val(),
+				"active" : 1,
+				"email" : $('#in-email').val(),
+				"user" : {
+					"username" : $('#in-username').val(),
+					"password" : $('#in-password').val(),
+					"role" : {
+						"id" : $('#pilih-role').val()
+					}
+				},
+				"empOutlet" : empOut
 			};
-			validate = $('#form-emp').parsley();
-			validate.validate();
-			if(validate.isValid()){
-					$.ajax({
-						type : 'post',
-						url : '${pageContext.request.contextPath}/emp/save',
-						data : JSON
-								.stringify(employee),
-						contentType : 'application/json',
-						success : function() {
-							$("#frminsert")
-									.modal(
-											"hide");
-							console
-									.log('simpan');
-							reloadTable();
-							clearForm();
-							//alert('save '+ name + ' berhasil');
-						},
-						error : function() {
-							alert('save failed');
-						}
-					});
-			}
+			console.log(employee);
+			//validate = $('#form-emp').parsley();
+			//validate.validate();
+			//if(validate.isValid()){
+				$.ajax({
+					type : 'post',
+					url : '${pageContext.request.contextPath}/employee/save',
+					data : JSON.stringify(employee),
+					contentType : 'application/json',
+					success : function() {
+						//$("#frminsert").modal("hide");
+						console.log('simpan');
+						//reloadTable();
+						//clearForm();
+						//alert('save '+ name + ' berhasil');
+					},
+					error : function() {
+						alert('save failed');
+					}
+				});
+			//}
 		}); // end fungsi simpan
 		$('#data-emp').on('click', '.tblupdate',function() {
-							var id = $(this).attr('key-id');
-							console.log('klik edit');
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath}/emp/get-one/'
-												+ id,
-										type : "GET",
-										dataType : "json",
-										success : function(data) {
-											clearForm();
-											console
-													.log('sukses ambil data');
-											$('#judul-modal')
-													.html(
-															'Update Data Employee');
-											$('#id').val(
-													data.id);
-											$('#name').val(
-													data.name);
-											$('#address')
-													.val(
-															data.address);
-											$('#email').val(
-													data.email);
-											$("#frminsert")
-													.modal(
-															"show");
-										}
-									});
-						}); // end fungsi update
-		$('#data-emp').on('click', '.tbldetail',function() {
-							var id = $(this).attr('key-id');
-							console.log('klik detail');
-							$
-									.ajax({
-										url : '${pageContext.request.contextPath}/emp/get-one/'
-												+ id,
-										type : "GET",
-										dataType : "json",
-										success : function(data) {
-											clearForm();
-											console
-													.log('sukses ambil data');
-											$('#pop-id').html(
-													data.id);
-											$('#pop-name')
-													.html(
-															data.name);
-											$('#pop-address')
-													.html(
-															data.address);
-											$('#pop-email')
-													.html(
-															data.email);
-											$("#popdetail")
-													.modal(
-															"show");
-										}
-									});
-						}); // end fungsi detail
-		$('.modalcancel').on('click', function() {
-			$('#judul-modal').html('Tambahkan Data Employee');
-		});
+			var id = $(this).attr('key-id');
+			console.log('klik edit');
+			$.ajax({
+				url : '${pageContext.request.contextPath}/emp/get-one/'+ id,
+				type : "GET",
+				dataType : "json",
+				success : function(data) {
+					clearForm();
+					console.log('sukses ambil data');
+					$('#judul-modal').html('Update Data Employee');
+					$('#id').val(data.id);
+					$('#name').val(data.name);
+					$('#address').val(data.address);
+					$('#email').val(data.email);
+					$("#frminsert").modal("show");
+				}
+			});
+		}); // end fungsi update
+	
 		function clearForm() {
 			$('#id').val('');
 			$('#name').val('');
