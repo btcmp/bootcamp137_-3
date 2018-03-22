@@ -38,14 +38,18 @@ public class EmployeeService {
 		employee.setUser(emp.getUser());
 		empDao.save(employee);
 		
-		for(EmployeeOutlet eo : employee.getEmpOutlet()) {
-			EmployeeOutlet empOutlet = new EmployeeOutlet();
-			empOutlet.setEmployee(employee);
-			empOutlet.setOutlet(eo.getOutlet());
-			eoDao.save(empOutlet);
+		if(employee.getEmpOutlet()!=null) {
+			for(EmployeeOutlet eo : employee.getEmpOutlet()) {
+				EmployeeOutlet empOutlet = new EmployeeOutlet();
+				empOutlet.setEmployee(employee);
+				empOutlet.setOutlet(eo.getOutlet());
+				eoDao.save(empOutlet);
+			}
+		}
+		if(employee.getUser()!=null) {
+			uDao.save(employee.getUser());
 		}
 		
-		uDao.save(employee.getUser());
 	}
 	
 	public void update(Employee emp) {
