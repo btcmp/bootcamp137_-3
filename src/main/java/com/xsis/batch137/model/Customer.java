@@ -73,7 +73,6 @@ public class Customer {
 	private Date modifiedOn;
 	
 	@NotNull
-	@NotEmpty
 	@Column(nullable=false)
 	private boolean active;
 	

@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.NotNull;
+
 @Entity
 public class Role {
 
@@ -46,6 +48,7 @@ public class Role {
 	@Column(nullable=true, name="modified_on")
 	private Date modifiedOn;
 	
+	@NotNull
 	@Column(nullable=false)
 	private boolean active;
 

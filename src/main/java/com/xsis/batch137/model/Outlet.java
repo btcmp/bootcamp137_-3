@@ -75,7 +75,7 @@ public class Outlet {
 	private Date modifiedOn;
 
 	@NotNull
-	@NotEmpty
+	@Column(nullable=false)
 	private boolean active;
 
 	// relasi ke emp outlet
