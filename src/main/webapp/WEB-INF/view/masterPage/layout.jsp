@@ -340,7 +340,7 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">Menu</li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/emp"><i class="fa fa-files-o"></i><span>Data
+			<li class="treeview"><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-files-o"></i><span>Data
 					Employee</span></a></li>
 			<li class="treeview"><a href="${pageContext.request.contextPath}/dep"><i class="fa fa-files-o"></i><span>Data
 					Departemen</span></a></li>
@@ -350,7 +350,7 @@
 		</section> <!-- /.sidebar --> </aside>
 
 <div class="content-wrapper">
-		<a href="${pageContext.request.contextPath}/emp"
+		<a href="${pageContext.request.contextPath}/employee"
 			class="btn btn-info btn-lg">Employee</a> <a
 			href="${pageContext.request.contextPath}/mhs"
 			class="btn btn-info btn-lg">Mahasiswa</a> <a
