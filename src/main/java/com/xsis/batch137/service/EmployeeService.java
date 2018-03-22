@@ -11,6 +11,7 @@ import com.xsis.batch137.dao.EmployeeOutletDao;
 import com.xsis.batch137.dao.UserDao;
 import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.model.EmployeeOutlet;
+import com.xsis.batch137.model.User;
 
 @Service
 @Transactional
@@ -47,7 +48,12 @@ public class EmployeeService {
 			}
 		}
 		if(employee.getUser()!=null) {
-			uDao.save(employee.getUser());
+			User user = new User();
+			user.setEmployee(employee);
+			user.setRole(employee.getUser().getRole());
+			user.setUsername(employee.getUser().getUsername());
+			user.setPassword(employee.getUser().getPassword());
+			uDao.save(user);
 		}
 		
 	}
