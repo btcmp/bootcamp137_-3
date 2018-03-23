@@ -62,7 +62,7 @@
 			
 					</td>
 					<td>${emp.user.role.name }
-					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Update</a> | 
+					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
 						<a href="#" key-id="${emp.id }" class="nonaktifkan btn btn-danger">&times;</a></td>
 				</tr>
 			</c:forEach>

@@ -67,7 +67,7 @@ public class EmployeeController {
 	
 	@RequestMapping(value="/nonaktif/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public void nonaktifkan(@PathVariable int id) {
-		empService.nonaktif((long)id);
+	public void nonaktifkan(@PathVariable long id) {
+		empService.nonaktif(id);
 	}
 }
