@@ -6,7 +6,7 @@
 				<div class="modal-header">
 					
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
-					<h4 id="judul-modal">Edit Supplier</h4>
+					<h4 id="judul-modal">Edit Outlet</h4>
 				</div>
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
