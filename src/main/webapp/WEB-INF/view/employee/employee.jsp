@@ -161,11 +161,16 @@
 			$('.in-outlet:checked').each(function(){
 				var eo = {
 					outlet : {
-						id : $(this).val
+						id : $(this).val()
 					}
 				};
 				empOut.push(eo);
 			});
+			
+			if ($('#cek-akun').is(":checked"))
+			{
+				var akun = 1;
+			};
 			
 			var employee = {
 				"firstName" : $('#in-firstname').val(),
@@ -180,6 +185,7 @@
 						"id" : $('#pilih-role').val()
 					}
 				},
+				"haveAccount" : akun,
 				"empOutlet" : empOut
 			};
 			console.log(employee);
