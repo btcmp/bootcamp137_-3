@@ -11,7 +11,7 @@ import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.AdjustmentHistory;
 
 @Repository
-public class AdjustmentHistoryDaoImpl {
+public class AdjustmentHistoryDaoImpl implements AdjustmentHistoryDao {
 
 	@Autowired
 	SessionFactory sessionFactory;

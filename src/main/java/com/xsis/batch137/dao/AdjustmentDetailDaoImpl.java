@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.xsis.batch137.model.AdjustmentDetail;
 
 @Repository
-public class AdjustmentDetailDaoImpl {
+public class AdjustmentDetailDaoImpl implements AdjustmentDetailDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
