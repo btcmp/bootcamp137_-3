@@ -37,7 +37,7 @@ public class AdjustmentDetail {
 	@ManyToOne
 	private ItemVariant variant;
 	
-	
+	//
 	public long getId() {
 		return id;
 	}
