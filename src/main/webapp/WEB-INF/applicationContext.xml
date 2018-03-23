@@ -37,6 +37,9 @@
 				<value>com.xsis.batch137.model.Supplier</value>
 				<value>com.xsis.batch137.model.User</value>
 				<value>com.xsis.batch137.model.Customer</value>
+				<value>com.xsis.batch137.model.Adjustment</value>
+				<value>com.xsis.batch137.model.AdjustmentHistory</value>
+				<value>com.xsis.batch137.model.AdjustmentDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
