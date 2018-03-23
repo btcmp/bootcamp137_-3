@@ -28,7 +28,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#category-table').DataTable();
+		//$('#category-table').DataTable();
 		
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
@@ -49,6 +49,7 @@
 				success : function(){
 					console.log(category);
 					alert();
+					window.location = '${pageContext.request.contextPath}/category';
 				},
 				error : function(){
 					console.log(category);
@@ -62,17 +63,28 @@
 			var id = $(this).attr('id');
 			$.ajax({
 				url : '${pageContext.request.contextPath}/category/take?id=' + id,
-				type : 'GET'
+				type : 'GET',
+				success : function(){
+					$('#edit-category').val(category.name);
+					$('#id-edit').val(category.name);
+					console.log(id);
+					alert('yes..')
+				},
+				error : function(){
+					console.log(id);
+					alert('no..')
+				}
 			});
 			$('#modal-edit').modal();
 		});
 		
 		$('#tbl-edit').on('click', function(e){
 			e.preventDefault();
-			var category : {
-				name : $('#edit-caegory'),
+			var category = {
+				name : $('#edit-category').val(),
+				id : $('#id-edit').val(),
 				active : true
-			}
+			};
 			$.ajax({
 				url : '${pageContext.request.contextPath}/category/update',
 				type : 'PUT',
@@ -80,11 +92,11 @@
 				contentType : 'application/json',
 				success : function(){
 					console.log(category);
-					alert(Oke..);
+					alert('Oke..');
 				},
 				error : function(){
 					console.log(category);
-					alert(Failed bro..);
+					alert('Failed bro..');
 				}
 			});
 		});

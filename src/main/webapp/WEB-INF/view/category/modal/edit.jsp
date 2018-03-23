@@ -18,7 +18,7 @@
 							</tr>
 							
 							<tr>
-								<td><input type="hidden" name="id" id="id-edit"></td>
+								<td><input type="hidden" name="id-edit" id="id-edit"></td>
 							</tr>
 						</table>
 					</form>
