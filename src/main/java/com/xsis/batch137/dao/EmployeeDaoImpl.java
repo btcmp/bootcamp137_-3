@@ -39,13 +39,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(Employee.class).list();
+		String hql = "from Employee where active = 1";
+		//return session.createCriteria(Employee.class).list();
+		return session.createQuery(hql).list();
 	}
 
 	public Employee getOne(Employee emp) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Employee.class, emp.getId());
+	}
+
+	public void nonaktif(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Employee set active=0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+		session.flush();
 	}
 
 	

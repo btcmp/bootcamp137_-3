@@ -9,19 +9,3 @@ form {
 	font-family: raleway;
 	background-color: #fff
 }
-
-input[type=text] {
-	border: 1px solid #ccc;
-	padding: 10px;
-	font-size: 16px;
-	font-family: raleway;
-	width: 100%;
-}
-
-input[type=email] {
-	border: 1px solid #ccc;
-	padding: 10px;
-	font-size: 16px;
-	font-family: raleway;
-	width : 100%;
-}

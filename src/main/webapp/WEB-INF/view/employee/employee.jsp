@@ -63,7 +63,7 @@
 					</td>
 					<td>${emp.user.role.name }
 					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Update</a> | 
-						<a href="#" key-id="${emp.id }" class="delete btn btn-danger">&times;</a></td>
+						<a href="#" key-id="${emp.id }" class="nonaktifkan btn btn-danger">&times;</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -111,7 +111,7 @@
 					<button type="button" class="btn btn-info" data-dismiss="modal"
 						id="batal-insert">Batal</button>
 					<button type="button" class="btn btn-danger" id="tblkonfdel"
-						key="key">Hapus</button>
+						key="key">Nonaktifkan</button>
 				</div>
 			</div>
 		</div>
@@ -126,14 +126,20 @@
 		
 		$('#cek-akun').change(function () {
 	        if (this.checked) 
-	            $('#buat-akun').fadeIn();
+	            $('#buat-akun').fadeIn('fast');
 	        else 
-	            $('#buat-akun').fadeOut();
+	            $('#buat-akun').fadeOut('fast');
 	    });
 	    $('#cek-akun').change();
 	    
 	    $('#btn-batal').click(function(){
 	    	$('#buat-akun').fadeOut('fast');
+	    });
+	    
+	    $('#data-emp').on('click', '.nonaktifkan', function(){
+	    	var id = $(this).attr('key-id');
+	    	$('#tblkonfdel').attr('key', id);
+	    	$('#konfirmdel').modal('show');
 	    });
 		
 		$('#btn-outlet').on('click', function() {
@@ -144,17 +150,18 @@
 			var id = $(this).attr('key');
 			console.log('klik tombol hapus')
 			$.ajax({
-				url : '${pageContext.request.contextPath}/emp/delete/'+ id,
-				type : 'DELETE',
+				url : '${pageContext.request.contextPath}/employee/nonaktif/'+ id,
+				type : 'GET',
 				success : function(response) {
 					$('#konfirmdel').modal('hide');
 				},
 				error : function() {
-
+					console.log('error');
 				}
 			});
 		}); // end fungsi delete
 		
+		//begin fungsi simpan
 		$('#btn-simpan').on('click',function(evt) {
 			console.log('click tombol simpan');
 			evt.preventDefault();
