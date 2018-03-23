@@ -26,7 +26,7 @@ public class OutletController {
 	public String view(Model model) {
 		List<Outlet> outlets = outletService.selectAll();
 		model.addAttribute("outlets", outlets);
-		return "outlet-view";
+		return "/outlet/outlet-view";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)

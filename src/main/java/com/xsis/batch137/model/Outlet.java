@@ -85,6 +85,20 @@ public class Outlet {
 	// relate to itemInveroty
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ItemInventory> itemInventories;
+	
+	// relate to adjustment
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Adjustment> adjustments;
+	
+	
+
+	public List<Adjustment> getAdjustments() {
+		return adjustments;
+	}
+
+	public void setAdjustments(List<Adjustment> adjustments) {
+		this.adjustments = adjustments;
+	}
 
 	public long getId() {
 		return id;

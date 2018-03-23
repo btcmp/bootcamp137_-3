@@ -14,7 +14,7 @@ import com.xsis.batch137.model.Outlet;
 public class OutletService {
 
 	@Autowired
-	OutletDao outletDao;
+	OutletDao outletDao;	
 	
 	public void save(Outlet outlet) {
 		outletDao.save(outlet);
