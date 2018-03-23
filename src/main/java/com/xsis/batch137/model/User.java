@@ -163,6 +163,15 @@ package com.xsis.batch137.model;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Adjustment> modifiedAdjustment;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<AdjustmentHistory> createdAdjustmentHistory;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<AdjustmentDetail> createdAdjustmentDetail;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<AdjustmentDetail> modifiedAdjustmentDetail;
+	
 	
 	
 	public List<Adjustment> getCreatedAdjustment() {
