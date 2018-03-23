@@ -30,10 +30,10 @@
 					</select>
 				<td>
 				<td>
-					<input type="text" data-parsley-required="true" placeholder="username" id="in-username" class="form-control">
+					<input type="text" placeholder="username" id="in-username" class="form-control">
 				</td>
 				<td>
-					<input type="password" data-parsley-required="true" placeholder="password" id="in-password" class="form-control">
+					<input type="password" placeholder="password" id="in-password" class="form-control">
 				</td>
 			</tr>
 		</table>
@@ -58,11 +58,12 @@
 					<td>${emp.firstName } ${emp.lastName }</td>
 					<td>${emp.email }</td>
 					<td>${emp.haveAccount }</td>
-					<td></td>
+					<td>
+			
+					</td>
 					<td>${emp.user.role.name }
-					<td><a href="#" key-id="${emp.id }" class="tbldetail btn btn-success">Detail</a> | 
-						<a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Update</a> | 
-						<a href="#" key-id="${emp.id }" class="delete btn btn-danger">Delete</a></td>
+					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Update</a> | 
+						<a href="#" key-id="${emp.id }" class="delete btn btn-danger">&times;</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -125,9 +126,9 @@
 		
 		$('#cek-akun').change(function () {
 	        if (this.checked) 
-	            $('#buat-akun').fadeIn('slow');
+	            $('#buat-akun').fadeIn();
 	        else 
-	            $('#buat-akun').fadeOut('slow');
+	            $('#buat-akun').fadeOut();
 	    });
 	    $('#cek-akun').change();
 	    
@@ -167,9 +168,18 @@
 				empOut.push(eo);
 			});
 			
+			var usr;
+			
 			if ($('#cek-akun').is(":checked"))
 			{
 				var akun = 1;
+				usr = {
+					"username" : $('#in-username').val(),
+					"password" : $('#in-password').val(),
+					"role" : {
+						"id" : $('#pilih-role').val()
+					}
+				}
 			};
 			
 			var employee = {
@@ -178,13 +188,7 @@
 				"title" : $('#in-title').val(),
 				"active" : 1,
 				"email" : $('#in-email').val(),
-				"user" : {
-					"username" : $('#in-username').val(),
-					"password" : $('#in-password').val(),
-					"role" : {
-						"id" : $('#pilih-role').val()
-					}
-				},
+				"user" : usr,
 				"haveAccount" : akun,
 				"empOutlet" : empOut
 			};
@@ -198,11 +202,7 @@
 					data : JSON.stringify(employee),
 					contentType : 'application/json',
 					success : function() {
-						//$("#frminsert").modal("hide");
 						console.log('simpan');
-						//reloadTable();
-						//clearForm();
-						//alert('save '+ name + ' berhasil');
 					},
 					error : function() {
 						alert('save failed');
