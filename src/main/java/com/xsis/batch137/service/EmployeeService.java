@@ -35,24 +35,22 @@ public class EmployeeService {
 		employee.setTitle(emp.getTitle());
 		employee.setHaveAccount(emp.isHaveAccount());
 		employee.setActive(emp.isActive());
-		employee.setEmpOutlet(emp.getEmpOutlet());
-		employee.setUser(emp.getUser());
 		empDao.save(employee);
 		
-		if(employee.getEmpOutlet()!=null) {
-			for(EmployeeOutlet eo : employee.getEmpOutlet()) {
+		if(emp.getEmpOutlet()!=null) {
+			for(EmployeeOutlet eo : emp.getEmpOutlet()) {
 				EmployeeOutlet empOutlet = new EmployeeOutlet();
 				empOutlet.setEmployee(employee);
 				empOutlet.setOutlet(eo.getOutlet());
 				eoDao.save(empOutlet);
 			}
 		}
-		if(employee.getUser()!=null) {
+		if(emp.getUser()!=null) {
 			User user = new User();
 			user.setEmployee(employee);
-			user.setRole(employee.getUser().getRole());
-			user.setUsername(employee.getUser().getUsername());
-			user.setPassword(employee.getUser().getPassword());
+			user.setRole(emp.getUser().getRole());
+			user.setUsername(emp.getUser().getUsername());
+			user.setPassword(emp.getUser().getPassword());
 			uDao.save(user);
 		}
 		
