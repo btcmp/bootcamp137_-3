@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.batch137.model.EmployeeOutlet;
@@ -11,6 +12,7 @@ import com.xsis.batch137.model.EmployeeOutlet;
 @Repository
 public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 
+	@Autowired
 	SessionFactory sessionFactory;
 	
 	public void save(EmployeeOutlet eo) {
