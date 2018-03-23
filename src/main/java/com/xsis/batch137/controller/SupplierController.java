@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.batch137.model.District;
+import com.xsis.batch137.model.Province;
+import com.xsis.batch137.model.Region;
 import com.xsis.batch137.model.Supplier;
+import com.xsis.batch137.service.DistrictService;
+import com.xsis.batch137.service.ProvinceService;
+import com.xsis.batch137.service.RegionService;
 import com.xsis.batch137.service.SupplierService;
 
 @Controller
@@ -26,11 +32,26 @@ public class SupplierController {
 	@Autowired
 	SupplierService supplierService;
 	
+	@Autowired
+	ProvinceService provinceService;
+	
+	@Autowired
+	RegionService regionService;
+	
+	@Autowired
+	DistrictService districtService;
+	
 	@RequestMapping
 	public String view(Model model) {
+		List<District> districts = districtService.selectAll();
+		List<Region> regions = regionService.selectAll();
+		List<Province> provinces = provinceService.selectAll();
 		List<Supplier> sups = supplierService.selectAll();
+		model.addAttribute("districts", districts);
+		model.addAttribute("regions", regions);
+		model.addAttribute("provinces", provinces);
 		model.addAttribute("suppliers", sups);
-		return "supplier-view";
+		return "/supplier/supplier-view";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
