@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-	<form>
+	<form id="form-emp">
 		<table>
 			<tr>
 				<td><input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true"></td>
@@ -82,7 +82,7 @@
 				</div>
 				<div class="modal-body">
 					<c:forEach items="${outlets }" var="outlet">
-						<input type="checkbox" class="in-outlet" name="in-outlet" value="${outlet.id }"> ${outlet.name }
+						<input type="checkbox" class="in-outlet" name="in-outlet" value="${outlet.id }"> ${outlet.name } <br/>
 					</c:forEach>
 				</div>
 				<div class="modal-footer">
@@ -131,15 +131,12 @@
 	    });
 	    $('#cek-akun').change();
 	    
-		$('#data-emp').on('click', '.delete',function() {
-			var id = $(this).attr('key-id');
-			$('#tblkonfdel').attr('key', id);
-			$('#konfirmdel').modal('show')
-		});
+	    $('#btn-batal').click(function(){
+	    	$('#buat-akun').fadeOut('fast');
+	    });
 		
 		$('#btn-outlet').on('click', function() {
 			$('#frm-outlet').modal('show');
-			clearForm();
 		});
 		
 		$('#tblkonfdel').on('click', function() {
@@ -150,56 +147,12 @@
 				type : 'DELETE',
 				success : function(response) {
 					$('#konfirmdel').modal('hide');
-					reloadTable();
 				},
 				error : function() {
 
 				}
 			});
 		}); // end fungsi delete
-		
-		function reloadTable() {
-			$.ajax({
-				url : '${pageContext.request.contextPath}/emp/get-all',
-				type : "GET",
-				dataType : "json",
-				success : function(data) {
-					$('#data-emp').DataTable().destroy();
-					$('#isi-emp').empty();
-					$.each(data,function(key, val) {
-						$('#isi-emp').append(
-							'<tr><td>'
-								+ val.id
-								+ '</td><td>'
-								+ val.name
-								+ '</td><td>'
-								+ val.address
-								+ '</td><td>'
-								+ val.email
-								+ '</td>'
-								+ '<td><a href="#" key-id="'+val.id+'" class="tbldetail btn btn-success">Detail</a>'
-								+ ' | '
-								+ '<a href="#" key-id="'+val.id+'" class="tblupdate btn btn-info">Update</a>'
-								+ ' | '
-								+ '<a href="#" key-id="'+val.id+'" class="delete btn btn-danger">Delete</a>');
-					});
-					$('#data-emp').DataTable({
-						'paging' : true,
-						'lengthChange' : false,
-						'searching' : true,
-						'ordering' : true,
-						'info' : true,
-						'autoWidth' : false
-					});
-				}
-			});
-		} // end fungsi reload table
-		$('.tbladd').on('click', function() {
-			$('#judul-modal').html('Tambah Data Employee');
-			$('#frminsert').modal('show');
-			clearForm();
-		});
-		
 		
 		$('#btn-simpan').on('click',function(evt) {
 			console.log('click tombol simpan');
@@ -213,6 +166,7 @@
 				};
 				empOut.push(eo);
 			});
+			
 			var employee = {
 				"firstName" : $('#in-firstname').val(),
 				"lastName" : $('#in-lastname').val(),
@@ -229,9 +183,9 @@
 				"empOutlet" : empOut
 			};
 			console.log(employee);
-			//validate = $('#form-emp').parsley();
-			//validate.validate();
-			//if(validate.isValid()){
+			validate = $('#form-emp').parsley();
+			validate.validate();
+			if(validate.isValid()){
 				$.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath}/employee/save',
@@ -248,34 +202,9 @@
 						alert('save failed');
 					}
 				});
-			//}
+			}
 		}); // end fungsi simpan
-		$('#data-emp').on('click', '.tblupdate',function() {
-			var id = $(this).attr('key-id');
-			console.log('klik edit');
-			$.ajax({
-				url : '${pageContext.request.contextPath}/emp/get-one/'+ id,
-				type : "GET",
-				dataType : "json",
-				success : function(data) {
-					clearForm();
-					console.log('sukses ambil data');
-					$('#judul-modal').html('Update Data Employee');
-					$('#id').val(data.id);
-					$('#name').val(data.name);
-					$('#address').val(data.address);
-					$('#email').val(data.email);
-					$("#frminsert").modal("show");
-				}
-			});
-		}); // end fungsi update
-	
-		function clearForm() {
-			$('#id').val('');
-			$('#name').val('');
-			$('#address').val('');
-			$('#email').val('');
-		}
+
 	});
 </script>
 <script>
