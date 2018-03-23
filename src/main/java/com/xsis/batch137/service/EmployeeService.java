@@ -83,4 +83,9 @@ public class EmployeeService {
 		emp.setActive(false);
 		return empDao.getOne(emp);
 	}
+
+	public void nonaktif(long id) {
+		// TODO Auto-generated method stub
+		empDao.nonaktif(id);
+	}
 }
