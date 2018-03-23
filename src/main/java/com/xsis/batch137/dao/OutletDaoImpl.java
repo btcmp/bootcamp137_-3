@@ -47,6 +47,17 @@ public class OutletDaoImpl implements OutletDao{
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Outlet.class, id);
 	}
+
+	public List<Outlet> selectActive() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Outlet where active = 1";
+		List<Outlet> outlets = session.createQuery(hql).list();
+		if(outlets == null) {
+			return null;
+		}
+		return outlets;
+	}
 	
 	
 }

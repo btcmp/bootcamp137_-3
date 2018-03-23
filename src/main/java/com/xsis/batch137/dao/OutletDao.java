@@ -15,5 +15,7 @@ public interface OutletDao {
 	public List<Outlet> selectAll();
 	
 	public Outlet getOne(long id);
+	
+	public List<Outlet> selectActive();
 
 }

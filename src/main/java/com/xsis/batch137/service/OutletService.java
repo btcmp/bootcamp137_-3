@@ -40,4 +40,7 @@ public class OutletService {
 		return outletDao.getOne(id);
 	}
 	
+	public List<Outlet> selectActive(){
+		return outletDao.selectActive();
+	}
 }

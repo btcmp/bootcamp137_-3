@@ -40,7 +40,7 @@ public class EmployeeController {
 	public String index(Model model) {
 		List<Employee> emps = empService.selectAll();
 		List<Role> roles = rs.selectAll();
-		List<Outlet> outlets = os.selectAll();
+		List<Outlet> outlets = os.selectActive();
 		model.addAttribute("roles", roles);
 		model.addAttribute("emps", emps);
 		model.addAttribute("outlets", outlets);
