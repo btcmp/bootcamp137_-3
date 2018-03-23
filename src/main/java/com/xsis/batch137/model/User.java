@@ -427,6 +427,22 @@ public class User {
 	public void setModifiedSupplier(List<Supplier> modifiedSupplier) {
 		this.modifiedSupplier = modifiedSupplier;
 	}
+
+	public List<Customer> getCreatedCustomer() {
+		return createdCustomer;
+	}
+
+	public void setCreatedCustomer(List<Customer> createdCustomer) {
+		this.createdCustomer = createdCustomer;
+	}
+
+	public List<Customer> getModifiedCustomer() {
+		return modifiedCustomer;
+	}
+
+	public void setModifiedCustomer(List<Customer> modifiedCustomer) {
+		this.modifiedCustomer = modifiedCustomer;
+	}
 	
 	//sesuatu
 }
