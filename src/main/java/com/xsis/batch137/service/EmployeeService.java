@@ -74,7 +74,7 @@ public class EmployeeService {
 		return empDao.selectAll();
 	}
 	
-	public Employee getOne(int id) {
+	public Employee getOne(long id) {
 		Employee emp = new Employee();
 		emp.setId(id);
 		emp.setFirstName("aaaaa");

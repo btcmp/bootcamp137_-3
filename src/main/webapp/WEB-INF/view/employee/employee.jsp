@@ -3,7 +3,9 @@
 	<form id="form-emp">
 		<table>
 			<tr>
-				<td><input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true"></td>
+				<td>
+				<input type="hidden" id="in-id">
+				<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true"></td>
 				<td><input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true"></td>
 				<td><input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email"></td>
 				<td>
@@ -161,6 +163,37 @@
 			});
 		}); // end fungsi delete
 		
+		$('#data-emp').on('click', '.tblupdate', function(){
+			var id = $(this).attr('key-id');
+			$.ajax({
+				url : '${pageContext.request.contextPath}/employee/get-one/'+id,
+				type : 'get',
+				dataType : 'json',
+				success : function(data){
+					console.log('sukses ambil data'),
+					$('#in-id').val(data.id);
+					$('#in-firstname').val(data.firstName);
+					$('#in-lastname').val(data.lastName);
+					$('#in-title').val(data.title);
+					$('#in-email').val(data.email);
+					if(data.haveAccount == 1){
+						$('#cek-akun').prop('checkhed', true);
+						$('#in-username').val(data.user.username);
+						$('#in-password').val(data.user.password);
+						$('#pilih-role').val(data.user.role.id);
+					};
+					if(data.empOtlet!=null){
+						$.each(data.empOutlet, function(){
+							$('input[name="in-outlet"][value="'+data.empOutlet.outlet.id+'"]').prop('checked', true);
+						})
+					}
+				},
+				error : function(){
+					console.log('gagal')
+				}
+			});
+		});
+		
 		//begin fungsi simpan
 		$('#btn-simpan').on('click',function(evt) {
 			console.log('click tombol simpan');
@@ -190,6 +223,7 @@
 			};
 			
 			var employee = {
+				"id" : $('#in-id').val(),
 				"firstName" : $('#in-firstname').val(),
 				"lastName" : $('#in-lastname').val(),
 				"title" : $('#in-title').val(),

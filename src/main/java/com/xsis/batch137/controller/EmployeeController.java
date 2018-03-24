@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.Employee;
@@ -69,5 +70,11 @@ public class EmployeeController {
 	@ResponseStatus(HttpStatus.OK)
 	public void nonaktifkan(@PathVariable long id) {
 		empService.nonaktif(id);
+	}
+	
+	@RequestMapping("/get-one/{id}")
+	@ResponseBody
+	public Employee getOne(@PathVariable long id) {
+		return empService.getOne(id);
 	}
 }
