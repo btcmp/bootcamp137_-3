@@ -23,6 +23,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Employee {
 
@@ -79,6 +82,7 @@ public class Employee {
 	private List<EmployeeOutlet> empOutlet;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private User user;
 	
 	public long getId() {

@@ -170,17 +170,18 @@
 				type : 'get',
 				dataType : 'json',
 				success : function(data){
-					console.log('sukses ambil data'),
+					console.log(data),
 					$('#in-id').val(data.id);
 					$('#in-firstname').val(data.firstName);
 					$('#in-lastname').val(data.lastName);
 					$('#in-title').val(data.title);
 					$('#in-email').val(data.email);
-					if(data.haveAccount == 1){
-						$('#cek-akun').prop('checkhed', true);
+					if(data.haveAccount == true){
+						$('#cek-akun').prop('checked', true);
 						$('#in-username').val(data.user.username);
 						$('#in-password').val(data.user.password);
 						$('#pilih-role').val(data.user.role.id);
+						$('#buat-akun').fadeIn('fast');
 					};
 					if(data.empOtlet!=null){
 						$.each(data.empOutlet, function(){

@@ -20,6 +20,10 @@ package com.xsis.batch137.model;
 	import javax.validation.constraints.NotNull;
 	import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 	@Entity
 	@Table(name="user_137")
 	public class User {
@@ -43,6 +47,7 @@ package com.xsis.batch137.model;
 	
 	@OneToOne
 	@JoinColumn(name="employee_id", nullable=false)
+	@JsonBackReference
 	private Employee employee;
 	
 	//crated by
