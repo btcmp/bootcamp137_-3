@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.batch137.model.District;
+import com.xsis.batch137.model.Region;
 
 @Repository
 public class DistrictDaoImpl implements DistrictDao{
@@ -19,6 +20,14 @@ public class DistrictDaoImpl implements DistrictDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(District.class).list();
+	}
+
+	public List<District> getDistrictByRegion(Region region) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from District where region = :xxx";
+		List<District> districts = session.createQuery(hql).setParameter("xxx", region).list();
+		return districts;
 	}
 	
 	

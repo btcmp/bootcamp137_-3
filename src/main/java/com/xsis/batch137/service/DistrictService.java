@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.DistrictDao;
 import com.xsis.batch137.model.District;
+import com.xsis.batch137.model.Region;
 
 @Service
 @Transactional
@@ -18,5 +19,12 @@ public class DistrictService {
 	
 	public List<District> selectAll() {
 		return districtDao.selectAll();
+	}
+
+	public List<District> getDistrictByRegion(long id) {
+		// TODO Auto-generated method stub
+		Region region = new Region();
+		region.setId(id);
+		return districtDao.getDistrictByRegion(region);
 	}
 }
