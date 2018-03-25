@@ -65,10 +65,10 @@ public class Region {
 	private List<District> districts;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region", cascade = CascadeType.ALL)
-	private List<Supplier> supplier;
+	private List<Supplier> suppliers;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region", cascade = CascadeType.ALL)
-	private List<Outlet> outlet;
+	private List<Outlet> outlets;
 
 	public List<District> getDistricts() {
 		return districts;
@@ -143,19 +143,19 @@ public class Region {
 	}
 
 	public List<Supplier> getSupplier() {
-		return supplier;
+		return suppliers;
 	}
 
-	public void setSupplier(List<Supplier> supplier) {
-		this.supplier = supplier;
+	public void setSupplier(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
 	}
 
 	public List<Outlet> getOutlet() {
-		return outlet;
+		return outlets;
 	}
 
-	public void setOutlet(List<Outlet> outlet) {
-		this.outlet = outlet;
+	public void setOutlet(List<Outlet> outlets) {
+		this.outlets = outlets;
 	}
 
 

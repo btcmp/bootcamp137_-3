@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Province;
 import com.xsis.batch137.model.Region;
 
 @Repository
@@ -19,6 +20,17 @@ public class RegionDaoImpl implements RegionDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(Region.class).list();
+	}
+
+	public List<Region> getRegionByProvince(Province province) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Region where province = :a";
+		List<Region> regions = session.createQuery(hql).setParameter("a", province).list();
+		if (regions == null) {
+			return null;
+		}
+		return regions;
 	}
 	
 	
