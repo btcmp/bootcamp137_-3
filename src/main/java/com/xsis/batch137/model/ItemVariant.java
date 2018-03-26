@@ -70,7 +70,7 @@ public class ItemVariant {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ItemInventory> itemInventories;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AdjustmentDetail> adjustmentDetail;
 
 	public long getId() {

@@ -35,6 +35,7 @@ public class EmployeeService {
 		employee.setTitle(emp.getTitle());
 		employee.setHaveAccount(emp.isHaveAccount());
 		employee.setActive(emp.isActive());
+		employee.setOutlets(emp.getOutlets());
 		empDao.save(employee);
 		
 		if(emp.getEmpOutlet()!=null) {

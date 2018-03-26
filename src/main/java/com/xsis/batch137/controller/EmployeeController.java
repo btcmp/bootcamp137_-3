@@ -48,14 +48,20 @@ public class EmployeeController {
 		return "employee/employee";
 	}
 	
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<Employee> getAll(){
+		return empService.selectAll();
+	}
+	
 	@ModelAttribute("employee")
 	public Employee getEmployeeForm() {
 		return new Employee();
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public void save(@RequestBody Employee emp) {
+	@ResponseStatus(HttpStatus.OK)
+	public Employee save(@RequestBody Employee emp) {
 	//public String save(@Valid @ModelAttribute("employee") Employee emp, BindingResult binding, Model model) {
 		/*if(binding.hasErrors()) {
 			List<Employee> emps = empService.selectAll();
@@ -63,6 +69,7 @@ public class EmployeeController {
 			return "employee";
 		}*/
 		empService.save(emp);
+		return emp;
 		//return "redirrect:/employee";
 	}
 	

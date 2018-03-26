@@ -61,7 +61,7 @@
 					<td>${emp.email }</td>
 					<td>${emp.haveAccount }</td>
 					<td>
-			
+						
 					</td>
 					<td>${emp.user.role.name }
 					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
@@ -183,11 +183,12 @@
 						$('#pilih-role').val(data.user.role.id);
 						$('#buat-akun').fadeIn('fast');
 					};
-					if(data.empOtlet!=null){
-						$.each(data.empOutlet, function(){
-							$('input[name="in-outlet"][value="'+data.empOutlet.outlet.id+'"]').prop('checked', true);
+					//if(data.empOtlet!=null){
+						$.each(data.outlets, function(){
+							//$('input[name="in-outlet"][value="'+data.empOutlet.outlet.id+'"]').prop('checked', true);
+							console.log(data.outlets.name);
 						})
-					}
+					//}
 				},
 				error : function(){
 					console.log('gagal')
@@ -199,14 +200,14 @@
 		$('#btn-simpan').on('click',function(evt) {
 			console.log('click tombol simpan');
 			evt.preventDefault();
-			var empOut = [];
+			var outl = [];
 			$('.in-outlet:checked').each(function(){
 				var eo = {
-					outlet : {
-						id : $(this).val()
-					}
+					
+					id : $(this).val(),
+					name : "aaaa"
 				};
-				empOut.push(eo);
+				outl.push(eo);
 			});
 			
 			var usr;
@@ -232,24 +233,25 @@
 				"email" : $('#in-email').val(),
 				"user" : usr,
 				"haveAccount" : akun,
-				"empOutlet" : empOut
+				"outlets" : outl
 			};
-			console.log(employee);
+			//console.log(employee);
 			validate = $('#form-emp').parsley();
 			validate.validate();
 			if(validate.isValid()){
-				$.ajax({
+				//console.log(employee);
+				 $.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath}/employee/save',
 					data : JSON.stringify(employee),
 					contentType : 'application/json',
-					success : function() {
-						console.log('simpan');
+					success : function(data) {
+						console.log(data);
 					},
 					error : function() {
 						alert('save failed');
 					}
-				});
+				}); 
 			}
 		}); // end fungsi simpan
 
