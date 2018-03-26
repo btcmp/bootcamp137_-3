@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.batch137.model.Province;
+import com.xsis.batch137.model.Region;
 
 @Repository
 public class ProvinceDaoImpl implements ProvinceDao{

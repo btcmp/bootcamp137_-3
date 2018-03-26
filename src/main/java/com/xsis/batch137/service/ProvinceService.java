@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.ProvinceDao;
 import com.xsis.batch137.model.Province;
+import com.xsis.batch137.model.Region;
 
 @Service
 @Transactional
@@ -19,4 +20,5 @@ public class ProvinceService {
 	public List<Province> selectAll() {
 		return provinceDao.selectAll();
 	}
+
 }
