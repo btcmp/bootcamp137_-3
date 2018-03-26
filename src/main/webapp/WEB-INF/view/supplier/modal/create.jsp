@@ -10,18 +10,7 @@
 				</div>
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-					<select name="workshop1" required="required" id="workshop1">
-    				<option disabled selected value=""> -- select an option -- </option>
-   	 				<option value="wkshp1">Workshop</option>
-   					<option value="wkshp2">name</option>
-    				<option value="wkshp3">Workshop name</option>
-					</select>
-					<select name="workshop1" required="required" id="workshop2">
-    				<option disabled selected value=""> -- select an option -- </option>
-    				<option value="wkshp1">Workshop</option>
-    				<option value="wkshp2">name</option>
-    				<option value="wkshp3">Workshop name</option>
-					</select>
+					
 						<table>
 						
 							<tr>
@@ -49,55 +38,68 @@
 							</tr>
 							
 							<tr>
-    							<td>Province</td>
-    							<td>:</td>
-    							<td>
-    								<select id="prov-id">
-    									<c:forEach var="prov" items="${provinces }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-    							<td>Region</td>
-    							<td>:</td>
-    							<td>
-    								<select id="reg-id">
-    									<c:forEach var="prov" items="${regions }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-								<td>District</td>
+								<td>Postal Code</td>
 								<td>:</td>
-								<td>
-    								<select id="dist-id">
-    									<c:forEach items="${districts }" var="prov">
-    										<option>${prov.name}</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
+								<td><input type="text" name="supplier-postal" id="supplier-postal" data-parsley-required="true" /></td>
+							</tr>
     						    						
 							<tr>
 								<td><input type="hidden" name="id" id="id"></td>
 							</tr>
 						</table>
-					</form>
+						
+						<table>
+						<thead>
+							<tr>
+								<td class="text-center">Province</td>
+								<td class="text-center">Region</td>
+								<td class="text-center">District</td>
+							</tr>
+						</thead>
+						
+						<tbody>
+						<tr>
+						<td>
+						<select name="area" required="required" id="prov-id">
+    					<option disabled selected value=""> -- select an province -- </option>
+    					<c:forEach var="prov" items="${provinces }">
+    						<option vslur="${prov.id }">${prov.name }</option>
+    					</c:forEach>
+   	 					<option value="1">Workshop</option>
+   						<option value="2">name</option>
+    					<option value="3">Workshop name</option>
+						</select>
+						</td>
+						<td>
+						<select name="area" required="required" id="reg-id">
+    					<option disabled selected value=""> -- select an region -- </option>
+    					<c:forEach var="reg" items="${regions }">
+    						<option value="${reg.id }">${reg.name }</option>
+    					</c:forEach>
+    					<option value="1">Workshop</option>
+    					<option value="1">Workshop</option>
+    					<option value="2">name</option>
+    					<option value="2">name</option>
+    					<option value="3">Workshop name</option>
+    					<option value="3">Workshop name</option>
+						</select>
+						</td>
+						<td>
+						<select name="area" required="required" id="dist-id">
+    					<option disabled selected value=""> -- select an district -- </option>
+    					<c:forEach items="${districts }" var="prov">
+    						<option value="${dis.name }">${dis.name}</option>
+    					</c:forEach>
+    					<option value="wkshp1">Workshop</option>
+    					<option value="wkshp2">name</option>
+    					<option value="wkshp3">Workshop name</option>
+						</select>
+						</td>
+						</tr>
+						</tbody>
+						</table>
+						
+						</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
