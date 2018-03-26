@@ -33,8 +33,10 @@ public class AdjustmentDetail {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	@ManyToOne
+	@JoinColumn(name="adjustment_id")
 	private Adjustment adjustment;
 	@ManyToOne
+	@JoinColumn(name="variant_id")
 	private ItemVariant variant;
 	
 	public long getId() {
