@@ -3,6 +3,7 @@ package com.xsis.batch137.dao;
 import java.util.List;
 
 import com.xsis.batch137.model.Employee;
+import com.xsis.batch137.model.User;
 
 public interface EmployeeDao {
 
@@ -17,4 +18,5 @@ public interface EmployeeDao {
 	Employee getOne(Employee emp);
 
 	void nonaktif(long id);
+
 }
