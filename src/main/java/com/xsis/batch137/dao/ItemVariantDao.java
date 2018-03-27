@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemVariant;
 
 public interface ItemVariantDao {
@@ -11,4 +12,5 @@ public interface ItemVariantDao {
 	public void delete(ItemVariant itemVariant);
 	public void update(ItemVariant itemVariant);
 	public void saveAtauUpdate(ItemVariant itemVariant);
+	public List<ItemVariant> searchVariantByItem(Item item);
 }

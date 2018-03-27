@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.ItemVariantDao;
+import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemVariant;
 
 @Service
@@ -18,8 +19,9 @@ public class ItemVariantService {
 	public void save(ItemVariant itemVariant) {
 		itemVariantDao.save(itemVariant);
 	}
-	public ItemVariant getOne(long id) {
+	public ItemVariant getOne(Long id) {
 		ItemVariant itemVariant=new ItemVariant();
+		itemVariant.setId(id);
 		return itemVariantDao.getOne(itemVariant);
 	}
 	
@@ -38,5 +40,9 @@ public class ItemVariantService {
 	
 	public void saveAtauUpdate(ItemVariant itemVariant) {
 		itemVariantDao.saveAtauUpdate(itemVariant);
+	}
+	
+	public List<ItemVariant> searchVariantByItem(Item item){
+		return itemVariantDao.searchVariantByItem(item);
 	}
 }
