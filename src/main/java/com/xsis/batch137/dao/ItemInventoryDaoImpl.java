@@ -7,7 +7,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.ItemVariant;
 
 @Repository
 public class ItemInventoryDaoImpl implements ItemInventoryDao {
@@ -38,7 +40,7 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 
 	public void update(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
-		session.update(itemInventory);
+		session.saveOrUpdate(itemInventory);
 		session.flush();
 	}
 
@@ -46,5 +48,18 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(itemInventory);
 		session.flush();
+	}
+	
+	public List<ItemInventory> searchInventoryByItem(Item item){
+		Session session=sessionFactory.getCurrentSession();
+		/*String hql="from ItemInventory itemInventory right outer join ItemVariant itemVariant on itemInventory.itemVariant.id=itemVariant.id "
+				+ "where itemVariant.item = :item" ;*/
+		String hql="from ItemInventory i where i.itemVariant.item = :item";
+		List<ItemInventory> itemInventories=session.createQuery(hql).setParameter("item", item).list();
+		if(itemInventories.isEmpty()) {
+			return null;
+		}
+		
+		return itemInventories;
 	}
 }

@@ -21,55 +21,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
 
+
+
 @Entity
-@Table(name = "pos_item_variant")
+@Table(name="pos_item_variant")
 public class ItemVariant {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-
-	@Size(max = 255)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private Long id;
+	@Size(max=255)
 	@NotNull
-	@NotEmpty
 	private String name;
-
-	@Size(max = 50)
-	@NotNull
-	@NotEmpty
-	private String sku;
-
-	@NotNull
-	@NotEmpty
-	private float price;
-
-	@ManyToOne
-	@JoinColumn(name = "created_by")
-	private User createdBy;
-
-	@Column(name = "created_on")
-	private Date createdOn;
-
-	@ManyToOne
-	@JoinColumn(name = "modified_by")
-	private User modifiedBy;
-
-	@Column(name = "modified_on")
-	private Date modifiedOn;
-
-	@NotNull
-	@Column(nullable=false)
-	private boolean active;
-
-	// relate to item
-	@ManyToOne
-	@NotNull
-	@NotEmpty
-	private Item item;
-
-	// relate to intemInvetory
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "itemVariant", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<ItemInventory> itemInventories;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AdjustmentDetail> adjustmentDetail;
@@ -77,11 +39,42 @@ public class ItemVariant {
 	@ManyToMany(mappedBy = "variantId")
 	private List<PurchaseRequestDetail> prds;
 
-	public long getId() {
+	@Size(max=50)
+	@NotNull
+	private String sku;
+	
+	@NotNull
+	private float price;
+	
+	@Column(name="created_by")
+	private Long createdBy;
+	
+	@Column(name="created_on")
+	private Date createdOn;
+	
+	@Column(name="modified_by")
+	private Long modifiedBy;
+	
+	@Column(name="modified_on")
+	private Date modifiedOn;
+	
+	@NotNull
+	private Boolean active;
+	
+	//relate to item
+	@ManyToOne
+	@NotNull
+	private Item item;
+	
+	//relate to intemInvetory
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
+	public List<ItemInventory> itemInventories;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -108,13 +101,29 @@ public class ItemVariant {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
+
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public Long getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(Long modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -125,11 +134,13 @@ public class ItemVariant {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public boolean isActive() {
+
+
+	public Boolean getActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -148,21 +159,6 @@ public class ItemVariant {
 	public void setItemInventories(List<ItemInventory> itemInventories) {
 		this.itemInventories = itemInventories;
 	}
-
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
+	
+	
 }

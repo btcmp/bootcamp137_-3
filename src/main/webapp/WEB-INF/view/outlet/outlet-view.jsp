@@ -33,7 +33,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//$('#outlet-table').DataTable();
-		
+		//
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
 			$('#modal-create').modal();
@@ -46,16 +46,7 @@
 				address : $('#outlet-address').val(),
 				phone : $('#outlet-phone').val(),
 				email : $('#outlet-email').val(),
-				active : true,
-				district : {
-					id : 111111
-				},
-				region : {
-					id : 1111
-				},
-				province : {
-					id : 11
-				}
+				active : true
 			};
 			$.ajax({
 				url : '${pageContext.request.contextPath}/outlet/save',

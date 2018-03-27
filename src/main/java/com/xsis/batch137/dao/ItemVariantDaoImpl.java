@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemVariant;
 
 @Repository
@@ -38,7 +39,7 @@ public class ItemVariantDaoImpl implements ItemVariantDao {
 
 	public void update(ItemVariant itemVariant) {
 		Session session=sessionFactory.getCurrentSession();
-		session.update(itemVariant);
+		session.saveOrUpdate(itemVariant);
 		session.flush();
 	}
 
@@ -46,5 +47,16 @@ public class ItemVariantDaoImpl implements ItemVariantDao {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(itemVariant);
 		session.flush();
+	}
+	
+	public List<ItemVariant> searchVariantByItem(Item item){
+		Session session=sessionFactory.getCurrentSession();
+		String hql="from ItemVariant itemVariant where itemVariant.item= :item";
+		List<ItemVariant> itemVariants=session.createQuery(hql).setParameter("item", item).list();
+		if(itemVariants.isEmpty()) {
+			return null;
+		}
+		
+		return itemVariants;
 	}
 }
