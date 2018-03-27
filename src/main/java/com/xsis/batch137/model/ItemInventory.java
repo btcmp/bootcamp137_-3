@@ -7,75 +7,58 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 
 @Entity
-@Table(name = "pos_item_inventory")
+@Table(name="pos_item_inventory")
 public class ItemInventory {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private Long id;
 	@NotNull
-	@NotEmpty
 	private int beginning;
-
-	@Column(name = "purchase_qty")
+	@Column(name="purchase_qty")
 	private int purchaseQty;
-
-	@Column(name = "sales_order_qty")
+	@Column(name="sales_order_qty")
 	private int salesOrderQty;
-
-	@Column(name = "transfer_stock_qty")
+	@Column(name="transfer_stock_qty")
 	private int transferStockQty;
-
-	@Column(name = "adjustment_qty")
+	@Column(name="adjustment_qty")
 	private int adjustmentQty;
-
-	@Column(name = "ending_qty")
-	@NotNull
-	@NotEmpty
+	@Column(name="ending_qty")
+	/*@NotNull
+	@NotEmpty*/
 	private int endingQty;
-
-	@Column(name = "alert_at_qty")
+	@Column(name="alert_at_qty")
 	@NotNull
-	@NotEmpty
 	private int alertAtQty;
-
-	@ManyToOne
-	@JoinColumn(name = "created_by")
-	private User createdBy;
-
-	@Column(name = "created_on")
+	@Column(name="created_by")
+	private Long createdBy;
+	@Column(name="created_on")
 	private Date createdOn;
-
-	@ManyToOne
-	@JoinColumn(name = "modified_by")
-	private User modifiedBy;
-
-	@Column(name = "modified_on")
+	@Column(name="modified_by")
+	private Long modifiedBy;
+	@Column(name="modified_on")
 	private Date modifiedOn;
 
 	@ManyToOne
 	private ItemVariant itemVariant;
-
+	
 	@ManyToOne
-	@NotNull
-	@NotEmpty
+	@Nullable //option
 	private Outlet outlet;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -135,12 +118,28 @@ public class ItemInventory {
 		this.alertAtQty = alertAtQty;
 	}
 
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public Long getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(Long modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -166,21 +165,8 @@ public class ItemInventory {
 	public void setOutlet(Outlet outlet) {
 		this.outlet = outlet;
 	}
-
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
+	
+	
+	
+	
 }
