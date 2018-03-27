@@ -61,40 +61,25 @@
 						<tr>
 						<td>
 						<select name="area" required="required" id="prov-id">
-    					<option disabled selected value=""> -- select an province -- </option>
+    					<option disabled selected value=""> --- Select A Province --- </option>
     					<c:forEach var="prov" items="${provinces }">
-    						<option vslur="${prov.id }">${prov.name }</option>
+    						<option value="${prov.id }">${prov.name }</option>
     					</c:forEach>
-   	 					<option value="1">Workshop</option>
-   						<option value="2">name</option>
-    					<option value="3">Workshop name</option>
 						</select>
 						</td>
+						
 						<td>
 						<select name="area" required="required" id="reg-id">
-    					<option disabled selected value=""> -- select an region -- </option>
-    					<c:forEach var="reg" items="${regions }">
-    						<option value="${reg.id }">${reg.name }</option>
-    					</c:forEach>
-    					<option value="1">Workshop</option>
-    					<option value="1">Workshop</option>
-    					<option value="2">name</option>
-    					<option value="2">name</option>
-    					<option value="3">Workshop name</option>
-    					<option value="3">Workshop name</option>
+    						<option disabled selected value=""> --- Select A Region --- </option>
 						</select>
 						</td>
+						
 						<td>
 						<select name="area" required="required" id="dist-id">
-    					<option disabled selected value=""> -- select an district -- </option>
-    					<c:forEach items="${districts }" var="prov">
-    						<option value="${dis.name }">${dis.name}</option>
-    					</c:forEach>
-    					<option value="wkshp1">Workshop</option>
-    					<option value="wkshp2">name</option>
-    					<option value="wkshp3">Workshop name</option>
+    						<option disabled selected value=""> --- Select A District --- </option>
 						</select>
 						</td>
+						
 						</tr>
 						</tbody>
 						</table>
