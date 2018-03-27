@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Employee;
+import com.xsis.batch137.model.EmployeeOutlet;
 import com.xsis.batch137.model.User;
 
 @Repository
@@ -18,14 +21,14 @@ public class UserDaoImpl implements UserDao {
 	public void save(User user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		session.saveOrUpdate(user);
 		session.flush();
 	}
 
 	public void update(User user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		session.update(user);
 		session.flush();
 	}
 
@@ -46,6 +49,17 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(user);
 		session.flush();
+	}
+
+	public User getUserByEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User where employee = :emp";
+		List<User> user = session.createQuery(hql).setParameter("emp", emp).list();
+		if(user.isEmpty()) {
+			return null;
+		}
+		return user.get(0);
 	}
 
 }

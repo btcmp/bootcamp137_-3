@@ -44,7 +44,7 @@
 		<input type="reset" class="btn btn-warning" value="Cancel" id="btn-batal">
 	</form>
 	<h2>Staff List</h2>
-	<hr />
+	<hr>
 	<table id="data-emp"
 		class="table table-striped table-bordered table-hover">
 		<thead>
@@ -213,6 +213,7 @@
 					}else if(data.haveAccount == 0 && data.user.active == 1){
 						$('#cek-akun').prop('checked', false);
 						$('#buat-akun').fadeOut('fast');
+						$('#in-id-user').val(data.user.id);
 						$('#in-username').val(data.user.username);
 						$('#in-password').val(data.user.password);
 						$('#pilih-role').val(data.user.role.id);

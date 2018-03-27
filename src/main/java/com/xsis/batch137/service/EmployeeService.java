@@ -39,19 +39,35 @@ public class EmployeeService {
 		employee.setActive(emp.isActive());
 		empDao.save(employee);
 		
+		List<EmployeeOutlet> empos = eoDao.getEmployeeOutletByEmployee(employee);
 		if(emp.getEmpOutlet()!=null) {
-			for(EmployeeOutlet eo : emp.getEmpOutlet()) {
-				EmployeeOutlet empOutlet = new EmployeeOutlet();
-				empOutlet.setEmployee(employee);
-				empOutlet.setOutlet(eo.getOutlet());
-				eoDao.save(empOutlet);
+			if(empos!=null) {
+				for(EmployeeOutlet eo : emp.getEmpOutlet()) {
+					for(EmployeeOutlet empo : empos) {
+						if(eo.getOutlet().getId() == empo.getOutlet().getId()) {
+							
+						}else {
+							EmployeeOutlet empOutlet = new EmployeeOutlet();
+							empOutlet.setEmployee(employee);
+							empOutlet.setOutlet(eo.getOutlet());
+							eoDao.save(empOutlet);
+						}
+					}
+				}
+			}else {
+				for(EmployeeOutlet eo : emp.getEmpOutlet()) {
+					EmployeeOutlet empOutlet = new EmployeeOutlet();
+					empOutlet.setEmployee(employee);
+					empOutlet.setOutlet(eo.getOutlet());
+					eoDao.save(empOutlet);
+				}
 			}
 		}
 		if(emp.getUser()!=null) {
 			User user = new User();
 			user.setId(emp.getUser().getId());
-			user.setActive(emp.getUser().isActive());
 			user.setEmployee(employee);
+			user.setActive(emp.getUser().isActive());
 			user.setRole(emp.getUser().getRole());
 			user.setUsername(emp.getUser().getUsername());
 			user.setPassword(emp.getUser().getPassword());

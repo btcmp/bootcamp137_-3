@@ -53,7 +53,11 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee emp) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list();
+		List<EmployeeOutlet> empos = session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list(); 
+ 		if(empos.isEmpty()) {
+ 			return null;
+ 		}
+		return empos;
 	}
 
 	
