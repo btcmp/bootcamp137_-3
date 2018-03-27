@@ -40,27 +40,17 @@ public class EmployeeService {
 		empDao.save(employee);
 		
 		List<EmployeeOutlet> empos = eoDao.getEmployeeOutletByEmployee(employee);
+		if(empos!=null) {
+			for(EmployeeOutlet eo : empos) {
+				eoDao.delete(eo);
+			}
+		}
 		if(emp.getEmpOutlet()!=null) {
-			if(empos!=null) {
-				for(EmployeeOutlet eo : emp.getEmpOutlet()) {
-					for(EmployeeOutlet empo : empos) {
-						if(eo.getOutlet().getId() == empo.getOutlet().getId()) {
-							
-						}else {
-							EmployeeOutlet empOutlet = new EmployeeOutlet();
-							empOutlet.setEmployee(employee);
-							empOutlet.setOutlet(eo.getOutlet());
-							eoDao.save(empOutlet);
-						}
-					}
-				}
-			}else {
-				for(EmployeeOutlet eo : emp.getEmpOutlet()) {
-					EmployeeOutlet empOutlet = new EmployeeOutlet();
-					empOutlet.setEmployee(employee);
-					empOutlet.setOutlet(eo.getOutlet());
-					eoDao.save(empOutlet);
-				}
+			for(EmployeeOutlet eo : emp.getEmpOutlet()) {
+				EmployeeOutlet empo = new EmployeeOutlet();
+				empo.setEmployee(employee);
+				empo.setOutlet(eo.getOutlet());
+				eoDao.save(empo);
 			}
 		}
 		if(emp.getUser()!=null) {
