@@ -11,6 +11,7 @@ $(document).ready(function(){
 	
 	var index=0;
 	var idDelete=[];
+	var idClear=[];
 /* ============================== [SHOW MODAL] CREATE DATA UTAMA ======================================*/
 	$('#create-data-utama').on('click', function(evt) {
 		evt.preventDefault;
@@ -73,10 +74,10 @@ $(document).ready(function(){
 		 
 		 $('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
 	    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
-	    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td><p>'+$('#edititem-edit-alert-at').val()
-	    			+'</p></td><td><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
-	    			+'<td><p>'+$('#variant-id').val()+'</p></td>'
-	    			+'<td><p>'+$('#inventory-id').val()+'</p></td>'
+	    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
+	    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
+	    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
+	    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
 	    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
 		});
 	 
@@ -97,20 +98,7 @@ $(document).ready(function(){
 	        
 	 
 	        $(this).parent().parent().remove();
-	        idDelete.push(id);
-	    	/* $.ajax({
-				url : '${pageContext.request.contextPath}/item/delete-inventory/'+id,
-				type:'DELETE',
-				success : function (){
-					alert('delete successfully');
-				},
-				
-				error : function(){
-					alert('delete failed');
-				} 
-				
-			}); */
-	    	
+	        idDelete.push(id);	    	
 	        }
 	        
 	    });
@@ -124,6 +112,17 @@ $(document).ready(function(){
 	 $("#btn-back-edit").on('click',function(){
 		 clearFormEditItem();	 
 	 });
+	 
+	 $("#edititem-btn-cancel").on('click',function(){
+		 $('#dt-popup-edit > tbody > tr').each(function(index,data){
+		    	var idInventory = $(data).find('td').eq(7).text()
+		    	 idClear.push(idInventory);
+		    });
+		 
+		 clearFormEditItem();
+	 });
+	 
+	 
 	 
 /* ========================== [SHOW MODAL] EDIT VARIANT DATA ========================================*/
 	 $("#isi-popup-itm").on('click','#tombol-edit-variant',function(evt){
@@ -161,10 +160,10 @@ $(document).ready(function(){
 /* ============================== [EXECUTE] CREATE DATA UTAMA ======================================*/
 		$('#btn-create-data').on('click',function(evt){
 			evt.preventDefault();
-			var active = "false";
-		      $(':checkbox:checked').each(function(){
+			var active = "true";
+/* 		      $(':checkbox:checked').each(function(){
 		        active=$(this).val()
-		      });
+		      }); */
 		    
 		    var itemVar = [];
 		    var varInv = [];
@@ -207,6 +206,7 @@ $(document).ready(function(){
 		    	contentType : 'application/JSON',
 		    	success : function(){
 		    		alert('save success')
+		    		window.location = '${pageContext.request.contextPath}/item/';
 		    	},
 		    	error : function(){
 		    		alert('save failed')
@@ -217,10 +217,12 @@ $(document).ready(function(){
 		
 		$('#edititem-btn-create-data').on('click',function(evt){
 			evt.preventDefault();
-			var active = "false";
-		      $(':checkbox:checked').each(function(){
+			var active = "true";
+		      $('#edititem-checkbox:checked').each(function(){
 		        active=$(this).val()
 		      });
+		      
+		      console.log(active)
 		    
 		    var itemVar = [];
 		    var varInv = [];
@@ -254,36 +256,40 @@ $(document).ready(function(){
 		    var item = {
 		    	id : $('#edit-item-input-id').val(),
 		    	name : $('#edititem-item-name').val(),
-		    	active : 0,
+		    	active : active,
 		    	category:{
 		    		id :  $('#edititem-category').val()
 		    	},
 		    	itemVariants : itemVar
 		    }
 		
-		    console.log(item)
+		   
 		    
-		     $.ajax({
-		    	url:'${pageContext.request.contextPath}/item/update',
-		    	type : 'PUT',
-		    	data : JSON.stringify(item),
-		    	contentType : 'application/JSON',
-		    	success : function(){
-		    		alert('save success')
-		    	},
-		    	error : function(){
-		    		alert('save failed')
-		    	}
-		    });  
+		    if(item.name!==""){
+		    	//console.log(item.name)
+		    	 $.ajax({
+				    	url:'${pageContext.request.contextPath}/item/update',
+				    	type : 'PUT',
+				    	data : JSON.stringify(item),
+				    	contentType : 'application/JSON',
+				    	success : function(){
+				    		alert('save success')
+				    		window.location = '${pageContext.request.contextPath}/item/';
+				    	},
+				    	error : function(){
+				    		alert('save failed')
+				    	}
+				    });
+		    }
 		    
-		    console.log(idDelete);
-
+		    
 		    idDelete.forEach(function(element){
 		    	$.ajax({
 					url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
 					type:'DELETE',
 					success : function (){
 						//alert('delete successfully');
+						window.location = '${pageContext.request.contextPath}/item/';
 					},
 					
 					error : function(){
@@ -293,26 +299,30 @@ $(document).ready(function(){
 				});
 	    	});
 		    
-		    /* $.ajax({
-			url : '${pageContext.request.contextPath}/item/delete-inventory/'+id,
-			type:'DELETE',
-			success : function (){
-				alert('delete successfully');
-			},
-			
-			error : function(){
-				alert('delete failed');
-			} 
-			
-		}); */
-		    
+		    idClear.forEach(function(element){
+		    	$.ajax({
+					url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
+					type:'DELETE',
+					success : function (){
+						//alert('delete successfully');
+						alert('save successfully')
+						window.location = '${pageContext.request.contextPath}/item/';
+					},
+					
+					error : function(){
+						//alert('delete failed');
+					} 
+					
+				});
+		    });  
 		    
 		});
 		
 /* =================== [EDIT] VARIANT DATA AT TABLE MODAL-CREATE-DATA ==========================*/
 	  $('.edit-data').on('click', function(evt) {
+		  	clearFormEditItem();
 	    	evt.preventDefault();
-	    	var id=$(this).attr('id');
+	    	var id=$(this).attr('id');	
 	    	
 	    	console.log(id)
 	    		$.ajax({
@@ -328,10 +338,10 @@ $(document).ready(function(){
 						$('#edititem-category').val(val.itemVariant.item.category.id);
 						$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
 								val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
-								+'</p></td><td><p>'+val.beginning+'</p></td><td><p>'+val.alertAtQty
-								+'</p></td> <td ><p>'+val.itemVariant.active+'</p></td>'
-								+'<td ><p>'+val.itemVariant.id+'</p></td>'
-								+'<td ><p>'+val.id+'</p></td>'
+								+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
+								+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
+								+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
+								+'<td style="display:none"><p>'+val.id+'</p></td>'
 								+'<td> <a href="#" id="edititem-tombol-edit-variant" > Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'
 								+'</tr>');
 						index++;
@@ -364,10 +374,10 @@ $(document).ready(function(){
     	$('#isi-popup-edit').append('<tr><td id='+4+'><p>'+ $('#edititem-add-variant-name').val()+'</p></td><td><p>'+
     			$('#edititem-add-unit-price').val()+'</p></td><td><p>'+$('#edititem-add-sku').val()+'</p></td>'
     			+'<td><p>'+$('#edititem-add-beginning-stock').val()+'</p></td>'
-    			+'<td><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
-   				+'<td><p>'+$('#edititem-add-active-variant').val()+'</p></td>'
-   				+'<td><p>null</p></td>'
-   				+'<td><p>null</p></td>'
+    			+'<td style="display:none"><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
+   				+'<td style="display:none"><p>'+$('#edititem-add-active-variant').val()+'</p></td>'
+   				+'<td style="display:none"><p>null</p></td>'
+   				+'<td style="display:none"><p>null</p></td>'
     			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
     }
    
@@ -376,6 +386,7 @@ $(document).ready(function(){
 		$('#add-unit-price').val('');
 		$('#add-sku').val('');
 		$('#add-beginning-stock').val('');
+		$('#add-alert-at').val('');
 	}
 	
 	function clearFormEdit() {
@@ -383,6 +394,7 @@ $(document).ready(function(){
 		$('#edititem-add-unit-price').val('');
 		$('#edititem-add-sku').val('');
 		$('#edititem-add-beginning-stock').val('');
+		$('#edititem-add-alert-at').val('');
 	}
 	
 	function clearFormAddItem() {
@@ -396,6 +408,8 @@ $(document).ready(function(){
 		$('#edititem-category').val('');
 		$('#isi-popup-edit').empty();
 	}
+	
+	
 });
 </script>
 

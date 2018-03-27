@@ -39,7 +39,7 @@
 							class="form-control" id="edititem-edit-alert-at">
 					</div>
 					
-					<div class="checkbox">
+					<div class="checkbox" style="display:none" >
 						<label for="edit-active"><input id="edititem-edit-active-variant" type="checkbox"
 							value="true">Active</label>
 					</div>

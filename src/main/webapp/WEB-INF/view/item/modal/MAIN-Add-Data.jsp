@@ -47,10 +47,10 @@
 						</select>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" style="display:none" >
 						<label for="input-active">Active</label>
 						<form id="input-active-add">
-							<input name="selector[]" id="ad_Checkbox1" class="ads_Checkbox"
+							<input name="selector[]" id=add-checkbox" class="ads_Checkbox"
 								type="checkbox" value="true"> </input> 
 						</form>
 					</div>

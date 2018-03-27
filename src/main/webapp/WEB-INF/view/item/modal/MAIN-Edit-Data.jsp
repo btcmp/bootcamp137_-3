@@ -6,7 +6,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Departments</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Master Item</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -32,22 +32,22 @@
 					<div class="form-group">
 						<label for="input-active">Active</label>
 						<form id="input-active-edititem">
-							<input name="selector[]" id="ad_Checkbox1" class="ads_Checkbox"
-								type="checkbox" value="true"> </input> 
+							<input name="selector[]" id="edititem-checkbox" class="ads_Checkbox"
+								type="checkbox" value="false"> </input> 
 						</form>
 					</div>
 					
-					<table id="dt-popup-edit" border="1">
+					<table id="dt-popup-edit" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>Variant Name</th>
 								<th>Unit Price</th>
 								<th>SKU</th>
 								<th>Begining Stock</th>
-								<th >Alert At</th>
-								<th >Active</th>
-								<th >Variant ID</th>
-								<th >Inventory ID</th>
+								<th style="display:none">Alert At</th>
+								<th style="display:none">Active</th>
+								<th style="display:none">Variant ID</th>
+								<th style="display:none">Inventory ID</th>
 								<th>#</th>
 							</tr>
 						</thead>
@@ -59,9 +59,8 @@
 					<button type="submit" id="edititem-btn-add-variant" class="btn btn-primary">Add Variant</button>
 
 					<div class="modal-footer">
-						
 						<button type="button" id=btn-back-edit class="btn btn-primary" data-dismiss="modal">Back</button>
-						<button type="submit" id="btn-cancel" class="btn btn-primary">Cancel</button>
+						<button type="submit" id="edititem-btn-cancel" class="btn btn-primary">Cancel</button>
 						<button type="submit" id="edititem-btn-create-data" class="btn btn-primary">Save</button>
 					</div>
 				</form>
