@@ -40,6 +40,8 @@
 				<value>com.xsis.batch137.model.Adjustment</value>
 				<value>com.xsis.batch137.model.AdjustmentHistory</value>
 				<value>com.xsis.batch137.model.AdjustmentDetail</value>
+				<value>com.xsis.batch137.model.PurchaseRequest</value>
+				<value>com.xsis.batch137.model.PurchaseRequestDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
