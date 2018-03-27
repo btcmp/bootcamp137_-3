@@ -105,28 +105,12 @@ public class ItemVariant {
 		this.price = price;
 	}
 
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -161,6 +145,38 @@ public class ItemVariant {
 
 	public void setItemInventories(List<ItemInventory> itemInventories) {
 		this.itemInventories = itemInventories;
+	}
+
+	public List<AdjustmentDetail> getAdjustmentDetail() {
+		return adjustmentDetail;
+	}
+
+	public void setAdjustmentDetail(List<AdjustmentDetail> adjustmentDetail) {
+		this.adjustmentDetail = adjustmentDetail;
+	}
+
+	public List<PurchaseRequestDetail> getPrds() {
+		return prds;
+	}
+
+	public void setPrds(List<PurchaseRequestDetail> prds) {
+		this.prds = prds;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 	
 	
