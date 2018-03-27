@@ -45,15 +45,15 @@ public class Outlet {
 	private String phone;
 
 	@ManyToOne
-	@JoinColumn(name = "province_id", nullable=false)
+	@JoinColumn(name = "province_id")
 	private Province province;
 
 	@ManyToOne
-	@JoinColumn(name = "region_id", nullable=false)
+	@JoinColumn(name = "region_id")
 	private Region region;
 
 	@ManyToOne
-	@JoinColumn(name = "district_id", nullable=false)
+	@JoinColumn(name = "district_id")
 	private District district;
 
 	@Column(name = "postal_code")
