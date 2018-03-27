@@ -52,16 +52,7 @@
 				address : $('#supplier-address').val(),
 				phone : $('#supplier-phone').val(),
 				email : $('#supplier-email').val(),
-				active : true,
-				district : {
-					id : 111111
-				},
-				region : {
-					id : 1111
-				},
-				province : {
-					id : 11
-				}
+				active : true
 			};
 			$.ajax({
 				url : '${pageContext.request.contextPath}/supplier/save',
