@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Category;
 import com.xsis.batch137.model.Item;
 
 @Repository
@@ -46,5 +47,13 @@ public class ItemDaoImpl implements ItemDao {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(item);
 		session.flush();
+	}
+
+	public List<Item> getItemByCategory(Category category) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Item where province = :id";
+		session.createQuery(hql).setParameter("id", category);
+		return null;
 	}
 }
