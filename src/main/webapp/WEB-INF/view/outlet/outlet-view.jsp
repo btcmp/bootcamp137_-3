@@ -33,7 +33,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//$('#outlet-table').DataTable();
-		
+		//
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
 			$('#modal-create').modal();
