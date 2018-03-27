@@ -26,6 +26,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="pos_item_variant")
 public class ItemVariant {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
@@ -46,14 +47,16 @@ public class ItemVariant {
 	@NotNull
 	private float price;
 	
-	@Column(name="created_by")
-	private Long createdBy;
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
-	@Column(name="modified_by")
-	private Long modifiedBy;
+	@ManyToOne
+	@JoinColumn(name = "modified_by")
+	private User modifiedBy;
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
