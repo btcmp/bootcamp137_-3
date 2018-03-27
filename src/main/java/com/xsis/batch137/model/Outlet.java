@@ -90,7 +90,8 @@ public class Outlet {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Adjustment> adjustments;
 	
-	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outletId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseRequest> prs;
 
 	public List<Adjustment> getAdjustments() {
 		return adjustments;
@@ -226,6 +227,14 @@ public class Outlet {
 
 	public void setDistrict(District district) {
 		this.district = district;
+	}
+
+	public List<PurchaseRequest> getPrs() {
+		return prs;
+	}
+
+	public void setPrs(List<PurchaseRequest> prs) {
+		this.prs = prs;
 	}
 
 
