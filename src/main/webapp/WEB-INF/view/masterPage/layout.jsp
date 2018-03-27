@@ -342,17 +342,17 @@
 			<li class="header">Menu</li>
 			<li class="treeview"><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-files-o"></i><span>Data
 					Employee</span></a></li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/dep"><i class="fa fa-files-o"></i><span>Data
-					Departemen</span></a></li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/mhs"><i class="fa fa-files-o"></i><span>Data
-					Mahasiswa</span></a></li>
+			<li class="treeview"><a href="${pageContext.request.contextPath}/category"><i class="fa fa-files-o"></i><span>Data
+					Category</span></a></li>
+			<li class="treeview"><a href="${pageContext.request.contextPath}/item"><i class="fa fa-files-o"></i><span>Data
+					Item</span></a></li>
 		</ul>
 		</section> <!-- /.sidebar --> </aside>
 
 <div class="content-wrapper">
 		<a href="${pageContext.request.contextPath}/employee"
 			class="btn btn-info btn-lg">Employee</a> <a
-			href="${pageContext.request.contextPath}/mhs"
-			class="btn btn-info btn-lg">Mahasiswa</a> <a
-			href="${pageContext.request.contextPath}/dep"
-			class="btn btn-info btn-lg">Departemen</a> <br />
+			href="${pageContext.request.contextPath}/category"
+			class="btn btn-info btn-lg">Category</a> <a
+			href="${pageContext.request.contextPath}/item"
+			class="btn btn-info btn-lg">Item</a> <br />

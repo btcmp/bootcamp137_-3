@@ -1,6 +1,7 @@
 package com.xsis.batch137.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="employee_outlet")
@@ -21,21 +22,22 @@ public class EmployeeOutlet {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int id;
+	private long id;
 	
 	@ManyToOne
-	@JoinColumn(name="employee_id", nullable=false)
+	@JoinColumn(name="employee_id", nullable=true)
+	@JsonIgnore
 	private Employee employee;
 	
-	@ManyToOne
-	@JoinColumn(name="outlet_id", nullable=false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="outlet_id", nullable=true)
 	private Outlet outlet;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

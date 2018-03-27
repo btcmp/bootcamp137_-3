@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.model.EmployeeOutlet;
 
 @Repository
@@ -18,7 +20,7 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 	public void save(EmployeeOutlet eo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(eo);
+		session.saveOrUpdate(eo);
 		session.flush();
 	}
 
@@ -46,6 +48,12 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(EmployeeOutlet.class, eo.getId());
+	}
+
+	public List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list();
 	}
 
 	

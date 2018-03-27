@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.batch137.model.Employee;
-import com.xsis.batch137.model.EmployeeOutlet;
-import com.xsis.batch137.model.Outlet;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -42,9 +40,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Employee where active = 1";
-		session.clear();
 		List<Employee> emps =  session.createQuery(hql).list();
-		session.flush();
 		if(emps == null) {
 			return null;
 		}
@@ -54,15 +50,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee getOne(Employee emp) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.clear();
-		Employee em = session.get(Employee.class, emp.getId()); 
-		for(Outlet ou : em.getOutlets()) {
-			System.out.println(ou.getId());
-		}
-		for(EmployeeOutlet eo : em.getEmpOutlet()) {
-			System.out.println(eo.getOutlet().getName());
-		}
-		System.out.println(em.getUser().getUsername());
+		Employee em = session.get(Employee.class, emp.getId());
+		//session.flush();
 		return em;
 	}
 

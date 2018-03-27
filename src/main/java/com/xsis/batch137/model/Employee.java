@@ -2,7 +2,6 @@ package com.xsis.batch137.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,7 +23,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -81,16 +78,8 @@ public class Employee {
 	@NotNull
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
 	private List<EmployeeOutlet> empOutlet;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-				name="emp_out",
-				joinColumns = {@JoinColumn(name="employee_id")},
-				inverseJoinColumns = {@JoinColumn(name="outlet_id")}
-			)
-	private List<Outlet> outlets;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
 	@JsonManagedReference
@@ -168,6 +157,14 @@ public class Employee {
 		this.active = active;
 	}
 
+	public List<EmployeeOutlet> getEmpOutlet() {
+		return empOutlet;
+	}
+
+	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
+		this.empOutlet = empOutlet;
+	}
+
 	public User getCreatedBy() {
 		return createdBy;
 	}
@@ -190,21 +187,5 @@ public class Employee {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<EmployeeOutlet> getEmpOutlet() {
-		return empOutlet;
-	}
-
-	public void setEmpOutlet(List<EmployeeOutlet> empOutlet) {
-		this.empOutlet = empOutlet;
-	}
-
-	public List<Outlet> getOutlets() {
-		return outlets;
-	}
-
-	public void setOutlets(List<Outlet> outlets) {
-		this.outlets = outlets;
 	}
 }

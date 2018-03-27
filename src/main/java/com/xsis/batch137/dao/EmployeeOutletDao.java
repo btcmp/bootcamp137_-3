@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.model.EmployeeOutlet;
 
 public interface EmployeeOutletDao {
@@ -15,4 +16,6 @@ public interface EmployeeOutletDao {
 	List<EmployeeOutlet> selectAll();
 	
 	EmployeeOutlet getOne(EmployeeOutlet eo);
+
+	List<EmployeeOutlet> getEmployeeOutletByEmployee(Employee emp);
 }
