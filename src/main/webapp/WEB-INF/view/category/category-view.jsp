@@ -13,7 +13,7 @@
 		<c:forEach items="${categories }" var="cat">
 			<tr>
 				<td>${cat.name }</td>
-				<td>Tes</td>
+				<td>${cat.itemStock} Item</td>
 				<td>
 					<a href="" id="${cat.id }" class="btn-edit btn btn-warning">View</a>
 				</td>

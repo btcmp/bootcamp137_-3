@@ -14,11 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -48,12 +49,25 @@ public class Category {
 	@Column(name = "modified_on")
 	private Date modifiedOn;
 	
+	@Transient
+	private int itemStock;
+	
 	@NotNull
 	@Column(nullable=false)
 	private boolean active;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Item> items;
+	
+	
+
+	public int getItemStock() {
+		return itemStock;
+	}
+
+	public void setItemStock(int itemStock) {
+		this.itemStock = itemStock;
+	}
 
 	public long getId() {
 		return id;
