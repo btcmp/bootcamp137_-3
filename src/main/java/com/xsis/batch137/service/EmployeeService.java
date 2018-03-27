@@ -50,6 +50,7 @@ public class EmployeeService {
 		if(emp.getUser()!=null) {
 			User user = new User();
 			user.setId(emp.getUser().getId());
+			user.setActive(emp.getUser().isActive());
 			user.setEmployee(employee);
 			user.setRole(emp.getUser().getRole());
 			user.setUsername(emp.getUser().getUsername());

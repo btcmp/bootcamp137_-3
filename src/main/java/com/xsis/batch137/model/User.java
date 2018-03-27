@@ -156,12 +156,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Supplier> modifiedSupplier;
 	
+	// list customer
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
 	private List<Customer> createdCustomer;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<Customer> modifiedCustomer;
 	
+	
+	// list adjustment
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
 	private List<Adjustment> createdAdjustment;
 		
@@ -178,6 +181,19 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	private List<AdjustmentDetail> modifiedAdjustmentDetail;
 	
 	
+	//list Purchase REquest
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseRequest> createPurchaseRequest;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<PurchaseRequest> modifiedPurchaseRequest;
+	
+	// list purchase request detail
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseRequestDetail> createPurchaseRequestDetail;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<PurchaseRequestDetail> modifiedPurchaseRequestDetail;
 	
 	public List<Adjustment> getCreatedAdjustment() {
 		return createdAdjustment;
@@ -481,6 +497,62 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 	public void setModifiedCustomer(List<Customer> modifiedCustomer) {
 		this.modifiedCustomer = modifiedCustomer;
+	}
+
+	public List<AdjustmentHistory> getCreatedAdjustmentHistory() {
+		return createdAdjustmentHistory;
+	}
+
+	public void setCreatedAdjustmentHistory(List<AdjustmentHistory> createdAdjustmentHistory) {
+		this.createdAdjustmentHistory = createdAdjustmentHistory;
+	}
+
+	public List<AdjustmentDetail> getCreatedAdjustmentDetail() {
+		return createdAdjustmentDetail;
+	}
+
+	public void setCreatedAdjustmentDetail(List<AdjustmentDetail> createdAdjustmentDetail) {
+		this.createdAdjustmentDetail = createdAdjustmentDetail;
+	}
+
+	public List<AdjustmentDetail> getModifiedAdjustmentDetail() {
+		return modifiedAdjustmentDetail;
+	}
+
+	public void setModifiedAdjustmentDetail(List<AdjustmentDetail> modifiedAdjustmentDetail) {
+		this.modifiedAdjustmentDetail = modifiedAdjustmentDetail;
+	}
+
+	public List<PurchaseRequest> getCreatePurchaseRequest() {
+		return createPurchaseRequest;
+	}
+
+	public void setCreatePurchaseRequest(List<PurchaseRequest> createPurchaseRequest) {
+		this.createPurchaseRequest = createPurchaseRequest;
+	}
+
+	public List<PurchaseRequest> getModifiedPurchaseRequest() {
+		return modifiedPurchaseRequest;
+	}
+
+	public void setModifiedPurchaseRequest(List<PurchaseRequest> modifiedPurchaseRequest) {
+		this.modifiedPurchaseRequest = modifiedPurchaseRequest;
+	}
+
+	public List<PurchaseRequestDetail> getCreatePurchaseRequestDetail() {
+		return createPurchaseRequestDetail;
+	}
+
+	public void setCreatePurchaseRequestDetail(List<PurchaseRequestDetail> createPurchaseRequestDetail) {
+		this.createPurchaseRequestDetail = createPurchaseRequestDetail;
+	}
+
+	public List<PurchaseRequestDetail> getModifiedPurchaseRequestDetail() {
+		return modifiedPurchaseRequestDetail;
+	}
+
+	public void setModifiedPurchaseRequestDetail(List<PurchaseRequestDetail> modifiedPurchaseRequestDetail) {
+		this.modifiedPurchaseRequestDetail = modifiedPurchaseRequestDetail;
 	}
 	
 	//sesuatu

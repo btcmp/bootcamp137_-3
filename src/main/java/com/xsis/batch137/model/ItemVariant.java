@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,6 +26,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="pos_item_variant")
 public class ItemVariant {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
@@ -31,6 +34,12 @@ public class ItemVariant {
 	@NotNull
 	private String name;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<AdjustmentDetail> adjustmentDetail;
+	
+	@ManyToMany(mappedBy = "variantId")
+	private List<PurchaseRequestDetail> prds;
+
 	@Size(max=50)
 	@NotNull
 	private String sku;
@@ -38,14 +47,16 @@ public class ItemVariant {
 	@NotNull
 	private float price;
 	
-	@Column(name="created_by")
-	private Long createdBy;
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
-	@Column(name="modified_by")
-	private Long modifiedBy;
+	@ManyToOne
+	@JoinColumn(name = "modified_by")
+	private User modifiedBy;
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
@@ -94,28 +105,12 @@ public class ItemVariant {
 		this.price = price;
 	}
 
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedOn() {
@@ -150,6 +145,38 @@ public class ItemVariant {
 
 	public void setItemInventories(List<ItemInventory> itemInventories) {
 		this.itemInventories = itemInventories;
+	}
+
+	public List<AdjustmentDetail> getAdjustmentDetail() {
+		return adjustmentDetail;
+	}
+
+	public void setAdjustmentDetail(List<AdjustmentDetail> adjustmentDetail) {
+		this.adjustmentDetail = adjustmentDetail;
+	}
+
+	public List<PurchaseRequestDetail> getPrds() {
+		return prds;
+	}
+
+	public void setPrds(List<PurchaseRequestDetail> prds) {
+		this.prds = prds;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 	
 	
