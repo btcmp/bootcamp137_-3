@@ -33,12 +33,14 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//$('#outlet-table').DataTable();
-		//
+		
+		//Munculkan modal create
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
 			$('#modal-create').modal();
 		});
 		
+		//Men-save yang sudah di-create
 		$('#tbl-simpan').on('click', function(e){
 			e.preventDefault();
 			var outlet = {
@@ -46,8 +48,19 @@
 				address : $('#outlet-address').val(),
 				phone : $('#outlet-phone').val(),
 				email : $('#outlet-email').val(),
-				active : true
+				postalCode : $('#outlet-postal').val(),
+				active : true,
+				province : {
+					id : $('#prov-id').val()
+				},
+				region : {
+					id : $('#reg-id').val()
+				},
+				district : {
+					id : $('#dist-id').val()
+				}
 			};
+			
 			$.ajax({
 				url : '${pageContext.request.contextPath}/outlet/save',
 				type : 'POST',
@@ -61,6 +74,49 @@
 				error : function(){
 					console.log(outlet);
 					alert('no..');
+				}
+			});
+		});
+		
+		//Get Region By Province
+		$('#prov-id').change(function(){
+			$('#reg-id').empty();
+			$('#dist-id').empty();
+			$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
+			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+				type : 'GET',
+				success : function(regions){
+					console.log(regions);
+					$(regions).each(function(index, data){
+						$('#reg-id').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
+					});
+				},
+				error : function(regions){
+					console.log(regions);
+					alert('Cannot take regions..');
+				}
+			});
+		});
+		
+		//Get District By Region
+		$('#reg-id').change(function(){
+			$('#dist-id').empty();
+			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
+				type : 'GET',
+				success : function(districts){
+					$(districts).each(function(index, data){
+						$('#dist-id').append('<option value="'+data.id+'">'+data.name+'</option>');
+					});
+				},
+				error : function(districts){
+					console.log(districts);
+					alert('Cannot get districts');
 				}
 			});
 		});
