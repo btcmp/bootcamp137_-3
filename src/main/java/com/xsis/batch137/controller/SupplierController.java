@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.District;
@@ -43,15 +44,25 @@ public class SupplierController {
 	
 	@RequestMapping
 	public String view(Model model) {
-		List<District> districts = districtService.selectAll();
-		List<Region> regions = regionService.selectAll();
 		List<Province> provinces = provinceService.selectAll();
 		List<Supplier> sups = supplierService.selectAll();
-		model.addAttribute("districts", districts);
-		model.addAttribute("regions", regions);
 		model.addAttribute("provinces", provinces);
 		model.addAttribute("suppliers", sups);
 		return "/supplier/supplier-view";
+	}
+	
+	@RequestMapping(value="/get-region/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Region> getRegionByProvince(@PathVariable long id){
+		List<Region> regions = regionService.getRegionByProvince(id);
+		return regions;
+	}
+	
+	@RequestMapping(value="/get-district/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<District> getDistrictByRegion(@PathVariable long id){
+		List<District> districts = districtService.getDistrictByRegion(id);
+		return districts;
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
