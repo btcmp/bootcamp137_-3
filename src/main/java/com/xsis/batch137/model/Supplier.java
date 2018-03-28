@@ -1,14 +1,18 @@
 package com.xsis.batch137.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -77,6 +81,9 @@ public class Supplier {
 	@NotNull
 	@Column(nullable=false)
 	private boolean active;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseOrder> pos;
 
 	public long getId() {
 		return id;
@@ -188,6 +195,14 @@ public class Supplier {
 
 	public void setDistrict(District district) {
 		this.district = district;
+	}
+
+	public List<PurchaseOrder> getPos() {
+		return pos;
+	}
+
+	public void setPos(List<PurchaseOrder> pos) {
+		this.pos = pos;
 	}
 
 
