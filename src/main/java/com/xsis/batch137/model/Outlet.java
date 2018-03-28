@@ -45,15 +45,15 @@ public class Outlet {
 	private String phone;
 
 	@ManyToOne
-	@JoinColumn(name = "province_id", nullable=false)
+	@JoinColumn(name = "province_id")
 	private Province province;
 
 	@ManyToOne
-	@JoinColumn(name = "region_id", nullable=false)
+	@JoinColumn(name = "region_id")
 	private Region region;
 
 	@ManyToOne
-	@JoinColumn(name = "district_id", nullable=false)
+	@JoinColumn(name = "district_id")
 	private District district;
 
 	@Column(name = "postal_code")
@@ -90,8 +90,13 @@ public class Outlet {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Adjustment> adjustments;
 	
+	// relate to purchase request
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outletId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PurchaseRequest> prs;
+	
+	// relate to purchase order
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outletId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseOrder> pos;
 
 	public List<Adjustment> getAdjustments() {
 		return adjustments;
@@ -235,6 +240,14 @@ public class Outlet {
 
 	public void setPrs(List<PurchaseRequest> prs) {
 		this.prs = prs;
+	}
+
+	public List<PurchaseOrder> getPos() {
+		return pos;
+	}
+
+	public void setPos(List<PurchaseOrder> pos) {
+		this.pos = pos;
 	}
 
 
