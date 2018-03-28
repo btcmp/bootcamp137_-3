@@ -30,18 +30,25 @@ public class CategoryDaoImpl implements CategoryDao{
 		session.update(category);
 		session.flush();
 	}
-
-	public void delete(Category category) {
+	
+	//Sebenarnya hanya menonaktifkan, bukan men-delete
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(category);
+		String hql = "update Category set active = 0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
 	}
 
 	public List<Category> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(Category.class).list();
+		String hql = "from Category where active = 1";
+		List<Category> categories = session.createQuery(hql).list();
+		if(categories.isEmpty()) {
+			return null;
+		}
+		return categories;
 	}
 
 	public Category getOne(long id) {

@@ -27,15 +27,12 @@ public class CategoryService {
 	}
 	
 	public void update(Category category) {
+		category.setActive(true);
 		categoryDao.update(category);
 	}
 	
 	public void delete(long id) {
-		Category category = new Category();
-		category.setId(id);
-		category.setName("Yos");
-		category.setActive(false);
-		categoryDao.delete(category);
+		categoryDao.delete(id);
 	}
 	//
 	public List<Category> selectAll() {

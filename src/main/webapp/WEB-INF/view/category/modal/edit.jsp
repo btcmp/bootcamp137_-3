@@ -24,7 +24,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-danger" id="tbl-delete">X</button>
+					<button type="button" class="btn btn-warning" id="tbl-cancel">Cancel</button>
 					<button type="button" class="btn btn-info" id="tbl-edit">Save</button>
 				</div>
 			</div>

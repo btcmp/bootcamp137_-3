@@ -10,7 +10,7 @@ public interface CategoryDao {
 	
 	public void update(Category category);
 	
-	public void delete(Category category);
+	public void delete(long id);
 	
 	public List<Category> selectAll();
 	

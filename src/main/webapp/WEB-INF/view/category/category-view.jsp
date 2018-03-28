@@ -35,6 +35,14 @@
 			$('#modal-create').modal();
 		});
 		
+		$('#tbl-reset').click(function(){
+			$('#create-category').val("");
+		});
+		
+		$('#tbl-cancel').click(function(){
+			$('#edit-category').val("");
+		});
+		
 		$('#tbl-simpan').on('click', function(e){
 			e.preventDefault();
 			var category = {
@@ -48,7 +56,7 @@
 				contentType : 'application/json',
 				success : function(){
 					console.log(category);
-					alert();
+					alert('Saved..');
 					window.location = '${pageContext.request.contextPath}/category';
 				},
 				error : function(){
@@ -64,15 +72,13 @@
 			$.ajax({
 				url : '${pageContext.request.contextPath}/category/take?id=' + id,
 				type : 'GET',
-				success : function(){
+				success : function(category){
 					$('#edit-category').val(category.name);
-					$('#id-edit').val(category.name);
+					$('#id-edit').val(category.id);
 					console.log(id);
-					alert('yes..')
 				},
 				error : function(){
 					console.log(id);
-					alert('no..')
 				}
 			});
 			$('#modal-edit').modal();
@@ -82,21 +88,39 @@
 			e.preventDefault();
 			var category = {
 				name : $('#edit-category').val(),
-				id : $('#id-edit').val(),
-				active : true
+				id : $('#id-edit').val()
 			};
 			$.ajax({
 				url : '${pageContext.request.contextPath}/category/update',
 				type : 'PUT',
-				data : JSON.strigify(category),
+				data : JSON.stringify(category),
 				contentType : 'application/json',
 				success : function(){
 					console.log(category);
 					alert('Oke..');
+					window.location = '${pageContext.request.contextPath}/category';
 				},
 				error : function(){
 					console.log(category);
 					alert('Failed bro..');
+				}
+			});
+		});
+		
+		$('#tbl-delete').click(function(e){
+			e.preventDefault();
+			var id = $('#id-edit').val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/category/delete/' + id,
+				type : 'DELETE',
+				success : function(){
+					console.log(id);
+					alert('Deleted');
+					window.location = '${pageContext.request.contextPath}/category';
+				},
+				error : function(){
+					console.log(id);
+					alert('Cannot Delete..');
 				}
 			});
 		});

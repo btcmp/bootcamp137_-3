@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.Category;
@@ -43,9 +44,10 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/take", method=RequestMethod.GET)
-	public void getOne(@RequestParam("id") long id, Model model) {
+	@ResponseBody
+	public Category getOne(@RequestParam("id") long id) {
 		Category category = categoryService.getOne(id);
-		model.addAttribute("category", category);
+		return category;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
