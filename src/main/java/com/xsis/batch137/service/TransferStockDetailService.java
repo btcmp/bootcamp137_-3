@@ -14,7 +14,7 @@ import com.xsis.batch137.model.TransferStockDetail;
 public class TransferStockDetailService {
 	@Autowired
 	TransferStockDetailDao transferStockDetailDao;
-	
+	//
 	public void save(TransferStockDetail transferStockDetail) {
 		transferStockDetailDao.save(transferStockDetail);
 	}

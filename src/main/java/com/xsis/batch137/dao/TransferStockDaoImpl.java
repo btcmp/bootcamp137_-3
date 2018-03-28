@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.xsis.batch137.model.TransferStock;
-
+//
 @Repository
 public class TransferStockDaoImpl implements TransferStockDao {
 	@Autowired

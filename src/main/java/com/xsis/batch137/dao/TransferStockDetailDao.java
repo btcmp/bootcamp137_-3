@@ -1,9 +1,9 @@
 package com.xsis.batch137.dao;
-
+//
 import java.util.List;
 
 import com.xsis.batch137.model.TransferStockDetail;
-
+//
 public interface TransferStockDetailDao {
 	
 	public void save(TransferStockDetail transferStockDetail);

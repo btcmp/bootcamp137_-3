@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.sun.istack.NotNull;
 
 public class TransferStockDetail {
-	
+	//
 	public TransferStockDetail() {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date();

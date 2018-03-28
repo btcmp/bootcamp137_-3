@@ -16,7 +16,7 @@ public interface TransferStockDao {
 	public void delete(TransferStock transferStock);
 	
 	public void update(TransferStock transferStock);
-	
+	//
 	public void saveAtauUpdate(TransferStock transferStock);
 	
 }

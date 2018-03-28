@@ -21,7 +21,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="pos_t_transfer_stock")
 public class TransferStock {
-	
+	//
 	public TransferStock() {
 		this.createdOn = new Date();
 		this.modifiedOn = new Date();
