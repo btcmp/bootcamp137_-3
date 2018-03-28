@@ -75,6 +75,10 @@ public class ItemVariant {
 	//relate to intemInvetory
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
 	public List<ItemInventory> itemInventories;
+	
+	//relate to transferdetail
+	/*@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
+	public List<TransferStockDetail> transferStockDetail;*/
 
 	public Long getId() {
 		return id;
