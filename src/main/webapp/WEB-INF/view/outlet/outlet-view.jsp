@@ -7,7 +7,8 @@
 			<th>Name</th>
 			<th>Address</th>
 			<th>Phone</th>
-			<th>Email 	</th>
+			<th>Email</th>
+			<th>Postal Code</th>
 			<th>#</th>
 		</tr>
 		</thead>
@@ -18,6 +19,7 @@
 				<td>${out.address }</td>
 				<td>${out.phone }</td>
 				<td>${out.email }</td>
+				<td>${out.postalCode }</td>
 				<td>
 					<a href="" id="${out.id }" class="btn-edit btn btn-warning">Edit</a>
 				</td>
@@ -122,18 +124,54 @@
 			});
 		});
 		
+		//Take data to edit
 		$('.btn-edit').on('click', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/take/' + id,
+				url : '${pageContext.request.contextPath}/outlet/take?id=' + id,
 				type : 'GET',
-				success : function(){
+				success : function(outlet){
 					$('#edit-name').val(outlet.name);
 					$('#edit-address').val(outlet.address);
 					$('#edit-phone').val(outlet.phone);
 					$('#edit-email').val(outlet.email);
+					$('#edit-postal').val(outlet.postalCode);
 					$('#edit-id').val(outlet.id);
+					$('#prov-edit').val(outlet.province.id);
+					var id = outlet.province.id;
+					$.ajax({
+						url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+						type : 'GET',
+						success : function(regions){
+							console.log(regions);
+							$(regions).each(function(index, data){
+								$('#reg-edit').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
+							});
+							$('#reg-edit').val(outlet.region.id);
+							var idReg = outlet.region.id;
+							$.ajax({
+								url : '${pageContext.request.contextPath}/outlet/get-district/'+idReg,
+								type : 'GET',
+								success : function(districts){
+									console.log(districts)
+									$(districts).each(function(index, data){
+										$('#dist-edit').append('<option value="'+data.id+'">'+data.name+'</option>');
+									});
+									$('#dist-edit').val(outlet.district.id);
+								},
+								error : function(districts){
+									console.log(districts);
+									alert('Cannot get districts');
+								}
+							});
+
+						},
+						error : function(regions){
+							console.log(regions);
+							alert('Cannot take regions..');
+						}
+					});
 				},
 				error : function(){
 					
@@ -142,6 +180,49 @@
 			$('#modal-edit').modal();
 		});
 		
+		$('#prov-edit').change(function(){
+			$('#reg-edit').empty();
+			$('#dist-edit').empty();
+			$('#reg-edit').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
+			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+				type : 'GET',
+				success : function(regions){
+					console.log(regions);
+					$(regions).each(function(index, data){
+						$('#reg-edit').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
+					});
+				},
+				error : function(regions){
+					console.log(regions);
+					alert('Cannot take regions..');
+				}
+			});
+		});
+		
+		$('#reg-edit').change(function(){
+			$('#dist-edit').empty();
+			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
+				type : 'GET',
+				success : function(districts){
+					console.log(districts)
+					$(districts).each(function(index, data){
+						$('#dist-edit').append('<option value="'+data.id+'">'+data.name+'</option>');
+					});
+				},
+				error : function(districts){
+					console.log(districts);
+					alert('Cannot get districts');
+				}
+			});
+		});
+		
+		//Send edited data to DB
 		$('#tbl-edit').on('click', function(e){
 			e.preventDefault();
 			var outlet = {
@@ -150,13 +231,22 @@
 				phone : $('#edit-phone').val(),
 				email : $('#edit-email').val(),
 				id : $('#edit-id').val(),
-				active : true
+				active : true,
+				province : {
+					id : $('#prov-edit').val()
+				},
+				region : {
+					id : $('#reg-edit').val()
+				},
+				district : {
+					id : $('#dist-edit').val()
+				}
 			};
 			
 			$.ajax({
 				url : '${pageContext.request.contextPath}/outlet/update',
 				type : 'PUT',
-				data : JSON.strigify(outlet),
+				data : JSON.stringify(outlet),
 				contentType : 'application/json',
 				success : function(){
 					console.log(outlet);

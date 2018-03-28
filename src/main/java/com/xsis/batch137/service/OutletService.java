@@ -52,17 +52,17 @@ public class OutletService {
 		return outletDao.selectActive();
 	}
 	
-	public List<Object> getOne(long id) {
-		List<Object> list = new ArrayList<Object>();
+	public Outlet getOne(long id) {
+		/*List<Object> list = new ArrayList<Object>();*/
 		Outlet outlet = outletDao.getOne(id);
-		List<Province> provinces = provinceDao.selectAll();
+		/*List<Province> provinces = provinceDao.selectAll(); //Gak perlu pake province karena sudah ada di awal
 		List<Region> regions = regionDao.getRegionByProvince(outlet.getProvince());
 		List<District> districts = districtDao.getDistrictByRegion(outlet.getRegion());
 		list.add(outlet);
 		list.add(provinces);
 		list.add(regions);
-		list.add(districts);
-		return list;
+		list.add(districts);*/
+		return outlet;
 	}
 	
 	public List<Outlet> selectActive(){

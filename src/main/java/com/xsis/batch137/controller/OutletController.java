@@ -65,10 +65,10 @@ public class OutletController {
 	
 	@RequestMapping(value="/take", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Object> getOne(@RequestParam("id") long id) {
-		List<Object> list = new ArrayList<Object>();
-		list = outletService.getOne(id);
-		return list;
+	public Outlet getOne(@RequestParam("id") long id) {
+		/*List<Object> list = new ArrayList<Object>();
+		list = outletService.getOne(id);*/
+		return outletService.getOne(id);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
