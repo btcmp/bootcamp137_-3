@@ -37,7 +37,7 @@ public class ItemVariant {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AdjustmentDetail> adjustmentDetail;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
 	private List<PurchaseRequestDetail> prds;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)

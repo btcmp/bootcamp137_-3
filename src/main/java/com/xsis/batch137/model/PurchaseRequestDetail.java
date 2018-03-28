@@ -26,13 +26,9 @@ public class PurchaseRequestDetail {
 	@JoinColumn(name="pr_id")
 	private PurchaseRequest prId;
 	
-	@ManyToMany
-	@JoinTable(
-			name="pr_variant",
-			joinColumns = {@JoinColumn(name = "prd_id")},
-			inverseJoinColumns = {@JoinColumn(name = "varian_id")}
-	)
-	private List<ItemVariant> variantId;
+	@ManyToOne
+	@JoinColumn(name="variant_id")
+	private ItemVariant variantId;
 	
 	@Column(name="request_qty")
 	private int requestQty;
@@ -65,14 +61,6 @@ public class PurchaseRequestDetail {
 
 	public void setPrId(PurchaseRequest prId) {
 		this.prId = prId;
-	}
-
-	public List<ItemVariant> getVariantId() {
-		return variantId;
-	}
-
-	public void setVariantId(List<ItemVariant> variantId) {
-		this.variantId = variantId;
 	}
 
 	public int getRequestQty() {
@@ -113,6 +101,14 @@ public class PurchaseRequestDetail {
 
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
+	}
+
+	public ItemVariant getVariantId() {
+		return variantId;
+	}
+
+	public void setVariantId(ItemVariant variantId) {
+		this.variantId = variantId;
 	}
 	
 	
