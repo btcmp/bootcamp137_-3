@@ -52,7 +52,7 @@ public class ItemDaoImpl implements ItemDao {
 	public List<Item> getItemByCategory(Category category) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Item where category = :id";
+		String hql = "from Item where category = :id and active = 1";
 		List<Item> items = session.createQuery(hql).setParameter("id", category).list();
 		if (items.isEmpty()) {
 			return null;
