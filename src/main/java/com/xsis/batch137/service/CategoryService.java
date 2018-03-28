@@ -48,6 +48,7 @@ public class CategoryService {
 			else {
 				category.setItemStock(items.size());
 			}
+			System.out.println(category.getName() + " has " + category.getItemStock() + " Item");
 		}
 		return categories;
 	}
