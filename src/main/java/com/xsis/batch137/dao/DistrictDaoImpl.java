@@ -25,9 +25,15 @@ public class DistrictDaoImpl implements DistrictDao{
 	public List<District> getDistrictByRegion(Region region) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from District where region = :xxx";
+		String hql = "from District as dist where dist.region = :xxx and active = 1";
 		List<District> districts = session.createQuery(hql).setParameter("xxx", region).list();
-		return districts;
+		if(districts == null) {
+			return null;
+		}
+		else {
+			return districts;
+		}
+		
 	}
 	
 	

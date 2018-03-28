@@ -25,7 +25,7 @@ public class RegionDaoImpl implements RegionDao{
 	public List<Region> getRegionByProvince(Province province) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Region where province = :a";
+		String hql = "from Region reg where reg.active = 1 and reg.province = :a";
 		List<Region> regions = session.createQuery(hql).setParameter("a", province).list();
 		if (regions == null) {
 			return null;
