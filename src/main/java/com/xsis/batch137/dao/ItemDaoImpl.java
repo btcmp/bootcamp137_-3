@@ -52,7 +52,7 @@ public class ItemDaoImpl implements ItemDao {
 	public List<Item> getItemByCategory(Category category) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Item where province = :id";
+		String hql = "from Item where category = :id";
 		session.createQuery(hql).setParameter("id", category);
 		return null;
 	}
