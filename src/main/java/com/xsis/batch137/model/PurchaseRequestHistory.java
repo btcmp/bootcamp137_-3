@@ -22,9 +22,8 @@ public class PurchaseRequestHistory {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="pr_id")
-	@JsonBackReference
 	private PurchaseRequest prId;
 	
 	@Size(max=20)

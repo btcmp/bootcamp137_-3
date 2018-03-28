@@ -33,9 +33,8 @@ public class PurchaseRequest {
 	@JoinColumn(name="outlet_id", nullable=false)
 	private Outlet outletId;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="prId")
-	@JsonManagedReference
-	private PurchaseRequestHistory prh;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="prId")
+	private List<PurchaseRequestHistory> prh;
 	
 	@Column(name="ready_time")
 	@Temporal(TemporalType.DATE)
@@ -168,11 +167,12 @@ public class PurchaseRequest {
 		this.po = po;
 	}
 
-	public PurchaseRequestHistory getPrh() {
+	public List<PurchaseRequestHistory> getPrh() {
 		return prh;
 	}
 
-	public void setPrh(PurchaseRequestHistory prh) {
+	public void setPrh(List<PurchaseRequestHistory> prh) {
 		this.prh = prh;
 	}
+
 }
