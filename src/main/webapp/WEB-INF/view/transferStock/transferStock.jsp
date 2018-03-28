@@ -8,6 +8,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		var saved = [];
+		
 		//Create Data Clicked
 		$('#create-transfer-stock').on('click',function(evt){
 			evt.preventDefault;
@@ -15,12 +17,54 @@
 		});
 		
 		//Add transfer item
-	 	$('#add-transfer-item').on('click',function(){
+	 	$('#add-transfer-item').on('click',function(evt){
 			evt.preventDefault;
 			$('#modal-add-transfer-item').modal();
 		}); 
 		
+		//clik save item
+		//a >> tag
+		$('body').on('click', 'a.save-item', function(evt){
+			var id = $(this).attr('id');
+			console.log(id);
+			evt.preventDefault;
+			/* $('#td-qty-'+id).html(transQty); */
+		});
 		
+		
+	 	$('#search-item').on('input',function(e){
+	 		var keyword=$(this).val();
+	 		if(keyword==""){
+	 			$('#isi-popup-transfer-stock').empty();
+	 			
+	 		}
+	 		
+	 		else{
+	 			$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/transfer-stock/search-item?search='+keyword,
+					dataType : 'json',
+					success : function (data){
+			 			$('#isi-popup-transfer-stock').empty();
+						//alert('ok')
+						//$('#full-data-utama').empty();
+						$.each(data,function(key,val){
+						$('#isi-popup-transfer-stock').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+								+ '<td>'+val.endingQty+'</td>'
+								+ '<td id="qty-"'+val.id+'><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td>'
+								+ '<td> <a href="#" id='+val.id +' class="save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved">SAVED</a> </td>'
+								+ '</tr>');
+						
+					/* 	$('.add-transfer-ok'+val.id).hide();
+						 */
+						});
+					},
+					error : function (){
+						$('#isi-popup-transfer-stock').empty();
+					}
+				});
+	 		}
+	 	});
 	});
 </script>
 

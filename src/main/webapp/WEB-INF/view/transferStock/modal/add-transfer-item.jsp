@@ -15,7 +15,7 @@
 					<span><input class="form-control" type="text" id="search-item" placeholder="Search Item"/></span>
 				</div>
 						        			
-					<table id="data-popup-add-transfer-item" class="table table-striped table-bordered table-hover">
+					<table id="data-popup-add-transfer-stock" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>Item</th>
@@ -23,7 +23,7 @@
 								<th>Trans. Qty</th>
 							</tr>
 						</thead>
-						<tbody id="isi-popup-transfer-item">		
+						<tbody id="isi-popup-transfer-stock">		
 					<%-- 		<c:forEach items="${itemInventories}" var="invent">
 								<tr>
 									<td>${invent.itemVariant.name}</td>

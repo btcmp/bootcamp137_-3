@@ -30,8 +30,8 @@ public class ItemService {
 		List<ItemVariant> itemVariants = item.getItemVariants();
 		item.setItemVariants(null);
 		itemDao.save(item);
-		
 		ItemInventory inventory;
+		
 		for(ItemVariant ivar : itemVariants) {
 			inventory = ivar.getItemInventories().get(0);
 			ivar.setItemInventories(null);

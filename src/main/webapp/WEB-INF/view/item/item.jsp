@@ -410,25 +410,30 @@ $(document).ready(function(){
 	}
 	
 	//search
-/*  	$('#search-box').on('input',function(e){
+ 	$('#search-box').on('input',function(e){
 		var keyword = $(this).val();
 		//console.log(keyword)
-		if (word=""){
-			
-		}
-		
 		$.ajax({
 			type : 'GET',
 			url : '${pageContext.request.contextPath}/item/search-item?search='+keyword,
 			dataType : 'json',
-			success : function (){
+			success : function (data){
 				//alert('ok')
-				$('#full-data-utama').empty();
+				//$('#full-data-utama').empty();
+				$.each(data,function(key,val){
+				$('#full-data-utama').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+						+ '<td>'+val.itemVariant.item.category.name+'</td>'
+						+ '<td>'+val.itemVariant.price+'</td>'
+						+ '<td>'+val.endingQty+'</td>'
+						+ '<td>LOW</td>'
+						+ '<td> <a href="#" id='+val.itemVariant.item.id +' class="edit-data">Edit</a></td>'
+						+ '</tr>');
+				});
 			},
-			error : function (){	
+			error : function (){
 			}
 		});
-	});  */
+	});  
 });
 </script>
 
