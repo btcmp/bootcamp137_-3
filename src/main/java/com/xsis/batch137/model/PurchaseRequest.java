@@ -33,6 +33,10 @@ public class PurchaseRequest {
 	@JoinColumn(name="outlet_id", nullable=false)
 	private Outlet outletId;
 	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="prId")
+	@JsonManagedReference
+	private PurchaseRequestHistory prh;
+	
 	@Column(name="ready_time")
 	@Temporal(TemporalType.DATE)
 	private Date readyTime;
@@ -162,5 +166,13 @@ public class PurchaseRequest {
 
 	public void setPo(PurchaseOrder po) {
 		this.po = po;
+	}
+
+	public PurchaseRequestHistory getPrh() {
+		return prh;
+	}
+
+	public void setPrh(PurchaseRequestHistory prh) {
+		this.prh = prh;
 	}
 }

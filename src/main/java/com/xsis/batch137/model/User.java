@@ -195,6 +195,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<PurchaseRequestDetail> modifiedPurchaseRequestDetail;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseRequestHistory> createPurchaseRequestHistory;
+	
 	//list purchase order
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
 	private List<PurchaseOrder> createPurchaseOrder;
@@ -207,6 +210,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<PurchaseOrderDetail> modifiedPurchaseOrderDetail;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseOrderHistory> createPurchaseOrderHistory;
 	
 	public List<Adjustment> getCreatedAdjustment() {
 		return createdAdjustment;
@@ -598,6 +604,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 	public void setModifiedPurchaseOrderDetail(List<PurchaseOrderDetail> modifiedPurchaseOrderDetail) {
 		this.modifiedPurchaseOrderDetail = modifiedPurchaseOrderDetail;
+	}
+
+	public List<PurchaseOrderHistory> getCreatePurchaseOrderHistory() {
+		return createPurchaseOrderHistory;
+	}
+
+	public void setCreatePurchaseOrderHistory(List<PurchaseOrderHistory> createPurchaseOrderHistory) {
+		this.createPurchaseOrderHistory = createPurchaseOrderHistory;
 	}
 	
 	//sesuatu

@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class PurchaseOrder {
@@ -29,6 +30,10 @@ public class PurchaseOrder {
 	@JoinColumn(name="pr_id")
 	@JsonBackReference
 	private PurchaseRequest prId;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="poId", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private PurchaseOrderHistory poh;
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id")
@@ -170,6 +175,14 @@ public class PurchaseOrder {
 
 	public void setPods(List<PurchaseOrderDetail> pods) {
 		this.pods = pods;
+	}
+
+	public PurchaseOrderHistory getPoh() {
+		return poh;
+	}
+
+	public void setPoh(PurchaseOrderHistory poh) {
+		this.poh = poh;
 	}
 	
 	
