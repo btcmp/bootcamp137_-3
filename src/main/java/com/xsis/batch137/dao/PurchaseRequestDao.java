@@ -15,4 +15,6 @@ public interface PurchaseRequestDao {
 	List<PurchaseRequest> selectAll();
 	
 	PurchaseRequest getOne(PurchaseRequest pr);
+	
+	void ubahStatus(String status, long id);
 }
