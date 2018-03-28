@@ -72,7 +72,7 @@ public class SupplierService {
 		// TODO Auto-generated method stub
 		Region region = new Region();
 		region.setId(id);
-		return null;
+		return districtDao.getDistrictByRegion(region);
 	}
 	
 }
