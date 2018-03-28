@@ -1,15 +1,12 @@
 package com.xsis.batch137.controller;
 
-import java.io.InputStream;
-import java.util.List;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +18,6 @@ import com.xsis.batch137.model.District;
 import com.xsis.batch137.model.Province;
 import com.xsis.batch137.model.Region;
 import com.xsis.batch137.model.Supplier;
-import com.xsis.batch137.service.DistrictService;
-import com.xsis.batch137.service.ProvinceService;
-import com.xsis.batch137.service.RegionService;
 import com.xsis.batch137.service.SupplierService;
 
 @Controller
@@ -33,18 +27,9 @@ public class SupplierController {
 	@Autowired
 	SupplierService supplierService;
 	
-	@Autowired
-	ProvinceService provinceService;
-	
-	@Autowired
-	RegionService regionService;
-	
-	@Autowired
-	DistrictService districtService;
-	
 	@RequestMapping
 	public String view(Model model) {
-		List<Province> provinces = provinceService.selectAll();
+		List<Province> provinces = supplierService.getAllProvince();
 		List<Supplier> sups = supplierService.selectAll();
 		model.addAttribute("provinces", provinces);
 		model.addAttribute("suppliers", sups);
@@ -54,14 +39,14 @@ public class SupplierController {
 	@RequestMapping(value="/get-region/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Region> getRegionByProvince(@PathVariable long id){
-		List<Region> regions = regionService.getRegionByProvince(id);
+		List<Region> regions = supplierService.getRegionByProvince(id);
 		return regions;
 	}
 	
 	@RequestMapping(value="/get-district/{id}", method=RequestMethod.GET)
 	@ResponseBody
 	public List<District> getDistrictByRegion(@PathVariable long id){
-		List<District> districts = districtService.getDistrictByRegion(id);
+		List<District> districts = supplierService.getDistrictByRegion(id);
 		return districts;
 	}
 	
