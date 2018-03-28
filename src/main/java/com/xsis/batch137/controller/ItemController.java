@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -68,12 +69,11 @@ public class ItemController {
 	@ResponseBody
 	public List<ItemInventory> getOne (@PathVariable Long id,Model model) {
 		Item item=itemService.getOne(id);
-		List<ItemVariant> dataVariant=itemVariantService.searchVariantByItem(item);
+		//List<ItemVariant> dataVariant=itemVariantService.searchVariantByItem(item);
 		List<ItemInventory> dataInventory=itemInventoryService.searchInventoryByItem(item);
 		model.addAttribute("dataInventory",dataInventory);
-		model.addAttribute("dataVariant",dataVariant);
+		//model.addAttribute("dataVariant",dataVariant);
 		model.addAttribute("item",item);
-		
 		return dataInventory;
 	}
 	
@@ -89,6 +89,13 @@ public class ItemController {
 		Item item=new Item();
 		item.setId(id);
 		itemService.delete(item);
+	}
+	
+	@RequestMapping(value="/search-item",method=RequestMethod.GET)
+	@ResponseBody
+	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
+		List<ItemInventory > itemInventories = itemInventoryService.searchItemInventoryByItemName(search);
+		return itemInventories;
 	}
 	
 /*==================================CRUD FOR ITEMVARIANT============================*/
@@ -110,7 +117,7 @@ public class ItemController {
 		ItemVariant itemVariant=itemVariantService.getOne(id);
 		return itemVariant;
 	}
-	
+	//s
 	@RequestMapping(value="/update-variant",method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void updateVariant(@RequestBody ItemVariant itemVariant) {

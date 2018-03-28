@@ -45,4 +45,8 @@ public class ItemInventoryService {
 	public List<ItemInventory> searchInventoryByItem(Item item){
 		return itemInventoryDao.searchInventoryByItem(item);
 	}
+
+	public List<ItemInventory> searchItemInventoryByItemName(String search) {
+		return itemInventoryDao.searchItemInventoryByItemName(search);
+	}
 }

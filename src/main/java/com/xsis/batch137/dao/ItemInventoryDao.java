@@ -13,4 +13,5 @@ public interface ItemInventoryDao {
 	public void update(ItemInventory itemInventory);
 	public void saveAtauUpdate(ItemInventory itemInventory);
 	public List<ItemInventory> searchInventoryByItem(Item item);
+	public List<ItemInventory> searchItemInventoryByItemName(String search);
 }
