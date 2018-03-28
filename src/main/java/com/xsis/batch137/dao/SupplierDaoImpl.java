@@ -39,7 +39,14 @@ public class SupplierDaoImpl implements SupplierDao{
 	public List<Supplier> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(Supplier.class).list();
+		String hql = "from Supplier where active = 1";
+		List<Supplier> suppliers = session.createQuery(hql).list();
+		if(suppliers == null) {
+			return null;
+		}
+		else {
+			return suppliers;
+		}
 	}
 
 	public Supplier getOne(long id) {

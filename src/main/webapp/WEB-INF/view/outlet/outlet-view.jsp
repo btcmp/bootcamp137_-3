@@ -110,6 +110,7 @@
 				url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
 				type : 'GET',
 				success : function(districts){
+					console.log(districts)
 					$(districts).each(function(index, data){
 						$('#dist-id').append('<option value="'+data.id+'">'+data.name+'</option>');
 					});
