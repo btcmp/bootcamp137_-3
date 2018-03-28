@@ -319,7 +319,8 @@ $(document).ready(function(){
 		});
 		
 /* =================== [EDIT] VARIANT DATA AT TABLE MODAL-CREATE-DATA ==========================*/
-	  $('.edit-data').on('click', function(evt) {
+	  $('body').on('click', 'a.edit-data', function(evt){
+	  //$('.edit-data').on('click', function(evt) {
 		  	clearFormEditItem();
 	    	evt.preventDefault();
 	    	var id=$(this).attr('id');	
@@ -409,6 +410,8 @@ $(document).ready(function(){
 		$('#isi-popup-edit').empty();
 	}
 	
+	
+	
 	//search
  	$('#search-box').on('input',function(e){
 		var keyword = $(this).val();
@@ -418,6 +421,7 @@ $(document).ready(function(){
 			url : '${pageContext.request.contextPath}/item/search-item?search='+keyword,
 			dataType : 'json',
 			success : function (data){
+				$('#full-data-utama').empty();
 				//alert('ok')
 				//$('#full-data-utama').empty();
 				$.each(data,function(key,val){
@@ -431,6 +435,7 @@ $(document).ready(function(){
 				});
 			},
 			error : function (){
+				$('#full-data-utama').empty();
 			}
 		});
 	});  
