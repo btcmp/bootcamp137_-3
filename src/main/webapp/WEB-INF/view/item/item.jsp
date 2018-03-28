@@ -409,7 +409,26 @@ $(document).ready(function(){
 		$('#isi-popup-edit').empty();
 	}
 	
-	
+	//search
+/*  	$('#search-box').on('input',function(e){
+		var keyword = $(this).val();
+		//console.log(keyword)
+		if (word=""){
+			
+		}
+		
+		$.ajax({
+			type : 'GET',
+			url : '${pageContext.request.contextPath}/item/search-item?search='+keyword,
+			dataType : 'json',
+			success : function (){
+				//alert('ok')
+				$('#full-data-utama').empty();
+			},
+			error : function (){	
+			}
+		});
+	});  */
 });
 </script>
 
@@ -419,9 +438,10 @@ $(document).ready(function(){
 	<div>Items</div><br/>
 	<div class="container">
 	<div>
-		<div id="search-box" style="float:left;margin-right:600px;">
-			<span><input type="text" id="search" placeholder="Search"/></span>
+		<div style="float:left;margin-right:600px;">
+			<span><input type="text" id="search-box" placeholder="Search"/></span>
 		</div>
+		
 		
 		<div align="right" style="float:left;margin-right:30px;">
 			<button id="export" class="btn btn-primary btn-md" >Export</button>
@@ -446,7 +466,7 @@ $(document).ready(function(){
 				<th>#</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="full-data-utama">
 			<c:forEach items="${itemInventories}" var="invent">
 				<tr>
 					<td>${invent.itemVariant.item.name} - ${invent.itemVariant.name} </td>
