@@ -36,6 +36,23 @@
 	$(document).ready(function(){
 		//$('#outlet-table').DataTable();
 		
+		
+		//Reset pas create
+		$('#tbl-reset').click(function(){
+			/* $('#outlet-name').val("");
+			$('#outlet-address').val("");
+			$('#outlet-phone').val("");
+			$('#outlet-email').val("");
+			$('#outlet-postal').val("");
+			$('#prov-id option').prop('selected', function() {
+		        return this.defaultSelected;
+		    }); */
+			$('#reg-id').empty();
+			$('#dist-id').empty();
+			$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
+			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+		});
+		
 		//Munculkan modal create
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
