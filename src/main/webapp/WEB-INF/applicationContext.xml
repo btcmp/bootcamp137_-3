@@ -44,7 +44,7 @@
 				<value>com.xsis.batch137.model.PurchaseRequestDetail</value>
 				<value>com.xsis.batch137.model.PurchaseRequestHistory</value>
 				<value>com.xsis.batch137.model.PurchaseOrder</value>
-				<value>com.xsis.batch137.model.PurchaseOrdertDetail</value>
+				<value>com.xsis.batch137.model.PurchaseOrderDetail</value>
 				<value>com.xsis.batch137.model.PurchaseOrderHistory</value>
 				<value>com.xsis.batch137.model.TransferStock</value>
 				<value>com.xsis.batch137.model.TransferStockDetail</value>

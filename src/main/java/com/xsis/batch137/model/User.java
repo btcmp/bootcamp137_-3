@@ -195,6 +195,19 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<PurchaseRequestDetail> modifiedPurchaseRequestDetail;
 	
+	//list purchase order
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseOrder> createPurchaseOrder;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<PurchaseOrder> modifiedPurchaseOrder;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<PurchaseOrderDetail> createPurchaseOrderDetail;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
+	private List<PurchaseOrderDetail> modifiedPurchaseOrderDetail;
+	
 	public List<Adjustment> getCreatedAdjustment() {
 		return createdAdjustment;
 	}
@@ -553,6 +566,38 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 	public void setModifiedPurchaseRequestDetail(List<PurchaseRequestDetail> modifiedPurchaseRequestDetail) {
 		this.modifiedPurchaseRequestDetail = modifiedPurchaseRequestDetail;
+	}
+
+	public List<PurchaseOrder> getCreatePurchaseOrder() {
+		return createPurchaseOrder;
+	}
+
+	public void setCreatePurchaseOrder(List<PurchaseOrder> createPurchaseOrder) {
+		this.createPurchaseOrder = createPurchaseOrder;
+	}
+
+	public List<PurchaseOrder> getModifiedPurchaseOrder() {
+		return modifiedPurchaseOrder;
+	}
+
+	public void setModifiedPurchaseOrder(List<PurchaseOrder> modifiedPurchaseOrder) {
+		this.modifiedPurchaseOrder = modifiedPurchaseOrder;
+	}
+
+	public List<PurchaseOrderDetail> getCreatePurchaseOrderDetail() {
+		return createPurchaseOrderDetail;
+	}
+
+	public void setCreatePurchaseOrderDetail(List<PurchaseOrderDetail> createPurchaseOrderDetail) {
+		this.createPurchaseOrderDetail = createPurchaseOrderDetail;
+	}
+
+	public List<PurchaseOrderDetail> getModifiedPurchaseOrderDetail() {
+		return modifiedPurchaseOrderDetail;
+	}
+
+	public void setModifiedPurchaseOrderDetail(List<PurchaseOrderDetail> modifiedPurchaseOrderDetail) {
+		this.modifiedPurchaseOrderDetail = modifiedPurchaseOrderDetail;
 	}
 	
 	//sesuatu

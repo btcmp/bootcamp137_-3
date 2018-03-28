@@ -37,9 +37,12 @@ public class ItemVariant {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AdjustmentDetail> adjustmentDetail;
 	
-	@ManyToMany(mappedBy = "variantId")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
 	private List<PurchaseRequestDetail> prds;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
+	public List<PurchaseOrderDetail> pods;
+	
 	@Size(max=50)
 	@NotNull
 	private String sku;
@@ -177,6 +180,14 @@ public class ItemVariant {
 
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public List<PurchaseOrderDetail> getPods() {
+		return pods;
+	}
+
+	public void setPods(List<PurchaseOrderDetail> pods) {
+		this.pods = pods;
 	}
 	
 	

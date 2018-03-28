@@ -6,16 +6,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="pos_t_pr")
@@ -59,6 +63,10 @@ public class PurchaseRequest {
 	
 	@OneToMany(mappedBy="prId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PurchaseRequestDetail> prd;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="prId", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private PurchaseOrder po;
 
 	public long getId() {
 		return id;
@@ -146,5 +154,13 @@ public class PurchaseRequest {
 
 	public void setPrd(List<PurchaseRequestDetail> prd) {
 		this.prd = prd;
+	}
+
+	public PurchaseOrder getPo() {
+		return po;
+	}
+
+	public void setPo(PurchaseOrder po) {
+		this.po = po;
 	}
 }
