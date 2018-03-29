@@ -29,17 +29,20 @@ public class AdjustmentDaoImpl implements AdjustmentDao{
 		session.flush();
 	}
 
-	public void delete(Adjustment adjustment) {
+	public void delete(long	id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(adjustment);
+		String hql = "update Adjustment set active = 0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
 	}
 
 	public List<Adjustment> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(Adjustment.class).list();
+		String hql = "from Adjustment where active=1";
+		List<Adjustment> adjustments = session.createQuery(hql).list();
+		return adjustments;
 	}
 
 	public Adjustment getOne(long id) {

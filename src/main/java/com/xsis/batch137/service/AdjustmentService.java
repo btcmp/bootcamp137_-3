@@ -25,9 +25,7 @@ public class AdjustmentService {
 	}
 	
 	public void delete(long id) {
-		Adjustment adjustment = new Adjustment();
-		adjustment.setId(id);
-		adjustmentDao.delete(adjustment);
+		adjustmentDao.delete(id);
 	}
 	
 	public List<Adjustment> getAll() {
