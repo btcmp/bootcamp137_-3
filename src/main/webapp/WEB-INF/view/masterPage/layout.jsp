@@ -371,11 +371,11 @@
 	            </span>
 	          </a>
 	          <ul class="treeview-menu">
-	            <li><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-circle-o"></i> Employee</a></li>
-	            <li><a href="${pageContext.request.contextPath}/category"><i class="fa fa-circle-o"></i> Category</a></li>
-	            <li><a href="${pageContext.request.contextPath}/outlet"><i class="fa fa-circle-o"></i> Outlet</a></li>
-	            <li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-circle-o"></i> Suppplier</a></li>
-	            <li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-circle-o"></i> Item</a></li>
+	            <li><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-users"></i> Employee</a></li>
+	            <li><a href="${pageContext.request.contextPath}/category"><i class="fa fa-object-group"></i> Category</a></li>
+	            <li><a href="${pageContext.request.contextPath}/outlet"><i class="fa fa-shopping-bag"></i> Outlet</a></li>
+	            <li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-building"></i> Suppplier</a></li>
+	            <li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-shopping-cart"></i> Item</a></li>
 	          </ul>
 	        </li>
 	        
@@ -398,9 +398,3 @@
 		</section> <!-- /.sidebar --> </aside>
 
 <div class="content-wrapper">
-		<a href="${pageContext.request.contextPath}/employee"
-			class="btn btn-info btn-lg">Employee</a> <a
-			href="${pageContext.request.contextPath}/category"
-			class="btn btn-info btn-lg">Category</a> <a
-			href="${pageContext.request.contextPath}/item"
-			class="btn btn-info btn-lg">Item</a> <br />
