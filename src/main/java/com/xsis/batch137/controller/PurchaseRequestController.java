@@ -34,4 +34,10 @@ public class PurchaseRequestController {
 	public void save(@RequestBody PurchaseRequest pr) {
 		prService.save(pr);
 	}
+	
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<PurchaseRequest> getAll(){
+		return prService.selectAll();
+	}
 }

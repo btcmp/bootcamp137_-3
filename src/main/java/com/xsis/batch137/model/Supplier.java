@@ -82,8 +82,8 @@ public class Supplier {
 	@Column(nullable=false)
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplierId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PurchaseOrder> pos;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseOrder> purchaseOrders;
 
 	public long getId() {
 		return id;
@@ -197,14 +197,13 @@ public class Supplier {
 		this.district = district;
 	}
 
-	public List<PurchaseOrder> getPos() {
-		return pos;
+	public List<PurchaseOrder> getPurchaseOrders() {
+		return purchaseOrders;
 	}
 
-	public void setPos(List<PurchaseOrder> pos) {
-		this.pos = pos;
+	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
 	}
-
 
 
 }

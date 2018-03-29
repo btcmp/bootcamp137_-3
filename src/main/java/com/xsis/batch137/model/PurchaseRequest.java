@@ -36,10 +36,10 @@ public class PurchaseRequest {
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id", nullable=false)
-	private Outlet outletId;
+	private Outlet outlet;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="prId")
-	private List<PurchaseRequestHistory> prh;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="purchaseReq")
+	private List<PurchaseRequestHistory> history;
 	
 	@Column(name="ready_time")
 	@Temporal(TemporalType.DATE)
@@ -69,12 +69,12 @@ public class PurchaseRequest {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
-	@OneToMany(mappedBy="prId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PurchaseRequestDetail> prd;
+	@OneToMany(mappedBy="purchaseReq", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseRequestDetail> detail;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy="prId", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="purchaseReq", cascade = CascadeType.ALL)
 	@JsonManagedReference
-	private PurchaseOrder po;
+	private PurchaseOrder order;
 
 	public long getId() {
 		return id;
@@ -82,14 +82,6 @@ public class PurchaseRequest {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Outlet getOutletId() {
-		return outletId;
-	}
-
-	public void setOutletId(Outlet outletId) {
-		this.outletId = outletId;
 	}
 
 	public Date getReadyTime() {
@@ -156,28 +148,37 @@ public class PurchaseRequest {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public List<PurchaseRequestDetail> getPrd() {
-		return prd;
+	public Outlet getOutlet() {
+		return outlet;
 	}
 
-	public void setPrd(List<PurchaseRequestDetail> prd) {
-		this.prd = prd;
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
 	}
 
-	public PurchaseOrder getPo() {
-		return po;
+	public List<PurchaseRequestHistory> getHistory() {
+		return history;
 	}
 
-	public void setPo(PurchaseOrder po) {
-		this.po = po;
+	public void setHistory(List<PurchaseRequestHistory> history) {
+		this.history = history;
 	}
 
-	public List<PurchaseRequestHistory> getPrh() {
-		return prh;
+	public List<PurchaseRequestDetail> getDetail() {
+		return detail;
 	}
 
-	public void setPrh(List<PurchaseRequestHistory> prh) {
-		this.prh = prh;
+	public void setDetail(List<PurchaseRequestDetail> detail) {
+		this.detail = detail;
 	}
+
+	public PurchaseOrder getOrder() {
+		return order;
+	}
+
+	public void setOrder(PurchaseOrder order) {
+		this.order = order;
+	}
+	
 
 }

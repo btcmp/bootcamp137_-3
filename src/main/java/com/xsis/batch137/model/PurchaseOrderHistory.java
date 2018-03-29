@@ -30,7 +30,7 @@ public class PurchaseOrderHistory {
 	@OneToOne
 	@JoinColumn(name="po_id")
 	@JsonBackReference
-	private PurchaseOrder poId;
+	private PurchaseOrder purchaseOrder;
 	
 	@Size(max=20)
 	private String status;
@@ -48,14 +48,6 @@ public class PurchaseOrderHistory {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public PurchaseOrder getPoId() {
-		return poId;
-	}
-
-	public void setPoId(PurchaseOrder poId) {
-		this.poId = poId;
 	}
 
 	public String getStatus() {
@@ -80,6 +72,14 @@ public class PurchaseOrderHistory {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public PurchaseOrder getPurchaseOrder() {
+		return purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
 	
 }

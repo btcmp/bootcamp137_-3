@@ -36,19 +36,19 @@ public class PurchaseOrder {
 	@OneToOne
 	@JoinColumn(name="pr_id")
 	@JsonBackReference
-	private PurchaseRequest prId;
+	private PurchaseRequest purchaseReq;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy="poId", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)
 	@JsonManagedReference
-	private PurchaseOrderHistory poh;
+	private PurchaseOrderHistory history;
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id")
-	private Outlet outletId;
+	private Outlet outlet;
 	
 	@ManyToOne
 	@JoinColumn(name="supplier_id")
-	private Supplier supplierId;
+	private Supplier supplier;
 	
 	@Column(name="po_no")
 	@Size(max=20)
@@ -77,8 +77,8 @@ public class PurchaseOrder {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poId", cascade = CascadeType.ALL)
-	private List<PurchaseOrderDetail> pods;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+	private List<PurchaseOrderDetail> detail;
 
 	public long getId() {
 		return id;
@@ -86,30 +86,6 @@ public class PurchaseOrder {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public PurchaseRequest getPrId() {
-		return prId;
-	}
-
-	public void setPrId(PurchaseRequest prId) {
-		this.prId = prId;
-	}
-
-	public Outlet getOutletId() {
-		return outletId;
-	}
-
-	public void setOutletId(Outlet outletId) {
-		this.outletId = outletId;
-	}
-
-	public Supplier getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(Supplier supplierId) {
-		this.supplierId = supplierId;
 	}
 
 	public String getPoNo() {
@@ -176,21 +152,45 @@ public class PurchaseOrder {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public List<PurchaseOrderDetail> getPods() {
-		return pods;
+	public PurchaseRequest getPurchaseReq() {
+		return purchaseReq;
 	}
 
-	public void setPods(List<PurchaseOrderDetail> pods) {
-		this.pods = pods;
+	public void setPurchaseReq(PurchaseRequest purchaseReq) {
+		this.purchaseReq = purchaseReq;
 	}
 
-	public PurchaseOrderHistory getPoh() {
-		return poh;
+	public PurchaseOrderHistory getHistory() {
+		return history;
 	}
 
-	public void setPoh(PurchaseOrderHistory poh) {
-		this.poh = poh;
+	public void setHistory(PurchaseOrderHistory history) {
+		this.history = history;
 	}
-	
+
+	public Outlet getOutlet() {
+		return outlet;
+	}
+
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public List<PurchaseOrderDetail> getDetail() {
+		return detail;
+	}
+
+	public void setDetail(List<PurchaseOrderDetail> detail) {
+		this.detail = detail;
+	}
+
 	
 }

@@ -29,11 +29,11 @@ public class PurchaseRequestDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="pr_id")
-	private PurchaseRequest prId;
+	private PurchaseRequest purchaseReq;
 	
 	@ManyToOne
 	@JoinColumn(name="variant_id")
-	private ItemVariant variantId;
+	private ItemVariant variant;
 	
 	@Column(name="request_qty")
 	private int requestQty;
@@ -58,14 +58,6 @@ public class PurchaseRequestDetail {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public PurchaseRequest getPrId() {
-		return prId;
-	}
-
-	public void setPrId(PurchaseRequest prId) {
-		this.prId = prId;
 	}
 
 	public int getRequestQty() {
@@ -108,13 +100,21 @@ public class PurchaseRequestDetail {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public ItemVariant getVariantId() {
-		return variantId;
+	public PurchaseRequest getPurchaseReq() {
+		return purchaseReq;
 	}
 
-	public void setVariantId(ItemVariant variantId) {
-		this.variantId = variantId;
+	public void setPurchaseReq(PurchaseRequest purchaseReq) {
+		this.purchaseReq = purchaseReq;
 	}
-	
+
+	public ItemVariant getVariant() {
+		return variant;
+	}
+
+	public void setVariant(ItemVariant variant) {
+		this.variant = variant;
+	}
+
 	
 }

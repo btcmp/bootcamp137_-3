@@ -91,12 +91,12 @@ public class Outlet {
 	private List<Adjustment> adjustments;
 	
 	// relate to purchase request
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outletId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PurchaseRequest> prs;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseRequest> purchaseReqs;
 	
 	// relate to purchase order
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outletId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PurchaseOrder> pos;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outlet", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PurchaseOrder> purchaseOrders;
 
 	public List<Adjustment> getAdjustments() {
 		return adjustments;
@@ -234,20 +234,20 @@ public class Outlet {
 		this.district = district;
 	}
 
-	public List<PurchaseRequest> getPrs() {
-		return prs;
+	public List<PurchaseRequest> getPurchaseReqs() {
+		return purchaseReqs;
 	}
 
-	public void setPrs(List<PurchaseRequest> prs) {
-		this.prs = prs;
+	public void setPurchaseReqs(List<PurchaseRequest> purchaseReqs) {
+		this.purchaseReqs = purchaseReqs;
 	}
 
-	public List<PurchaseOrder> getPos() {
-		return pos;
+	public List<PurchaseOrder> getPurchaseOrders() {
+		return purchaseOrders;
 	}
 
-	public void setPos(List<PurchaseOrder> pos) {
-		this.pos = pos;
+	public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+		this.purchaseOrders = purchaseOrders;
 	}
 
 

@@ -37,11 +37,11 @@ public class ItemVariant {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<AdjustmentDetail> adjustmentDetail;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
-	private List<PurchaseRequestDetail> prds;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL)
+	private List<PurchaseRequestDetail> purchaseReqDetail;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variantId", cascade = CascadeType.ALL)
-	public List<PurchaseOrderDetail> pods;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "variant", cascade = CascadeType.ALL)
+	public List<PurchaseOrderDetail> purchaseOrderDetail;
 	
 	@Size(max=50)
 	@NotNull
@@ -162,14 +162,6 @@ public class ItemVariant {
 		this.adjustmentDetail = adjustmentDetail;
 	}
 
-	public List<PurchaseRequestDetail> getPrds() {
-		return prds;
-	}
-
-	public void setPrds(List<PurchaseRequestDetail> prds) {
-		this.prds = prds;
-	}
-
 	public User getCreatedBy() {
 		return createdBy;
 	}
@@ -186,20 +178,28 @@ public class ItemVariant {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public List<PurchaseOrderDetail> getPods() {
-		return pods;
-	}
-
-	public void setPods(List<PurchaseOrderDetail> pods) {
-		this.pods = pods;
-	}
-
 	public List<TransferStockDetail> getTransferStockDetail() {
 		return transferStockDetail;
 	}
 
 	public void setTransferStockDetail(List<TransferStockDetail> transferStockDetail) {
 		this.transferStockDetail = transferStockDetail;
+	}
+
+	public List<PurchaseRequestDetail> getPurchaseReqDetail() {
+		return purchaseReqDetail;
+	}
+
+	public void setPurchaseReqDetail(List<PurchaseRequestDetail> purchaseReqDetail) {
+		this.purchaseReqDetail = purchaseReqDetail;
+	}
+
+	public List<PurchaseOrderDetail> getPurchaseOrderDetail() {
+		return purchaseOrderDetail;
+	}
+
+	public void setPurchaseOrderDetail(List<PurchaseOrderDetail> purchaseOrderDetail) {
+		this.purchaseOrderDetail = purchaseOrderDetail;
 	}
 	
 	

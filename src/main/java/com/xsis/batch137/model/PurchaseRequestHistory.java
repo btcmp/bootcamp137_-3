@@ -30,7 +30,7 @@ public class PurchaseRequestHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="pr_id")
-	private PurchaseRequest prId;
+	private PurchaseRequest purchaseReq;
 	
 	@Size(max=20)
 	private String status;
@@ -48,14 +48,6 @@ public class PurchaseRequestHistory {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public PurchaseRequest getPrId() {
-		return prId;
-	}
-
-	public void setPrId(PurchaseRequest prId) {
-		this.prId = prId;
 	}
 
 	public String getStatus() {
@@ -80,5 +72,13 @@ public class PurchaseRequestHistory {
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	public PurchaseRequest getPurchaseReq() {
+		return purchaseReq;
+	}
+
+	public void setPurchaseReq(PurchaseRequest purchaseReq) {
+		this.purchaseReq = purchaseReq;
 	}
 }
