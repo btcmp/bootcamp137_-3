@@ -8,7 +8,7 @@ public interface SupplierDao {
 //
 	public void save(Supplier sup);
 	
-	public void delete(Supplier sup);
+	public void delete(long id);
 	
 	public void update(Supplier sup);
 	

@@ -41,11 +41,7 @@ public class SupplierService {
 	}
 	
 	public void delete(long id) {
-		Supplier sup = new Supplier();
-		sup.setId(id);
-		sup.setName("Yos");
-		sup.setActive(false);
-		supplierDao.delete(sup);
+		supplierDao.delete(id);
 	}
 	
 	public List<Supplier> selectAll() {

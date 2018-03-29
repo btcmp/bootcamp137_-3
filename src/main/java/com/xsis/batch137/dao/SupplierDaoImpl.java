@@ -22,10 +22,11 @@ public class SupplierDaoImpl implements SupplierDao{
 		session.flush();
 	}
 
-	public void delete(Supplier sup) {
+	public void delete(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(sup);
+		String hql = "update Supplier set active = 0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
 	}
 

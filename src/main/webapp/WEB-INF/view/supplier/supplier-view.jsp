@@ -50,6 +50,26 @@
 			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 		});
 		
+		
+		//Men-delete (menonaktifkan sebenarnya)
+		$('#tbl-delete').click(function(){
+			var id = $('#edit-id').val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/supplier/delete/'+id,
+				type : 'DELETE',
+				success : function(id){
+					console.log(id);
+					alert('Delete success..');
+					window.location = '${pageContext.request.contextPath}/supplier';
+				},
+				error : function(id){
+					console.log(id);
+					alert('Cannot Delete');
+				}
+			});
+		});
+		
+		
 		//Men-save hasil create
 		$('#tbl-simpan').on('click', function(e){
 			e.preventDefault();
