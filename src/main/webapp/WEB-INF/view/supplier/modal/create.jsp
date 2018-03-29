@@ -34,13 +34,13 @@
 							<tr>
 								<td>Email</td>
 								<td>:</td>
-								<td><input type="text" name="supplier-email" id="supplier-email" data-parsley-required="true" /></td>
+								<td><input type="text" name="supplier-email" id="supplier-email" data-parsley-required="true" placeholder="example: alfa@gmail.com" /></td>
 							</tr>
 							
 							<tr>
 								<td>Postal Code</td>
 								<td>:</td>
-								<td><input type="text" name="supplier-postal" id="supplier-postal" data-parsley-required="true" /></td>
+								<td><input type="text" name="supplier-postal" id="supplier-postal" data-parsley-required="true" placeholder="max six characters" /></td>
 							</tr>
     						    						
 							<tr>
@@ -59,6 +59,7 @@
 						
 						<tbody>
 						<tr>
+						
 						<td>
 						<select name="area" required="required" id="prov-id">
     					<option disabled selected value=""> --- Select A Province --- </option>
@@ -84,12 +85,13 @@
 						</tbody>
 						</table>
 						
-						</form>
+						
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="reset" class="btn btn-danger" id="tbl-reset">Cancel</button>
 					<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
 				</div>
+				</form>
 			</div>
 
 		</div>

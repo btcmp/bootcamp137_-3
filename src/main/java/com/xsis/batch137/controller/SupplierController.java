@@ -57,9 +57,10 @@ public class SupplierController {
 	}
 	
 	@RequestMapping(value="/take/{id}", method=RequestMethod.GET)
-	public void getOne(@PathVariable long id, Model model) {
+	@ResponseBody
+	public Supplier getOne(@PathVariable long id) {
 		Supplier supplier = supplierService.getOne(id);
-		model.addAttribute("supplier", supplier);
+		return supplier;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)

@@ -34,10 +34,20 @@
 	$(document).ready(function(){
 		//$('#supplier-table').DataTable();
 		
+		
 		//Memanggil modal create
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
 			$('#modal-create').modal();
+		});
+		
+		
+		//Mereset form create
+		$('#tbl-reset').click(function(){
+			$('#reg-id').empty();
+			$('#dist-id').empty();
+			$('#reg-id').append('<option disabled selected value=""> --- Select A Region --- </option>');
+			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 		});
 		
 		//Men-save hasil create
@@ -78,12 +88,13 @@
 			});
 		});
 		
+		
 		//Get Region By Province
 		$('#prov-id').change(function(){
 			$('#reg-id').empty();
 			$('#dist-id').empty();
-			$('#reg-id').append('<option disabled selected value=""> -- Select A Region -- </option>');
-			$('#dist-id').append('<option disabled selected value=""> -- Select A District -- </option>');
+			$('#reg-id').append('<option disabled selected value=""> --- Select A Region --- </option>');
+			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
 				url : '${pageContext.request.contextPath}/supplier/get-region/'+id,
@@ -101,10 +112,11 @@
 			});
 		});
 		
+		
 		//Get District By Region
 		$('#reg-id').change(function(){
 			$('#dist-id').empty();
-			$('#dist-id').append('<option disabled selected value=""> -- Select A District -- </option>');
+			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
 				url : '${pageContext.request.contextPath}/supplier/get-district/'+id,
@@ -116,33 +128,117 @@
 					});
 				},
 				error : function(districts){
-					
+					console.log(districts);
+					alert('Cannot take district..');
 				}
 			});
 		});
 		
 		
-		
+		//Ambil data dan naruh ke modal edit
 		$('.btn-edit').on('click', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
 				url : '${pageContext.request.contextPath}/supplier/take/' + id,
 				type : 'GET',
-				success : function(){
+				success : function(supplier){
 					$('#edit-name').val(supplier.name);
 					$('#edit-address').val(supplier.address);
 					$('#edit-phone').val(supplier.phone);
 					$('#edit-email').val(supplier.email);
+					$('#edit-postal').val(supplier.postalCode);
 					$('#edit-id').val(supplier.id);
+					$('#prov-edit').val(supplier.province.id);
+					var idProv = supplier.province.id;
+					$.ajax({
+						url : '${pageContext.request.contextPath}/supplier/get-region/'+idProv,
+						type : 'GET',
+						success : function(regions){
+							console.log(regions);
+							$('#reg-edit').empty();
+							$('#reg-edit').append('<option disabled selected value=""> --- Select A Region --- </option>');
+							$(regions).each(function(index, data){
+								$('#reg-edit').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
+							});
+							$('#reg-edit').val(supplier.region.id);
+							var idReg = supplier.region.id;
+							$.ajax({
+								url : '${pageContext.request.contextPath}/supplier/get-district/'+idReg,
+								type : 'GET',
+								success : function(districts){
+									$('#dist-edit').empty();
+									$('#dist-edit').append('<option disabled selected value=""> --- Select A District --- </option>');
+									console.log(districts);
+									$(districts).each(function(index, data){
+										$('#dist-edit').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
+									});
+									$('#dist-edit').val(supplier.district.id);
+								},
+								error : function(districts){
+									console.log(districts);
+									alert('Cannot take district..');
+								}
+							});
+						},
+						error : function(regions){
+							console.log(regions);
+							alert('Cannot take regions..');
+						}
+					});
 				},
-				error : function(){
-					
+				error : function(districts){
+					console.log(districts);
+					alert('Cannot take districts..');
 				}
 			});
 			$('#modal-edit').modal();
 		});
 		
+		//Take region by province in modal edit
+		$('#prov-edit').change(function(){
+			$('#reg-edit').empty();
+			$('#reg-edit').append('<option disabled selected value=""> --- Select A Region --- </option>');
+			$('#dist-edit').empty();
+			$('#dist-edit').append('<option disabled selected value=""> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/supplier/get-region/' + id,
+				type : 'GET',
+				success : function(regions){
+					console.log(regions);
+					$(regions).each(function(index, data){
+						$('#reg-edit').append('<option value="'+data.id+'">'+data.name+'</option>');
+					});
+				},
+				error : function(regions){
+					console.log(regions);
+					alert('Cannot take region..');
+				}
+			});
+		});
+		
+		//Take District By Region in modal edit
+		$('#reg-edit').change(function(){
+			$('#dist-edit').empty();
+			$('#dist-edit').append('<option disabled selected value=""> --- Select A District --- </option>');
+			var id = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/supplier/get-district/' + id,
+				type : 'GET',
+				success : function(districts){
+					console.log(districts);
+					$(districts).each(function(index, data){
+						$('#dist-edit').append('<option value="'+data.id+'">'+data.name+'</option>');
+					});
+				},
+				error : function(districts){
+					console.log(districts);
+				}
+			});
+		});
+		
+		//Kirim hasil editan ke DB
 		$('#tbl-edit').on('click', function(e){
 			e.preventDefault();
 			var supplier = {
@@ -151,7 +247,17 @@
 				phone : $('#edit-phone').val(),
 				email : $('#edit-email').val(),
 				id : $('#edit-id').val(),
-				active : true
+				postalCode : $('#edit-postal').val(),
+				active : true,
+				province : {
+					id : $('#prov-edit').val()
+				},
+				region : {
+					id : $('#reg-edit').val()
+				},
+				district : {
+					id : $('#dist-edit').val()
+				}
 			};
 			
 			$.ajax({
