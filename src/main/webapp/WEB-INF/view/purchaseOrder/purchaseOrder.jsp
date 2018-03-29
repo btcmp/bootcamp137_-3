@@ -1,12 +1,12 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <div class="container">
 
-	<h3>Purchase Request</h3>
+	<h3>Purchase Order</h3>
 	<hr style="border-color:black;">
 	<div class="row">
 		<div class="col-xs-3">
 			<div class="input-group">
-		       <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+		       <button type="button" class="btn btn-default pull-right" id="pilih-tanggal-range">
 		         <span>
 		           <i class="fa fa-calendar"></i> Pilih Tanggal
 		         </span>
@@ -87,11 +87,11 @@
 	                	<div class="input-group-addon">
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
-	                	<input type="text" class="form-control pull-right" id="datepicker">
+	                	<input type="text" class="form-control pull-right" id="pilih-tanggal">
 	                </div>
-	                <div class="input-group">
+	                <div class="form-group">
 	                	<h4>Notes : </h4>
-	                	<textarea class="form-control" rows="5" id="in-notes" style="width:100%"></textarea>
+	                	<textarea class="form-control" rows="5" id="in-notes"></textarea>
 	                </div>
 	                
 	                <h4>Purchase Request</h4>
@@ -146,7 +146,7 @@
 </body>
 <script>
 	$(function(){
-		$('#daterange-btn').daterangepicker(
+		$('#pilih-tanggal-range').daterangepicker(
 		      {
 		        ranges   : {
 		          'Hari Ini'       : [moment(), moment()],
@@ -160,11 +160,11 @@
 		        endDate  : moment()
 		      },
 		      function (start, end) {
-		        $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+		        $('#pilih-tanggal-range span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
 		      }
 	    );
 	    
-	    $('#datepicker').datepicker({
+	    $('#pilih-tanggal').datepicker({
       		autoclose: true
     	});
 	    

@@ -10,10 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="pos_t_po_detail")
 public class PurchaseOrderDetail {
 
+	public PurchaseOrderDetail() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;

@@ -10,13 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name="pos_t_po_history")
 public class PurchaseOrderHistory {
 
+	public PurchaseOrderHistory() {
+		this.createdOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
