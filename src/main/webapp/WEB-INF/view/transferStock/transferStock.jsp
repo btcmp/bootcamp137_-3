@@ -9,6 +9,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var saved = [];
+		var savedQty = [];
+		var dataFromAddItem = [];
 		
 		//Create Data Clicked
 		$('#create-transfer-stock').on('click',function(evt){
@@ -22,13 +24,99 @@
 			$('#modal-add-transfer-item').modal();
 		}); 
 		
+		//save transfer item
+		$('#btn-save-transfer-item').on('click',function(evt){
+			evt.preventDefault;
+			$.each(dataFromAddItem, function(key,val) {
+		 			$('#isi-popup-transfer').append('<tr>'
+		 					+'<td>'+val.item+'</td>'
+							+ '<td>'+val.inStock+'</td>'
+							+ '<td id="qty-'+val.id+'">'+val.transferQty+'</td>'
+							+ '<td>'+val.idVariant+'</td>'
+							+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item'+val.id+'">X</a> </td>'
+							+ '</tr>');
+		 		});
+			
+		}); 
+		
+		//executeSave
+		$('#btn-create-data').on('click',function(evt){
+			evt.preventDefault;
+		
+			var transferStockDetail=[];
+			
+			 $('#data-popup-transfer > tbody > tr').each(function(index,data){
+				var tsd = {
+						itemVariant : {
+							id : $(data).find('td').eq(3).text()
+						},
+						inStock : $(data).find('td').eq(1).text(),
+						transferQty : $(data).find('td').eq(2).text()
+				}
+				transferStockDetail.push(tsd);
+			});
+			 
+		  var transferStock = {
+					fromOutlet : {
+						id : $('#add-transfer-from').val()
+					},
+					toOutlet : {
+						id : $('#add-transfer-to').val()
+					},
+					transferStockDetail : transferStockDetail,
+					notes : $('#add-notes').val(),
+					status : "Submitted"
+			};
+		  
+		  console.log(transferStock)
+		  
+			$.ajax({
+				url : '${pageContext.request.contextPath }/transfer-stock/save',
+				type : 'POST',
+				data : JSON.stringify(transferStock),
+				contentType : 'application/json',
+				success : function(){
+					alert('save successfully');
+					window.location='${pageContext.request.contextPath}/transfer-stock';
+				}, error : function(){
+					alert('save failed');
+				}
+			}) 
+			
+		});
+		
+		
 		//clik save item
 		//a >> tag
-		$('body').on('click', 'a.save-item', function(evt){
+		$('body').on('click', 'a.btn-save-item', function(evt){
 			var id = $(this).attr('id');
+			var transQty=$('.add-transfer-stock-qty'+id).val();
+			
+			var fullData = {
+					id : id,
+					item : $('.item-name'+id).text(),
+					inStock : $('.in-stock'+id).text(),
+					transferQty : $('.add-transfer-stock-qty'+id).val(),
+					idVariant : $('.item-variant'+id).text()
+			}
+			
+			dataFromAddItem.push(fullData);
+			
+			console.log (dataFromAddItem);
+			
 			console.log(id);
 			evt.preventDefault;
 			/* $('#td-qty-'+id).html(transQty); */
+			saved.push(id);
+			savedQty.push(transQty);
+			//supaya gak bsa d edit lg
+ 			console.log(saved)
+			console.log(savedQty) 
+			$('#qty-'+id).html(transQty);
+			$(this).hide();
+			$('.add-transfer-saved'+id).show();
+			
+			
 		});
 		
 		
@@ -46,17 +134,29 @@
 					dataType : 'json',
 					success : function (data){
 			 			$('#isi-popup-transfer-stock').empty();
-						//alert('ok')
-						//$('#full-data-utama').empty();
 						$.each(data,function(key,val){
-						$('#isi-popup-transfer-stock').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
-								+ '<td>'+val.endingQty+'</td>'
-								+ '<td id="qty-"'+val.id+'><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td>'
-								+ '<td> <a href="#" id='+val.id +' class="save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved">SAVED</a> </td>'
-								+ '</tr>');
+						if(saved.indexOf(val.id.toString())==-1){
+							console.log(val.id);
+							$('#isi-popup-transfer-stock').append('<tr><td class="item-name'+val.id+'">'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+									+ '<td class="in-stock'+val.id+'">'+val.endingQty+'</td>'
+									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td>'
+									+ '<td class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
+									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'">SAVED</a> </td>'
+									+ '</tr>');
+							$('.add-transfer-saved'+val.id).hide();
+						}
 						
-					/* 	$('.add-transfer-ok'+val.id).hide();
-						 */
+						else{
+							var x = saved.indexOf(val.id.toString());
+							$('#isi-popup-transfer-stock').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+									+ '<td>'+val.endingQty+'</td>'
+									+ '<td id="qty-'+val.id+'">'+savedQty[x]+'</td>'
+									+ '<td class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
+									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'">SAVED</a> </td>'
+									+ '</tr>');
+							$('.save-item'+val.id).hide();
+						}
+						
 						});
 					},
 					error : function (){
@@ -65,6 +165,7 @@
 				});
 	 		}
 	 	});
+	 	
 	});
 </script>
 
@@ -112,9 +213,9 @@
 					<c:forEach items="${transferStocks}" var="trstock">
 						<tr>
 							<td>${trstock.modifiedOn}</td>
-							<td>${tstock.fromOutlet.name}</td>
-							<td>${tstock.toOutlet.name}</td>
-							<td>${tstock.status}</td>
+							<td>${trstock.fromOutlet.name}</td>
+							<td>${trstock.toOutlet.name}</td>
+							<td>${trstock.status}</td>
 							<td><a href="#" id="${tstock.id}"
 								class="edit-data-transfer-stock">Edit</a></td>
 						</tr>

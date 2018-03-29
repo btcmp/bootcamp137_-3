@@ -3,13 +3,17 @@ package com.xsis.batch137.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.TransferStock;
@@ -44,6 +48,12 @@ public class TransferStockController {
 	public List<ItemInventory> searchItem(@RequestParam(value="search",defaultValue="") String search){
 		List<ItemInventory> itemInventories = itemInventoryService.searchItemInventoryByItemName(search);
 		return itemInventories;
+	}
+	
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void save(@RequestBody TransferStock transferStock) {
+		transferStockService.save(transferStock);
 	}
 	
 }

@@ -17,10 +17,12 @@
 						        			
 					<table id="data-popup-add-transfer-stock" class="table table-striped table-bordered table-hover">
 						<thead>
-							<tr>
+							<tr>	
 								<th>Item</th>
 								<th>In Stock</th>
 								<th>Trans. Qty</th>
+								<th>ID VARIANT</th>
+								<th>#</th>
 							</tr>
 						</thead>
 						<tbody id="isi-popup-transfer-stock">		
@@ -40,7 +42,7 @@
 
 					<div class="modal-footer">
 						<button type="button" id="cancel-add-transfer-item" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-						<button type="submit" id="btn-add-transfer-item" class="btn btn-primary">Add</button>
+						<button type="submit" id="btn-save-transfer-item" data-dismiss="modal" class="btn btn-primary">Add</button>
 					</div>
 				</form>
 			</div>

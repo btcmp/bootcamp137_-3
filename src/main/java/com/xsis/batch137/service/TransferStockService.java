@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.TransferStockDao;
+import com.xsis.batch137.dao.TransferStockDetailDao;
 import com.xsis.batch137.model.TransferStock;
+import com.xsis.batch137.model.TransferStockDetail;
 ///
 @Service
 @Transactional
@@ -15,8 +17,19 @@ public class TransferStockService {
 	@Autowired
 	TransferStockDao transferStockDao;
 	
+	@Autowired
+	TransferStockDetailDao transferStockDetailDao;
+	
 	public void save(TransferStock transferStock) {
+		List<TransferStockDetail> transferStockDetails=transferStock.getTransferStockDetail();
+		transferStock.setTransferStockDetail(null);
 		transferStockDao.save(transferStock);
+		
+		for(TransferStockDetail tsd: transferStockDetails) {
+			tsd.setTransferStock(transferStock);
+			transferStockDetailDao.save(tsd);
+		}
+		
 	}
 	public TransferStock getOne(Long id) {
 		TransferStock transferStock=new TransferStock();

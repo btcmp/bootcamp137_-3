@@ -14,6 +14,17 @@
 					<div class="form-group">
 						<p>CREATE NEW TRANSFER STOCK FORM</p> 
 					</div>
+					
+					
+						<div class="form-group">
+						<label for="input-region">From</label> <select
+							class=form-control id="add-transfer-from">
+							<c:forEach var="out" items="${outlets}">
+								<option value="${out.id}">${out.name}</option>
+							</c:forEach>
+						</select>
+					</div>
+					
 
 					<div class="form-group">
 						<label for="input-region">To</label> <select
@@ -26,7 +37,7 @@
 
 					<div class="form-group">
 						<label>Notes</label> <br/>
-						<textarea  class=form-control rows="4" cols="50" name="comment" form="usrform"></textarea>
+						<textarea id="add-notes"  class=form-control rows="4" cols="50" name="comment" form="usrform"></textarea>
 					</div>
 					
 					<div style="float:left"> 
@@ -39,6 +50,7 @@
 								<th>Item</th>
 								<th>In Stock</th>
 								<th>Trans. Qty</th>
+								<th>ID VARIANT</th>
 								<th>#</th>
 							</tr>
 						</thead>
