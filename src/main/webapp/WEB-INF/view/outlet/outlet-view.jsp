@@ -53,6 +53,23 @@
 			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 		});
 		
+		$('#tbl-delete').click(function(){
+			var id = $('#edit-id').val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/delete?id='+id,
+				type : 'DELETE',
+				success : function(id){
+					console.log(id);
+					alert('Delete success..');
+					window.location = '${pageContext.request.contextPath}/outlet';
+				},
+				error : function(id){
+					console.log(id);
+					alert('Failed to delete..')
+				}
+			});
+		});
+		
 		//Munculkan modal create
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
@@ -162,6 +179,8 @@
 						type : 'GET',
 						success : function(regions){
 							console.log(regions);
+							$('#reg-edit').empty();
+							$('#reg-edit').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
 							$(regions).each(function(index, data){
 								$('#reg-edit').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
 							});
@@ -171,7 +190,9 @@
 								url : '${pageContext.request.contextPath}/outlet/get-district/'+idReg,
 								type : 'GET',
 								success : function(districts){
-									console.log(districts)
+									console.log(districts);
+									$('#dist-edit').empty();
+									$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 									$(districts).each(function(index, data){
 										$('#dist-edit').append('<option value="'+data.id+'">'+data.name+'</option>');
 									});
@@ -182,7 +203,6 @@
 									alert('Cannot get districts');
 								}
 							});
-
 						},
 						error : function(regions){
 							console.log(regions);
@@ -248,6 +268,7 @@
 				phone : $('#edit-phone').val(),
 				email : $('#edit-email').val(),
 				id : $('#edit-id').val(),
+				postalCode : $('#edit-postal').val(),
 				active : true,
 				province : {
 					id : $('#prov-edit').val()
@@ -268,6 +289,7 @@
 				success : function(){
 					console.log(outlet);
 					alert('Oke..');
+					window.location = '${pageContext.request.contextPath}/outlet';
 				},
 				error : function(){
 					console.log(outlet);

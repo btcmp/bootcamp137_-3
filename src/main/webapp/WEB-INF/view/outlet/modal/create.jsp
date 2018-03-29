@@ -32,13 +32,13 @@
 							<tr>
 								<td>Email</td>
 								<td>:</td>
-								<td><input type="text" name="outlet-email" id="outlet-email" data-parsley-required="true" /></td>
+								<td><input type="text" name="outlet-email" id="outlet-email" data-parsley-required="true" placeholder="rama@gmail.com" /></td>
 							</tr>
 							
 							<tr>
 								<td>Postal Code</td>
 								<td>:</td>
-								<td><input type="text" name="outlet-postal" id="outlet-postal" data-parsley-required="true" /></td>
+								<td><input type="text" name="outlet-postal" id="outlet-postal" data-parsley-required="true" placeholder="max six characters" /></td>
 							</tr>
 							
 							
@@ -83,13 +83,16 @@
 						</tr>
 						</tbody>
 						</table>
-						
-					</form>
-				</div>
+				</div>	
+					
+				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="reset" class="btn btn-danger" id="tbl-reset">Cancel</button>
 					<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
 				</div>
+				
+				</form>
+				
 			</div>
 
 		</div>

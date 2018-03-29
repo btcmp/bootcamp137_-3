@@ -29,10 +29,11 @@ public class OutletDaoImpl implements OutletDao{
 		session.flush();
 	}
 
-	public void delete(Outlet outlet) {
+	public void delete(long	id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(outlet);
+		String hql = "update Outlet set active = 0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
 	}
 

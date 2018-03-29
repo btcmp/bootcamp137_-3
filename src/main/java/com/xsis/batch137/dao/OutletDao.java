@@ -10,7 +10,7 @@ public interface OutletDao {
 	
 	public void update(Outlet outlet);
 	
-	public void delete(Outlet outlet);
+	public void delete(long id);
 	
 	public List<Outlet> selectAll();
 	

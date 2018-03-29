@@ -41,11 +41,7 @@ public class OutletService {
 	}
 	
 	public void delete(long id) {
-		Outlet outlet = new Outlet();
-		outlet.setId(id);
-		outlet.setName("Yos");
-		outlet.setActive(false);
-		outletDao.delete(outlet);
+		outletDao.delete(id);
 	}
 	
 	public List<Outlet> selectAll() {

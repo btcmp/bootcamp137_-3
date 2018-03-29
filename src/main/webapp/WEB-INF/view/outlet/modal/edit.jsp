@@ -32,19 +32,65 @@
 							<tr>
 								<td>Email</td>
 								<td>:</td>
-								<td><input type="text" name="edit-email" id="edit-email" data-parsley-required="true" /></td>
+								<td><input type="text" name="edit-email" id="edit-email" data-parsley-required="true" placeholder="example: rama@gmail.com" /></td>
+							</tr>
+							
+							<tr>
+								<td>Postal Code</td>
+								<td>:</td>
+								<td><input type="text" name="outlet-postal" id="edit-postal" data-parsley-required="true" placeholder="max six characters" /></td>
 							</tr>
 							
 							<tr>
 								<td><input type="hidden" name="id" id="edit-id"></td>
 							</tr>
 						</table>
-					</form>
+						
+						<table>
+						<thead>
+							<tr>
+								<td class="text-center">Province</td>
+								<td class="text-center">Region</td>
+								<td class="text-center">District</td>
+							</tr>
+						</thead>
+						
+						<tbody>
+						<tr>
+						<td>
+						<select name="area" required="required" id="prov-edit">
+    					<option disabled selected value=""> --- Select A Province --- </option>
+    					<c:forEach var="prov" items="${provinces }">
+    						<option value="${prov.id }">${prov.name }</option>
+    					</c:forEach>
+						</select>
+						</td>
+						
+						<td>
+						<select name="area" required="required" id="reg-edit">
+    						<option disabled selected value=""> --- Select A Region --- </option>
+						</select>
+						</td>
+						
+						<td>
+						<select name="area" required="required" id="dist-edit">
+    						<option disabled selected value=""> --- Select A District --- </option>
+						</select>
+						</td>
+						
+						</tr>
+						</tbody>
+						</table>
+						
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-danger" id="tbl-delete">X</button>
+					<button type="button" class="btn btn-warning" id="tbl-cancel">Cancel</button>
 					<button type="button" class="btn btn-info" id="tbl-edit">Save</button>
 				</div>
+				
+				</form>
 			</div>
 
 		</div>
