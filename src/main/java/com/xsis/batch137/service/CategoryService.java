@@ -37,18 +37,19 @@ public class CategoryService {
 	//
 	public List<Category> selectAll() {
 		List<Category> categories = categoryDao.selectAll();
-		if (categories.isEmpty()) {
+		if (categories == null) {
 			return null;
-		}
-		for(Category category : categories) {
-			List<Item> items = itemDao.getItemByCategory(category);
-			if (items == null) {
-				category.setItemStock(0);
+		}else {
+			for(Category category : categories) {
+				List<Item> items = itemDao.getItemByCategory(category);
+				if (items == null) {
+					category.setItemStock(0);
+				}
+				else {
+					category.setItemStock(items.size());
+				}
+				System.out.println(category.getName() + " has " + category.getItemStock() + " Item");
 			}
-			else {
-				category.setItemStock(items.size());
-			}
-			System.out.println(category.getName() + " has " + category.getItemStock() + " Item");
 		}
 		return categories;
 	}
