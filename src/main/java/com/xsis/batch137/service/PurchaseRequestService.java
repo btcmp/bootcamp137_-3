@@ -48,7 +48,7 @@ public class PurchaseRequestService {
 		}
 		PurchaseRequest pureq = new PurchaseRequest();
 		pureq.setId(pr.getId());
-		pureq.setOutletId(pr.getOutletId());
+		pureq.setOutlet(pr.getOutlet());
 		pureq.setPrNo(pr.getPrNo());
 		pureq.setReadyTime(pr.getReadyTime());
 		pureq.setStatus(pr.getStatus());
@@ -57,12 +57,12 @@ public class PurchaseRequestService {
 		pureq.setPrNo(prNo);
 		prDao.save(pureq);
 		
-		if(pr.getPrd()!=null) {
-			for(PurchaseRequestDetail prd : pr.getPrd()) {
+		if(pr.getDetail()!=null) {
+			for(PurchaseRequestDetail prd : pr.getDetail()) {
 				PurchaseRequestDetail puReqDet = new PurchaseRequestDetail();
 				puReqDet.setId(prd.getId());
-				puReqDet.setPrId(pureq);
-				puReqDet.setVariantId(prd.getVariantId());
+				puReqDet.setPurchaseReq(pureq);
+				puReqDet.setVariant(prd.getVariant());
 				puReqDet.setRequestQty(prd.getRequestQty());
 				prdDao.save(puReqDet);
 			}
@@ -70,7 +70,7 @@ public class PurchaseRequestService {
 		
 		
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setPrId(pureq);
+		prh.setPurchaseReq(pureq);;
 		prh.setStatus(pureq.getStatus());
 		prhDao.save(prh);
 	}
