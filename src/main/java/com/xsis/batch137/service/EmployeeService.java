@@ -82,6 +82,9 @@ public class EmployeeService {
 	
 	public List<Employee> selectAll(){
 		List<Employee> emps = empDao.selectAll(); 
+		if(emps.isEmpty()) {
+			return null;
+		}
 		for(Employee emp : emps) {
 			List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(emp);
 			emp.setEmpOutlet(empOUtlets);
@@ -99,7 +102,11 @@ public class EmployeeService {
 		emp.setActive(false);
 		Employee empss = empDao.getOne(emp);
 		List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(empss);
-		empss.setEmpOutlet(empOUtlets);
+		if(empOUtlets.isEmpty()) {
+			
+		}else {
+			empss.setEmpOutlet(empOUtlets);
+		}
 		return empss;
 	}
 
