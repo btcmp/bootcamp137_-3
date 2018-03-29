@@ -4,7 +4,7 @@
 	<h3>Purchase Request</h3>
 	<hr style="border-color:black;">
 	<div class="row">
-		<div class="col-xs-2">
+		<div class="col-xs-3">
 			<div class="input-group">
 		       <button type="button" class="btn btn-default pull-right" id="daterange-btn">
 		         <span>
@@ -40,7 +40,7 @@
 	    </div>
 	    <div class="col-xs-2">
 		    <div class="input-group">
-		    	<input type="button" id="btn-create" class="btn btn-md btn-primary float-right" value="Create">
+		    	<input type="button" id="btn-create" class="btn btn-md btn-primary float-right" value="Create" data-toggle="modal" data-target="#create-pr">
 		    </div>
 	    </div>
 	</div>
@@ -71,5 +71,104 @@
 	
 	
 </div>
+
+	<div id="create-pr" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Create New PR : </h4>
+				</div>
+				<div class="modal-body">
+					<h4>Tanggal Waktu Item Ready : </h4>
+					<div class="input-group date">
+	                	<div class="input-group-addon">
+	                  	<i class="fa fa-calendar"></i>
+	                	</div>
+	                	<input type="text" class="form-control pull-right" id="datepicker">
+	                </div>
+	                <div class="input-group">
+	                	<h4>Notes : </h4>
+	                	<textarea class="form-control" rows="5" id="in-notes" style="width:100%"></textarea>
+	                </div>
+	                
+	                <h4>Purchase Request</h4>
+	                <hr style="border-color:black;">
+	                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
+	                </table>
+	                <button type="button" class="btn btn-md btn-primary btn-block" id="btn-tambah-item" data-toggle="modal" data-target="#add-item-pr">Add Item</button>
+	                
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal"
+						id="batal-insert">Batal</button>
+					<button type="button" class="btn btn-primary" id="tblkonfsimpan"
+						key="key">Simpan</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="add-item-pr" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add Purchase Item</h4>
+				</div>
+				<div class="modal-body">
+					<input type="text" id="search-item" class="form-control">
+					<table id="data-barang" class="table table-striped table-bordered table-hover">
+						<thead>
+							<th>Item</th>
+							<th>In Stock</th>
+							<th>Request Qty.</th>
+						</thead>
+						<tbody id="list-barang">
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal"
+						id="batal-insert">Cancel</button>
+					<button type="button" class="btn btn-danger" id="tblkonfdel"
+						key="key">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
+<script>
+	$(function(){
+		$('#daterange-btn').daterangepicker(
+		      {
+		        ranges   : {
+		          'Hari Ini'       : [moment(), moment()],
+		          'Kemarin'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+		          '7 Hari Terakhit' : [moment().subtract(6, 'days'), moment()],
+		          'Sebulan Terakhir': [moment().subtract(29, 'days'), moment()],
+		          'Bulan ini'  : [moment().startOf('month'), moment().endOf('month')],
+		          'Bulan lalu'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		        },
+		        startDate: moment().subtract(29, 'days'),
+		        endDate  : moment()
+		      },
+		      function (start, end) {
+		        $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+		      }
+	    );
+	    
+	    $('#datepicker').datepicker({
+      		autoclose: true
+    	});
+	    
+	    
+	});
+</script>
 </html>

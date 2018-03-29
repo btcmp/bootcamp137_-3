@@ -363,12 +363,37 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">Menu</li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-files-o"></i><span>Data
-					Employee</span></a></li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/category"><i class="fa fa-files-o"></i><span>Data
-					Category</span></a></li>
-			<li class="treeview"><a href="${pageContext.request.contextPath}/item"><i class="fa fa-files-o"></i><span>Data
-					Item</span></a></li>
+			<li class="treeview">
+	          <a href="#">
+	            <i class="fa fa-edit"></i> <span>Data Master</span>
+	            <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+	          </a>
+	          <ul class="treeview-menu">
+	            <li><a href="${pageContext.request.contextPath}/employee"><i class="fa fa-circle-o"></i> Employee</a></li>
+	            <li><a href="${pageContext.request.contextPath}/category"><i class="fa fa-circle-o"></i> Category</a></li>
+	            <li><a href="${pageContext.request.contextPath}/outlet"><i class="fa fa-circle-o"></i> Outlet</a></li>
+	            <li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-circle-o"></i> Suppplier</a></li>
+	            <li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-circle-o"></i> Item</a></li>
+	          </ul>
+	        </li>
+	        
+	        <li class="treeview">
+	          <a href="#">
+	            <i class="fa fa-edit"></i> <span>Data Transaksi</span>
+	            <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+	            </span>
+	          </a>
+	          <ul class="treeview-menu">
+	            <li><a href="${pageContext.request.contextPath}/transaksi/purchase-request"><i class="fa fa-circle-o"></i> Purchase Request</a></li>
+	            <li><a href="${pageContext.request.contextPath}/transaksi/purchase-order"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+	            <li><a href="${pageContext.request.contextPath}/transaksi/"><i class="fa fa-circle-o"></i> Outlet</a></li>
+	            <li><a href="${pageContext.request.contextPath}/supplier"><i class="fa fa-circle-o"></i> Suppplier</a></li>
+	            <li><a href="${pageContext.request.contextPath}/item"><i class="fa fa-circle-o"></i> Item</a></li>
+	          </ul>
+	        </li>
 		</ul>
 		</section> <!-- /.sidebar --> </aside>
 
