@@ -51,7 +51,6 @@ public class ItemInventory {
 	private ItemVariant itemVariant;
 	
 	@ManyToOne
-	@Nullable //option
 	private Outlet outlet;
 
 	public Long getId() {

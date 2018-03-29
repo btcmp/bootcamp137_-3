@@ -18,10 +18,12 @@ import com.xsis.batch137.model.Category;
 import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.service.CategoryService;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.ItemService;
 import com.xsis.batch137.service.ItemVariantService;
+import com.xsis.batch137.service.OutletService;
 
 
 @Controller
@@ -39,12 +41,17 @@ public class ItemController {
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	OutletService outletService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Item> items=itemService.selectAll();
 		List<ItemInventory> itemInventories=itemInventoryService.selectAll();
 		List<ItemVariant> itemVariants=itemVariantService.selectAll();
 		List<Category> categories=categoryService.selectAll();
+		List<Outlet> outlets=outletService.selectAll();
+		model.addAttribute("outlets", outlets);
 		model.addAttribute("items", items);
 		model.addAttribute("categories", categories);
 		model.addAttribute("itemInventories", itemInventories);

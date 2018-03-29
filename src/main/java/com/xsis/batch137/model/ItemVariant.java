@@ -77,8 +77,8 @@ public class ItemVariant {
 	public List<ItemInventory> itemInventories;
 	
 	//relate to transferdetail
-	/*@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
-	public List<TransferStockDetail> transferStockDetail;*/
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
+	public List<TransferStockDetail> transferStockDetail;
 
 	public Long getId() {
 		return id;
@@ -193,6 +193,15 @@ public class ItemVariant {
 	public void setPods(List<PurchaseOrderDetail> pods) {
 		this.pods = pods;
 	}
+
+	public List<TransferStockDetail> getTransferStockDetail() {
+		return transferStockDetail;
+	}
+
+	public void setTransferStockDetail(List<TransferStockDetail> transferStockDetail) {
+		this.transferStockDetail = transferStockDetail;
+	}
+	
 	
 	
 }

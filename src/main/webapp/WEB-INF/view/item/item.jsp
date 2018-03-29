@@ -10,6 +10,7 @@
 $(document).ready(function(){	
 	
 	var index=0;
+	
 	var idDelete=[];
 	var idClear=[];
 /* ============================== [SHOW MODAL] CREATE DATA UTAMA ======================================*/
@@ -43,6 +44,7 @@ $(document).ready(function(){
 					+'<td> <a href="#" id="tombol-edit-variant"> Edit </a> <a href="#" id="delete-variant-data"> X </a>'+'</td></tr>');
 		
 		 index++;
+		 console.log(index);
 		});
 		
 	 $('#edititem-btn-add-data-variant').on('click', function(evt) {
@@ -173,7 +175,10 @@ $(document).ready(function(){
 		    $('#dt-popup-item > tbody > tr').each(function(index,data){
 		    	var itemInventory = {
 						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text()
+					     alertAtQty :$(data).find('td').eq(4).text(),
+					     outlet : {
+					    	 id : $('#add-outlet').val()
+					     }
 				 }
 		    	
 				 var itemVariant = {
@@ -341,8 +346,8 @@ $(document).ready(function(){
 								val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
 								+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
 								+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
-								+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
-								+'<td style="display:none"><p>'+val.id+'</p></td>'
+								+'<td ><p>'+val.itemVariant.id+'</p></td>'
+								+'<td ><p>'+val.id+'</p></td>'
 								+'<td> <a href="#" id="edititem-tombol-edit-variant" > Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'
 								+'</tr>');
 						index++;
@@ -377,8 +382,8 @@ $(document).ready(function(){
     			+'<td><p>'+$('#edititem-add-beginning-stock').val()+'</p></td>'
     			+'<td style="display:none"><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
    				+'<td style="display:none"><p>'+$('#edititem-add-active-variant').val()+'</p></td>'
-   				+'<td style="display:none"><p>null</p></td>'
-   				+'<td style="display:none"><p>null</p></td>'
+   				+'<td ><p>null</p></td>'
+   				+'<td ><p>null</p></td>'
     			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
     }
    
@@ -448,6 +453,14 @@ $(document).ready(function(){
 	<div>Items</div><br/>
 	<div class="container">
 	<div>
+		<div style="float: left; margin-right: 600px;">
+				<select id="add-outlet">
+					<c:forEach var="out" items="${outlets}">
+						<option value="${out.id}">${out.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			
 		<div style="float:left;margin-right:600px;">
 			<span><input type="text" id="search-box" placeholder="Search"/></span>
 		</div>
