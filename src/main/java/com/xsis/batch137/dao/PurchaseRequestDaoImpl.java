@@ -55,5 +55,16 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		session.createQuery(hql).setParameter("status", status).setParameter("id", id).executeUpdate();
 	}
 
+	public int CountPRByMonth(int month, int year) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where MONTH(createdOn) = :month and YEAR(createdOn) = :year";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("month", month).setParameter("year", year).list();
+		if(prs.isEmpty()) {
+			return 0;
+		}
+		return prs.size();
+	}
+
 	
 }

@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-xs-3">
 			<div class="input-group">
-		       <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+		       <button type="button" class="btn btn-default pull-right" id="pilih-tanggal-range">
 		         <span>
 		           <i class="fa fa-calendar"></i> Pilih Tanggal
 		         </span>
@@ -87,11 +87,11 @@
 	                	<div class="input-group-addon">
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
-	                	<input type="text" class="form-control pull-right" id="datepicker">
+	                	<input type="text" class="form-control pull-right" id="pilih-tanggal">
 	                </div>
-	                <div class="input-group">
+	                <div class="form-group">
 	                	<h4>Notes : </h4>
-	                	<textarea class="form-control" rows="5" id="in-notes" style="width:100%"></textarea>
+	                	<textarea class="form-control" rows="5" id="in-notes"></textarea>
 	                </div>
 	                
 	                <h4>Purchase Request</h4>
@@ -104,7 +104,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"
 						id="batal-insert">Batal</button>
-					<button type="button" class="btn btn-primary" id="tblkonfsimpan"
+					<button type="button" class="btn btn-primary" id="tblsimpan"
 						key="key">Simpan</button>
 				</div>
 			</div>
@@ -146,7 +146,7 @@
 </body>
 <script>
 	$(function(){
-		$('#daterange-btn').daterangepicker(
+		$('#pilih-tanggal-range').daterangepicker(
 		      {
 		        ranges   : {
 		          'Hari Ini'       : [moment(), moment()],
@@ -160,14 +160,46 @@
 		        endDate  : moment()
 		      },
 		      function (start, end) {
-		        $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+		        $('#pilih-tanggal-range').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
 		      }
 	    );
 	    
-	    $('#datepicker').datepicker({
+	    $('#pilih-tanggal').datepicker({
       		autoclose: true
     	});
 	    
+	    $('#tblsimpan').on('click',function(evt) {
+			evt.preventDefault();
+			var prd = [];
+			
+			var purReq = {
+				"id" : $('#in-id').val(),
+				"notes" : $('#in-notes').val(),
+				"status" : $('#in-status').val(),
+				"outlet" : {
+					"id" : $('#in-outlet').val(),
+				},
+				"prd" : prd
+			};
+			console.log(purReq);
+			//validate = $('#form-emp').parsley();
+			//validate.validate();
+			//if(validate.isValid()){
+				$.ajax({
+					type : 'post',
+					url : '${pageContext.request.contextPath}/transaksi/purchase-request/save',
+					data : JSON.stringify(employee),
+					contentType : 'application/json',
+					success : function() {
+						console.log('simpan');
+						window.location = '${pageContext.request.contextPath}/employee';
+					},
+					error : function() {
+						alert('save failed');
+					}
+				});
+			//}
+		}); // end fungsi simpan
 	    
 	});
 </script>

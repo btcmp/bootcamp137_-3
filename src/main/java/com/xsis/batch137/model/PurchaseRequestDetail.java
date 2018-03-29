@@ -15,9 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="pos_t_purchase_detail")
+@Table(name="pos_t_pr_detail")
 public class PurchaseRequestDetail {
 
+	public PurchaseRequestDetail() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;

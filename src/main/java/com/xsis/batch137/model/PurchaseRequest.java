@@ -25,6 +25,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name="pos_t_pr")
 public class PurchaseRequest {
 
+	public PurchaseRequest() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;

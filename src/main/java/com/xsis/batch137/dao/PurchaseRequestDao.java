@@ -17,4 +17,6 @@ public interface PurchaseRequestDao {
 	PurchaseRequest getOne(PurchaseRequest pr);
 	
 	void ubahStatus(String status, long id);
+	
+	int CountPRByMonth(int month, int year);
 }
