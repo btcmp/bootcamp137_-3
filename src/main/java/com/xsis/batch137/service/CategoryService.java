@@ -37,6 +37,9 @@ public class CategoryService {
 	//
 	public List<Category> selectAll() {
 		List<Category> categories = categoryDao.selectAll();
+		if (categories.isEmpty()) {
+			return null;
+		}
 		for(Category category : categories) {
 			List<Item> items = itemDao.getItemByCategory(category);
 			if (items == null) {
