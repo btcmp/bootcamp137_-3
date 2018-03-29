@@ -66,6 +66,12 @@ public class EmployeeController {
 		//return "redirrect:/employee";
 	}
 	
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<Employee> getAll(){
+		return empService.selectAll();
+	}
+	
 	@RequestMapping(value="/nonaktif/{id}", method=RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public void nonaktifkan(@PathVariable long id) {

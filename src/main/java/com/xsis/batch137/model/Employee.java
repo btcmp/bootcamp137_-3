@@ -58,7 +58,6 @@ public class Employee {
 	@NotNull
 	private boolean haveAccount;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="created_on", nullable=true)
 	private Date createdOn;
 	
@@ -70,7 +69,6 @@ public class Employee {
 	@JoinColumn(name="modified_by", nullable=true)
 	private User modifiedBy;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on", nullable=true)
 	private Date modifiedOn;
 	
@@ -84,6 +82,11 @@ public class Employee {
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="employee", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private User user;
+	
+	public Employee() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
 	
 	public long getId() {
 		return id;

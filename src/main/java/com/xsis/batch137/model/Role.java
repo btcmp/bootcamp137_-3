@@ -18,6 +18,11 @@ import com.sun.istack.NotNull;
 @Entity
 public class Role {
 
+	public Role() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
@@ -35,7 +40,6 @@ public class Role {
 	@JoinColumn(name="created_by", nullable=true)
 	private User createdBy;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(nullable=true, name="created_on")
 	private Date createdOn;
 	
@@ -44,7 +48,6 @@ public class Role {
 	@JoinColumn(name="modified_by",nullable=true)
 	private User modifiedBy;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(nullable=true, name="modified_on")
 	private Date modifiedOn;
 	

@@ -117,9 +117,12 @@
 					<h4 id="judul-modal">Assign Outlet to Employee</h4>
 				</div>
 				<div class="modal-body">
-					<c:forEach items="${outlets }" var="outlet">
-						<input type="checkbox" class="in-outlet" name="in-outlet" value="${outlet.id }"> ${outlet.name } <br/>
-					</c:forEach>
+					<div class="form-check checkbox-teal">
+						<c:forEach items="${outlets }" var="outlet">
+							<input type="checkbox" class="in-outlet" class="form-check-input" name="in-outlet" value="${outlet.id }">
+							<label class="form-check-label" for="cek-akun">${outlet.name }</label><br/>
+						</c:forEach>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>

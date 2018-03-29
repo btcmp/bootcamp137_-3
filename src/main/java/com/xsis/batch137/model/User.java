@@ -28,6 +28,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@Table(name="user_137")
 	public class User {
 
+	public User() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -58,7 +62,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", cascade = CascadeType.ALL)
 	private List<User> createdUser;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="created_on", nullable=true)
 	private Date createdOn;
 	
@@ -70,7 +73,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modifiedBy", cascade = CascadeType.ALL)
 	private List<User> modifiedUser;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name="modified_on", nullable=true)
 	private Date modifiedOn;
 	
