@@ -41,14 +41,10 @@
 	href="${pageContext.request.contextPath}/resources/dist/css/skins/_all-skins.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/elements.css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/easyAutoComplete-1.3.5/easy-autocomplete.min.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/easyAutoComplete-1.3.5/easy-autocomplete.themes.min.css">
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -60,6 +56,14 @@
   			border: 1px solid #EED3D7 !important;
 		}
 </style>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
 <script
 	src="${pageContext.request.contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -98,6 +102,7 @@
 <script
 	src="${pageContext.request.contextPath}/resources/dist/js/demo.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/parsley.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/easyAutoComplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
 <!-- page script -->
 
 </head>
