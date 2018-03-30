@@ -68,11 +68,15 @@ public class PurchaseRequestService {
 			}
 		}
 		
+		if(pr.getId() != 0 && pr.getStatus()=="created") {
+			
+		}else {
+			PurchaseRequestHistory prh = new PurchaseRequestHistory();
+			prh.setPurchaseReq(pureq);
+			prh.setStatus(pureq.getStatus());
+			prhDao.save(prh);
+		}
 		
-		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setPurchaseReq(pureq);;
-		prh.setStatus(pureq.getStatus());
-		prhDao.save(prh);
 	}
 	
 	public List<PurchaseRequest> selectAll(){

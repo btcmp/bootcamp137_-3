@@ -252,14 +252,14 @@
 						console.log(data);
 						$('#list-barang').empty();
 						$.each(data, function(key, val) {
-							if(added.indexOf(val.id.toString()) == -1) {
+							//if(added.indexOf(val.id.toString()) == -1) {
 								$('#list-barang').append(
 										'<tr id = "tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
 										+'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>'
 										+'<td id="td-qty'+ val.id +'"><input type="number" id="reqQty'+ val.id +'" value="1" /></td>'
 										+'<td><button type="button" id="'+ val.id +'" class="tbl-add-brg btn btn-primary btn-add'+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
 								$('.btn-add'+val.id).prop('disabled', false);
-							} else {
+							/*} else {
 								var a = added.indexOf(val.id.toString());
 								$('#list-barang').append('<tr id="tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
 										+'<td>'+ val.beginning +'</td>'
@@ -267,7 +267,7 @@
 										+'<td><button type="button" id="'+ val.id +'" class=" tbl-add-brg btn btn-primary btn-add'
 										+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
 								$('.btn-add'+val.id).prop('disabled', true);
-							}
+							} */
 						});
 					}, 
 					error : function(){
@@ -284,15 +284,21 @@
 			var itemVar = element.find('td').eq(0).text();
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#reqQty'+id).val();
-			added.push(id);
-			addedQty.push(reqQty);
-			$('#list-item').append(
-				'<tr key-id="'+variantId+'"><td>'+itemVar+'</td>'
-				+'<td>'+inStock+'</td>'
-				+'<td>'+reqQty+'</td>'
-				+'<td><button type="button" class="btn btn-warning" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
-			);
-			$(this).prop('disabled', true);
+			if(added.indexOf(id.toString()) == -1) {
+				$('#list-item').append(
+					'<tr key-id="'+variantId+'" id="'+id+'"><td>'+itemVar+'</td>'
+					+'<td>'+inStock+'</td>'
+					+'<td>'+reqQty+'</td>'
+					+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
+				);
+				added.push(id);
+				addedQty.push(reqQty);
+			}else{
+				var target = $('#list-item > #'+id+'');
+				var oldReq = target.find('td').eq(2).text();
+				var newReq = parseInt(oldReq)+parseInt(reqQty);
+				target.find('td').eq(2).text(newReq);
+			}
 		});
 		
 	});
