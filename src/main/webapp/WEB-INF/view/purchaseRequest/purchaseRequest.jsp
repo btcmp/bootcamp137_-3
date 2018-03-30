@@ -236,38 +236,39 @@
 		}); // end fungsi simpan
 	    
 		var added = [];
-		var addedQty = [];
-		
+		var itemsss = [];
+		var itemss = {
+				data : itemsss,
+		};
 		// fungsi search
+		$('#search-item').easyAutocomplete(itemss);
+		
+		$(".easy-autocomplete").removeAttr("style");
+		
 	    $('#search-item').on('input',function(e){
+	    	console.log(itemsss);
 			var word = $(this).val();
 			if (word=="") {
 				$('#list-barang').empty();
 			} else {
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/transaksi/purchase-request/search?search='+word,
+					url : '${pageContext.request.contextPath}/transaksi/purchase-request/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
 						console.log(data);
 						$('#list-barang').empty();
 						$.each(data, function(key, val) {
-							//if(added.indexOf(val.id.toString()) == -1) {
-								$('#list-barang').append(
-										'<tr id = "tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
-										+'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>'
-										+'<td id="td-qty'+ val.id +'"><input type="number" id="reqQty'+ val.id +'" value="1" /></td>'
-										+'<td><button type="button" id="'+ val.id +'" class="tbl-add-brg btn btn-primary btn-add'+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
-								$('.btn-add'+val.id).prop('disabled', false);
-							/*} else {
-								var a = added.indexOf(val.id.toString());
-								$('#list-barang').append('<tr id="tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
-										+'<td>'+ val.beginning +'</td>'
-										+'<td id="td-qty'+ val.id +'">'+addedQty[a]+'</td>'
-										+'<td><button type="button" id="'+ val.id +'" class=" tbl-add-brg btn btn-primary btn-add'
-										+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
-								$('.btn-add'+val.id).prop('disabled', true);
-							} */
+							var namaItem = val.itemVariant.item.name +'-'+ val.itemVariant.name;
+							if(itemsss.indexOf(namaItem) == -1) {
+								itemsss.push(namaItem);
+							}
+							$('#list-barang').append(
+								'<tr id = "tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
+								+'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>'
+								+'<td id="td-qty'+ val.id +'"><input type="number" id="reqQty'+ val.id +'" value="1" /></td>'
+								+'<td><button type="button" id="'+ val.id +'" class="tbl-add-brg btn btn-primary btn-add'+val.id
+								+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
 						});
 					}, 
 					error : function(){
@@ -292,7 +293,6 @@
 					+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
 				);
 				added.push(id);
-				addedQty.push(reqQty);
 			}else{
 				var target = $('#list-item > #'+id+'');
 				var oldReq = target.find('td').eq(2).text();

@@ -41,10 +41,10 @@
 				</div>
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id-user">
-					<input type="text" placeholder="username" id="in-username" class="form-control">
+					<input type="text" placeholder="username" id="in-username" class="form-control" data-parsley-required="false">
 				</div>
 				<div class="col-xs-3">
-					<input type="password" placeholder="password" id="in-password" class="form-control">
+					<input type="password" placeholder="password" id="in-password" class="form-control" data-parsley-required="false">
 				</div>
 			</div>
 			<br>
@@ -173,8 +173,12 @@
 		$('#cek-akun').change(function () {
 	        if (this.checked) 
 	            $('#buat-akun').fadeIn('fast');
+	        	$('#in-username').attr('data-parsley-required', true);
+	        	$('#in-password').attr('data-parsley-required', true);
 	        else 
 	            $('#buat-akun').fadeOut('fast');
+	        	$('#in-username').attr('data-parsley-required', false);
+        		$('#in-password').attr('data-parsley-required', false);
 	    });
 	    $('#cek-akun').change();
 	    
