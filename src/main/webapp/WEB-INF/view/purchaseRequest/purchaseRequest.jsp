@@ -257,15 +257,16 @@
 										'<tr id = "tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
 										+'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>'
 										+'<td id="td-qty'+ val.id +'"><input type="number" id="reqQty'+ val.id +'" value="1" /></td>'
-										+'<td><button type="button" id="'+ val.id +'" class="tbl-add-brg btn btn-primary" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
-								$('.tbl-add-brg'+val.id).prop('disabled', false);
+										+'<td><button type="button" id="'+ val.id +'" class="tbl-add-brg btn btn-primary btn-add'+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
+								$('.btn-add'+val.id).prop('disabled', false);
 							} else {
 								var a = added.indexOf(val.id.toString());
 								$('#list-barang').append('<tr id="tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
 										+'<td>'+ val.beginning +'</td>'
 										+'<td id="td-qty'+ val.id +'">'+addedQty[a]+'</td>'
-										+'<td><button type="button" id="'+ val.id +'" class=" tbl-add-brg btn btn-primary" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
-								$('.tbl-add-brg'+val.id).prop('disabled', true);
+										+'<td><button type="button" id="'+ val.id +'" class=" tbl-add-brg btn btn-primary btn-add'
+										+val.id+'" key-id="'+val.itemVariant.id+'">Add</button></td></tr>');
+								$('.btn-add'+val.id).prop('disabled', true);
 							}
 						});
 					}, 
@@ -283,6 +284,8 @@
 			var itemVar = element.find('td').eq(0).text();
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#reqQty'+id).val();
+			added.push(id);
+			addedQty.push(reqQty);
 			$('#list-item').append(
 				'<tr key-id="'+variantId+'"><td>'+itemVar+'</td>'
 				+'<td>'+inStock+'</td>'
