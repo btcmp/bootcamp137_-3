@@ -57,7 +57,7 @@ public class PurchaseRequestController {
 		return prService.selectAll();
 	}
 	
-	@RequestMapping("/search-item")
+	@RequestMapping(value="/search-item", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ItemInventory> search(@RequestParam(value="search-item", defaultValue="") String search){
 		return iService.searchInventoryByItemName(search);
