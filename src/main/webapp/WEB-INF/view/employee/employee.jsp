@@ -48,8 +48,16 @@
 				</div>
 			</div>
 			<br>
-		<input type="button" class="btn btn-info" value="Save" id="btn-simpan">
-		<input type="reset" class="btn btn-warning" value="Cancel" id="btn-batal">
+		<div class="row">
+			<div class="col-xs-8">
+			</div>
+			<div class="col-xs-2">
+				<input type="button" class="btn btn-info btn-block" value="Save" id="btn-simpan">
+			</div>
+			<div class="col-xs-2">
+				<input type="reset" class="btn btn-warning btn-block" value="Cancel" id="btn-batal">
+			</div>
+		</div>
 	</form>
 	<h2>Staff List</h2>
 	<hr style="border-color:black; border-top:1px dashed;">
