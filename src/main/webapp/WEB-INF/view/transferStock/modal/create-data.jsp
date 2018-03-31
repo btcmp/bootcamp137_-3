@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!--a Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="modal fade" id="modal-create-data" tabindex="-1" role="dialog"

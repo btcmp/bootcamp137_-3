@@ -20,7 +20,7 @@
 			<input type="hidden" id="hidden-id">
 			<div>Created By : <input type="text" class="form-control" id="created-by" disabled>  </div> 
 			<div>Transfer Status : <input type="text" class="form-control" id="transfer-status" disabled> </div> 
-			<div>Notes : </div>
+			<div>Notes: </div>
 			<input type="text"
 							class="form-control" id="notes" disabled>
 			

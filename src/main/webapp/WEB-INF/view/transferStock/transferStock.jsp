@@ -287,7 +287,7 @@
 				
 			})
 		} else if (newStatus=="Print") {
-			//window.location='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
+			//window.locationd='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
 		}	 
 	 });
 	 	

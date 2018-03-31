@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- aModal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="modal fade" id="modal-add-transfer-item" tabindex="-1" role="dialog"
