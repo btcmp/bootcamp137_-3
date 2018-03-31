@@ -6,12 +6,12 @@
 		<hr style="border-color: black; border-top: 1px dashed;">
 	</div>
 	<div class="col-xs-3">
-		<select id="action-pr" class="btn-primary form-control ">
+		<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">
 			<option disabled selected>More</option>
-			<option>Approve</option>
-			<option>Reject</option>
-			<option>Print</option>
-			<option>Create PO</option>
+			<option value="approve">Approve</option>
+			<option value="reject">Reject</option>
+			<option value="print">Print</option>
+			<option value="create-po">Create PO</option>
 		</select>
 	</div>
 </div>
@@ -22,19 +22,25 @@
 		<th>PR Number</th>
 		<td></td>
 		<td>:</td>
-		<td id="pr-number">${pr.prNo }</td>
+		<td>${pr.prNo }</td>
 	</tr>
 	<tr>
 		<th>Created By</th>
 		<td></td>
 		<td>:</td>
-		<td id="created-by">${pr.createdBy }</td>
+		<td>${pr.createdBy }</td>
 	</tr>
 	<tr>
 		<th>Target Waktu Item Ready</th>
 		<td></td>
 		<td> : </td>
-		<td id="tgl-ready">${pr.readyTime }</td>
+		<td>
+			<script>
+				var tanggal = '${pr.readyTime}';
+				var tgl = tanggal.split('-');
+				document.write(tgl[2]+'-'+tgl[1]+'-'+tgl[0]);
+			</script>
+		</td>
 	</tr>
 	<tr>
 		<th>PR Status</th>
@@ -60,7 +66,13 @@
 			<c:forEach items="${pr.history }" var="his">
 				<tr>
 					<td>On</td>
-					<td>${his.createdOn }</td>
+					<td>
+						<script>
+							var waktu = '${his.createdOn}';
+							var wkt = waktu.split('.');
+							document.write(wkt[0]);
+						</script>
+					</td>
 					<td>-</td>
 					<td>${pr.prNo }</td>
 					<td>is</td>
@@ -94,4 +106,23 @@
 </table>
 </section>
 </body>
+<script>
+	$(function(){
+		$('#action-pr').change(function(){
+			var action = $(this).val();
+			var id = $(this).attr('key-id');
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/transaksi/purchase-request/'+action+'/'+id,
+				success : function(){
+					console.log('sukses');
+					window.location = '${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+id;
+				},
+				error : function(){
+					console.log('gagal');
+				}
+			});
+		});
+	})
+</script>
 </html>

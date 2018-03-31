@@ -15,13 +15,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="pos_t_pr_history")
 public class PurchaseRequestHistory {
 
 	public PurchaseRequestHistory() {
-		this.createdOn = new Date();
+		
 	}
 	
 	@Id
@@ -30,7 +31,7 @@ public class PurchaseRequestHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="pr_id")
-	@JsonBackReference
+	@JsonIgnore
 	private PurchaseRequest purchaseReq;
 	
 	@Size(max=20)

@@ -22,8 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class PurchaseRequestDetail {
 
 	public PurchaseRequestDetail() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
+		
 	}
 	
 	@Id

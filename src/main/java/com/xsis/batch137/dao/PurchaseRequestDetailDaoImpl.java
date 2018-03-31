@@ -54,11 +54,11 @@ public class PurchaseRequestDetailDaoImpl implements PurchaseRequestDetailDao{
 	public List<PurchaseRequestDetail> selectDetailByPr(PurchaseRequest pr) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<PurchaseRequestDetail> histories = session.createCriteria(PurchaseRequestDetail.class).add(Restrictions.eq("purchaseReq.id", pr.getId())).list(); 
- 		if(histories.isEmpty()) {
+		List<PurchaseRequestDetail> detail = session.createCriteria(PurchaseRequestDetail.class).add(Restrictions.eq("purchaseReq.id", pr.getId())).list(); 
+ 		if(detail.isEmpty()) {
  			return null;
  		}else {
- 			return histories;
+ 			return detail;
  		}
 	}
 
