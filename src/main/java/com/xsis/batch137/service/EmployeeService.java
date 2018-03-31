@@ -108,4 +108,16 @@ public class EmployeeService {
 		// TODO Auto-generated method stub
 		empDao.nonaktif(id);
 	}
+	
+	public List<Employee> getEmployeeByEmail(String email) {
+		return empDao.getEmployeeByEmail(email);
+	}
+	
+	public int countEmployeeByEmail(String email) {
+		return empDao.countEmployeeByEmail(email);
+	}
+	
+	public int countUserByUsername(String username) {
+		return uDao.countUserByUsername(username);
+	}
 }

@@ -58,8 +58,35 @@ public class UserDaoImpl implements UserDao {
 		List<User> user = session.createQuery(hql).setParameter("emp", emp).list();
 		if(user.isEmpty()) {
 			return null;
+		}else {
+			return user.get(0);
 		}
-		return user.get(0);
+	}
+
+	public List<User> getUserByUsername(String user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User where lower(username) = :username";
+		List<User> users = session.createQuery(hql).setParameter("username", user.toLowerCase()).list();
+		if(users.isEmpty()) {
+			return null;
+		}
+		else{
+			return users;
+		}
+	}
+
+	public int countUserByUsername(String user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User where lower(username) = :username";
+		List<User> users = session.createQuery(hql).setParameter("username", user.toLowerCase()).list();
+		if(users.isEmpty()) {
+			return 0;
+		}
+		else{
+			return users.size();
+		}
 	}
 
 }

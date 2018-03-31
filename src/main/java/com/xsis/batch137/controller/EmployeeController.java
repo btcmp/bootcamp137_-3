@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -83,5 +84,17 @@ public class EmployeeController {
 	public Employee getOne(@PathVariable long id) {
 		System.out.println("exeecute");
 		return empService.getOne(id);
+	}
+	
+	@RequestMapping("/cek-email")
+	@ResponseBody
+	public int getEmployeeByEmail(@RequestParam(value="email", defaultValue="") String email) {
+		return empService.countEmployeeByEmail(email);
+	}
+	
+	@RequestMapping("/cek-user")
+	@ResponseBody
+	public int getUserByUsername(@RequestParam(value="user", defaultValue="") String username) {
+		return empService.countUserByUsername(username);
 	}
 }

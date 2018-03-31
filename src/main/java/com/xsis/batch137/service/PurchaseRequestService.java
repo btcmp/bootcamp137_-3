@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.batch137.dao.PurchaseOrderDao;
 import com.xsis.batch137.dao.PurchaseRequestDao;
 import com.xsis.batch137.dao.PurchaseRequestDetailDao;
 import com.xsis.batch137.dao.PurchaseRequestHistoryDao;
@@ -27,6 +28,9 @@ public class PurchaseRequestService {
 	
 	@Autowired
 	PurchaseRequestHistoryDao prhDao;
+	
+	@Autowired
+	PurchaseOrderDao poDao;
 	
 	public void save(PurchaseRequest pr) {
 		PurchaseRequest pureq = new PurchaseRequest();

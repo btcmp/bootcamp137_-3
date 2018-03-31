@@ -44,14 +44,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		if(emps == null) {
 			return null;
 		}
-		return emps;
+		else{
+			return emps;
+		}
 	}
 
 	public Employee getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		Employee em = session.get(Employee.class, id);
-		//session.flush();
 		return em;
 	}
 
@@ -61,6 +62,32 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		String hql = "update Employee set active=0 where id = :id";
 		session.createQuery(hql).setParameter("id", id).executeUpdate();
 		session.flush();
+	}
+
+	public List<Employee> getEmployeeByEmail(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee where lower(email) = :email";
+		List<Employee> emps = session.createQuery(hql).setParameter("email", email).list();
+		if(emps.isEmpty()) {
+			return null;
+		}
+		else{
+			return emps;
+		}
+	}
+
+	public int countEmployeeByEmail(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee where lower(email) = :email";
+		List<Employee> emps = session.createQuery(hql).setParameter("email", email).list();
+		if(emps.isEmpty()) {
+			return 0;
+		}
+		else{
+			return emps.size();
+		}
 	}
 
 	

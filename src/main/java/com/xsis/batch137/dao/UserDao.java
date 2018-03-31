@@ -18,4 +18,8 @@ public interface UserDao {
 	void delete(User user);
 	
 	User getUserByEmployee(Employee emp);
+	
+	List<User> getUserByUsername(String user);
+	
+	int countUserByUsername(String user);
 }

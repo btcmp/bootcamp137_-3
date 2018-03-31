@@ -4,15 +4,15 @@
 			<div class="row">
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id">
-					<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true"></div>
+					<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true" required></div>
 				<div class="col-xs-3">
-					<input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true">
+					<input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true" required>
 				</div>
 				<div class="col-xs-3">
-					<input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email">
+					<input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email" required>
 				</div>
 				<div class="col-xs-3">
-					<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;">
+					<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
 						<option value="Mr.">Mr.</option>
 						<option value="Mrs.">Mrs.</option>
 					</select>
@@ -313,6 +313,32 @@
 			}
 		}); // end fungsi simpan
 
+		// cek username
+		$('#in-username').on('input',function(){
+			var username = $('#in-username').val();
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/employee/cek-user?user='+username,
+				success : function(data){
+					console.log(data);
+				}, error : function(){
+					console.log('gagal')
+				}
+			});
+		});
+		
+		$('#in-email').on('input',function(){
+			var email = $('#in-email').val();
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/employee/cek-email?email='+email,
+				success : function(data){
+					console.log(data);
+				}, error : function(){
+					console.log('gagal')
+				}
+			});
+		});
 	});
 </script>
 <script>
