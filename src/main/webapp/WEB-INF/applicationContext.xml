@@ -48,6 +48,8 @@
 				<value>com.xsis.batch137.model.PurchaseOrderHistory</value>
 				<value>com.xsis.batch137.model.TransferStock</value>
 				<value>com.xsis.batch137.model.TransferStockDetail</value>
+				<value>com.xsis.batch137.model.SalesOrder</value>
+				<value>com.xsis.batch137.model.SalesOrderDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
