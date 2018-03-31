@@ -15,4 +15,6 @@ public interface SupplierDao {
 	public List<Supplier> selectAll();
 	
 	public Supplier getOne(long id);
+
+	public List<Supplier> searchSupplier(String search);
 }

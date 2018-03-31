@@ -70,5 +70,10 @@ public class SupplierService {
 		region.setId(id);
 		return districtDao.getDistrictByRegion(region);
 	}
+
+	public List<Supplier> searchSupplier(String search) {
+		// TODO Auto-generated method stub
+		return supplierDao.searchSupplier(search);
+	}
 	
 }
