@@ -30,6 +30,7 @@ public class PurchaseRequestHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="pr_id")
+	@JsonBackReference
 	private PurchaseRequest purchaseReq;
 	
 	@Size(max=20)

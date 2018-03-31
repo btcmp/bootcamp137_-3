@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.PurchaseRequestDetail;
 
 public interface PurchaseRequestDetailDao {
@@ -15,4 +16,6 @@ public interface PurchaseRequestDetailDao {
 	List<PurchaseRequestDetail> selectAll();
 	
 	PurchaseRequestDetail getOne(PurchaseRequestDetail prd);
+	
+	List<PurchaseRequestDetail> selectDetailByPr(PurchaseRequest pr);
 }

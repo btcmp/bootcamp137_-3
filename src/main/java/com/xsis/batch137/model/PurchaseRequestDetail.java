@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="pos_t_pr_detail")
 public class PurchaseRequestDetail {
@@ -29,6 +32,7 @@ public class PurchaseRequestDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="pr_id")
+	@JsonBackReference
 	private PurchaseRequest purchaseReq;
 	
 	@ManyToOne

@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.EmployeeOutlet;
+import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.PurchaseRequestHistory;
 
 @Repository
@@ -47,6 +50,17 @@ public class PurchaseRequestHistoryDaoImpl implements PurchaseRequestHistoryDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(PurchaseRequestHistory.class, prh.getId());
+	}
+
+	public List<PurchaseRequestHistory> selectByPR(PurchaseRequest pr) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<PurchaseRequestHistory> prhs = session.createCriteria(PurchaseRequestHistory.class).add(Restrictions.eq("purchaseReq.id", pr.getId())).list(); 
+ 		if(prhs.isEmpty()) {
+ 			return null;
+ 		}else {
+ 			return prhs;
+ 		}
 	}
 
 	

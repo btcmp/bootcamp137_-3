@@ -42,10 +42,10 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		return session.createCriteria(PurchaseRequest.class).list();
 	}
 
-	public PurchaseRequest getOne(PurchaseRequest pr) {
+	public PurchaseRequest getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(PurchaseRequest.class, pr.getId());
+		return session.get(PurchaseRequest.class, id);
 	}
 
 	public void ubahStatus(String status, long id) {

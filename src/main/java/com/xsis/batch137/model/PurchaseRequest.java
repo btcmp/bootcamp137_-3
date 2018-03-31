@@ -39,6 +39,7 @@ public class PurchaseRequest {
 	private Outlet outlet;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="purchaseReq")
+	@JsonManagedReference
 	private List<PurchaseRequestHistory> history;
 	
 	@Column(name="ready_time")
@@ -69,7 +70,8 @@ public class PurchaseRequest {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
-	@OneToMany(mappedBy="purchaseReq", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="purchaseReq", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<PurchaseRequestDetail> detail;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy="purchaseReq", cascade = CascadeType.ALL)

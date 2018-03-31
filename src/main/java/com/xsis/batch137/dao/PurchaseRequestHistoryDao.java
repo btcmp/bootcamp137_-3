@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.PurchaseRequestHistory;
 
 public interface PurchaseRequestHistoryDao {
@@ -15,4 +16,6 @@ public interface PurchaseRequestHistoryDao {
 	List<PurchaseRequestHistory> selectAll();
 	
 	PurchaseRequestHistory getOne(PurchaseRequestHistory prh);
+	
+	List<PurchaseRequestHistory> selectByPR(PurchaseRequest pr);
 }

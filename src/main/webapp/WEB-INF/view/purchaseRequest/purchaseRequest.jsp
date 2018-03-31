@@ -61,8 +61,8 @@
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
-						<input type="button" class="btn-edit btn btn-default" value="Edit"> | 
-						<input type="button" class="btn-view btn btn-info" value="View">
+						<input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="${pr.id }"> | 
+						<input type="button" class="btn-view-pr btn btn-info" value="View" key-id="${pr.id }">
 					</td>
 				</tr>
 			</c:forEach>
@@ -236,11 +236,13 @@
 		}); // end fungsi simpan
 	    
 		var added = [];
+		
+		// auto complete
 		var itemsss = [];
 		var itemss = {
 				data : itemsss,
 		};
-		// fungsi search
+		
 		$('#search-item').easyAutocomplete(itemss);
 		
 		$('#btn-tambah-item').on('click', function(){
@@ -261,6 +263,7 @@
 		
 		$(".easy-autocomplete").removeAttr("style");
 		
+		// fungsi search
 	    $('#search-item').on('input',function(e){
 	    	console.log(itemsss);
 			var word = $(this).val();
@@ -322,6 +325,40 @@
 			}
 		});
 		
+		$('#data-pr').on('click', '.btn-edit-pr', function(){
+			var id = $(this).attr('key-id');
+			clearForm();
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-one/'+id,
+				dataType: 'json',
+				succes : function(data){
+					console.log(data);
+					$('#in-notes').val(data.notes);
+					$('#in-id').val(data.id);
+					var tgl = data.readyTime.split('-');
+					var tanggal = tgl[1]+'/'+tgl[2]+'/'+tgl[0];
+					$('#pilih-tanggal').val(tanggal);
+					$(data.detail).each(function(key, val){
+						$('#list-item').append(
+							'<tr key-id="'+val.itemVariant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+							+'<td>12</td>'
+							+'<td>'+val.requestQty+'</td>'
+							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
+						);
+					})
+				},
+				error : function(){
+					console.log('gagal');
+				}
+			});
+		});
+		
+		function clearForm(){
+			$('#in-id').val('');
+			$('#list-item').empty();
+			$('#in-notes').val('');
+		}
 	});
 </script>
 </html>

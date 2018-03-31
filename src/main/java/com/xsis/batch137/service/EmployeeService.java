@@ -84,12 +84,13 @@ public class EmployeeService {
 		List<Employee> emps = empDao.selectAll(); 
 		if(emps.isEmpty()) {
 			return null;
+		}else {
+			for(Employee emp : emps) {
+				List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(emp);
+				emp.setEmpOutlet(empOUtlets);
+			}
+			return emps;
 		}
-		for(Employee emp : emps) {
-			List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(emp);
-			emp.setEmpOutlet(empOUtlets);
-		}
-		return emps;
 	}
 	
 	public Employee getOne(long id) {

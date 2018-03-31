@@ -80,6 +80,38 @@ public class PurchaseRequestService {
 	}
 	
 	public List<PurchaseRequest> selectAll(){
-		return prDao.selectAll();
+		List<PurchaseRequest> prs = prDao.selectAll();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			for(PurchaseRequest pr : prs) {
+				List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
+				if(prds.isEmpty()) {
+					
+				}else {
+					pr.setDetail(prds);
+				}
+			}
+			return prs;
+		}
+		 
+	}
+
+	public PurchaseRequest getOne(long id) {
+		// TODO Auto-generated method stub
+		PurchaseRequest pr = prDao.getOne(id);
+		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
+		List<PurchaseRequestHistory> prhs = prhDao.selectByPR(pr);
+		if(prds.isEmpty()) {
+			
+		}else {
+			pr.setDetail(prds);
+		}
+		if(prhs.isEmpty()) {
+			
+		}else {
+			pr.setHistory(prhs);
+		}
+		return pr;
 	}
 }

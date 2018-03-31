@@ -56,8 +56,9 @@ public class EmployeeOutletDaoImpl implements EmployeeOutletDao {
 		List<EmployeeOutlet> empos = session.createCriteria(EmployeeOutlet.class).add(Restrictions.eq("employee.id", emp.getId())).list(); 
  		if(empos.isEmpty()) {
  			return null;
+ 		}else {
+ 			return empos;
  		}
-		return empos;
 	}
 
 	
