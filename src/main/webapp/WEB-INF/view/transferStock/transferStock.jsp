@@ -11,10 +11,12 @@
 		var saved = [];
 		var savedQty = [];
 		var dataFromAddItem = [];
+		var alreadyId=[];
 		
 		//Create Data Clicked
 		$('#create-transfer-stock').on('click',function(evt){
 			evt.preventDefault;
+			document.getElementById("btn-save-submit").disabled = true;
 			$('#modal-create-data').modal();
 		});
 		
@@ -22,25 +24,68 @@
 	 	$('#add-transfer-item').on('click',function(evt){
 			evt.preventDefault;
 			$('#modal-add-transfer-item').modal();
+			document.getElementById("btn-save-transfer-item").disabled = true;
 		}); 
 		
 		//save transfer item
 		$('#btn-save-transfer-item').on('click',function(evt){
-			evt.preventDefault;
-			$.each(dataFromAddItem, function(key,val) {
-		 			$('#isi-popup-transfer').append('<tr>'
-		 					+'<td>'+val.item+'</td>'
-							+ '<td>'+val.inStock+'</td>'
-							+ '<td id="qty-'+val.id+'">'+val.transferQty+'</td>'
-							+ '<td>'+val.idVariant+'</td>'
-							+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item'+val.id+'">X</a> </td>'
-							+ '</tr>');
-		 		});
 			
+			evt.preventDefault();
+			if(dataFromAddItem==""){
+				alert('Please fill the data')
+			}
+			
+			else{
+				 $('#modal-add-transfer-item').modal('toggle');
+					document.getElementById("btn-save-submit").disabled = false;
+					$.each(dataFromAddItem, function(key,val) {
+						if(alreadyId.indexOf(val.id.toString())==-1){
+							console.log('id baru')
+							$('#isi-popup-transfer').append('<tr id="list-transfer'+val.id+'">'
+				 					+'<td>'+val.item+'</td>'
+									+ '<td>'+val.inStock+'</td>'
+									+ '<td id="qty-'+val.id+'">'+val.transferQty+'</td>'
+									+ '<td>'+val.idVariant+'</td>'
+									+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item">X</a> </td>'
+									+ '</tr>');
+							alreadyId.push(val.id);
+						}
+						
+						else{
+							console.log('id-lama')
+						}
+								
+				 		});
+					
+					console.log(dataFromAddItem)
+			}
 		}); 
 		
+		//delete transfer item
+		$('body').on('click', 'a.delete-transfer-item', function(evt){
+			var id = $(this).attr('id');
+			$('#list-transfer'+id).remove();
+			$('.save-item'+id).show();
+			$('.add-transfer-saved'+id).hide();
+			$('#qty-'+id).html('<input type="number" class="add-transfer-stock-qty'+ id +'" value="1" />');
+			var a = saved.indexOf(id.toString());
+			/* var b = dataFromAddItem.indexOf(id.toString());
+			console.log(b) */
+			
+			//select index from dataFromAddItem
+			let index = dataFromAddItem.findIndex((item) => item.id == id);
+			console.log(index)
+
+			dataFromAddItem.splice(index,1);
+			saved.splice(a,1);
+			savedQty.splice(a,1);
+			alreadyId.splice(a,1);
+			
+			
+		});
+		
 		//executeSave
-		$('#btn-create-data').on('click',function(evt){
+		$('#btn-save-submit').on('click',function(evt){
 			evt.preventDefault;
 		
 			var transferStockDetail=[];
@@ -68,7 +113,7 @@
 					status : "Submitted"
 			};
 		  
-		  console.log(transferStock)
+		  //console.log(transferStock)
 		  
 			$.ajax({
 				url : '${pageContext.request.contextPath }/transfer-stock/save',
@@ -89,7 +134,9 @@
 		//clik save item
 		//a >> tag
 		$('body').on('click', 'a.btn-save-item', function(evt){
+			document.getElementById("btn-save-transfer-item").disabled = false;
 			var id = $(this).attr('id');
+			
 			var transQty=$('.add-transfer-stock-qty'+id).val();
 			
 			var fullData = {
@@ -100,23 +147,22 @@
 					idVariant : $('.item-variant'+id).text()
 			}
 			
+		
 			dataFromAddItem.push(fullData);
 			
-			console.log (dataFromAddItem);
-			
-			console.log(id);
-			evt.preventDefault;
+			//console.log (dataFromAddItem);
+			//console.log(id);
+			evt.preventDefault();
 			/* $('#td-qty-'+id).html(transQty); */
 			saved.push(id);
 			savedQty.push(transQty);
 			//supaya gak bsa d edit lg
- 			console.log(saved)
-			console.log(savedQty) 
+ 			//console.log(saved)
+			//console.log(savedQty) 
 			$('#qty-'+id).html(transQty);
 			$(this).hide();
 			$('.add-transfer-saved'+id).show();
-			
-			
+
 		});
 		
 		
@@ -136,7 +182,6 @@
 			 			$('#isi-popup-transfer-stock').empty();
 						$.each(data,function(key,val){
 						if(saved.indexOf(val.id.toString())==-1){
-							console.log(val.id);
 							$('#isi-popup-transfer-stock').append('<tr><td class="item-name'+val.id+'">'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 									+ '<td class="in-stock'+val.id+'">'+val.endingQty+'</td>'
 									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td>'
@@ -166,6 +211,88 @@
 	 		}
 	 	});
 	 	
+	 	
+	 	///VIEW TRANSFER STOCK DEAIL
+	 	$('.view-transfer-stock-detail').on('click',function(evt){
+	 		evt.preventDefault();
+			var id = $(this).attr('id');
+
+			$.ajax({
+				type : 'GET',
+				url : '${pageContext.request.contextPath}/transfer-stock/get-one/'+id,
+				dataType: 'json',
+				success : function(data){
+					$('#hidden-id').val(data.id);
+					$('#created-by').val(data.createdBy);
+					$('#transfer-status').val(data.status);
+					$('#notes').val(data.notes);
+				    $('#isi-transfer-stock-detail').empty();
+				    
+					var option = [];
+					if (data.status=="Submitted") {
+						option.push("<option value=\"Kosong\">More</option>");
+						option.push("<option value=\"Approved\">Approve</option>");
+						option.push("<option value=\"Rejected\">Reject</option>");
+						option.push("<option value=\"Print\">Print</option>");
+					} else {
+						option.push("<option value=\"Kosong\">More</option>");
+						option.push("<option value=\"Print\">Print</option>");
+					}
+					
+					$('#more-option').html(option);
+
+					$.ajax({
+						url : '${pageContext.request.contextPath }/transfer-stock/search-transfer-stock-detail?search='+id,
+						type : 'GET',
+						dataType : 'json',
+						success : function(data){
+					 		$('#modal-view-transfer-stock-detail').modal()
+					 		$.each(data, function(key, val) {
+					 		$('#isi-transfer-stock-detail').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+						 			+ '<td>'+val.inStock+'</td>'
+									+ '<td>'+val.transferQty+'</td>'
+									+ '</tr>');
+					 		});
+					 		
+						}, error : function(){
+							alert('error to get data');
+						}
+					});
+					
+				},
+				error : function(){
+					alert('error to get data');
+				}
+	 	});
+	 	
+	});
+	 	
+	 $('#more-option').change(function(evt){
+		evt.preventDefault();
+		var newStatus = $(this).val();
+		if (newStatus=="Approved" || newStatus=="Rejected") {
+			transferStockId = $('#hidden-id').val();
+			console.log(newStatus);
+			console.log(transferStockId);
+			$.ajax({
+				url : '${pageContext.request.contextPath }/transfer-stock/update-status/'+transferStockId,
+				type : 'PUT',
+				data : JSON.stringify(newStatus),
+				contentType : 'application/json',
+				success : function(){
+					alert('update status successfully');
+				}, error : function(){
+					alert('update status failed');
+				}
+				
+			})
+		} else if (newStatus=="Print") {
+			//window.location='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
+		}	 
+	 });
+	 	
+	 	
+	 	
 	});
 </script>
 
@@ -183,9 +310,7 @@
 					</c:forEach>
 				</select>
 			</div>
-
-
-
+			
 			<div align="right" style="float: left; margin-right: 30px;">
 				<button id="export" class="btn btn-primary btn-md">Export</button>
 			</div>
@@ -216,8 +341,8 @@
 							<td>${trstock.fromOutlet.name}</td>
 							<td>${trstock.toOutlet.name}</td>
 							<td>${trstock.status}</td>
-							<td><a href="#" id="${tstock.id}"
-								class="edit-data-transfer-stock">Edit</a></td>
+							<td><a href="#" id="${trstock.id}"
+								class="view-transfer-stock-detail">view</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -226,6 +351,7 @@
 		
 		<%@ include file="modal/create-data.jsp"%>
 		<%@ include file="modal/add-transfer-item.jsp"%>
+		<%@ include file="modal/view-transfer-stock-detail.jsp"%>
 	
 	</div>
 

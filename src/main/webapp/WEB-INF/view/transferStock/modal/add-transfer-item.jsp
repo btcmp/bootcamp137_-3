@@ -42,7 +42,7 @@
 
 					<div class="modal-footer">
 						<button type="button" id="cancel-add-transfer-item" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-						<button type="submit" id="btn-save-transfer-item" data-dismiss="modal" class="btn btn-primary">Add</button>
+						<button type="submit" id="btn-save-transfer-item" class="btn btn-primary">Add</button>
 					</div>
 				</form>
 			</div>

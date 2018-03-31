@@ -76,7 +76,7 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-						<button type="submit" id="btn-create-data" class="btn btn-primary">Save & Submit</button>
+						<button type="submit" id="btn-save-submit" class="btn btn-primary">Save & Submit</button>
 					</div>
 				</form>
 			</div>

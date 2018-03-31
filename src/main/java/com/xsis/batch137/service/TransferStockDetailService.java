@@ -40,5 +40,9 @@ public class TransferStockDetailService {
 	public void saveAtauUpdate(TransferStockDetail transferStockDetail) {
 		transferStockDetailDao.saveAtauUpdate(transferStockDetail);
 	}
+	public List<TransferStockDetail> getTransferStockDetailByTransferStockId(Long search) {
+		// TODO Auto-generated method stub
+		return transferStockDetailDao.getTransferStockDetailByTransferStockId(search);
+	}
 	
 }

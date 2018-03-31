@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +18,10 @@ import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.TransferStock;
+import com.xsis.batch137.model.TransferStockDetail;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.OutletService;
+import com.xsis.batch137.service.TransferStockDetailService;
 import com.xsis.batch137.service.TransferStockService;
 
 @Controller
@@ -34,10 +37,15 @@ public class TransferStockController {
 	@Autowired
 	ItemInventoryService itemInventoryService;
 	
+	@Autowired
+	TransferStockDetailService transferStockDetailService;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<TransferStock> transferStocks=transferStockService.selectAll();
 		List<Outlet> outlets = outletService.selectAll();
+		List<TransferStockDetail> transferStockDetails=transferStockDetailService.selectAll();
+		model.addAttribute("transferStockDetails",transferStockDetails);
 		model.addAttribute("transferStocks", transferStocks);
 		model.addAttribute("outlets", outlets);
 		return "/transferStock/transferStock";
@@ -55,5 +63,28 @@ public class TransferStockController {
 	public void save(@RequestBody TransferStock transferStock) {
 		transferStockService.save(transferStock);
 	}
+	
+	@RequestMapping(value = "/get-one/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public TransferStock getOneTransferStock(@PathVariable Long id) {
+		TransferStock transferStock = transferStockService.getOne(id);
+		return transferStock;
+	}
+	
+	@RequestMapping(value="/search-transfer-stock-detail",method=RequestMethod.GET)
+	@ResponseBody
+	public List<TransferStockDetail> searchTransferStockDetailByTransferStockId(@RequestParam(value="search",defaultValue="") Long search){
+		List<TransferStockDetail> transferStockDetails = transferStockDetailService.getTransferStockDetailByTransferStockId(search);
+		return transferStockDetails;
+	}
+	
+	@RequestMapping(value="/update-status/{id}")
+	public void updateStatus(@RequestBody String newStatus, @PathVariable Long id) {
+		TransferStock transferStock = transferStockService.getOne(id);
+		transferStock.setStatus(newStatus);
+		transferStockService.saveAtauUpdate(transferStock);
+	}
+	
+	
 	
 }

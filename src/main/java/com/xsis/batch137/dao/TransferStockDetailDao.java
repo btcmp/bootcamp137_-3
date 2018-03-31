@@ -6,6 +6,8 @@ import com.xsis.batch137.model.TransferStockDetail;
 //
 public interface TransferStockDetailDao {
 	
+	List<TransferStockDetail> getTransferStockDetailByTransferStockId(Long search);
+
 	public void save(TransferStockDetail transferStockDetail);
 	
 	public List<TransferStockDetail> selectAll();
