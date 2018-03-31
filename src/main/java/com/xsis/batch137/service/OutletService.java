@@ -83,4 +83,9 @@ public class OutletService {
 		region.setId(id);
 		return districtDao.getDistrictByRegion(region);
 	}
+
+	public List<Outlet> searchOutlet(String search) {
+		// TODO Auto-generated method stub
+		return outletDao.searchOutlet(search);
+	}
 }

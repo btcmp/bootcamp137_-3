@@ -18,4 +18,6 @@ public interface OutletDao {
 	
 	public List<Outlet> selectActive();
 
+	public List<Outlet> searchOutlet(String search);
+
 }

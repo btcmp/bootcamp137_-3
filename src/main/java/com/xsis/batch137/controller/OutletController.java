@@ -76,4 +76,11 @@ public class OutletController {
 	public void update(@RequestBody Outlet outlet) {
 		outletService.update(outlet);
 	}
+	
+	@RequestMapping("/search")
+	@ResponseBody
+	public List<Outlet> search(@RequestParam(value="search", defaultValue="") String search) {
+		List<Outlet> outs = outletService.searchOutlet(search);
+		return outs;
+	}
 }
