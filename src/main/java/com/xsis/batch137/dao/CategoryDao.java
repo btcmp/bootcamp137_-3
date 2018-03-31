@@ -15,4 +15,6 @@ public interface CategoryDao {
 	public List<Category> selectAll();
 	
 	public Category getOne(long id);
+
+	public List<Category> searchCategory(String search);
 }

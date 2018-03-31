@@ -57,4 +57,9 @@ public class CategoryService {
 	public Category getOne(long id) {
 		return categoryDao.getOne(id);
 	}
+
+	public List<Category> searchCategory(String search) {
+		// TODO Auto-generated method stub
+		return categoryDao.searchCategory(search);
+	}
 }

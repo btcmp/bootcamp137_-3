@@ -55,4 +55,11 @@ public class CategoryController {
 	public void update(@RequestBody Category category) {
 		categoryService.update(category);
 	}
+	
+	@RequestMapping(value="/search")
+	@ResponseBody
+	public List<Category> search(@RequestParam(value="search", defaultValue="") String search){
+		List<Category> categories = categoryService.searchCategory(search);
+		return categories;
+	}
 }
