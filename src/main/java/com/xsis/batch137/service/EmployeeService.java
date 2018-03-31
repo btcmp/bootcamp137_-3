@@ -94,14 +94,7 @@ public class EmployeeService {
 	}
 	
 	public Employee getOne(long id) {
-		Employee emp = new Employee();
-		System.out.println("execute");
-		emp.setId(id);
-		emp.setFirstName("aaaaa");
-		emp.setLastName("aaaaa");
-		emp.setHaveAccount(true);
-		emp.setActive(false);
-		Employee empss = empDao.getOne(emp);
+		Employee empss = empDao.getOne(id);
 		List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(empss);
 		if(empOUtlets.isEmpty()) {
 			

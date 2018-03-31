@@ -47,10 +47,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return emps;
 	}
 
-	public Employee getOne(Employee emp) {
+	public Employee getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		Employee em = session.get(Employee.class, emp.getId());
+		Employee em = session.get(Employee.class, id);
 		//session.flush();
 		return em;
 	}

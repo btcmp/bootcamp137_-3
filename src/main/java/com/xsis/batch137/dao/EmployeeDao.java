@@ -14,7 +14,7 @@ public interface EmployeeDao {
 	
 	List<Employee> selectAll();
 	
-	Employee getOne(Employee emp);
+	Employee getOne(long id);
 
 	void nonaktif(long id);
 }
