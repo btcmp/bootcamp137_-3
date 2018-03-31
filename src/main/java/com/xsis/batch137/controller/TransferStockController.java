@@ -27,7 +27,7 @@ import com.xsis.batch137.service.TransferStockService;
 @Controller
 @RequestMapping("/transfer-stock")
 public class TransferStockController {
-	//a
+	//aa
 	@Autowired
 	TransferStockService transferStockService;
 	
@@ -79,6 +79,7 @@ public class TransferStockController {
 	}
 	
 	@RequestMapping(value="/update-status/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public void updateStatus(@RequestBody String newStatus, @PathVariable Long id) {
 		TransferStock transferStock = transferStockService.getOne(id);
 		transferStock.setStatus(newStatus);
