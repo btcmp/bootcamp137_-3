@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.Adjustment;
+import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.service.AdjustmentService;
+import com.xsis.batch137.service.ItemInventoryService;
 
 @Controller
 @RequestMapping("adjustment")
@@ -27,8 +30,12 @@ public class AdjustmentController {
 	@RequestMapping
 	public String selectAll(Model model) {
 		List<Adjustment> adjustments = adjustmentService.getAll();
+		List<Outlet> outlets = adjustmentService.getOutletForAdjustment();
+		List<ItemInventory> inventories = adjustmentService.getInventory();
 		model.addAttribute("adjustments", adjustments);
-		return "/adjustment/adjustment-view";
+		model.addAttribute("outlets", outlets);
+		model.addAttribute("inventories", inventories);
+		return "/Adjustment/adjustment-view";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
@@ -54,4 +61,20 @@ public class AdjustmentController {
 	public void update(@RequestBody Adjustment adjustment) {
 		adjustmentService.update(adjustment);
 	}
+	
+	@RequestMapping(value="/get-all-outlet", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Outlet> getOutletForAdjustment() {
+		List<Outlet> outlets = adjustmentService.getOutletForAdjustment();
+		return outlets;
+	}
+	
+	@RequestMapping(value="/search-item")
+	@ResponseBody
+	public List<ItemInventory> searchItem(@RequestParam(value="search") String search){
+		List<ItemInventory> inventories = adjustmentService.searchItem(search);
+		return inventories;
+	}
+	
+	
 }

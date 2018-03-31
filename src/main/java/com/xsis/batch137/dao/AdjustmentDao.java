@@ -10,7 +10,7 @@ public interface AdjustmentDao {
 	
 	public void update(Adjustment adjustment);
 	
-	public void delete(long id);
+	public void delete(Adjustment adjustment);
 	
 	public List<Adjustment> selectAll();
 	
