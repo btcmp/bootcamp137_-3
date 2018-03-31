@@ -243,6 +243,22 @@
 		// fungsi search
 		$('#search-item').easyAutocomplete(itemss);
 		
+		$('#btn-tambah-item').on('click', function(){
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/item/get-inventory',
+				dataType : 'json',
+				success : function(data){
+					$.each(data, function(key, val) {
+						var namaItem = val.itemVariant.item.name +'-'+ val.itemVariant.name;
+						itemsss.push(namaItem);
+					});
+				}, error : function(){
+					
+				}
+			});
+		});
+		
 		$(".easy-autocomplete").removeAttr("style");
 		
 	    $('#search-item').on('input',function(e){
@@ -259,10 +275,6 @@
 						console.log(data);
 						$('#list-barang').empty();
 						$.each(data, function(key, val) {
-							var namaItem = val.itemVariant.item.name +'-'+ val.itemVariant.name;
-							if(itemsss.indexOf(namaItem) == -1) {
-								itemsss.push(namaItem);
-							}
 							$('#list-barang').append(
 								'<tr id = "tr'+val.id+'"><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td>'
 								+'<td id="inStock'+ val.id +'">'+ val.beginning +'</td>'
@@ -298,6 +310,15 @@
 				var oldReq = target.find('td').eq(2).text();
 				var newReq = parseInt(oldReq)+parseInt(reqQty);
 				target.find('td').eq(2).text(newReq);
+			}
+		});
+		
+		$('#data-purchase-item').on('click', '.btn-hapus-barang', function(){
+			var id = $(this).attr('key-id');
+			$(this).parent().parent().remove();
+			var index = added.indexOf(id.toString());
+			if(index > -1){
+				added.splice(index, 1);
 			}
 		});
 		
