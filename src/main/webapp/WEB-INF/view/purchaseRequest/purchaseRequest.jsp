@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
-<div class="container">
-
+<section class="content">
 	<h3>Purchase Request</h3>
 	<hr style="border-color:black;">
 	<div class="row">
@@ -68,9 +67,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	
-</div>
 
 	<div id="create-pr" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-confirm">
@@ -93,6 +89,7 @@
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
 	                	<input type="text" class="form-control pull-right" id="pilih-tanggal">
+	                	<input type="hidden" id="in-id">
 	                </div>
 	                <div class="form-group">
 	                	<h4>Notes : </h4>
@@ -160,7 +157,7 @@
 			</div>
 		</div>
 	</div>
-	
+</section>
 </body>
 <script>
 	$(function(){
@@ -326,13 +323,13 @@
 		});
 		
 		$('#data-pr').on('click', '.btn-edit-pr', function(){
+			console.log('edit');
 			var id = $(this).attr('key-id');
-			clearForm();
 			$.ajax({
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-one/'+id,
 				dataType: 'json',
-				succes : function(data){
+				success : function(data){
 					console.log(data);
 					$('#in-notes').val(data.notes);
 					$('#in-id').val(data.id);
@@ -341,13 +338,14 @@
 					$('#pilih-tanggal').val(tanggal);
 					$(data.detail).each(function(key, val){
 						$('#list-item').append(
-							'<tr key-id="'+val.itemVariant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td>12</td>'
+							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+							+'<td>null</td>'
 							+'<td>'+val.requestQty+'</td>'
 							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
 						);
 					})
-				},
+					$('#create-pr').modal('show');
+				}, 
 				error : function(){
 					console.log('gagal');
 				}
