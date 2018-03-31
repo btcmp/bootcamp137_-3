@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.Outlet;
 
 public interface ItemInventoryDao {
 	public void save(ItemInventory itemInventory);
@@ -14,5 +15,5 @@ public interface ItemInventoryDao {
 	public void saveAtauUpdate(ItemInventory itemInventory);
 	public List<ItemInventory> searchInventoryByItem(Item item);
 	public List<ItemInventory> searchItemInventoryByItemName(String search);
-	public List<ItemInventory> searchInventoryByItemName(String search);
+	public List<ItemInventory> searchItemInventoryByItemNameAndOutlet(String search);
 }

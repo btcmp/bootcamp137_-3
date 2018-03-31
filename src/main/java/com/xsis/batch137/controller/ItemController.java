@@ -165,4 +165,10 @@ public class ItemController {
 		itemInventory.setId(id);
 		itemInventoryService.delete(itemInventory);
 	}
+	
+	@RequestMapping("/get-inventory")
+	@ResponseBody
+	public List<ItemInventory> getAllInventory(){
+		return itemInventoryService.selectAll();
+	}
 }
