@@ -18,6 +18,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	public void save(PurchaseRequest pr) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(pr);
 		session.flush();
 	}
@@ -66,5 +67,24 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		return prs.size();
 	}
 
-	
+	public void approve(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='Approved' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void reject(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='Rejected' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void createPo(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseRequest set status='PO Created' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
 }

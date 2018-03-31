@@ -19,4 +19,10 @@ public interface PurchaseRequestDao {
 	void ubahStatus(String status, long id);
 	
 	int CountPRByMonth(int month, int year);
+	
+	void approve(long id);
+	
+	void reject(long id);
+	
+	void createPo(long id);
 }

@@ -26,8 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class PurchaseRequest {
 
 	public PurchaseRequest() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
+
 	}
 	
 	@Id
@@ -39,7 +38,6 @@ public class PurchaseRequest {
 	private Outlet outlet;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="purchaseReq")
-	@JsonManagedReference
 	private List<PurchaseRequestHistory> history;
 	
 	@Column(name="ready_time")

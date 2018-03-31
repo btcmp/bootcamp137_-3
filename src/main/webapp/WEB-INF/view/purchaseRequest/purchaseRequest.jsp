@@ -61,7 +61,7 @@
 					<td>${pr.status }</td>
 					<td>
 						<input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="${pr.id }"> | 
-						<input type="button" class="btn-view-pr btn btn-info" value="View" key-id="${pr.id }">
+						<a href='${pageContext.request.contextPath}/transaksi/purchase-request/detail/${pr.id}' class="btn-view-pr btn btn-info" key-id="${pr.id }">View</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -209,7 +209,7 @@
 					"id" : $('#pil-outlet').val()
 				},
 				"detail" : prd,
-				"status" : "created",
+				"status" : "Created",
 				"readyTime" : tanggal
 			};
 			console.log(purReq);
@@ -223,7 +223,7 @@
 					contentType : 'application/json',
 					success : function() {
 						console.log('simpan');
-						//window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
+						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
 					},
 					error : function() {
 						alert('save failed');
@@ -324,6 +324,7 @@
 		
 		$('#data-pr').on('click', '.btn-edit-pr', function(){
 			console.log('edit');
+			$('#list-item').empty();
 			var id = $(this).attr('key-id');
 			$.ajax({
 				type : 'GET',

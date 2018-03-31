@@ -46,6 +46,13 @@ public class PurchaseRequestController {
 		return "purchaseRequest/purchaseRequest";
 	}
 	
+	@RequestMapping("/detail/{id}")
+	public String detail(@PathVariable long id, Model model) {
+		PurchaseRequest pr = prService.getOne(id);
+		model.addAttribute("pr", pr);
+		return "purchaseRequest/purchaseRequestDetail";
+	}
+	
 	@RequestMapping(value="/save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void save(@RequestBody PurchaseRequest pr) {
@@ -69,5 +76,23 @@ public class PurchaseRequestController {
 	@ResponseBody
 	public PurchaseRequest getOne(@PathVariable long id) {
 		return prService.getOne(id);
+	}
+	
+	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void approve(@PathVariable long id) {
+		prService.approve(id);
+	}
+	
+	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void reject(@PathVariable long id) {
+		prService.reject(id);
+	}
+	
+	@RequestMapping(value="/create-po/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void createPo(@PathVariable long id) {
+		prService.createPo(id);
 	}
 }
