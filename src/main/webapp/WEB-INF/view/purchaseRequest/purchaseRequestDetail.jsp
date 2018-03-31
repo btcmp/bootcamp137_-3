@@ -6,12 +6,38 @@
 		<hr style="border-color: black; border-top: 1px dashed;">
 	</div>
 	<div class="col-xs-3">
-		<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">
-			<option disabled selected>More</option>
-			<option value="approve">Approve</option>
-			<option value="reject">Reject</option>
-			<option value="print">Print</option>
-			<option value="create-po">Create PO</option>
+		<script>
+			if('${pr.status}' == 'Created'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option disabled selected>More</option>'
+						+'<option value="approve">Approve</option>'
+						+'<option value="reject">Reject</option>'
+						+'<option value="print">Print</option>'
+						+'<option value="create-po" disabled>Create PO</option>');
+			}else if('${pr.status}' == 'Rejected'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option disabled selected>More</option>'
+						+'<option value="approve" disabled>Approve</option>'
+						+'<option value="reject" disabled>Reject</option>'
+						+'<option value="print">Print</option>'
+						+'<option value="create-po" disabled>Create PO</option>');
+			}else if('${pr.status}' == 'PO Created'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option disabled selected>More</option>'
+						+'<option value="approve" disabled>Approve</option>'
+						+'<option value="reject" disabled>Reject</option>'
+						+'<option value="print">Print</option>'
+						+'<option value="create-po" disabled>Create PO</option>');
+			}else if('${pr.status}' == 'Approved'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option disabled selected>More</option>'
+						+'<option value="approve" disabled>Approve</option>'
+						+'<option value="reject" disabled>Reject</option>'
+						+'<option value="print">Print</option>'
+						+'<option value="create-po">Create PO</option>');
+			}
+		</script>
+			
 		</select>
 	</div>
 </div>
@@ -108,6 +134,7 @@
 </body>
 <script>
 	$(function(){
+		
 		$('#action-pr').change(function(){
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
