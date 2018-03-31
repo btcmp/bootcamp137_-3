@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,9 +58,16 @@ public class PurchaseRequestController {
 		return prService.selectAll();
 	}
 	
-	@RequestMapping(value="/search-item", method = RequestMethod.GET)
+	@RequestMapping(value="/search-item",method=RequestMethod.GET)
 	@ResponseBody
-	public List<ItemInventory> search(@RequestParam(value="search-item", defaultValue="") String search){
-		return iService.searchInventoryByItemName(search);
+	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
+		List<ItemInventory > itemInventories = iService.searchItemInventoryByItemName(search);
+		return itemInventories;
+	}
+	
+	@RequestMapping("/get-one/{id}")
+	@ResponseBody
+	public PurchaseRequest getOne(@PathVariable long id) {
+		return prService.getOne(id);
 	}
 }
