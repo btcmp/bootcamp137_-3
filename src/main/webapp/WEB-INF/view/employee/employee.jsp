@@ -127,8 +127,8 @@
 				<div class="modal-body">
 					<div class="form-check checkbox-teal">
 						<c:forEach items="${outlets }" var="outlet">
-							<input type="checkbox" class="in-outlet" class="form-check-input" name="in-outlet" value="${outlet.id }">
-							<label class="form-check-label" for="cek-akun">${outlet.name }</label><br/>
+							<input type="checkbox" id="outlet-${outlet.id }" class="in-outlet" class="form-check-input" name="in-outlet" value="${outlet.id }">
+							<label class="form-check-label" for="outlet-${outlet.id }">${outlet.name }</label><br/>
 						</c:forEach>
 					</div>
 				</div>
@@ -169,14 +169,15 @@
 	$(document).ready(function() {
 		
 		$('#cek-akun').change(function () {
-	        if (this.checked) 
+	        if (this.checked) {
 	            $('#buat-akun').fadeIn('fast');
 	        	$('#in-username').attr('data-parsley-required', true);
 	        	$('#in-password').attr('data-parsley-required', true);
-	        else 
+	        }else{ 
 	            $('#buat-akun').fadeOut('fast');
 	        	$('#in-username').attr('data-parsley-required', false);
         		$('#in-password').attr('data-parsley-required', false);
+	        }
 	    });
 	    $('#cek-akun').change();
 	    
