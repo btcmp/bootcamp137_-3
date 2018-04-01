@@ -23,11 +23,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="pos_t_po")
 public class PurchaseOrder {
-
-	public PurchaseOrder() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
-	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
