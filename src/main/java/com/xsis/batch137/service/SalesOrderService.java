@@ -30,7 +30,7 @@ public class SalesOrderService {
 		salesOrderDao.update(salesOrder);
 	}
 	
-	public SalesOrder getOne(String id) {
+	public SalesOrder getOne(Long id) {
 		return salesOrderDao.getOne(id);
 	}
 	
