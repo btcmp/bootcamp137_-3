@@ -55,7 +55,13 @@
 		<tbody id="isi-data-pr">
 			<c:forEach items="${prs }" var="pr">
 				<tr>
-					<td>${pr.createdOn }</td>
+					<td>
+						<script>
+							var waktu = '${pr.createdOn}';
+							var wkt = waktu.split('.');
+							document.write(wkt[0]);
+						</script>
+					</td>
 					<td>${pr.prNo }</td>
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
