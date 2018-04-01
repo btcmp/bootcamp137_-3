@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -55,7 +56,8 @@ public class PurchaseRequestHistoryDaoImpl implements PurchaseRequestHistoryDao{
 	public List<PurchaseRequestHistory> selectByPR(PurchaseRequest pr) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<PurchaseRequestHistory> prhs = session.createCriteria(PurchaseRequestHistory.class).add(Restrictions.eq("purchaseReq.id", pr.getId())).list(); 
+		List<PurchaseRequestHistory> prhs = session.createCriteria(PurchaseRequestHistory.class)
+				.add(Restrictions.eq("purchaseReq.id", pr.getId())).addOrder(Order.asc("createdOn")).list(); 
  		if(prhs.isEmpty()) {
  			return null;
  		}else {
