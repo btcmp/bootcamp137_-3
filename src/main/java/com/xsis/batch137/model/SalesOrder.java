@@ -20,6 +20,11 @@ import javax.validation.constraints.NotNull;
 @Table(name="POS_T_SO")
 public class SalesOrder {
 
+	public SalesOrder() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;

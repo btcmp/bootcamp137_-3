@@ -1,6 +1,7 @@
 package com.xsis.batch137.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,11 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="pos_item_variant")
 public class ItemVariant {
+	
+	public ItemVariant() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

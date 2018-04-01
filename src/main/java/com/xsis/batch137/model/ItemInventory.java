@@ -1,6 +1,8 @@
 package com.xsis.batch137.model;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,12 @@ import com.sun.istack.Nullable;
 @Entity
 @Table(name="pos_item_inventory")
 public class ItemInventory {
+
+	public ItemInventory() {
+		this.createdOn = new Date();
+		this.modifiedOn = new Date();
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
