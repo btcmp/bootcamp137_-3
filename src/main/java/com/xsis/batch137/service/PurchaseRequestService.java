@@ -148,7 +148,7 @@ public class PurchaseRequestService {
 		prDao.approve(id);
 		PurchaseRequest pr = prDao.getOne(id);
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setCreatedOn(pr.getCreatedOn());
+		prh.setCreatedOn(new Date());
 		prh.setPurchaseReq(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
@@ -158,7 +158,7 @@ public class PurchaseRequestService {
 		prDao.reject(id);
 		PurchaseRequest pr = prDao.getOne(id);
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setCreatedOn(pr.getCreatedOn());
+		prh.setCreatedOn(new Date());
 		prh.setPurchaseReq(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
@@ -168,7 +168,7 @@ public class PurchaseRequestService {
 		prDao.createPo(id);
 		PurchaseRequest pr = prDao.getOne(id);
 		PurchaseRequestHistory prh = new PurchaseRequestHistory();
-		prh.setCreatedOn(pr.getCreatedOn());
+		prh.setCreatedOn(new Date());
 		prh.setPurchaseReq(pr);
 		prh.setStatus(pr.getStatus());
 		prhDao.save(prh);
