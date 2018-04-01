@@ -23,15 +23,6 @@ import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.ProvinceService;
 import com.xsis.batch137.service.SalesOrderService;
 
-//import com.bootcamp.miniproject.model.Customer;
-//import com.bootcamp.miniproject.model.ItemInventory;
-/*import com.bootcamp.miniproject.model.Province;
-import com.bootcamp.miniproject.model.SalesOrder;
-import com.bootcamp.miniproject.service.CustomerService;
-import com.bootcamp.miniproject.service.ItemInventoryService;
-import com.bootcamp.miniproject.service.ProvinceService;
-import com.bootcamp.miniproject.service.SalesOrderService;*/
-
 @Controller
 @RequestMapping("/transaction/sales-order")
 public class SalesOrderController {
@@ -53,13 +44,19 @@ public class SalesOrderController {
 		List<Province> provinces = provinceService.selectAll();
 		model.addAttribute("salesOrders", salesOrders);
 		model.addAttribute("provinces", provinces);
-		return "sales-order";
+		return "/salesOrder/salesOrder";
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveSalesOrder(@RequestBody SalesOrder salesOrder) {
 		salesOrderService.save(salesOrder);
+	}
+	
+	@RequestMapping(value="/save-customer",method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveCustomer (@RequestBody Customer customer) {
+		customerService.save(customer);
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.PUT)
