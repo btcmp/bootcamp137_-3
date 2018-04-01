@@ -79,8 +79,7 @@
 </div>
 <div class="form-group">
 	<label for="input-note">Notes</label>
-	<textarea class="form-control" id="input-note" rows="5"
-		disabled="disabled">${pr.notes }</textarea>
+	<textarea class="form-control" id="input-note" rows="5" style="resize:none;" readonly>${pr.notes }</textarea>
 </div>
 <h5>
 	<b>Status History</b>
@@ -138,17 +137,21 @@
 		$('#action-pr').change(function(){
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
-			$.ajax({
-				type : 'GET',
-				url : '${pageContext.request.contextPath}/transaksi/purchase-request/'+action+'/'+id,
-				success : function(){
-					console.log('sukses');
-					window.location = '${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+id;
-				},
-				error : function(){
-					console.log('gagal');
-				}
-			});
+			if(action == 'print'){
+				window.print();
+			}else{
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/transaksi/purchase-request/'+action+'/'+id,
+					success : function(){
+						console.log('sukses');
+						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+id;
+					},
+					error : function(){
+						console.log('gagal');
+					}
+				});
+			}
 		});
 	})
 </script>
