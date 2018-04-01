@@ -129,6 +129,10 @@
 		</c:forEach>
 	</tbody>
 </table>
+<div class="row">
+	<div class="col-xs-9"></div>
+	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-request" class="btn btn-primary btn-block">Done</a></div>
+</div>
 </section>
 </body>
 <script>
