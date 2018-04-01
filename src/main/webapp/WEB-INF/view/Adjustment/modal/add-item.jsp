@@ -1,5 +1,5 @@
 <!-- begin form save -->
-	<div class="modal fade" id="modal-create" role="dialog">
+	<div class="modal fade" id="modal-add-item" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -9,82 +9,45 @@
 					<h4 id="judul-modal">Create Supplier</h4>
 				</div>
 				<div class="modal-body">
-					<form id="formdepartemen" data-parsley-validate method="post">
+					<form id="form-add-item" data-parsley-validate method="post">
+					
+					<div>
+						<input class="form-control" type="text" id="search-item" placeholder="Item Name - Variant Name">
+					</div><br/>
+				
+					<div>	
+					<table class="table table-striped table-bordered">
+					<thead>
+					<tr>
+						<td>Item</td>
+						<td>In Stock</td>
+						<td>Adj Quantity</td>
+					</tr>
+					</thead>
+					
+					<tbody>
+						<c:forEach items="${inventories }" var="invent">
+						<tr>
+							<td>${invent.itemVariant.item.name } - ${invent.itemVariant.name }</td>
+							<td>${invent.endingQty }</td>
+							<td><input class="form-control" type="text" id="input-adjustment"></td>
+						</tr>
+						</c:forEach>
+					</tbody>	
+					</table>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-xs-3" style="float:left">
+							<input type="button" class="cancel btn btn-info btn-block" value="cancel">
+						</div>
 						
-						
-							<div>
-								CREATE NEW ADJUSTMENT
-							</div>
+						<div class="col-xs-3" style="float:right">
+							<input type="button" class="add btn btn-info btn-block" value="add">
+						</div>
+					</div>
 							
-							<tr>
-								<td>Address</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-address" id="supplier-address" data-parsley-required="true" /></td>
-							</tr>
-							
-							
-							<table>
-							<tr>
-								<td>Phone</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-phone" id="supplier-phone" data-parsley-required="true" /></td>
-							</tr>
-							
-							<tr>
-								<td>Email</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-email" id="supplier-email" data-parsley-required="true" /></td>
-							</tr>
-							
-							<tr>
-    							<td>Province</td>
-    							<td>:</td>
-    							<td>
-    								<select id="prov-id">
-    									<c:forEach var="prov" items="${provinces }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-    							<td>Region</td>
-    							<td>:</td>
-    							<td>
-    								<select id="reg-id">
-    									<c:forEach var="prov" items="${regions }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-								<td>District</td>
-								<td>:</td>
-								<td>
-    								<select id="dist-id">
-    									<c:forEach items="${districts }" var="prov">
-    										<option>${prov.name}</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						    						
-							<tr>
-								<td><input type="hidden" name="id" id="id"></td>
-							</tr>
-						</table>
 					</form>
 				</div>
 				<div class="modal-footer">

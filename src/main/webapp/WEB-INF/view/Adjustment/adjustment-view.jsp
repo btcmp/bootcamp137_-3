@@ -1,6 +1,30 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 
-<div id="container">
+<div>ADJUSTMENT</div>
+<br/>
+
+<div class="container">
+	
+	<div>
+		<div style="float: left; margin-right: 600px;">
+			<select>
+				<c:forEach items="${outlets }" var="out">
+					<option value="${out.id }">${out.name }</option>
+				</c:forEach>
+			</select>
+		</div>
+		
+		<div align="right" style="float: left; margin-right: 30px;">
+			<button id="export" class="btn btn-primary btn-md">Export</button>
+		</div>
+		
+		<div>
+			<button id="create" class="btn btn-primary btn-md">Create</button>
+		</div>
+	</div>
+
+
+
 	<table id="adjustment-table" class="table table-striped table-bordered">
 		<thead>
 		<tr>
@@ -13,116 +37,31 @@
 		<tbody>
 		<c:forEach items="${adjustments }" var="adj">
 			<tr>
-				<td>${adj.name }</td>
-				<td>${adj.address }</td>
-				<td>${adj.phone }</td>
+				<td>${adj.createdOn }</td>
+				<td>${adj.notes }</td>
+				<td>${adj.status }</td>
 				<td>
-					<a href="" id="${sup.id }" class="btn-edit btn btn-warning">Edit</a>
+					<a href="" id="${adj.id }" class="btn-edit btn btn-warning">view</a>
 				</td>
 			<tr>
 		</c:forEach>
 		</tbody>
 	</table>
-	<a href="" id="tbl-create" class="btn btn-info" >Create</a>
 </div>
-<%@ include file="/WEB-INF/view/supplier/modal/create.jsp"%>
-<%@ include file="/WEB-INF/view/supplier/modal/edit.jsp"%>
+<%@ include file="/WEB-INF/view/Adjustment/modal/create.jsp"%>
+<%@ include file="/WEB-INF/view/Adjustment/modal/add-item.jsp"%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		//$('#supplier-table').DataTable();
 		
-		$("#workshop1").change(function() {
-       		$("select[name=workshop2] option").removeAttr("disabled");
-        	var workshopName = $("select[name=workshop1]").val();
-        	$("select[name=workshop2] option[value=" + workshopName + "]").attr("disabled", "disabled");
-    	});
-		
-		$('#tbl-create').on('click', function(e){
-			e.preventDefault();
+		$('#create').click(function(){
+			document.getElementById('tbl-simpan').disabled=true;
 			$('#modal-create').modal();
 		});
 		
-		$('#tbl-simpan').on('click', function(e){
-			e.preventDefault();
-			var supplier = {
-				name : $('#supplier-name').val(),
-				address : $('#supplier-address').val(),
-				phone : $('#supplier-phone').val(),
-				email : $('#supplier-email').val(),
-				active : true,
-				district : {
-					id : 111111
-				},
-				region : {
-					id : 1111
-				},
-				province : {
-					id : 11
-				}
-			};
-			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/save',
-				type : 'POST',
-				data : JSON.stringify(supplier),
-				contentType : 'application/json',
-				success : function(){
-					console.log(supplier);
-					alert('yes..');
-					window.location = '${pageContext.request.contextPath}/supplier';
-				},
-				error : function(){
-					console.log(supplier);
-					alert('no..');
-				}
-			});
-		});
-		
-		$('.btn-edit').on('click', function(e){
-			e.preventDefault();
-			var id = $(this).attr('id');
-			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/take/' + id,
-				type : 'GET',
-				success : function(){
-					$('#edit-name').val(supplier.name);
-					$('#edit-address').val(supplier.address);
-					$('#edit-phone').val(supplier.phone);
-					$('#edit-email').val(supplier.email);
-					$('#edit-id').val(supplier.id);
-				},
-				error : function(){
-					
-				}
-			});
-			$('#modal-edit').modal();
-		});
-		
-		$('#tbl-edit').on('click', function(e){
-			e.preventDefault();
-			var supplier = {
-				name : $('#edit-name').val(),
-				address : $('#edit-address').val(),
-				phone : $('#edit-phone').val(),
-				email : $('#edit-email').val(),
-				id : $('#edit-id').val(),
-				active : true
-			};
-			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/update',
-				type : 'PUT',
-				data : JSON.strigify(supplier),
-				contentType : 'application/json',
-				success : function(){
-					console.log(supplier);
-					alert('Oke..');
-				},
-				error : function(){
-					console.log(supplier);
-					alert('Failed bro..');
-				}
-			});
+		$('#add-item').click(function(){
+			$('#modal-add-item').modal();
 		});
 		
 	});

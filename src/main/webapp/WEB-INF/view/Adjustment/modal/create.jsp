@@ -5,104 +5,84 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					
-					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
-					<h4 id="judul-modal">Create Supplier</h4>
+					<button type="button" class="close modal cancel" data-dismiss="modal">&times;</button>
+					<h4 id="judul-modal">Create Adjustment</h4>
 				</div>
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-					<select name="workshop1" required="required" id="workshop1">
-    				<option disabled selected value=""> -- select an option -- </option>
-   	 				<option value="wkshp1">Workshop</option>
-   					<option value="wkshp2">name</option>
-    				<option value="wkshp3">Workshop name</option>
-					</select>
-					<select name="workshop1" required="required" id="workshop2">
-    				<option disabled selected value=""> -- select an option -- </option>
-    				<option value="wkshp1">Workshop</option>
-    				<option value="wkshp2">name</option>
-    				<option value="wkshp3">Workshop name</option>
-					</select>
-						<table>
 						
-							<tr>
-								<td>Supplier Name</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-name" id="supplier-name" data-parsley-required="true" /></td>
-							</tr>
+						
+							<div class="form-group">
+								CREATE NEW ADJUSTMENT <a href="">Outlet Login</a>
+								<hr style="border-color:black; border-top:1px dashed;">
+							</div>
 							
-							<tr>
-								<td>Address</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-address" id="supplier-address" data-parsley-required="true" /></td>
-							</tr>
+							<div id="outlet" style="display:none">
+								<div class="form-group">
+									<label for="input-region">Choose Outlet</label>
+									<select class="form-control" id="outlet-list">
+									<c:forEach items="${outlets }" var="out">
+										<option value="${out.id }">${out.name }</option>
+									</c:forEach>
+									</select>
+								</div>
+							</div>
 							
-							<tr>
-								<td>Phone</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-phone" id="supplier-phone" data-parsley-required="true" /></td>
-							</tr>
+							<div id="list-outlet">
+								
+							</div>
 							
-							<tr>
-								<td>Email</td>
-								<td>:</td>
-								<td><input type="text" name="supplier-email" id="supplier-email" data-parsley-required="true" /></td>
-							</tr>
+							<div class="form-group">
+								<p>Notes</p>
+								<textarea id="adj-notes" rows="4" cols="75" name="comment" form="usrform"></textarea>
+							</div>
 							
-							<tr>
-    							<td>Province</td>
-    							<td>:</td>
-    							<td>
-    								<select id="prov-id">
-    									<c:forEach var="prov" items="${provinces }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-    							<td>Region</td>
-    							<td>:</td>
-    							<td>
-    								<select id="reg-id">
-    									<c:forEach var="prov" items="${regions }">
-    										<option>${prov.name }</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						
-    						<tr>
-								<td>District</td>
-								<td>:</td>
-								<td>
-    								<select id="dist-id">
-    									<c:forEach items="${districts }" var="prov">
-    										<option>${prov.name}</option>
-    									</c:forEach>
-    									<option>1</option>
-    									<option>2</option>
-    									<option>3</option>
-    								</select>
-    							</td>
-    						</tr>
-    						    						
-							<tr>
-								<td><input type="hidden" name="id" id="id"></td>
-							</tr>
-						</table>
-					</form>
+							<div style="float:left">
+								<label>Adjustment Stock</label>
+							</div><br/>
+							<hr style="border-color:black; border-top:1px dashed">
+							
+							<div id="item-table">
+							
+								<%-- <table class="table table-striped table-bordered">
+								<thead>
+								<tr>
+									<th>Item</th>
+									<th>In Stock</th>
+									<th>Adj Quantity</th>
+									<th>#</th>
+								</tr>
+								</thead>
+								
+								<tbody id="isi-inventory">
+								
+								 <c:forEach items="adjDetails" var="adj">
+									<tr>
+										<td></td>
+										<td>${adj.notes }</td>
+										<td>${adj.status }</td>
+										<td><input type="button" id="${adj.id }" data-parsley-required="true" />X</td>
+									</tr>
+								</c:forEach>		
+														
+								</tbody>
+								
+								</table> --%>
+								
+							</div>
+						<div>
+							<a type="submit" class="btn btn-primary btn-block" id="add-item">Add Item</a> <br/>
+						</div>
 				</div>
+				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
+					
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-info" id="tbl-simpan">Save & Submit</button>
 				</div>
+				
+				</form>
+				
 			</div>
 
 		</div>
