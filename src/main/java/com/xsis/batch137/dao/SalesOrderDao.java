@@ -12,7 +12,7 @@ public interface SalesOrderDao {
 	
 	public void update(SalesOrder salesOrder);
 	
-	public SalesOrder getOne(String id);
+	public SalesOrder getOne(Long id);
 	
 	public List<SalesOrder> selectAll();
 }

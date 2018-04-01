@@ -8,5 +8,6 @@ import com.xsis.batch137.model.Region;
 public interface ProvinceDao {
 
 	public List<Province> selectAll();
+	
 
 }

@@ -38,7 +38,7 @@ public class SalesOrderDaoImpl implements SalesOrderDao{
 		session.flush();
 	}
 
-	public SalesOrder getOne(String id) {
+	public SalesOrder getOne(Long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(SalesOrder.class, id);
