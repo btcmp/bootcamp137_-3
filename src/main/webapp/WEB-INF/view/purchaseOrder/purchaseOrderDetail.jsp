@@ -43,19 +43,19 @@
 </div>
 <div class="row">
 <div class="col-xs-8">
-<h5>${po.supplier.name }</h5>
-<table class="table table-hover table-bordered table-stripped">
-	<tr>
-		<td>${po.supplier.phone }</td>
-		<td colspan="2">${po.supplier.email }</td>
+<h5><strong>${po.supplier.name }</strong></h5>
+<table class="table table-striped table-bordered table-hover" style="border-color:black;">
+	<tr style="border-color:black;">
+		<td style="border-color:black;">${po.supplier.phone }</td>
+		<td colspan="2" style="border-color:black;">${po.supplier.email }</td>
 	</tr>
-	<tr>
-		<td colspan="3">${po.supplier.address }</td>
+	<tr style="border-color:black;">
+		<td colspan="3" style="border-color:black;">${po.supplier.address }</td>
 	</tr>
-	<tr>
-		<td>${po.supplier.province.name }</td>
-		<td>${po.supplier.region.name }</td>
-		<td>${po.supplier.postalCode }</td>
+	<tr style="border-color:black;">
+		<td style="border-color:black;">${po.supplier.province.name }</td>
+		<td style="border-color:black;">${po.supplier.region.name }</td>
+		<td style="border-color:black;">${po.supplier.postalCode }</td>
 	</tr>
 </table>
 </div>
