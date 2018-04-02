@@ -71,13 +71,7 @@
 					<td>${po.grandTotal }
 					<td>${po.status }</td>
 					<td>
-						<script>
-							if('${po.status}' == 'Created'){
-								document.write('<input type="button" class="btn-edit-po btn btn-default" value="Edit" key-id="${po.id }"> |');
-							}else {
-								document.write('<input type="button" class="btn-edit-po btn btn-default" value="Edit" key-id="${po.id }" disabled> |');
-							}
-						</script> 
+						<input type="button" class="btn-edit-po btn btn-default" value="Edit" key-id="${po.id }"> | 
 						<a href='${pageContext.request.contextPath}/transaksi/purchase-order/detail/${po.id}' class="btn-view-pr btn btn-info" key-id="${pr.id }">View</a>
 					</td>
 				</tr>
@@ -120,9 +114,13 @@
 	                	</thead>
 	                	<tbody id = "list-item">
 	                	</tbody>
+	                	<tfoot>
+							<tr style=" border: none; background: none;">
+								<td colspan="4">TOTAL</td>
+								<td id="totalbanget"></td>
+							</tr>
+						</tfoot>
 	                </table>
-	                <button type="button" class="btn btn-md btn-primary btn-block" id="btn-tambah-item" data-toggle="modal" data-target="#add-item-pr">Add Item</button>
-	                
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"
@@ -226,9 +224,19 @@
 					$(data.detail).each(function(key, val){
 						$('#list-item').append(
 							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td>null</td>'
+							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
+							+'<td><input type="number" min="10000" max="10000000000" id="cost'+val.id+'" placeholder="20000" value="'+val.unitCost+'"></td>'
+							+'<td id="subtotal'+val.id+'">'+val.subTotal+'</td>'
 						);
+						$.ajax({
+							type : 'GET',
+							url : '${pageContext.request.contextPath}/transaksi/purchase-order/get-inventory?idPo='+id+'&idPod='+val.id,
+							dataType: 'json',
+							success : function(inv){
+								$('#td'+val.id).append(inv[0]);
+							}
+						});
 					})
 					$('#edit-po').modal('show');
 				}, 
