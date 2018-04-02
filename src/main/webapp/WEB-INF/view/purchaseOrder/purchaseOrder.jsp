@@ -91,6 +91,7 @@
 				<div class="modal-body">
 					<h4>choose Supplier : </h4>
 					<div class="form-group">
+						<input type="hidden" id="in-id">
 						<select id="choose supplier" class="form-control">
 							<c:forEach items = "${sups }" var = "sup">
 								<option value = "${sup.id }">${sup.name }</option>
@@ -116,7 +117,7 @@
 	                	</tbody>
 	                	<tfoot>
 							<tr style=" border: none; background: none;">
-								<td colspan="4">TOTAL</td>
+								<td colspan="4"><strong>TOTAL</strong></td>
 								<td id="totalbanget"></td>
 							</tr>
 						</tfoot>
@@ -226,7 +227,7 @@
 							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
 							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
-							+'<td><input type="number" min="10000" max="10000000000" id="cost'+val.id+'" placeholder="20000" value="'+val.unitCost+'"></td>'
+							+'<td><input type="number" min="10000" max="10000000000" id="cost'+val.id+'" placeholder="20000" value="'+val.unitCost+'" class="edit-cost form-control"></td>'
 							+'<td id="subtotal'+val.id+'">'+val.subTotal+'</td>'
 						);
 						$.ajax({
@@ -246,11 +247,20 @@
 			});
 		});
 		
-		function clearForm(){
-			$('#in-id').val('');
-			$('#list-item').empty();
-			$('#in-notes').val('');
-		}
+		$('#list-item').on('keyup', '.edit-cost',function(e){
+			var cost = parseInt($(this).val());
+			var tr = $(this).parent().parent();
+			var subLoc = tr.find('td').eq(4);
+			var reqQty = parseInt(tr.find('td').eq(2).text());
+			var subTotal = cost*reqQty;
+			subLoc.text(subTotal);
+			var total = 0;
+			$('#list-item > tr').each(function(index,data) {
+				var subtot = parseInt($(this).find('td').eq(4).text());
+				total = total + subtot;
+			});
+			$('#totalbanget').text(total);
+		});
 	});
 </script>
 </html>
