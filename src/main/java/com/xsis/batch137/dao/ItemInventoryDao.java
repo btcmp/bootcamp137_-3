@@ -16,5 +16,5 @@ public interface ItemInventoryDao {
 	public void saveAtauUpdate(ItemInventory itemInventory);
 	public List<ItemInventory> searchInventoryByItem(Item item);
 	public List<ItemInventory> searchItemInventoryByItemName(String search);
-	public List<ItemInventory> searchItemInventoryByItemVariantAndOutlet(ItemVariant iv, Outlet ou);
+	public List<Object> searchItemInventoryByItemVariantAndOutlet(ItemVariant iv, Outlet ou);
 }

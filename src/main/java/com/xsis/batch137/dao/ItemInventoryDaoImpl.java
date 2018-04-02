@@ -79,11 +79,11 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 		}
 	}
 
-	public List<ItemInventory> searchItemInventoryByItemVariantAndOutlet(ItemVariant iv, Outlet ou) {
+	public List<Object> searchItemInventoryByItemVariantAndOutlet(ItemVariant iv, Outlet ou) {
 		// TODO Auto-generated method stub
 		Session session=sessionFactory.getCurrentSession();
-		String hql="from ItemInventory where itemVariant = :iv and outlet = :ou";
-		List<ItemInventory> itemInventories = session.createQuery(hql).setParameter("iv", iv).setParameter("ou", ou).list();
+		String hql="select endingQty from ItemInventory where itemVariant = :iv and outlet = :ou";
+		List<Object> itemInventories = session.createQuery(hql).setParameter("iv", iv).setParameter("ou", ou).list();
 		if(itemInventories.isEmpty()) {
 			return null;
 		}else {
