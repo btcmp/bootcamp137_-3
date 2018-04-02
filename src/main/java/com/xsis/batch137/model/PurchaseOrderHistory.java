@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="pos_t_po_history")
@@ -23,9 +24,9 @@ public class PurchaseOrderHistory {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="po_id")
-	@JsonBackReference
+	@JsonIgnore
 	private PurchaseOrder purchaseOrder;
 	
 	@Size(max=20)

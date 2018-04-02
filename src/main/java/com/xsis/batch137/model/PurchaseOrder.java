@@ -33,9 +33,8 @@ public class PurchaseOrder {
 	@JsonBackReference
 	private PurchaseRequest purchaseReq;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private PurchaseOrderHistory history;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="purchaseOrder", cascade = CascadeType.ALL)
+	private List<PurchaseOrderHistory> history;
 	
 	@ManyToOne
 	@JoinColumn(name="outlet_id")
@@ -155,14 +154,6 @@ public class PurchaseOrder {
 		this.purchaseReq = purchaseReq;
 	}
 
-	public PurchaseOrderHistory getHistory() {
-		return history;
-	}
-
-	public void setHistory(PurchaseOrderHistory history) {
-		this.history = history;
-	}
-
 	public Outlet getOutlet() {
 		return outlet;
 	}
@@ -185,6 +176,14 @@ public class PurchaseOrder {
 
 	public void setDetail(List<PurchaseOrderDetail> detail) {
 		this.detail = detail;
+	}
+
+	public List<PurchaseOrderHistory> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<PurchaseOrderHistory> history) {
+		this.history = history;
 	}
 
 	
