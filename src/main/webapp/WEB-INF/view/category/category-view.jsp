@@ -1,6 +1,23 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 
+<div><h1>CATEGORY</h1></div>
+<hr style="border-color:black; border-top:1px dashed;">
+
 <div id="container">
+	
+	<div class="row">
+		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search Category..">
+			</div>
+		</div>
+		<div style="float:right; margin-right:60px;">
+			<div class="form-group">
+				<a href="" id="tbl-create" class="btn btn-info" >Create</a>
+			</div>
+		</div>
+	</div>
+	
 	<table id="category-table" class="table table-striped table-bordered">
 		<thead>
 		<tr>
@@ -15,13 +32,13 @@
 				<td>${cat.name }</td>
 				<td>${cat.itemStock} Item</td>
 				<td>
-					<a href="" id="${cat.id }" class="btn-edit btn btn-warning">View</a>
+					<a href="" id="${cat.id }" class="btn-edit btn btn-success">View</a>
 				</td>
 			<tr>
 		</c:forEach>
 		</tbody>
 	</table>
-	<a href="" id="tbl-create" class="btn btn-info" >Create</a>
+	
 </div>
 <%@ include file="/WEB-INF/view/category/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/category/modal/edit.jsp"%>
@@ -66,6 +83,7 @@
 			});
 		});
 		
+		
 		$('.btn-edit').on('click', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
@@ -83,6 +101,7 @@
 			});
 			$('#modal-edit').modal();
 		});
+		
 		
 		$('#tbl-edit').on('click', function(e){
 			e.preventDefault();

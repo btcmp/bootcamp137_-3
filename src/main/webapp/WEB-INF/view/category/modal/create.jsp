@@ -10,22 +10,22 @@
 				</div>
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-						<table>
-							<tr>
-								<td>Category Name</td>
-								<td>:</td>
-								<td><input type="text" name="create-category" id="create-category" data-parsley-required="true" /></td>
-							</tr>
-							
-							<tr>
-								<td><input type="hidden" name="id" id="id"></td>
-							</tr>
-						</table>
+						<div class="row">
+							<div class="col-xs-3">Category Name</div>
+							<div class="col-xs-8"><input type="text" class="form-control" id="create-category" data-parsley-required="true" /></div>
+							<input type="hidden" name="id" id="id">
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-warning" id="tbl-reset">Cancel</button>
-					<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
+					<div class="row">
+						<div class="form-group" style="float:left; margin-left:20px;">
+							<button type="button" class="btn btn-warning" id="tbl-reset">Cancel</button>
+						</div>
+						<div class="form-group" style="float:right; margin-right:20px;">
+							<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
+						</div>
+					</div>
 				</div>
 			</div>
 
