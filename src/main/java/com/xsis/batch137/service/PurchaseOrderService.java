@@ -70,9 +70,12 @@ public class PurchaseOrderService {
 		purOrd.setStatus(po.getStatus());
 		purOrd.setNotes(po.getNotes());
 		purOrd.setModifiedOn(new Date());
-		PurchaseOrder pure = poDao.getOne(purOrd.getId());
-		purOrd.setCreatedOn(pure.getCreatedOn());
-		purOrd.setPoNo(po.getPoNo());
+		PurchaseOrder puro = poDao.getOne(purOrd.getId());
+		purOrd.setCreatedOn(puro.getCreatedOn());
+		purOrd.setPoNo(puro.getPoNo());
+		purOrd.setSupplier(po.getSupplier());
+		purOrd.setGrandTotal(po.getGrandTotal());
+		purOrd.setPurchaseReq(puro.getPurchaseReq());
 		poDao.update(purOrd);
 		
 		List<PurchaseOrderDetail> pods = podDao.selectDetailByPO(purOrd);

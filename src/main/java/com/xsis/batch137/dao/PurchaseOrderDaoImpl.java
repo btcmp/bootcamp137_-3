@@ -27,6 +27,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public void update(PurchaseOrder po) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		session.update(po);
 		session.flush();
 	}
@@ -47,6 +48,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public PurchaseOrder getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		return session.get(PurchaseOrder.class, id);
 	}
 
