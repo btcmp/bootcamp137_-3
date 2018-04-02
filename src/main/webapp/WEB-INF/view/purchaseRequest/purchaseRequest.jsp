@@ -67,13 +67,7 @@
 					<td>${pr.notes }</td>
 					<td>${pr.status }</td>
 					<td>
-						<script>
-							if('${pr.status}' == 'Created'){
-								document.write('<input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="${pr.id }"> |');
-							}else {
-								document.write('<input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="${pr.id }" disabled> |');
-							}
-						</script> 
+						<input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="${pr.id }" pr-status="${pr.status }"> |
 						<a href='${pageContext.request.contextPath}/transaksi/purchase-request/detail/${pr.id}' class="btn-view-pr btn btn-info" key-id="${pr.id }">View</a>
 					</td>
 				</tr>
@@ -174,6 +168,8 @@
 </body>
 <script>
 	$(function(){
+		var awal = '';
+		var akhir = '';
 		$('#pilih-tanggal-range').daterangepicker(
 		      {
 		        ranges   : {
@@ -185,10 +181,36 @@
 		          'Bulan lalu'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 		        },
 		        startDate: moment().subtract(29, 'days'),
-		        endDate  : moment()
+		        endDate  : moment(),
 		      },
 		      function (start, end) {
-		        $('#pilih-tanggal-range').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+		        $('#pilih-tanggal-range').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'))
+		        awal = start.format('YYYY-MM-DD');
+		        akhir = end.format('YYYY-MM-DD');
+		        $.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/transaksi/purchase-request/search-date?awal='+awal+'&akhir='+akhir,
+					success : function(data){
+						$('#isi-data-pr').empty();
+						$(data).each(function(key, val){
+							var json_data = '/Date('+val.createdOn+')/';
+							var asAMoment = moment(json_data);
+							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+							
+							$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
+								+'<td>'+val.prNo+'</td>'
+								+'<td>'+val.notes+'</td>'
+								+'<td>'+val.status+'</td>'
+								+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
+						})
+						
+					},
+					error : function(){
+						console.log('gagal');
+						$('#isi-data-pr').empty();
+					}
+				});
 		      }
 	    );
 	    
@@ -275,7 +297,7 @@
 		$(".easy-autocomplete").removeAttr("style");
 		
 		// fungsi search
-	    $('#search-item').on('input',function(e){
+	    $('#search-item').on('keyup',function(e){
 	    	console.log(itemsss);
 			var word = $(this).val();
 			if (word=="") {
@@ -391,27 +413,29 @@
 					url : ur,
 					success : function(data){
 						console.log('sukses');
+						$('#isi-data-pr').empty();
 						$(data).each(function(key, val){
 							var json_data = '/Date('+val.createdOn+')/';
 							var asAMoment = moment(json_data);
 							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
 							console.log(tanggal);
-							$('#isi-data-pr').empty();
+							
 							$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
 								+'<td>'+val.prNo+'</td>'
 								+'<td>'+val.notes+'</td>'
 								+'<td>'+val.status+'</td>'
-								+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'"> | '
+								+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
 								+'<a href="${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
 						})
 						
 					},
 					error : function(){
+						$('#isi-data-pr').empty();
 						console.log('gagal');
 					}
 				});
 			}
-		})
+		});
 	});
 </script>
 </html>
