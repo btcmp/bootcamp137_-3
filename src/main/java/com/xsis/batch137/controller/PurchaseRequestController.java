@@ -1,8 +1,10 @@
 package com.xsis.batch137.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,6 +73,24 @@ public class PurchaseRequestController {
 	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
 		List<ItemInventory > itemInventories = iService.searchItemInventoryByItemName(search);
 		return itemInventories;
+	}
+	
+	@RequestMapping("/search-status")
+	@ResponseBody
+	public List<PurchaseRequest> getByStatus(@RequestParam(value="search", defaultValue="") String status){
+		return prService.getPRByStatus(status);
+	}
+	
+	@RequestMapping("/search")
+	@ResponseBody
+	public List<PurchaseRequest> search(@RequestParam(value="search", defaultValue="") String search){
+		return prService.searchGlobal(search);
+	}
+	
+	@RequestMapping("/search-date")
+	@ResponseBody
+	public List<PurchaseRequest> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		return prService.getPRByDate(awal, akhir);
 	}
 	
 	@RequestMapping("/get-one/{id}")

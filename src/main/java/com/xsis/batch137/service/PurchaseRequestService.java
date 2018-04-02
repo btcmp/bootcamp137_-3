@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -254,5 +255,28 @@ public class PurchaseRequestService {
 		System.out.println(prd.getVariant().getId());
 		System.out.println(pr.getOutlet().getId());
 		return iDao.searchItemInventoryByItemVariantAndOutlet(prd.getVariant(), pr.getOutlet());
+	}
+	
+	public List<PurchaseRequest> getPRByStatus(String status){
+		return prDao.searchPRByStatus(status);
+	}
+	
+	public List<PurchaseRequest> getPRByDate(Date awal, Date akhir){
+		Date startDate = awal;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(startDate); 
+		c.add(Calendar.DATE, -1);
+		startDate = c.getTime();
+		
+		Date endDate = akhir;
+		Calendar c2 = Calendar.getInstance(); 
+		c2.setTime(endDate); 
+		c2.add(Calendar.DATE, 1);
+		endDate = c2.getTime();
+		return prDao.searchPRByDate(startDate, endDate);
+	}
+	
+	public List<PurchaseRequest> searchGlobal(String search){
+		return prDao.searchPR(search);
 	}
 }

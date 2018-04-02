@@ -92,8 +92,8 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	public List<PurchaseRequest> searchPR(String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where prNo = :search or status = :search";
-		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("search", search).list();
+		String hql = "from PurchaseRequest where lower(prNo) = :search or lower(status) = :search or lower(notes) = :search";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("search", "%"+search.toLowerCase()+"%").list();
 		if(prs.isEmpty()) {
 			return null;
 		}else {
@@ -103,7 +103,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	
 	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where createdOn BETWEEN :start AND :end";
+		String hql = "from PurchaseRequest where createdOn >= :start AND createdOn <= :end";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("start", startDate)
 				.setParameter("end", endDate).list();
 		if(prs.isEmpty()) {
