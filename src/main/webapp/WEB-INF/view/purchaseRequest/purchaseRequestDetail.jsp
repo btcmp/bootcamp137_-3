@@ -42,25 +42,16 @@
 	</div>
 </div>
 <div class="row">
-<div class="col-xs-4">
-<table class="table table-hover">
+<div class="col-xs-8">
+<table class="table table-hover table-borderless">
 	<tr>
-		<th>PR Number</th>
-		<td></td>
-		<td>:</td>
-		<td>${pr.prNo }</td>
+		<td>PR Number : ${pr.prNo }</td>
 	</tr>
 	<tr>
-		<th>Created By</th>
-		<td></td>
-		<td>:</td>
-		<td>${pr.createdBy }</td>
+		<td>Created By : ${pr.createdBy }</td>
 	</tr>
 	<tr>
-		<th>Target Waktu Item Ready</th>
-		<td></td>
-		<td> : </td>
-		<td>
+		<td>Target Waktu Item Ready : 
 			<script>
 				var tanggal = '${pr.readyTime}';
 				var tgl = tanggal.split('-');
@@ -69,10 +60,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>PR Status</th>
-		<td></td>
-		<td> : </td>
-		<td id="status">${pr.status }</td>
+		<td>PR Status : ${pr.status }</td>
 	</tr>
 </table>
 </div>
@@ -86,22 +74,17 @@
 </h5>
 <hr style="border-color: black; border-top: 1px dashed;">
 <div class="row">
-	<div class="col-xs-5">
-		<table id="data-history" class="table table-striped table-bordered table-hover">
+	<div class="col-xs-8">
+		<table id="data-history" class="table table-striped table-borderless table-hover">
 			<c:forEach items="${pr.history }" var="his">
 				<tr>
-					<td>On</td>
-					<td>
+					<td>On 
 						<script>
 							var waktu = '${his.createdOn}';
 							var wkt = waktu.split('.');
 							document.write(wkt[0]);
 						</script>
-					</td>
-					<td>-</td>
-					<td>${pr.prNo }</td>
-					<td>is</td>
-					<td>${his.status }</td>
+					- ${pr.prNo } is ${his.status }</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -123,7 +106,18 @@
 		<c:forEach items="${pr.detail }" var ="prd">
 			<tr>
 				<td>${prd.variant.item.name }-${prd.variant.name }</td>
-				<td>null</td>
+				<td id="td${prd.id }">
+					<script type="text/javascript">
+							$.ajax({
+								type : 'GET',
+								url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
+								dataType: 'json',
+								success : function(inv){
+									$('#td${prd.id}').append('<td>'+inv[0]+'<td>');
+								}
+							});
+					</script>
+				</td>
 				<td>${prd.requestQty }</td>
 			</tr>
 		</c:forEach>

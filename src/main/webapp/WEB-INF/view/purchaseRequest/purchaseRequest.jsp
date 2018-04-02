@@ -4,8 +4,8 @@
 	<hr style="border-color:black;">
 	<div class="row">
 		<div class="col-xs-3">
-			<div class="input-group">
-		       <button type="button" class="btn btn-default pull-right" id="pilih-tanggal-range">
+			<div class="form-group">
+		       <button type="button" class="btn btn-default btn-block" id="pilih-tanggal-range">
 		         <span>
 		           <i class="fa fa-calendar"></i> Pilih Tanggal
 		         </span>
@@ -15,7 +15,7 @@
 	    </div>
 	    
 	    <div class="col-xs-2">
-		    <div class="input-group">
+		    <div class="form-group">
 		    	<select id="pil-status" class="form-control">
 		    		<option value="All">All</option>
 		    		<option value="Created">Created</option>
@@ -27,19 +27,19 @@
 	    </div>
 	    
 	    <div class="col-xs-3">
-		    <div class="input-group">
+		    <div class="form-group">
 		    	<input type="text" id="cari-pr" class="form-control" placeholder="Search...">
 		    </div>
 	    </div>
 	    
 	    <div class="col-xs-2">
-		    <div class="input-group">
-		    	<input type="button" id="btn-export" class="btn btn-md btn-primary float-right" value="Export">
+		    <div class="form-group">
+		    	<input type="button" id="btn-export" class="btn btn-md btn-primary btn-block" value="Export">
 		    </div>
 	    </div>
 	    <div class="col-xs-2">
-		    <div class="input-group">
-		    	<input type="button" id="btn-create" class="btn btn-md btn-primary float-right" value="Create" data-toggle="modal" data-target="#create-pr">
+		    <div class="form-group">
+		    	<input type="button" id="btn-create" class="btn btn-md btn-primary btn-block" value="Create" data-toggle="modal" data-target="#create-pr">
 		    </div>
 	    </div>
 	</div>
@@ -309,16 +309,17 @@
 			var itemVar = element.find('td').eq(0).text();
 			var inStock = element.find('td').eq(1).text();
 			var reqQty = $('#reqQty'+id).val();
-			if(added.indexOf(id.toString()) == -1) {
+			if(added.indexOf(variantId.toString()) == -1) {
 				$('#list-item').append(
-					'<tr key-id="'+variantId+'" id="'+id+'"><td>'+itemVar+'</td>'
+					'<tr key-id="'+variantId+'" id="'+variantId+'"><td>'+itemVar+'</td>'
 					+'<td>'+inStock+'</td>'
 					+'<td>'+reqQty+'</td>'
 					+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
 				);
-				added.push(id);
+				added.push(variantId);
+				console.log(added);
 			}else{
-				var target = $('#list-item > #'+id+'');
+				var target = $('#list-item > #'+variantId+'');
 				var oldReq = target.find('td').eq(2).text();
 				var newReq = parseInt(oldReq)+parseInt(reqQty);
 				target.find('td').eq(2).text(newReq);
@@ -336,6 +337,7 @@
 		
 		$('#data-pr').on('click', '.btn-edit-pr', function(){
 			console.log('edit');
+			added= [];
 			$('#list-item').empty();
 			var id = $(this).attr('key-id');
 			$.ajax({
@@ -350,12 +352,22 @@
 					var tanggal = tgl[1]+'/'+tgl[2]+'/'+tgl[0];
 					$('#pilih-tanggal').val(tanggal);
 					$(data.detail).each(function(key, val){
+						added.push(''+val.variant.id+'');
+						console.log(added);
 						$('#list-item').append(
-							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td>null</td>'
+							'<tr key-id="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
 							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
 						);
+						$.ajax({
+							type : 'GET',
+							url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-inventory?idPr='+id+'&idPrd='+val.id,
+							dataType: 'json',
+							success : function(inv){
+								$('#td'+val.id).append(inv[0]);
+							}
+						});
 					})
 					$('#create-pr').modal('show');
 				}, 
