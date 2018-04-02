@@ -44,10 +44,10 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		return session.createCriteria(PurchaseOrder.class).list();
 	}
 
-	public PurchaseOrder getOne(PurchaseOrder po) {
+	public PurchaseOrder getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(PurchaseOrder.class, po.getId());
+		return session.get(PurchaseOrder.class, id);
 	}
 
 	public void ubahStatus(String status, long id) {

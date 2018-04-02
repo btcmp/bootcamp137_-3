@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xsis.batch137.dao.ItemInventoryDao;
 import com.xsis.batch137.dao.PurchaseOrderDao;
 import com.xsis.batch137.dao.PurchaseOrderDetailDao;
 import com.xsis.batch137.dao.PurchaseOrderHistoryDao;
 import com.xsis.batch137.dao.PurchaseRequestDao;
 import com.xsis.batch137.dao.PurchaseRequestDetailDao;
 import com.xsis.batch137.dao.PurchaseRequestHistoryDao;
+import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
@@ -42,6 +44,9 @@ public class PurchaseRequestService {
 	
 	@Autowired
 	PurchaseOrderHistoryDao pohDao;
+	
+	@Autowired
+	ItemInventoryDao iDao;
 	
 	public void save(PurchaseRequest pr) {
 		PurchaseRequest pureq = new PurchaseRequest();
@@ -221,6 +226,7 @@ public class PurchaseRequestService {
 		po.setPoNo(poNo);
 		po.setPurchaseReq(pr);
 		po.setStatus("Created");
+		po.setOutlet(pr.getOutlet());
 		poDao.save(po);
 		if(pr.getDetail() == null) {
 			
@@ -240,5 +246,13 @@ public class PurchaseRequestService {
 		poh.setPurchaseOrder(po);
 		poh.setStatus(po.getStatus());
 		pohDao.save(poh);
+	}
+	
+	public List<Object> getInventoryByVariantDanOutlet(long idPrd, long idPr){
+		PurchaseRequest pr = prDao.getOne(idPr);
+		PurchaseRequestDetail prd = prdDao.getOne(idPrd);
+		System.out.println(prd.getVariant().getId());
+		System.out.println(pr.getOutlet().getId());
+		return iDao.searchItemInventoryByItemVariantAndOutlet(prd.getVariant(), pr.getOutlet());
 	}
 }

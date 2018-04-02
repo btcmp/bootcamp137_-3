@@ -72,6 +72,7 @@ public class PurchaseOrder {
 	private Date modifiedOn;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<PurchaseOrderDetail> detail;
 
 	public long getId() {

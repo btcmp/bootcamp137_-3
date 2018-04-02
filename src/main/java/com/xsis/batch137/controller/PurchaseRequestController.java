@@ -18,6 +18,7 @@ import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseRequest;
+import com.xsis.batch137.model.PurchaseRequestDetail;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.OutletService;
 import com.xsis.batch137.service.PurchaseRequestService;
@@ -94,5 +95,11 @@ public class PurchaseRequestController {
 	@ResponseStatus(HttpStatus.OK)
 	public void createPo(@PathVariable long id) {
 		prService.createPo(id);
+	}
+	
+	@RequestMapping("/get-inventory")
+	@ResponseBody
+	public List<Object> getInventory(@RequestParam(value="idPr", defaultValue="") long idPr, @RequestParam(value="idPrd", defaultValue="") long idPrd){
+		return prService.getInventoryByVariantDanOutlet(idPrd, idPr);
 	}
 }

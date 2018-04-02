@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderHistory;
 
 public interface PurchaseOrderHistoryDao {
@@ -17,4 +18,6 @@ public interface PurchaseOrderHistoryDao {
 	PurchaseOrderHistory getOne(PurchaseOrderHistory poh);
 	
 	void ubahStatus(String status, long id);
+
+	List<PurchaseOrderHistory> selectByPO(PurchaseOrder po);
 }

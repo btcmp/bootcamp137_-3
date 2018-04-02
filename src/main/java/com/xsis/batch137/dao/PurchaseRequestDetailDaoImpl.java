@@ -45,10 +45,10 @@ public class PurchaseRequestDetailDaoImpl implements PurchaseRequestDetailDao{
 		return session.createCriteria(PurchaseRequestDetail.class).list();
 	}
 
-	public PurchaseRequestDetail getOne(PurchaseRequestDetail prd) {
+	public PurchaseRequestDetail getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(PurchaseRequestDetail.class, prd.getId());
+		return session.get(PurchaseRequestDetail.class, id);
 	}
 
 	public List<PurchaseRequestDetail> selectDetailByPr(PurchaseRequest pr) {

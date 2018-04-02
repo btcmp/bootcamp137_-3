@@ -16,7 +16,7 @@ public interface PurchaseOrderDao {
 	
 	List<PurchaseOrder> selectAll();
 	
-	PurchaseOrder getOne(PurchaseOrder po);
+	PurchaseOrder getOne(long id);
 	
 	void ubahStatus(String status, long id);
 	

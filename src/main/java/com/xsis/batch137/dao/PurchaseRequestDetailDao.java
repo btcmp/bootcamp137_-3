@@ -15,7 +15,7 @@ public interface PurchaseRequestDetailDao {
 	
 	List<PurchaseRequestDetail> selectAll();
 	
-	PurchaseRequestDetail getOne(PurchaseRequestDetail prd);
+	PurchaseRequestDetail getOne(long id);
 	
 	List<PurchaseRequestDetail> selectDetailByPr(PurchaseRequest pr);
 }
