@@ -54,6 +54,18 @@ public class Adjustment {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AdjustmentHistory> adjustmentHistories;
 	
+	public List<AdjustmentDetail> getAdjustmentDetails() {
+		return adjustmentDetails;
+	}
+	public void setAdjustmentDetails(List<AdjustmentDetail> adjustmentDetails) {
+		this.adjustmentDetails = adjustmentDetails;
+	}
+	public List<AdjustmentHistory> getAdjustmentHistories() {
+		return adjustmentHistories;
+	}
+	public void setAdjustmentHistories(List<AdjustmentHistory> adjustmentHistories) {
+		this.adjustmentHistories = adjustmentHistories;
+	}
 	public long getId() {
 		return id;
 	}
