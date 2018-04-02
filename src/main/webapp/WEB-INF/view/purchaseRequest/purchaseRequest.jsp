@@ -231,7 +231,7 @@
 						}
 				};
 				prd.push(detail);
-				console.log(detail);
+		
 			});
 			
 			var tgl = $('#pilih-tanggal').val().split('/');
@@ -248,7 +248,7 @@
 				"status" : "Created",
 				"readyTime" : tanggal
 			};
-			console.log(purReq);
+			
 			//validate = $('#form-emp').parsley();
 			//validate.validate();
 			//if(validate.isValid()){
@@ -258,7 +258,7 @@
 					data : JSON.stringify(purReq),
 					contentType : 'application/json',
 					success : function() {
-						console.log('simpan');
+						
 						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
 					},
 					error : function() {
@@ -298,7 +298,7 @@
 		
 		// fungsi search
 	    $('#search-item').on('keyup',function(e){
-	    	console.log(itemsss);
+	    	
 			var word = $(this).val();
 			if (word=="") {
 				$('#list-barang').empty();
@@ -308,7 +308,7 @@
 					url : '${pageContext.request.contextPath}/transaksi/purchase-request/search-item?search='+word,
 					dataType: 'json',
 					success : function(data){
-						console.log(data);
+						
 						$('#list-barang').empty();
 						$.each(data, function(key, val) {
 							$('#list-barang').append(
@@ -341,7 +341,7 @@
 					+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
 				);
 				added.push(variantId);
-				console.log(added);
+				
 			}else{
 				var target = $('#list-item > #'+variantId+'');
 				var oldReq = target.find('td').eq(2).text();
@@ -360,7 +360,7 @@
 		});
 		
 		$('#data-pr').on('click', '.btn-edit-pr', function(){
-			console.log('edit');
+			
 			added= [];
 			$('#list-item').empty();
 			var id = $(this).attr('key-id');
@@ -369,7 +369,7 @@
 				url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
-					console.log(data);
+					
 					$('#in-notes').val(data.notes);
 					$('#in-id').val(data.id);
 					var tgl = data.readyTime.split('-');
@@ -377,7 +377,7 @@
 					$('#pilih-tanggal').val(tanggal);
 					$(data.detail).each(function(key, val){
 						added.push(''+val.variant.id+'');
-						console.log(added);
+						
 						$('#list-item').append(
 							'<tr key-id="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
 							+'<td id="td'+val.id+'"></td>'
@@ -412,13 +412,45 @@
 					type : 'GET',
 					url : ur,
 					success : function(data){
-						console.log('sukses');
+						
 						$('#isi-data-pr').empty();
 						$(data).each(function(key, val){
 							var json_data = '/Date('+val.createdOn+')/';
 							var asAMoment = moment(json_data);
 							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
-							console.log(tanggal);
+							
+							$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
+								+'<td>'+val.prNo+'</td>'
+								+'<td>'+val.notes+'</td>'
+								+'<td>'+val.status+'</td>'
+								+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+								+'<a href="${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
+						})
+						
+					},
+					error : function(){
+						$('#isi-data-pr').empty();
+						console.log('gagal');
+					}
+				});
+			}
+		});
+		
+		$('#cari-pr').on('keyup', function(){
+			var word = $(this).val();
+			if (word=="") {
+				$('#isi-data-pr').empty();
+			} else {
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/transaksi/purchase-request/search?search='+word,
+					success : function(data){
+						console.log(data);				
+						$('#isi-data-pr').empty();
+						$(data).each(function(key, val){
+							var json_data = '/Date('+val.createdOn+')/';
+							var asAMoment = moment(json_data);
+							var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
 							
 							$('#isi-data-pr').append('<tr><td>'+tanggal+'</td>'
 								+'<td>'+val.prNo+'</td>'
