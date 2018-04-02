@@ -24,10 +24,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="pos_t_pr")
 public class PurchaseRequest {
-
-	public PurchaseRequest() {
-
-	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -58,6 +54,7 @@ public class PurchaseRequest {
 	@JoinColumn(name="created_by")
 	private User createdBy;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_on")
 	private Date createdOn;
 	
@@ -65,6 +62,7 @@ public class PurchaseRequest {
 	@JoinColumn(name="modified_by")
 	private User modifiedBy;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
