@@ -1,5 +1,7 @@
 package com.xsis.batch137.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,6 @@ import com.xsis.batch137.dao.PurchaseOrderHistoryDao;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
-import com.xsis.batch137.model.PurchaseRequest;
-import com.xsis.batch137.model.PurchaseRequestDetail;
-import com.xsis.batch137.model.PurchaseRequestHistory;
 
 @Service
 @Transactional
@@ -60,5 +59,44 @@ public class PurchaseOrderService {
 		PurchaseOrder po = poDao.getOne(idPo);
 		PurchaseOrderDetail pod = podDao.getOne(idPod);
 		return iDao.searchItemInventoryByItemVariantAndOutlet(pod.getVariant(), po.getOutlet());
+	}
+
+	public void update(PurchaseOrder po) {
+		// TODO Auto-generated method stub
+		PurchaseOrder purOrd = new PurchaseOrder();
+		purOrd.setId(po.getId());
+		purOrd.setOutlet(po.getOutlet());
+		purOrd.setPoNo(po.getPoNo());
+		purOrd.setStatus(po.getStatus());
+		purOrd.setNotes(po.getNotes());
+		purOrd.setModifiedOn(new Date());
+		PurchaseOrder pure = poDao.getOne(purOrd.getId());
+		purOrd.setCreatedOn(pure.getCreatedOn());
+		purOrd.setPoNo(po.getPoNo());
+		poDao.update(purOrd);
+		
+		List<PurchaseOrderDetail> pods = podDao.selectDetailByPO(purOrd);
+		if(pods == null) {
+			
+		}else {
+			for(PurchaseOrderDetail pod : pods) {
+				podDao.delete(pod);
+			}
+		}
+		
+		if(po.getDetail()!=null) {
+			for(PurchaseOrderDetail pod : po.getDetail()) {
+				PurchaseOrderDetail purOrDet = new PurchaseOrderDetail();
+				purOrDet.setId(pod.getId());
+				purOrDet.setCreatedOn(purOrd.getCreatedOn());
+				purOrDet.setModifiedOn(purOrd.getModifiedOn());
+				purOrDet.setPurchaseOrder(purOrd);
+				purOrDet.setVariant(pod.getVariant());
+				purOrDet.setRequestQty(pod.getRequestQty());
+				purOrDet.setSubTotal(pod.getSubTotal());
+				purOrDet.setUnitCost(pod.getUnitCost());
+				podDao.save(purOrDet);
+			}
+		}
 	}
 }
