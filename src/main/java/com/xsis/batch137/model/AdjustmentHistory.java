@@ -23,21 +23,20 @@ public class AdjustmentHistory {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
 	
-	@NotNull
-	@NotEmpty
+	
 	@Column(nullable=false)
 	@Size(max=20)
 	private String status;
 	
 	@ManyToOne
-	@JoinColumn(name="created_by", nullable=false)
+	@JoinColumn(name="created_by")
 	private User createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
 	@ManyToOne
-	@JoinColumn(name="adjustment_id")
+	@JoinColumn(name="adjustment_id", nullable=false)
 	private Adjustment adjustment;
 	
 	

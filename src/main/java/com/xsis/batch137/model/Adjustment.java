@@ -14,10 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="adjustment")
@@ -29,8 +26,6 @@ public class Adjustment {
 	
 	private String notes;
 	
-	@NotNull
-	@NotEmpty
 	@Column(nullable=false)
 	@Size(max=20)
 	private String status;
@@ -50,13 +45,14 @@ public class Adjustment {
 	private Date modifiedOn;
 	
 	@ManyToOne
-	@NotNull
-	@NotEmpty
 	@JoinColumn(name="outlet_id", nullable=false)
 	private Outlet outlet;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AdjustmentDetail> adjustmentDetails;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AdjustmentHistory> adjustmentHistories;
 	
 	public long getId() {
 		return id;
