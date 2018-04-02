@@ -44,7 +44,7 @@
 <div class="row">
 <div class="col-xs-8">
 <h5>${po.supplier.name }</h5>
-<table class="table table-hover table-borderless">
+<table class="table table-hover table-bordered table-stripped">
 	<tr>
 		<td>${po.supplier.phone }</td>
 		<td colspan="2">${po.supplier.email }</td>
