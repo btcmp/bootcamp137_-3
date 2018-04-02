@@ -2,34 +2,34 @@
 <section class="content">
 <div class="row">
 	<div class="col-xs-9">
-		<h3>PURCHASE REQUEST DETAIL</h3>
+		<h3>PURCHASE ORDER DETAIL</h3>
 		<hr style="border-color: black; border-top: 1px dashed;">
 	</div>
 	<div class="col-xs-3">
 		<script>
-			if('${pr.status}' == 'Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			if('${po.status}' == 'Created'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'Rejected'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			}else if('${po.status}' == 'Rejected'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'PO Created'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			}else if('${po.status}' == 'PO Created'){
+				document.write('<select id="action-po" class="btn-poimary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${pr.status}' == 'Approved'){
-				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+			}else if('${po.status}' == 'Approved'){
+				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
@@ -42,54 +42,71 @@
 	</div>
 </div>
 <div class="row">
-<div class="col-xs-4">
+<div class="col-xs-8">
+<h5>${po.supplier.name }</h5>
 <table class="table table-hover table-borderless">
 	<tr>
-		<td>PR Number : ${pr.prNo }</td>
+		<td>${po.supplier.phone }</td>
+		<td colspan="2">${po.supplier.email }</td>
 	</tr>
 	<tr>
-		<td>Created By : ${pr.createdBy }</td>
+		<td colspan="3">${po.supplier.address }</td>
 	</tr>
 	<tr>
-		<td>Target Waktu Item Ready : 
-			<script>
-				var tanggal = '${pr.readyTime}';
-				var tgl = tanggal.split('-');
-				document.write(tgl[2]+'-'+tgl[1]+'-'+tgl[0]);
-			</script>
-		</td>
-	</tr>
-	<tr>
-		<td>PR Status : ${pr.status }</td>
+		<td>${po.supplier.province.name }</td>
+		<td>${po.supplier.region.name }</td>
+		<td>${po.supplier.postalCode }</td>
 	</tr>
 </table>
 </div>
 </div>
 <div class="form-group">
 	<label for="input-note">Notes</label>
-	<textarea class="form-control" id="input-note" rows="5" style="resize:none;" readonly>${pr.notes }</textarea>
+	<textarea class="form-control" id="input-note" rows="5" style="resize:none;" readonly>${po.notes }</textarea>
+</div>
+<div class = "row">
+	<div class="col-xs-8">
+		<table class = "table table-borderless table-hover">
+			<tr>
+				<td>PO Number : ${po.poNo }</td>
+			</tr>
+			<tr>
+				<td>Created By : ${po.createdBy }</td>
+			</tr>
+			<tr>
+				<td>Email : ${po.outlet.email }
+			</tr>
+			<tr>
+				<td>Outlet : ${po.outlet.name }</td>
+			</tr>
+			<tr>
+				<td>Phone : ${po.outlet.phone }</td>
+			</tr>
+			<tr>
+				<td>Address : ${po.outlet.address }</td>
+			</tr>
+			<tr>
+				<td>PO Status : ${po.status }</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <h5>
 	<b>Status History</b>
 </h5>
 <hr style="border-color: black; border-top: 1px dashed;">
 <div class="row">
-	<div class="col-xs-5">
-		<table id="data-history" class="table table-striped table-bordered table-hover">
-			<c:forEach items="${pr.history }" var="his">
+	<div class="col-xs-8">
+		<table id="data-history" class="table table-striped table-borderless table-hover">
+			<c:forEach items="${po.history }" var="his">
 				<tr>
-					<td>On</td>
-					<td>
+					<td>On 
 						<script>
 							var waktu = '${his.createdOn}';
 							var wkt = waktu.split('.');
 							document.write(wkt[0]);
 						</script>
-					</td>
-					<td>-</td>
-					<td>${pr.prNo }</td>
-					<td>is</td>
-					<td>${his.status }</td>
+					&#8208; ${po.poNo } is ${his.status }</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -108,22 +125,22 @@
 		<th>Request Qty.</th>
 	</thead>
 	<tbody id="list-item">
-		<c:forEach items="${pr.detail }" var ="prd">
+		<c:forEach items="${po.detail }" var ="pod">
 			<tr>
-				<td>${prd.variant.item.name }-${prd.variant.name }</td>
-				<td id="td${prd.id }">
+				<td>${pod.variant.item.name }-${pod.variant.name }</td>
+				<td id="td${pod.id }">
 					<script type="text/javascript">
 							$.ajax({
 								type : 'GET',
-								url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
+								url : '${pageContext.request.contextPath}/transaksi/purchase-order/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
 								dataType: 'json',
 								success : function(inv){
-									$('#td${prd.id}').append('<td>'+inv[0]+'<td>');
+									$('#td${pod.id}').append('<td>'+inv[0]+'<td>');
 								}
 							});
 					</script>
 				</td>
-				<td>${prd.requestQty }</td>
+				<td>${pod.requestQty }</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -137,7 +154,7 @@
 <script>
 	$(function(){
 		
-		$('#action-pr').change(function(){
+		$('#action-po').change(function(){
 			var action = $(this).val();
 			var id = $(this).attr('key-id');
 			if(action == 'print'){
