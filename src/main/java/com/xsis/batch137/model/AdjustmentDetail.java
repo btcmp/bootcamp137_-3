@@ -18,25 +18,33 @@ public class AdjustmentDetail {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;
-	@Column(name="in_stock")
+	
+	@Column(name="in_stock", nullable=false)
 	private int inStock;
-	@Column(name="actual_stock")
+	
+	@Column(name="actual_stock", nullable=false)
 	private int actualStock;
+	
 	@ManyToOne
 	@JoinColumn(name="created_by")
 	private User createdBy;
+	
 	@Column(name="created_on")
 	private Date createdOn;
+	
 	@ManyToOne
 	@JoinColumn(name="modified_by")
 	private User modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
 	@ManyToOne
-	@JoinColumn(name="adjustment_id")
+	@JoinColumn(name="adjustment_id", nullable=false)
 	private Adjustment adjustment;
+	
 	@ManyToOne
-	@JoinColumn(name="variant_id")
+	@JoinColumn(name="variant_id", nullable=false)
 	private ItemVariant variant;
 	
 	public long getId() {
