@@ -181,6 +181,7 @@
 	        	$('#in-username').prop('required', false);
         		$('#in-password').attr('data-parsley-required', false);
         		$('#in-password').prop('required', false);
+        		userValid = 1;
 	        }
 	    });
 	    $('#cek-akun').change();
@@ -228,6 +229,8 @@
 				success : function(data){
 					console.log('sukses ambil data');
 					console.log(data);
+					userValid = 1;
+					emailValid = 1;
 					$('#in-id').val(data.id);
 					$('#in-firstname').val(data.firstName);
 					$('#in-lastname').val(data.lastName);
@@ -305,7 +308,8 @@
 				"haveAccount" : akun,
 				"empOutlet" : empOut
 			};
-			console.log(employee);
+			console.log(emailValid);
+			console.log(userValid);
 			validate = $('#form-emp').parsley();
 			validate.validate();
 			if(validate.isValid() && emailValid == 1 && userValid == 1){
@@ -339,7 +343,6 @@
 				success : function(data){
 					if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
 						// Non unique
-						$('#btn-simpan').prop('disabled', true);
 						userValid = 0;
 					}else {
 						// unique
@@ -360,7 +363,6 @@
 				success : function(data){
 					if(data > 0 && email != emailEdit){
 						// Non unique
-						$('#btn-simpan').prop('disabled', true);
 						emailValid = 0;
 					}else{
 						// unique
