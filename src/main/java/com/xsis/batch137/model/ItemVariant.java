@@ -79,7 +79,7 @@ public class ItemVariant {
 	private Item item;
 	
 	//relate to intemInvetory
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="itemVariant",cascade=CascadeType.ALL)
 	public List<ItemInventory> itemInventories;
 	
 	//relate to transferdetail
