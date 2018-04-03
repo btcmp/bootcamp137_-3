@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search Outlet..">
+				<input type="text" id="outlet-search" class="form-control" placeholder="Search Outlet..">
 			</div>
 		</div>
 		<div style="float:right; margin-right:60px;">
@@ -29,7 +29,7 @@
 			<th>#</th>
 		</tr>
 		</thead>
-		<tbody>
+		<tbody id="list-outlet">
 		<c:forEach items="${outlets }" var="out">
 			<tr>
 				<td>${out.name }</td>
@@ -38,7 +38,10 @@
 				<td>${out.email }</td>
 				<td>${out.postalCode }</td>
 				<td>
-					<a href="" id="${out.id }" class="btn-edit btn btn-warning">Edit</a>
+					<script type="text/javascript">
+					console.log(${out.id});
+					</script>
+					<a href="#" id="${out.id }" class="btn-edit btn btn-success">Edit</a>
 				</td>
 			<tr>
 		</c:forEach>
@@ -175,7 +178,8 @@
 		});
 		
 		//Take data to edit
-		$('.btn-edit').on('click', function(e){
+		//Select-nya tadi diganti untuk tujuan edit table ketika di-search
+		$('#outlet-table').on('click', '.btn-edit', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
@@ -310,6 +314,35 @@
 				error : function(){
 					console.log(outlet);
 					alert('Failed bro..');
+				}
+			});
+		});
+		
+		//Search
+		$('#outlet-search').on('input', function(){
+			var search = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/outlet/search?search=' + search,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data){
+					$('#list-outlet').empty();
+					//console.log(data);
+					$.each(data, function(key, out){
+						$('#list-outlet').append('<tr>'
+							+ '<td>'+out.name+'</td>'
+							+ '<td>'+out.address+'</td>'
+							+ '<td>'+out.phone+'</td>'
+							+ '<td>'+out.email+'</td>'
+							+ '<td>'+out.postalCode+'</td>'
+							+ '<td><a href="#" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
+							+ '</tr>');
+						console.log(out.id);
+					});
+					
+				},
+				error : function(){
+					
 				}
 			});
 		});
