@@ -15,6 +15,8 @@ import com.xsis.batch137.dao.PurchaseOrderHistoryDao;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
+import com.xsis.batch137.model.PurchaseRequest;
+import com.xsis.batch137.model.PurchaseRequestHistory;
 
 @Service
 @Transactional
@@ -101,5 +103,66 @@ public class PurchaseOrderService {
 				podDao.save(purOrDet);
 			}
 		}
+		
+		if(po.getStatus()!="Created") {
+			PurchaseOrderHistory poh = new PurchaseOrderHistory();
+			poh.setCreatedOn(new Date());
+			poh.setPurchaseOrder(purOrd);
+			poh.setStatus(po.getStatus());
+			pohDao.save(poh);
+		}
+	}
+	
+	public void approve(long id) {
+		poDao.approve(id);
+		PurchaseOrder pr = poDao.getOne(id);
+		PurchaseOrderHistory poh = new PurchaseOrderHistory();
+		poh.setCreatedOn(new Date());
+		poh.setPurchaseOrder(pr);
+		poh.setStatus(pr.getStatus());
+		pohDao.save(poh);
+	}
+	
+	public void reject(long id) {
+		poDao.reject(id);
+		PurchaseOrder pr = poDao.getOne(id);
+		PurchaseOrderHistory poh = new PurchaseOrderHistory();
+		poh.setCreatedOn(new Date());
+		poh.setPurchaseOrder(pr);
+		poh.setStatus(pr.getStatus());
+		pohDao.save(poh);
+	}
+	
+	public void process(long id) {
+		poDao.process(id);
+		PurchaseOrder pr = poDao.getOne(id);
+		PurchaseOrderHistory poh = new PurchaseOrderHistory();
+		poh.setCreatedOn(new Date());
+		poh.setPurchaseOrder(pr);
+		poh.setStatus(pr.getStatus());
+		pohDao.save(poh);
+	}
+	
+	public List<PurchaseOrder> getPOByStatus(String status){
+		return poDao.searchPOByStatus(status);
+	}
+	
+	public List<PurchaseOrder> getPOByDate(Date awal, Date akhir){
+		Date startDate = awal;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(startDate); 
+		c.add(Calendar.DATE, -1);
+		startDate = c.getTime();
+		
+		Date endDate = akhir;
+		Calendar c2 = Calendar.getInstance(); 
+		c2.setTime(endDate); 
+		c2.add(Calendar.DATE, 1);
+		endDate = c2.getTime();
+		return poDao.searchPOByDate(startDate, endDate);
+	}
+	
+	public List<PurchaseOrder> searchGlobal(String search){
+		return poDao.searchPO(search);
 	}
 }

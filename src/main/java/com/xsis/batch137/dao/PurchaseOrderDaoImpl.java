@@ -69,21 +69,43 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		return pos.size();
 	}
 	
+	public void approve(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseOrder set status='Approved' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
+	public void reject(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseOrder set status='Rejected' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+	
+	public void process(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PurchaseOrder set status='Processed' where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
+
 	public List<PurchaseOrder> searchPO(String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where prNo = :search or status = :search";
-		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("search", search).list();
+		String hql = "from PurchaseOrder where lower(poNo) = :search or lower(status) = :search or lower(notes) = :search";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("search", "%"+search.toLowerCase()+"%").list();
 		if(pos.isEmpty()) {
 			return null;
 		}else {
 			return pos;
 		}
 	}
-	
-	public List<PurchaseOrder> searchPOByDate(Date startDate, Date endDate){
+
+	public List<PurchaseOrder> searchPOByDate(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where createdOn BETWEEN :start AND :end";
+		String hql = "from PurchaseOrder where createdOn >= :start AND createdOn <= :end";
 		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("start", startDate)
 				.setParameter("end", endDate).list();
 		if(pos.isEmpty()) {
@@ -92,8 +114,9 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 			return pos;
 		}
 	}
-	
-	public List<PurchaseOrder> searchPOByStatus(String search){
+
+	public List<PurchaseOrder> searchPOByStatus(String search) {
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseOrder where status = :status";
 		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("status", search).list();
@@ -102,5 +125,6 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		}else {
 			return pos;
 		}
-	}
+	}	
 }
+

@@ -27,4 +27,10 @@ public interface PurchaseOrderDao {
 	List<PurchaseOrder> searchPOByDate(Date startDate, Date endDate);
 	
 	List<PurchaseOrder> searchPOByStatus(String search);
+	
+	void approve(long id);
+	
+	void reject(long id);
+	
+	void process(long id);
 }

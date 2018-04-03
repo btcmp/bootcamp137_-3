@@ -1,8 +1,10 @@
 package com.xsis.batch137.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,5 +64,41 @@ public class PurchaseOrderController {
 	@ResponseBody
 	public List<Object> getInventory(@RequestParam(value="idPo", defaultValue="") long idPo, @RequestParam(value="idPod", defaultValue="") long idPod){
 		return poService.getInventoryByVariantDanOutlet(idPod, idPo);
+	}
+	
+	@RequestMapping(value="/approve/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void approve(@PathVariable long id) {
+		poService.approve(id);
+	}
+	
+	@RequestMapping(value="/reject/{id}", method= RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void reject(@PathVariable long id) {
+		poService.reject(id);
+	}
+	
+	@RequestMapping(value="/process/{id}", method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public void process(@PathVariable long id) {
+		poService.process(id);
+	}
+	
+	@RequestMapping("/search-status")
+	@ResponseBody
+	public List<PurchaseOrder> getByStatus(@RequestParam(value="search", defaultValue="") String status){
+		return poService.getPOByStatus(status);
+	}
+	
+	@RequestMapping("/search")
+	@ResponseBody
+	public List<PurchaseOrder> search(@RequestParam(value="search", defaultValue="") String search){
+		return poService.searchGlobal(search);
+	}
+	
+	@RequestMapping("/search-date")
+	@ResponseBody
+	public List<PurchaseOrder> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		return poService.getPOByDate(awal, akhir);
 	}
 }
