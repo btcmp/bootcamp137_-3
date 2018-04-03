@@ -10,8 +10,8 @@
 			if('${pr.status}' == 'Created'){
 				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
 						+'<option disabled selected>More</option>'
-						+'<option value="approve">Approve</option>'
-						+'<option value="reject">Reject</option>'
+						+'<option value="approve" disabled>Approve</option>'
+						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po" disabled>Create PO</option>');
 			}else if('${pr.status}' == 'Rejected'){
@@ -35,10 +35,15 @@
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="print">Print</option>'
 						+'<option value="create-po">Create PO</option>');
+			}else if('${pr.status}' == 'Submitted'){
+				document.write('<select id="action-pr" class="btn-primary form-control" key-id="${pr.id }">'
+						+'<option disabled selected>More</option>'
+						+'<option value="approve">Approve</option>'
+						+'<option value="reject">Reject</option>'
+						+'<option value="print">Print</option>'
+						+'<option value="create-po" disabled>Create PO</option>');
 			}
 		</script>
-			
-		</select>
 	</div>
 </div>
 <div class="row">
@@ -113,7 +118,7 @@
 								url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-inventory?idPr='+${pr.id}+'&idPrd='+${prd.id},
 								dataType: 'json',
 								success : function(inv){
-									$('#td${prd.id}').append('<td>'+inv[0]+'<td>');
+									$('#td${prd.id}').append(inv[0]);
 								}
 							});
 					</script>

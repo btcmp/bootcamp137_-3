@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-	<h3>Purchase Request</h3>
+	<h3>Purchase Order</h3>
 	<hr style="border-color:black;">
 	<div class="row">
 		<div class="col-xs-3">
@@ -125,10 +125,12 @@
 	                </table>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						id="submit-po">Submit</button>
 					<button type="button" class="btn btn-info" data-dismiss="modal"
-						id="batal-insert">Batal</button>
+						id="batal-insert">Cancel</button>
 					<button type="button" class="btn btn-primary" id="tblsimpan"
-						key="key">Simpan</button>
+						key="key">Save</button>
 				</div>
 			</div>
 		</div>
@@ -153,7 +155,11 @@
 		        endDate  : moment()
 		      },
 		      function (start, end) {
-		        $('#pilih-tanggal-range').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+		        $('#pilih-tanggal-range').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+		        awal = start.format('YYYY-MM-DD');
+		        akhir = end.format('YYYY-MM-DD');
+		        ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-date?awal='+awal+'&akhir='+akhir;
+		        search();
 		      }
 	    );
 	    
@@ -162,8 +168,23 @@
       		startDate : new Date()
     	});
 	    
+	    //begin fungsi simpan
+	    
+	    var stat = '';
+	    
 	    $('#tblsimpan').on('click',function(evt) {
 			evt.preventDefault();
+			stat = 'Created';
+			simpan();
+		});
+	    
+	    $('#submit-po').on('click', function(evt){
+	    	evt.preventDefault();
+	    	stat = 'Submitted';
+	    	simpan();
+	    });
+		
+		function simpan(){
 			var pod = [];
 			
 			$('#list-item > tr').each(function(index,data) {
@@ -186,10 +207,11 @@
 					"id" : $('#in-outlet').val()
 				},
 				"detail" : pod,
-				"status" : "Created",
+				"status" : stat,
 				"supplier" : {
 					"id" : $('#pil-supplier').val()
-				}
+				},
+				"grandTotal" : $('#totalbanget').text()
 			};
 			console.log(purOrd);
 			//validate = $('#form-emp').parsley();
@@ -209,7 +231,7 @@
 					}
 				});
 			//}
-		}); // end fungsi simpan
+		}
 		
 		$('#data-po').on('click', '.btn-edit-po', function(){
 			console.log('edit');
@@ -225,7 +247,11 @@
 					$('#in-id').val(data.id);
 					$('#in-outlet').val(data.outlet.id);
 					$('#totalbanget').text(data.grandTotal);
-					//$('#pil-supplier').val(data.supplier.id);
+					if(data.supplier.id==null){
+						
+					}else{
+						$('#pil-supplier').val(data.supplier.id);
+					};
 					$(data.detail).each(function(key, val){
 						$('#list-item').append(
 							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
@@ -243,6 +269,19 @@
 							}
 						});
 					})
+					if(data.status=='Approved' || data.status=='Processed' || data.status=='Rejected' || data.status=='Submitted'){
+						$('#submit-po').prop('disabled', true);
+						$('#tblsimpan').prop('disabled', true);
+						$('#pil-supplier').prop('disabled', true);
+						$('#in-notes').prop('disabled', true);
+						$('.edit-cost').prop('disabled', true);
+					}else{
+						$('#submit-po').prop('disabled', false);
+						$('#tblsimpan').prop('disabled', false);
+						$('#pil-supplier').prop('disabled', false);
+						$('#in-notes').prop('disabled', false);
+						$('.edit-cost').prop('disabled', false);
+					};
 					$('#edit-po').modal('show');
 				}, 
 				error : function(){
@@ -264,6 +303,56 @@
 				total = total + subtot;
 			});
 			$('#totalbanget').text(total);
+		});
+		
+		var ur='';
+		
+		function search(){
+			$.ajax({
+				type : 'GET',
+				url : ur,
+				success : function(data){
+					$('#isi-data-po').empty();
+					$(data).each(function(key, val){
+						var json_data = '/Date('+val.createdOn+')/';
+						var asAMoment = moment(json_data);
+						var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+						
+						$('#isi-data-po').append('<tr><td>'+tanggal+'</td>'
+							+'<td>'+val.prNo+'</td>'
+							+'<td>'+val.notes+'</td>'
+							+'<td>'+val.status+'</td>'
+							+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
+							+'<a href="${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
+					})
+				},
+				error : function(){
+					$('#isi-data-po').empty();
+					console.log('gagal');
+				}
+			});
+		}
+		
+		$('#pil-status').change(function(){
+			var status = $(this).val();
+			if(status == 'All'){
+				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/get-all';
+				search();
+			}else{
+				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-status?search='+status;
+				search();
+			}
+		});
+		
+		$('#cari-pr').on('keyup', function(){
+			var word = $(this).val();
+			if (word=="") {
+				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/get-all';
+				search();
+			} else {
+				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search?search='+word;
+				search();
+			}
 		});
 	});
 </script>

@@ -7,34 +7,34 @@
 	</div>
 	<div class="col-xs-3">
 		<script>
-			if('${po.status}' == 'Created'){
+			if('${po.status}' == 'Created' || '${po.status}' == 'Submitted'){
 				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
+						+'<option value="process" disabled>Process</option>'
+						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Rejected'){
 				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
-			}else if('${po.status}' == 'PO Created'){
+						+'<option value="process" disabled>Process</option>'
+						+'<option value="print">Print</option>');
+			}else if('${po.status}' == 'Processed'){
 				document.write('<select id="action-po" class="btn-poimary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po" disabled>Create PO</option>');
+						+'<option value="process" disabled>Process</option>'
+						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Approved'){
 				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="print">Print</option>'
-						+'<option value="create-po">Create PO</option>');
+						+'<option value="process">Process</option>'
+						+'<option value="print">Print</option>');
 			}
 		</script>
 			
@@ -122,7 +122,9 @@
 	<thead>
 		<th>Item</th>
 		<th>In Stock</th>
-		<th>Request Qty.</th>
+		<th>Qty. Order</th>
+		<th>Unit Cost</th>
+		<th>Total</th>
 	</thead>
 	<tbody id="list-item">
 		<c:forEach items="${po.detail }" var ="pod">
@@ -135,19 +137,27 @@
 								url : '${pageContext.request.contextPath}/transaksi/purchase-order/get-inventory?idPo='+${po.id}+'&idPod='+${pod.id},
 								dataType: 'json',
 								success : function(inv){
-									$('#td${pod.id}').append('<td>'+inv[0]+'<td>');
+									$('#td${pod.id}').append(inv[0]);
 								}
 							});
 					</script>
 				</td>
 				<td>${pod.requestQty }</td>
+				<td>Rp. ${pod.unitCost }</td>
+				<td>Rp. ${pod.subTotal }</td>
 			</tr>
 		</c:forEach>
+		<tfoot>
+			<tr style="border-bottom:black dashed 1px;">
+				<td colspan="4" style="border-bottom:black dashed 1px;"><strong>TOTAL</strong></td>
+				<td style="border-bottom:black dashed 1px;">RP. ${po.grandTotal }</td>
+			</tr>
+		</tfoot>
 	</tbody>
 </table>
 <div class="row">
 	<div class="col-xs-9"></div>
-	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-request" class="btn btn-primary btn-block">Done</a></div>
+	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-order" class="btn btn-primary btn-block">Done</a></div>
 </div>
 </section>
 </body>
@@ -162,10 +172,10 @@
 			}else{
 				$.ajax({
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/transaksi/purchase-request/'+action+'/'+id,
+					url : '${pageContext.request.contextPath}/transaksi/purchase-order/'+action+'/'+id,
 					success : function(){
 						console.log('sukses');
-						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request/detail/'+id;
+						window.location = '${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+id;
 					},
 					error : function(){
 						console.log('gagal');
