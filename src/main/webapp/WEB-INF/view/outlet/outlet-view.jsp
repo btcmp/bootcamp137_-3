@@ -25,7 +25,6 @@
 			<th>Address</th>
 			<th>Phone</th>
 			<th>Email</th>
-			<th>Postal Code</th>
 			<th>#</th>
 		</tr>
 		</thead>
@@ -36,7 +35,6 @@
 				<td>${out.address }</td>
 				<td>${out.phone }</td>
 				<td>${out.email }</td>
-				<td>${out.postalCode }</td>
 				<td>
 					<script type="text/javascript">
 						console.log(${out.id});
@@ -334,7 +332,6 @@
 							+ '<td>'+out.address+'</td>'
 							+ '<td>'+out.phone+'</td>'
 							+ '<td>'+out.email+'</td>'
-							+ '<td>'+out.postalCode+'</td>'
 							+ '<td><a href="#" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
 							+ '</tr>');
 						console.log(out.id);
