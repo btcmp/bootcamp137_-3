@@ -16,7 +16,6 @@
 						<div>
 							<div><h5>Supplier Name</h5></div>
 							<div ><input type="text" class="form-control full-span" id="supplier-name" data-parsley-required="true" /></div>
-							<input type="hidden" name="id" id="id">
 						</div>
 						
 						<div>
@@ -24,7 +23,6 @@
 							<div >
 							<textarea class="form-control" rows="3" id="supplier-address"></textarea>
 							</div>
-							<input type="hidden" name="id" id="id">
 						</div>
 						
 						<div class="row">
@@ -67,6 +65,7 @@
 						</div>
 						
 						</div>
+						
 						<input type="hidden" name="id" id="id">
 						
 						
