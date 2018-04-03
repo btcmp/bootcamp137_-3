@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search Suppier..">
+				<input type="text" id="supplier-search" class="form-control" placeholder="Search Suppier..">
 			</div>
 		</div>
 		<div style="float:right; margin-right:60px;">
@@ -29,7 +29,7 @@
 			<th>#</th>
 		</tr>
 		</thead>
-		<tbody>
+		<tbody id="supplier-list">
 		<c:forEach items="${suppliers }" var="sup">
 			<tr>
 				<td>${sup.name }</td>
@@ -37,7 +37,7 @@
 				<td>${sup.phone }</td>
 				<td>${sup.email }</td>
 				<td>
-					<a href="" id="${sup.id }" class="btn-edit btn btn-warning">Edit</a>
+					<a href="" id="${sup.id }" class="btn-edit btn btn-success">Edit</a>
 				</td>
 			<tr>
 		</c:forEach>
@@ -174,7 +174,7 @@
 		
 		
 		//Ambil data dan naruh ke modal edit
-		$('.btn-edit').on('click', function(e){
+		$('#supplier-table').on('click', '.btn-edit', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
@@ -310,6 +310,32 @@
 				error : function(){
 					console.log(supplier);
 					alert('Failed bro..');
+				}
+			});
+		});
+		
+		//Search
+		$('#supplier-search').on('input', function(){
+			var keyword = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/supplier/search?search='+keyword,
+				type : 'GET',
+				data : 'json',
+				success : function(data){
+					$('#supplier-list').empty();
+					$.each(data, function(key, sup){
+						console.log(sup);
+						$('#supplier-list').append('<tr>'
+							+ '<td>'+sup.name+'</td>'
+							+ '<td>'+sup.address+'</td>'
+							+ '<td>'+sup.phone+'</td>'
+							+ '<td>'+sup.email+'</td>'
+							+ '<td><a href="" id="'+ sup.id +'" class="btn-edit btn btn-success">Edit</a></td>'
+							+ '</tr>');
+					});
+				},
+				error : function(){
+					
 				}
 			});
 		});
