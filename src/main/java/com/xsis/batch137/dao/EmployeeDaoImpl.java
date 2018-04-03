@@ -18,6 +18,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void save(Employee emp) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(emp);
 		session.flush();
 	}

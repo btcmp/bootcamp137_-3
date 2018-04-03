@@ -35,8 +35,16 @@ public class EmployeeService {
 		employee.setLastName(emp.getLastName());
 		employee.setEmail(emp.getEmail());
 		employee.setTitle(emp.getTitle());
-		employee.setHaveAccount(emp.isHaveAccount());
 		employee.setActive(emp.isActive());
+		User usr = uDao.getUserByEmployee(employee);
+		if(usr == null) {
+			employee.setHaveAccount(false);
+		}else {
+			employee.setHaveAccount(true);
+			if(emp.isHaveAccount() == false) {
+				uDao.nonaktif(usr.getId());
+			}
+		}
 		empDao.save(employee);
 		
 		List<EmployeeOutlet> empos = eoDao.getEmployeeOutletByEmployee(employee);
@@ -106,6 +114,9 @@ public class EmployeeService {
 
 	public void nonaktif(long id) {
 		// TODO Auto-generated method stub
+		Employee emp = empDao.getOne(id);
+		User user = uDao.getUserByEmployee(emp);
+		uDao.nonaktif(user.getId());
 		empDao.nonaktif(id);
 	}
 	

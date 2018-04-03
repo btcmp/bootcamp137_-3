@@ -78,9 +78,7 @@
 					<td>${emp.email }</td>
 					<td>
 						<script>
-							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "true"){
-								document.write("&#10004;");
-							}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "true"){
+							if("${emp.haveAccount}" === "true"){
 								document.write("&#10004;");
 							}else{
 								document.write("&#10008;");
@@ -98,7 +96,7 @@
 						<script>
 							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "true"){
 									document.write("${emp.user.role.name }");
-								}else if("${emp.haveAccount}" === "false" && "${emp.user.active}" === "true"){
+								}else if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "false"){
 									document.write("User Tidak Aktif");
 								}else{
 									document.write("Tidak Memiliki User");
