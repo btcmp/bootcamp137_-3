@@ -13,7 +13,7 @@ public interface UserDao {
 	
 	List<User> selectAll();
 	
-	User getOne(User user);
+	User getOne(long id);
 	
 	void delete(User user);
 	
@@ -22,4 +22,6 @@ public interface UserDao {
 	List<User> getUserByUsername(String user);
 	
 	int countUserByUsername(String user);
+	
+	void nonaktif(long id);
 }

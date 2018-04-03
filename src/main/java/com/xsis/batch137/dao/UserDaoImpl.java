@@ -38,10 +38,10 @@ public class UserDaoImpl implements UserDao {
 		return session.createCriteria(User.class).list();
 	}
 
-	public User getOne(User user) {
+	public User getOne(long id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.get(User.class, user.getId());
+		return session.get(User.class, id);
 	}
 
 	public void delete(User user) {
@@ -87,6 +87,14 @@ public class UserDaoImpl implements UserDao {
 		else{
 			return users.size();
 		}
+	}
+
+	public void nonaktif(long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update User set active=0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+		session.flush();
 	}
 
 }
