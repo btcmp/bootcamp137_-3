@@ -1,6 +1,23 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 
+<div><h1>OUTLET</h1></div>
+<hr style="border-color:black; border-top:1px dashed;">
+
 <div id="container">
+
+	<div class="row">
+		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search Outlet..">
+			</div>
+		</div>
+		<div style="float:right; margin-right:60px;">
+			<div class="form-group">
+				<a href="" id="tbl-create" class="btn btn-info" >Create</a>
+			</div>
+		</div>
+	</div>
+	
 	<table id="outlet-table" class="table table-striped table-bordered">
 		<thead>
 		<tr>
@@ -27,7 +44,6 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<a href="" id="tbl-create" class="btn btn-info" >Create</a>
 </div>
 <%@ include file="/WEB-INF/view/outlet/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/outlet/modal/edit.jsp"%>
