@@ -51,6 +51,11 @@ public class ItemController {
 		List<ItemVariant> itemVariants=itemVariantService.selectAll();
 		List<Category> categories=categoryService.selectAll();
 		List<Outlet> outlets=outletService.selectAll();
+		
+/*		for(ItemInventory ivt : itemInventories) {
+			ivt.setAlertAtQty(alertAtQty);
+		}*/
+		
 		model.addAttribute("outlets", outlets);
 		model.addAttribute("items", items);
 		model.addAttribute("categories", categories);
@@ -155,7 +160,7 @@ public class ItemController {
 	@RequestMapping(value="/update-inventory",method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void updateInventory(@RequestBody ItemInventory itemInventory) {
-		itemInventoryService.update(itemInventory);
+		itemInventoryService.updateTransferStock(itemInventory);
 	}
 	
 	@RequestMapping(value="/delete-inventory/{id}",method=RequestMethod.DELETE)

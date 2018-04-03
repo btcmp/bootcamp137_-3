@@ -13,7 +13,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="form-all">
+				<form class="form-all" id="form-variant-edit-data">
 					<div class="form-group">
 						<label for="input-variant-name">Variant Namee</label> <input type="text"
 							class="form-control" id="edit-variant-name" disabled>
@@ -21,7 +21,7 @@
 					
 					<div class="form-group">
 						<label for="input-variant-name">Unit Price</label> <input type="text"
-							class="form-control" id="edit-unit-price" >
+							class="form-control" data-parsley-required="true" required id="edit-unit-price" >
 					</div>
 					
 					<div class="form-group">
@@ -36,7 +36,7 @@
 					
 						<div class="form-group">
 						<label for="input-variant-name">Alert at</label> <input type="text"
-							class="form-control" id="edit-alert-at">
+							class="form-control" id="edit-alert-at" data-parsley-required="true" required>
 					</div>
 					
 					<div class="checkbox" style="display:none" >
@@ -48,7 +48,7 @@
 
 					<div class="modal-footer">
 						<button type="button" id="btn-close" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-						<button type="submit" id="btn-edit-save-variant" class="btn btn-primary" data-dismiss="modal">Add</button>
+						<button type="submit" id="btn-edit-save-variant" class="btn btn-primary">Add</button>
 					</div>
 				</form>
 

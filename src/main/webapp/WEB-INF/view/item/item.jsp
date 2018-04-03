@@ -1,11 +1,15 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>ITEM JSP</title>
-	
+<script type="text/javascript">
+<%@ include file="/resources/js/parsley.js"%>
+</script>
+
 <script type="text/javascript">
 $(document).ready(function(){	
 	
@@ -36,53 +40,88 @@ $(document).ready(function(){
 /* =================== [ADD] VARIANT DATA TO TABLE MODAL-CREATE-DATA ===================================*/
 	 $('#btn-add-data-variant').on('click', function(evt) {
 		 evt.preventDefault;
+		 
+		 validate=$('#form-add-varian-data').parsley();
+			validate.validate();
+			
+			if(validate.isValid()){
+				$('#modal-add-variant').modal('toggle');
+				$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td><p>'+
+						$('#add-unit-price').val()+'</p></td><td><p>'+$('#add-sku').val()
+						+'</p></td><td><p>'+$('#add-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#add-alert-at').val()
+						+'</p></td> <td style="display:none"><p>'+$('#add-active-variant').val()+'</p></td>'
+						+'<td> <a href="#" id="tombol-edit-variant"> Edit </a> <a href="#" id="delete-variant-data"> X </a>'+'</td></tr>');
+			
+			 index++;
+			 console.log(index);
+			}
+		 
 		 //reloadTableCreateAddVariant();
-		$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td><p>'+
-					$('#add-unit-price').val()+'</p></td><td><p>'+$('#add-sku').val()
-					+'</p></td><td><p>'+$('#add-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#add-alert-at').val()
-					+'</p></td> <td style="display:none"><p>'+$('#add-active-variant').val()+'</p></td>'
-					+'<td> <a href="#" id="tombol-edit-variant"> Edit </a> <a href="#" id="delete-variant-data"> X </a>'+'</td></tr>');
-		
-		 index++;
-		 console.log(index);
+	
 		});
 		
 	 $('#edititem-btn-add-data-variant').on('click', function(evt) {
 		 evt.preventDefault;
-		 reloadTableEdit();
+	
+		 validate=$('#form-edititem-variant-add-data').parsley();
+		 validate.validate();
+			
+			if(validate.isValid()){
+				$('#edititem-modal-add-variant').modal('toggle');
+				reloadTableEdit();		
+			}
+		 
 		});
 	 
 	 $('#btn-edit-save-variant').on('click', function(evt) {
-	 	evt.preventDefault;
-	 	 var index=$('#id-item-hidden-variant-edit').val();
-		 console.log(index)
-		 $("#tr-item"+index).remove();
-	 	//reloadTableCreateEditVariant();
-	 	///index++;
-		$('#isi-popup-itm').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edit-variant-name').val()+'</p></td><td><p>'+
-					$('#edit-unit-price').val()+'</p></td><td><p>'+$('#edit-sku').val()
-					+'</p></td><td><p>'+$('#edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edit-alert-at').val()
-					+'</p></td> <td style="display:none"><p>'+$('#edit-active-variant').val()+'</p></td>'
-					+'<td> <a href="#" id="tombol-edit-variant"> Edit </a> <a href="#" id="delete-variant-data"> X </a>'+'</td></tr>');
+		 evt.preventDefault();
+		 
+		 validate=$('#form-variant-edit-data').parsley();
+		 validate.validate();
+			
+			if(validate.isValid()){
+			 	$('#modal-edit-variant').modal('toggle');
+				var index=$('#id-item-hidden-variant-edit').val();
+				 console.log(index)
+				 $("#tr-item"+index).remove();
+			 	//reloadTableCreateEditVariant();
+			 	///index++;
+				$('#isi-popup-itm').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edit-variant-name').val()+'</p></td><td><p>'+
+							$('#edit-unit-price').val()+'</p></td><td><p>'+$('#edit-sku').val()
+							+'</p></td><td><p>'+$('#edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edit-alert-at').val()
+							+'</p></td> <td style="display:none"><p>'+$('#edit-active-variant').val()+'</p></td>'
+							+'<td> <a href="#" id="tombol-edit-variant"> Edit </a> <a href="#" id="delete-variant-data"> X </a>'+'</td></tr>');	
+			}
 	 });
 	 
 	 $('#edititem-btn-save-variant').on('click', function(evt) {
-		 evt.preventDefault;
-		 var index=$('#id-item-hidden').val();
-		 console.log(index)
-		 $("#tr-item"+index).remove();
-		 console.log($('#edititem-add-variant-name').val())
-		 	//$.each(xxx,function(key,val){})
+		 evt.preventDefault();
+ 
+		 validate=$('#form-edititem-variant-edit-data').parsley();
+		 validate.validate();
+			
+			if(validate.isValid()){
+				$('#edititem-modal-edit-variant').modal('toggle');
+				var index=$('#id-item-hidden').val();
+				 console.log(index)
+				 $("#tr-item"+index).remove();
+				 console.log($('#edititem-add-variant-name').val())
+				 	//$.each(xxx,function(key,val){})
+				 
+				 $('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+			    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
+			    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
+			    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
+			    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
+			    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
+			    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
+			}
+			});
+			 
+			
 		 
-		 $('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
-	    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
-	    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
-	    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
-	    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
-	    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
-	    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
-		});
-	 
+		 
+		 
 /* =================== [DELETE] VARIANT DATA AT TABLE MODAL-CREATE-DATA ===================================*/
 	 $("#isi-popup-itm").on('click','#delete-variant-data',function(){
 	        $(this).parent().parent().remove();
@@ -161,6 +200,7 @@ $(document).ready(function(){
 	    
 /* ============================== [EXECUTE] CREATE DATA UTAMA ======================================*/
 		$('#btn-create-data').on('click',function(evt){
+		
 			evt.preventDefault();
 			var active = "true";
 /* 		      $(':checkbox:checked').each(function(){
@@ -204,122 +244,139 @@ $(document).ready(function(){
 		
 		    console.log(item)
 		    
-		     $.ajax({
-		    	url:'${pageContext.request.contextPath}/item/save',
-		    	type : 'POST',
-		    	data : JSON.stringify(item),
-		    	contentType : 'application/JSON',
-		    	success : function(){
-		    		alert('save success')
-		    		window.location = '${pageContext.request.contextPath}/item/';
-		    	},
-		    	error : function(){
-		    		alert('save failed')
-		    	}
-		    });    
+			validate=$('#form-add-data').parsley();
+			validate.validate();
+			
+			if(validate.isValid()){
+			    $.ajax({
+			    	url:'${pageContext.request.contextPath}/item/save',
+			    	type : 'POST',
+			    	data : JSON.stringify(item),
+			    	contentType : 'application/JSON',
+			    	success : function(){
+			    		alert('save success')
+			    		window.location = '${pageContext.request.contextPath}/item/';
+			    	},
+			    	error : function(){
+			    		alert('save failed')
+			    	}
+			    });   
+			}
+		    
+		  
 		});
 		
 		
 		$('#edititem-btn-create-data').on('click',function(evt){
 			evt.preventDefault();
-			var active = "true";
-		      $('#edititem-checkbox:checked').each(function(){
-		        active=$(this).val()
-		      });
-		      
-		      console.log(active)
-		    
-		    var itemVar = [];
-		    var varInv = [];
-		     
-		    $('#dt-popup-edit > tbody > tr').each(function(index,data){
-		    	var itemInventory = {
-		    			 id : $(data).find('td').eq(7).text(),
-						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text(),
-					     itemVariant : {
-					    	 id : $(data).find('td').eq(6).text()
-					     }
-				 }
-		    	
-				 var itemVariant = {
-		    			 id : $(data).find('td').eq(6).text(),
-						 name : $(data).find('td').eq(0).text(),
-						 price : $(data).find('td').eq(1).text(),
-					     sku : $(data).find('td').eq(2).text(),
-					     active : 0,
-					     itemInventories : [itemInventory],
-					     item : {
-					    	id : $(data).find('td').eq(6).text()
-					     }
-				 }
-				 itemVar.push(itemVariant)
-			}); 
-		    
-		    console.log(itemVar)
-		    
-		    var item = {
-		    	id : $('#edit-item-input-id').val(),
-		    	name : $('#edititem-item-name').val(),
-		    	active : active,
-		    	category:{
-		    		id :  $('#edititem-category').val()
-		    	},
-		    	itemVariants : itemVar
-		    }
-		
-		   
-		    
-		    if(item.name!==""){
-		    	//console.log(item.name)
-		    	 $.ajax({
-				    	url:'${pageContext.request.contextPath}/item/update',
-				    	type : 'PUT',
-				    	data : JSON.stringify(item),
-				    	contentType : 'application/JSON',
-				    	success : function(){
-				    		alert('save success')
-				    		window.location = '${pageContext.request.contextPath}/item/';
+			
+			validate=$('#form-main-edit-data').parsley();
+			validate.validate();
+				
+				if(validate.isValid()){
+					var active = "true";
+				      $('#edititem-checkbox:checked').each(function(){
+				        active=$(this).val()
+				      });
+				      
+				      console.log(active)
+				    
+				    var itemVar = [];
+				    var varInv = [];
+				     
+				    //ID OUTLET BELUM
+				    $('#dt-popup-edit > tbody > tr').each(function(index,data){
+				    	var itemInventory = {
+				    			 id : $(data).find('td').eq(7).text(),
+								 beginning :$(data).find('td').eq(3).text(),
+							     alertAtQty :$(data).find('td').eq(4).text(),
+							     itemVariant : {
+							    	 id : $(data).find('td').eq(6).text()
+							     },
+				    			 outlet : {
+				    				id : $(data).find('td').eq(8).text()
+				    			 }
+				    	
+						 }
+				    	
+						 var itemVariant = {
+				    			 id : $(data).find('td').eq(6).text(),
+								 name : $(data).find('td').eq(0).text(),
+								 price : $(data).find('td').eq(1).text(),
+							     sku : $(data).find('td').eq(2).text(),
+							     active : 0,
+							     itemInventories : [itemInventory],
+							     item : {
+							    	id : $(data).find('td').eq(6).text()
+							     }
+						 }
+						 itemVar.push(itemVariant)
+					}); 
+				    
+				    console.log(itemVar)
+				    
+				    var item = {
+				    	id : $('#edit-item-input-id').val(),
+				    	name : $('#edititem-item-name').val(),
+				    	active : active,
+				    	category:{
+				    		id :  $('#edititem-category').val()
 				    	},
-				    	error : function(){
-				    		alert('save failed')
-				    	}
-				    });
-		    }
-		    
-		    
-		    idDelete.forEach(function(element){
-		    	$.ajax({
-					url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
-					type:'DELETE',
-					success : function (){
-						//alert('delete successfully');
-						window.location = '${pageContext.request.contextPath}/item/';
-					},
-					
-					error : function(){
-						//alert('delete failed');
-					} 
-					
-				});
-	    	});
-		    
-		    idClear.forEach(function(element){
-		    	$.ajax({
-					url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
-					type:'DELETE',
-					success : function (){
-						//alert('delete successfully');
-						alert('save successfully')
-						window.location = '${pageContext.request.contextPath}/item/';
-					},
-					
-					error : function(){
-						//alert('delete failed');
-					} 
-					
-				});
-		    });  
+				    	itemVariants : itemVar
+				    }
+				
+			    
+				    if(item.name!==""){
+				    	//console.log(item.name)
+				    	 $.ajax({
+						    	url:'${pageContext.request.contextPath}/item/update',
+						    	type : 'PUT',
+						    	data : JSON.stringify(item),
+						    	contentType : 'application/JSON',
+						    	success : function(){
+						    		alert('save success')
+						    		window.location = '${pageContext.request.contextPath}/item/';
+						    	},
+						    	error : function(){
+						    		alert('save failed')
+						    	}
+						    });
+				    }
+				    
+				    
+				    idDelete.forEach(function(element){
+				    	$.ajax({
+							url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
+							type:'DELETE',
+							success : function (){
+								//alert('delete successfully');
+								window.location = '${pageContext.request.contextPath}/item/';
+							},
+							
+							error : function(){
+								//alert('delete failed');
+							} 
+							  
+						});
+			    	});
+				    
+				    idClear.forEach(function(element){
+				    	$.ajax({
+							url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
+							type:'DELETE',
+							success : function (){
+								//alert('delete successfully');
+								alert('save successfully')
+								window.location = '${pageContext.request.contextPath}/item/';
+							},
+							
+							error : function(){
+								//alert('delete failed');
+							} 
+							
+						});
+				    });  	
+				}
 		    
 		});
 		
@@ -342,12 +399,14 @@ $(document).ready(function(){
 					$.each(xxx,function(key,val){
 						$('#edititem-item-name').val(val.itemVariant.item.name);
 						$('#edititem-category').val(val.itemVariant.item.category.id);
+						$('#outlet-id').val(val.outlet.id);
 						$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
 								val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
 								+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
 								+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
-								+'<td ><p>'+val.itemVariant.id+'</p></td>'
-								+'<td ><p>'+val.id+'</p></td>'
+								+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
+								+'<td style="display:none"><p>'+val.id+'</p></td>'
+								+'<td style="display:none"><p>'+val.outlet.id+'</p></td>'
 								+'<td> <a href="#" id="edititem-tombol-edit-variant" > Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'
 								+'</tr>');
 						index++;
@@ -382,8 +441,9 @@ $(document).ready(function(){
     			+'<td><p>'+$('#edititem-add-beginning-stock').val()+'</p></td>'
     			+'<td style="display:none"><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
    				+'<td style="display:none"><p>'+$('#edititem-add-active-variant').val()+'</p></td>'
-   				+'<td ><p>null</p></td>'
-   				+'<td ><p>null</p></td>'
+   				+'<td style="display:none"><p>null</p></td>'
+   				+'<td style="display:none"><p>null</p></td>'
+   				+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
     			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> <a href="#" id="edititem-delete-variant-data"> X </a>'+'</td></tr>');
     }
    
@@ -444,6 +504,48 @@ $(document).ready(function(){
 			}
 		});
 	});  
+	
+	//export pdf
+	$('#export').on('click',function(){
+		var pdf = new jsPDF('p', 'pt', 'letter');
+	    // source can be HTML-formatted string, or a reference
+	    // to an actual DOM element from which the text will be scraped.
+	    source = $('#daftar-barang')[0];
+
+	    // we support special element handlers. Register them with jQuery-style 
+	    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+	    // There is no support for any other type of selectors 
+	    // (class, of compound) at this time.
+	    specialElementHandlers = {
+	        // element with id of "bypass" - jQuery style selector
+	        '#bypassme': function (element, renderer) {
+	            // true = "handled elsewhere, bypass text extraction"
+	            return true
+	        }
+	    };
+	    margins = {
+	        top: 80,
+	        bottom: 60,
+	        left: 40,
+	        width: 522
+	    };
+	    // all coords and widths are in jsPDF instance's declared units
+	    // 'inches' in this case
+	    pdf.fromHTML(
+	    source, // HTML string or DOM elem ref.
+	    margins.left, // x coord
+	    margins.top, { // y coord
+	        'width': margins.width, // max width of content on PDF
+	        'elementHandlers': specialElementHandlers
+	    },
+
+	    function (dispose) {
+	        // dispose: object with X, Y of the last line add to the PDF 
+	        //          this allow the insertion of new lines after html
+	        pdf.save('Test.pdf');
+	    }, margins);
+	});
+	
 });
 </script>
 
@@ -480,6 +582,7 @@ $(document).ready(function(){
 	<div id="daftar-barang">
 		<table id="dt-view-item" class="table table-striped table-bordered table-hover">
 		<thead>
+	
 			<tr>
 				<th>Name</th>
 				<th>Category</th>
@@ -490,13 +593,26 @@ $(document).ready(function(){
 			</tr>
 		</thead>
 		<tbody id="full-data-utama">
-			<c:forEach items="${itemInventories}" var="invent">
+			<c:forEach items="${itemInventories}" var="invent"> 
+			<c:set var = "endQty" scope = "session" value = "${invent.endingQty}"/>
+			<c:set var = "alertQty" scope = "session" value = "${invent.alertAtQty}"/>
 				<tr>
 					<td>${invent.itemVariant.item.name} - ${invent.itemVariant.name} </td>
 					<td>${invent.itemVariant.item.category.name}</td>
 					<td>${invent.itemVariant.price}</td>
 					<td>${invent.endingQty}</td>
-					<td>LOW</td>
+					<td id="stock-alert">	
+					<c:choose>
+    		  				<c:when test = "${endQty <= alertQty}">
+       			  				<p>LOW<p>
+     		 				</c:when>
+     		
+     		 				<c:otherwise>
+       			  				<p>OK<p>
+     		 				</c:otherwise>
+     		 		</c:choose>
+					</td>
+					
 					<td><a href="#" id="${invent.itemVariant.item.id}" class="edit-data">Edit</a></td>
 				</tr>
 			</c:forEach> 

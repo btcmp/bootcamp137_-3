@@ -18,6 +18,9 @@
 			
 			<div>
 			<input type="hidden" id="hidden-id">
+				<input type="hidden" id="hidden-outlet-id">
+				<input type="hidden" id="hidden-from-outlet-id">
+			
 			<div>Created By : <input type="text" class="form-control" id="created-by" disabled>  </div> 
 			<div>Transfer Status : <input type="text" class="form-control" id="transfer-status" disabled> </div> 
 			<div>Notes: </div>
@@ -38,6 +41,23 @@
 							</tr>
 						</thead>
 						<tbody id="isi-transfer-stock-detail">		
+							<%-- <c:forEach items="${transferStockDetails}" var="tsdetail">
+								<tr>
+									<td>${tsdetail.itemVariant.item.name} - ${tsdetail.itemVariant.name}</td>
+									<td>${tsdetail.inStock}</td>
+									<td>${tsdetail.transferQty}</td>
+								</tr>
+							</c:forEach>   --%>
+						</tbody>
+					</table>
+					
+					<table id="data-hidden-inventory" class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>	
+								<th>ID</th>
+							</tr>
+						</thead>
+						<tbody id="isi-hidden-id">		
 							<%-- <c:forEach items="${transferStockDetails}" var="tsdetail">
 								<tr>
 									<td>${tsdetail.itemVariant.item.name} - ${tsdetail.itemVariant.name}</td>

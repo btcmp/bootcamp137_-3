@@ -37,6 +37,14 @@ public class ItemInventoryService {
 		itemInventoryDao.update(itemInventory);
 	}
 	
+	public void updateTransferStock(ItemInventory itemInventory) {
+		itemInventoryDao.updateTransferStock(itemInventory);
+	}
+	
+	public List<ItemInventory> searchInventoryByVariant(Long search){
+		return itemInventoryDao.searchInventoryByVariant(search);
+	};
+
 	
 	public void saveAtauUpdate(ItemInventory itemInventory) {
 		itemInventoryDao.saveAtauUpdate(itemInventory);

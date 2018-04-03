@@ -14,10 +14,12 @@
 			</div>
 			<div class="modal-body">
 			<input type="hidden" id="edit-item-input-id" class="form-control">			
-				<form class="form-all">
+				<form class="form-all" id="form-main-edit-data">
 					<div class="form-group">
-						<label for="input-item-name">Item Name</label> <input type="text"
-							class="form-control" id="edititem-item-name" placeholder="enter item name">
+						<label for="input-item-name">Item Name</label> <input type="text" 
+							class="form-control" id="edititem-item-name" placeholder="enter item name" data-parsley-required="true" required>
+							<input type="text" style="display:none"
+							class="form-control" id="outlet-id" placeholder="enter item name">
 					</div>
 
 					<div class="form-group">
@@ -30,10 +32,10 @@
 					</div>
 
 					<div class="form-group">
-						<label for="input-active">Active</label>
+						<label for="input-active">Deactive Item</label>
 						<form id="input-active-edititem">
 							<input name="selector[]" id="edititem-checkbox" class="ads_Checkbox"
-								type="checkbox" value="false"> </input> 
+								type="checkbox" value="false" > </input> 
 						</form>
 					</div>
 					

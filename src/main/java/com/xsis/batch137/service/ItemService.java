@@ -34,6 +34,7 @@ public class ItemService {
 		
 		for(ItemVariant ivar : itemVariants) {
 			inventory = ivar.getItemInventories().get(0);
+			
 			ivar.setItemInventories(null);
 			ivar.setItem(item);
 			itemVariantDao.save(ivar);

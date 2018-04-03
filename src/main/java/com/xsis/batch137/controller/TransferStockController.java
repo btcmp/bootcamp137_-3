@@ -25,7 +25,7 @@ import com.xsis.batch137.service.TransferStockDetailService;
 import com.xsis.batch137.service.TransferStockService;
 
 @Controller
-@RequestMapping("/transfer-stock")
+@RequestMapping("/transaction/transfer-stock")
 public class TransferStockController {
 	//aa
 	@Autowired
@@ -77,6 +77,14 @@ public class TransferStockController {
 		List<TransferStockDetail> transferStockDetails = transferStockDetailService.getTransferStockDetailByTransferStockId(search);
 		return transferStockDetails;
 	}
+	
+	@RequestMapping(value="/search-item-inventory",method=RequestMethod.GET)
+	@ResponseBody
+	public List<ItemInventory> searchInventory(@RequestParam(value="search",defaultValue="") Long search){
+		List<ItemInventory> itemInventories = itemInventoryService.searchInventoryByVariant(search);
+		return itemInventories;
+	}
+	
 	
 	@RequestMapping(value="/update-status/{id}")
 	@ResponseStatus(HttpStatus.OK)

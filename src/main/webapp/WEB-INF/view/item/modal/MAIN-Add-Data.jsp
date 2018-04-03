@@ -1,27 +1,6 @@
 <!-- Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<style>
-.kv-avatar .krajee-default.file-preview-frame,.kv-avatar .krajee-default.file-preview-frame:hover {
-    margin: 0;
-    padding: 0;
-    border: none;
-    box-shadow: none;
-    text-align: center;
-}
-.kv-avatar {
-    display: inline-block;
-}
-.kv-avatar .file-input {
-    display: table-cell;
-    width: 213px;
-}
-.kv-reqd {
-    color: red;
-    font-family: monospace;
-    font-weight: normal;
-}
-</style>
 
 <div class="modal fade" id="modal-create-data" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -31,11 +10,11 @@
 				<h5 class="modal-title" id="exampleModalLabel">Item</h5>
 			</div>
 			<div class="modal-body">
-				<form class="form-all">
+				<form id="form-add-data" class="form-all">
 						        			
 					<div class="form-group">
 						<label for="input-item-name">Item Name</label> <input type="text"
-							class="form-control" id="add-item-name" placeholder="enter item name">
+							class="form-control" id="add-item-name" placeholder="enter item name" data-parsley-required="true" required>
 					</div>
 
 					<div class="form-group">
@@ -95,11 +74,10 @@
 						
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
 						<button type="submit" id="btn-cancel" class="btn btn-primary">Cancel</button>
-						<button type="submit" id="btn-create-data" class="btn btn-primary">Save</button>
+						<button type="submit" value="validate" id="btn-create-data" class="btn btn-primary">Save</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-

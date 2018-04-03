@@ -13,30 +13,30 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="form-all">
+				<form class="form-all" id="form-edititem-variant-edit-data">
 					<div class="form-group">
 						<label for="input-variant-name">Variant Namee</label> <input type="text"
-							class="form-control" id="edititem-edit-variant-name">
+							class="form-control" id="edititem-edit-variant-name" data-parsley-required="true" required>
 					</div>
 					
 					<div class="form-group">
 						<label for="input-variant-name">Unit Price</label> <input type="text"
-							class="form-control" id="edititem-edit-unit-price">
+							class="form-control" id="edititem-edit-unit-price" data-parsley-required="true" required>
 					</div>
 					
 					<div class="form-group">
 						<label for="input-variant-name">SKU</label> <input type="text"
-							class="form-control" id="edititem-edit-sku">
+							class="form-control" id="edititem-edit-sku" data-parsley-required="true" required>
 					</div>
 					
 					<div class="form-group">
 						<label for="input-variant-name">Beginning Stock</label> <input type="text"
-							class="form-control" id="edititem-edit-beginning-stock">
+							class="form-control" id="edititem-edit-beginning-stock" data-parsley-required="true" required>
 					</div>
 					
 						<div class="form-group">
 						<label for="input-variant-name">Alert at</label> <input type="text"
-							class="form-control" id="edititem-edit-alert-at">
+							class="form-control" id="edititem-edit-alert-at" data-parsley-required="true" required>
 					</div>
 					
 					<div class="checkbox" style="display:none" >
@@ -49,8 +49,8 @@
 					<input type="hidden" id="id-item-hidden" class="form-control">		
 
 					<div class="modal-footer">
-						<button type="button" id="edititem-btn-close" class="btn btn-primary">Cancel</button>
-						<button type="submit" id="edititem-btn-save-variant" class="btn btn-primary"  data-dismiss="modal">Add</button>
+						<button type="button" id="edititem-btn-close" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+						<button type="submit" id="edititem-btn-save-variant" class="btn btn-primary">Add</button>
 					</div>
 				</form>
 
