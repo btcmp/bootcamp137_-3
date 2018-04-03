@@ -19,6 +19,7 @@
 		    	<select id="pil-status" class="form-control">
 		    		<option value="All">All</option>
 		    		<option value="Created">Created</option>
+		    		<option value="Submitted">Submitted</option>
 		    		<option value="Approved">Approved</option>
 		    		<option value="Rejected">Rejected</option>
 		    		<option value="Processed">Processed</option>
@@ -319,8 +320,9 @@
 						var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
 						
 						$('#isi-data-po').append('<tr><td>'+tanggal+'</td>'
-							+'<td>'+val.prNo+'</td>'
-							+'<td>'+val.notes+'</td>'
+							+'<td>'+val.supplier.name+'</td>'
+							+'<td>'+val.poNo+'</td>'
+							+'<td>'+val.grandTotal+'</td>'
 							+'<td>'+val.status+'</td>'
 							+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
 							+'<a href="${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');

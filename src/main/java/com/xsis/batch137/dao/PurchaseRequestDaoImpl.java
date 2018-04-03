@@ -92,7 +92,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	public List<PurchaseRequest> searchPR(String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where lower(prNo) = :search or lower(status) = :search or lower(notes) = :search";
+		String hql = "from PurchaseRequest where lower(prNo) like :search or lower(status) like :search or lower(notes) like :search";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("search", "%"+search.toLowerCase()+"%").list();
 		if(prs.isEmpty()) {
 			return null;
