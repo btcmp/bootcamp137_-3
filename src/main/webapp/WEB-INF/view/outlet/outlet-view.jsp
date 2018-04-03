@@ -39,7 +39,7 @@
 					<script type="text/javascript">
 						console.log(${out.id});
 					</script>
-					<a href="#" id="${out.id }" class="btn-edit btn btn-success">Edit</a>
+					<a href="" id="${out.id }" class="btn-edit btn btn-success">Edit</a>
 				</td>
 			<tr>
 		</c:forEach>
@@ -332,7 +332,7 @@
 							+ '<td>'+out.address+'</td>'
 							+ '<td>'+out.phone+'</td>'
 							+ '<td>'+out.email+'</td>'
-							+ '<td><a href="#" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
+							+ '<td><a href="" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
 							+ '</tr>');
 						console.log(out.id);
 					});
