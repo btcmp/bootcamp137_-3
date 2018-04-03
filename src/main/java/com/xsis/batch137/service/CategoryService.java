@@ -47,6 +47,7 @@ public class CategoryService {
 				}
 				else {
 					category.setItemStock(items.size());
+					//System.out.println(items.size());
 				}
 				System.out.println(category.getName() + " has " + category.getItemStock() + " Item");
 			}
@@ -60,6 +61,34 @@ public class CategoryService {
 
 	public List<Category> searchCategory(String search) {
 		// TODO Auto-generated method stub
-		return categoryDao.searchCategory(search);
+		List<Category> cats = categoryDao.searchCategory(search);
+		//Cara yang gagal mengambil itemStock
+		/*if(cats == null) {
+			return null;
+		}
+		else {
+			for(Category cat : cats) {
+				List<Item> items = itemDao.getItemByCategory(cat);
+				if(items.isEmpty()) {
+					cat.setItemStock(0);
+				}
+				else {
+					cat.setItemStock(items.size());
+				}
+				//System.out.println(cat.getName() + " has " + cat.getItemStock() + " Item");
+			}
+		}*/
+		return cats;
 	}
+
+	public int getItemStock(long id) {
+		// TODO Auto-generated method stub
+		Category cat = new Category();
+		cat.setId(id);
+		List<Item> items = itemDao.getItemByCategory(cat);
+		int itemStock = items.size();
+		return itemStock;
+	}
+
+	
 }

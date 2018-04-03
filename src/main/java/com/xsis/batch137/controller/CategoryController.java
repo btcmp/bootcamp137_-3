@@ -62,4 +62,11 @@ public class CategoryController {
 		List<Category> categories = categoryService.searchCategory(search);
 		return categories;
 	}
+	
+	@RequestMapping(value="/get-item-stock", method=RequestMethod.GET)
+	@ResponseBody
+	public int getJumlahItemByCategory(@RequestParam("id") long id){
+		int itemStock = categoryService.getItemStock(id);
+		return itemStock;
+	}
 }

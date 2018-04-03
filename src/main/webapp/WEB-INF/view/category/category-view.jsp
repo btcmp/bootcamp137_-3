@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search Category..">
+				<input type="text" class="form-control" id="category-search" placeholder="Search Category..">
 			</div>
 		</div>
 		<div style="float:right; margin-right:60px;">
@@ -26,7 +26,8 @@
 			<th>#</th>
 		</tr>
 		</thead>
-		<tbody>
+		
+		<tbody id="category-data">
 		<c:forEach items="${categories }" var="cat">
 			<tr>
 				<td>${cat.name }</td>
@@ -140,6 +141,43 @@
 				error : function(){
 					console.log(id);
 					alert('Cannot Delete..');
+				}
+			});
+		});
+		
+		//Search
+		$('#category-search').on('input', function(e){
+			var search = $(this).val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/category/search?search='+search,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data){
+					$('#category-data').empty();
+					$.each(data, function(key, cat){
+						console.log(cat);
+						$('#category-data').append('<tr>'
+								+ '<td>'+cat.name+'</td>'
+								+ '<td id="catdat-'+cat.id+'"></td>'
+								+ '<td><a href="" id="'+cat.id+'" class="btn-edit btn btn-success">View</a></td>'
+								+ '</tr>');
+						var idCat = cat.id;
+						$.ajax({
+							url : '${pageContext.request.contextPath}/category/get-item-stock?id=' + idCat,
+							type : 'get',
+							dataType : 'json',
+							success : function(itemStock){
+								console.log('Item Stock dari '+cat.name+' adalah '+itemStock);
+								$('#catdat-'+cat.id).append(itemStock+' Item');
+							},
+							error : function(){
+								alert('Sorry cannot search Item Stock..');
+							}
+						});
+					});
+				},
+				error : function(data){
+					console.log(data);
 				}
 			});
 		});
