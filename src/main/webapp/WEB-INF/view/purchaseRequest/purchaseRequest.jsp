@@ -158,10 +158,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"
-						id="batal-insert">Cancel</button>
-					<button type="button" class="btn btn-danger" id="tblkonfdel"
-						key="key">Add</button>
+					<button type="button" class="btn btn-info" id="batalinsert">Cancel</button>
+					<button type="button" class="btn btn-primary" id="tblkonfadd">Add</button>
 				</div>
 			</div>
 		</div>
@@ -264,7 +262,8 @@
 		
 		
 		var added = [];
-		
+		var addedEdit = [];
+		var lagiEdit = 0;
 		// auto complete
 		var itemsss = [];
 		var itemss = {
@@ -274,6 +273,9 @@
 		$('#search-item').easyAutocomplete(itemss);
 		
 		$('#btn-tambah-item').on('click', function(){
+			itemsss = [];
+			isiBarang = $('#list-item').html();
+			console.log(isiBarang);
 			$.ajax({
 				type : 'get',
 				url : '${pageContext.request.contextPath}/item/get-inventory',
@@ -354,9 +356,13 @@
 			}
 		});
 		
+		var isiBarang = '';
+		
 		$('#data-pr').on('click', '.btn-edit-pr', function(){
-			
+			var isiEdit = '';
 			added= [];
+			addedEdit = [];
+			lagiEdit = 1;
 			$('#list-item').empty();
 			var id = $(this).attr('key-id');
 			$.ajax({
@@ -372,13 +378,12 @@
 					$('#pilih-tanggal').val(tanggal);
 					$(data.detail).each(function(key, val){
 						added.push(''+val.variant.id+'');
-						
-						$('#list-item').append(
-							'<tr key-id="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
-							+'<td id="td'+val.id+'"></td>'
-							+'<td>'+val.requestQty+'</td>'
-							+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>'
-						);
+						addedEdit = added;
+						isiEdit = '<tr key-id="'+val.variant.id+'" id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
+						+'<td id="td'+val.id+'"></td>'
+						+'<td>'+val.requestQty+'</td>'
+						+'<td><button type="button" class="btn btn-danger btn-hapus-barang" id="btn-del'+id+'" key-id="'+id+'">&times;</button>';
+						$('#list-item').append(isiEdit);
 						$.ajax({
 							type : 'GET',
 							url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-inventory?idPr='+id+'&idPrd='+val.id,
@@ -387,7 +392,8 @@
 								$('#td'+val.id).append(inv[0]);
 							}
 						});
-					})
+					});
+					
 					if(data.status=='Created'){
 						$('#tblsimpan').prop('disabled', false);
 						$('#submit-pr').prop('disabled', false);
@@ -471,7 +477,25 @@
 			$('#pilih-tanggal').val('');
 			$('#in-notes').val('');
 			$('#list-item').empty();
-		})
+			isiEdit='';
+			added = [];
+			addedEdit = [];
+			lagiEdit = 0;
+		});
+		
+		$('#batalinsert').on('click', function(){
+			console.log('clicked');
+			$('#list-item').empty();
+			added = [];
+			if(lagiEdit == 1){
+				added = addedEdit;
+			}
+			$('#list-item').append(isiBarang);
+		});
+		
+		$('#tblkonfadd').on('click', function(){
+			$('#add-item-pr').modal('hide');
+		});
 	});
 </script>
 </html>
