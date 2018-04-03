@@ -39,7 +39,7 @@
 				<td>${out.postalCode }</td>
 				<td>
 					<script type="text/javascript">
-					console.log(${out.id});
+						console.log(${out.id});
 					</script>
 					<a href="#" id="${out.id }" class="btn-edit btn btn-success">Edit</a>
 				</td>
