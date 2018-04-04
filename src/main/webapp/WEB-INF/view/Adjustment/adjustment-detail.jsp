@@ -9,7 +9,7 @@
 	<div class="col-xs-2" style="float:right; margin-right:50px; margin-top:25px">
 		<select class="form-control btn-info" id="status-adjustment">
 			<option disabled selected>MORE</option>
-			<option value="Aproved">Approve</option>
+			<option value="Approved">Approve</option>
 			<option value="Rejected">Reject</option>
 			<option value="Printed">Print</option>
 		</select>
@@ -28,13 +28,13 @@
 	<div class="row">
 		<div class="col-xs-2">Adjustment Status</div>
 		<div class="col-xs-1">:</div>
-		<div class="col-xs-3">${adjustment.status }</div>
+		<div id="cetatus" class="col-xs-3">${adjustment.status }</div>
 	</div>
 	
 	<div style="margin-right:50px;">
 		<div><h5>Notes</h5></div>
 		<div >
-			<textarea class="form-control" rows="3" id="notes">${adjustment.notes }</textarea>
+			<textarea class="form-control" rows="3" id="notes" readonly>${adjustment.notes }</textarea>
 		</div>
 	</div>
 	
@@ -52,7 +52,13 @@
 
 <div id="status-history">
 	<c:forEach items="${adjustment.adjustmentHistories }" var="history">
-		<div>On ${history.createdOn } - ${history.status }</div>
+		<div>On 
+		<script type="text/javascript">
+			var waktu = '${history.createdOn}';
+			var wkt = waktu.split('.');
+			document.write(wkt[0]);
+		</script>
+		 - ${history.status }</div>
 	</c:forEach>
 </div>
 
@@ -86,7 +92,7 @@
 		</c:forEach> 
 		</tbody>
 	</table>
-	<input type="hidden" id="adjustment-id" value="a" />
+	<input type="hidden" id="adjustment-id" value="${adjustment.id }" />
 </div>
 <hr style="border-color:black; border-top:1px dashed; margin-right:50px;">
 <br/>
@@ -104,7 +110,8 @@
 	$(document).ready(function(){
 		//$('#supplier-table').DataTable();
 		
-		$('#status-adjustment').change(function(){
+		$('#status-adjustment').change(function(e){
+			e.preventDefault();
 			var status = $(this).val();
 			if(status !== null){
 				var adjustment = {
@@ -116,14 +123,23 @@
 					type : 'PUT',
 					data : JSON.stringify(adjustment),
 					contentType : 'application/json',
-					success : function(acc){
-						$.each(acc, function(key, data))
-						$('#status-history').append('<div>'
-								+ 
-								+ '</div>')
+					success : function(histories){
+						$('#status-history').empty();
+						$.each(histories, function(key, data){
+							var date = '/Date('+data.createdOn+')';
+							var asAMoment = moment(date);
+							var tanggal = asAMoment.format('YYYY-MM-DD HH:mm:ss');
+							
+							$('#status-history').append('<div>'
+									+ 'On '+tanggal+' - '+data.status
+									+ '</div>');
+						});
+						$('#cetatus').empty();
+						$('#cetatus').append($('#status-adjustment').val());
+						alert('Yeesss..');
 					},	
 					error : function(){
-						alert('')
+						alert('Nooo..');
 				}
 				});
 			}
