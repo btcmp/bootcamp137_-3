@@ -122,10 +122,4 @@ public class PurchaseRequestController {
 	public List<Object> getInventory(@RequestParam(value="idPr", defaultValue="") long idPr, @RequestParam(value="idPrd", defaultValue="") long idPrd){
 		return prService.getInventoryByVariantDanOutlet(idPrd, idPr);
 	}
-	
-	@RequestMapping("/get-all-inventory")
-	@ResponseBody
-	public List<ItemInventory> getAllInventory(){
-		return iService.selectAll();
-	}
 }
