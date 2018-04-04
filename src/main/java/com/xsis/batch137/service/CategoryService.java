@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,13 @@ public class CategoryService {
 	
 	//
 	public void save(Category category) {
+		category.setCreatedOn(new Date());
 		categoryDao.save(category);
 	}
 	
 	public void update(Category category) {
 		category.setActive(true);
+		category.setModifiedOn(new Date());
 		categoryDao.update(category);
 	}
 	
