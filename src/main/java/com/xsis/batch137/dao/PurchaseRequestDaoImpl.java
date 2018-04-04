@@ -123,4 +123,15 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 			return prs;
 		}
 	}
+
+	public int CountPrByPrNo(String prNo) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where prNo = :prNo";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("prNo", prNo).list();
+		if(prs.isEmpty()) {
+			return 0;
+		}
+		return prs.size();
+	}
 }

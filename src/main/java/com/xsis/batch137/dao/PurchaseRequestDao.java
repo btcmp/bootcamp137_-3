@@ -32,4 +32,7 @@ public interface PurchaseRequestDao {
 	List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate);
 	
 	List<PurchaseRequest> searchPRByStatus(String search);
+	
+	int CountPrByPrNo(String prNo);
+	
 }

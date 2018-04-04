@@ -44,6 +44,7 @@
 						+'<option value="create-po" disabled>Create PO</option>');
 			}
 		</script>
+		</select>
 	</div>
 </div>
 <div class="row">

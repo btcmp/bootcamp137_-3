@@ -58,14 +58,6 @@ public class PurchaseRequestService {
 		pureq.setStatus(pr.getStatus());
 		pureq.setNotes(pr.getNotes());
 		
-		if(pureq.getId()!=0) {
-			pureq.setModifiedOn(new Date());
-			PurchaseRequest pure = prDao.getOne(pureq.getId());
-			pureq.setCreatedOn(pure.getCreatedOn());
-		}else {
-			pureq.setCreatedOn(new Date());
-		}
-		
 		Calendar cal = Calendar.getInstance();
 		int thn = cal.get(Calendar.YEAR);
 		int bln = cal.get(Calendar.MONTH)+1;
@@ -87,7 +79,35 @@ public class PurchaseRequestService {
 		}
 		
 		String prNo = "PR"+thn+bulan+nomor;
-		pureq.setPrNo(prNo);
+		int unique = 0;
+		while(unique == 0) {
+			prNo = "PR"+thn+bulan+nomor;
+			int unik = prDao.CountPrByPrNo(prNo);
+			if(unik == 0) {
+				unique = 1;
+			}else {
+				int number = Integer.parseInt(nomor);
+				number++;
+				if(number < 10) {
+					nomor = "00"+number;
+				} else if(number < 100) {
+					nomor = "0"+number;
+				} else {
+					nomor = Integer.toString(no);
+				}
+			}
+		}
+		
+		if(pureq.getId()!=0) {
+			pureq.setModifiedOn(new Date());
+			PurchaseRequest pure = prDao.getOne(pureq.getId());
+			pureq.setCreatedOn(pure.getCreatedOn());
+			pureq.setPrNo(pure.getPrNo());
+		}else {
+			pureq.setCreatedOn(new Date());
+			pureq.setPrNo(prNo);
+		}
+		
 		prDao.save(pureq);
 		
 		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pureq);
@@ -132,7 +152,7 @@ public class PurchaseRequestService {
 		}else {
 			for(PurchaseRequest pr : prs) {
 				List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
-				if(prds.isEmpty()) {
+				if(prds == null) {
 					
 				}else {
 					pr.setDetail(prds);
