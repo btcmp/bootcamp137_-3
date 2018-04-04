@@ -40,7 +40,15 @@ public class AdjustmentHistoryDaoImpl implements AdjustmentHistoryDao {
 	public List<AdjustmentHistory> selectAll() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		return session.createCriteria(AdjustmentHistory.class).list();
+		String hql = "from AdjustmentHistory order by createdOn desc";
+		List<AdjustmentHistory> histories = session.createQuery(hql).list();
+		if(histories.isEmpty()) {
+			return null;
+		}
+		else {
+			return histories;
+		}
+		
 	}
 
 	public AdjustmentHistory getOne(long id) {
@@ -52,8 +60,13 @@ public class AdjustmentHistoryDaoImpl implements AdjustmentHistoryDao {
 	public List<AdjustmentHistory> getHistoryByAdjustment(Adjustment adjustment) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from AdjustmentHistory where adjustment = :adj";
+		String hql = "from AdjustmentHistory where adjustment = :adj order by createdOn desc";
 		List<AdjustmentHistory> histories = session.createQuery(hql).setParameter("adj", adjustment).list();
-		return histories;
+		if(histories.isEmpty()) {
+			return null;
+		}
+		else {
+			return histories;
+		}
 	}
 }
