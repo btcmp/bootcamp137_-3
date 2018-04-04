@@ -104,6 +104,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/parsley.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/jspdf.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/easyAutoComplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- page script -->
 
 </head>

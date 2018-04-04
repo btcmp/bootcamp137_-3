@@ -35,7 +35,7 @@
 	    
 	    <div class="col-xs-2">
 		    <div class="form-group">
-		    	<input type="button" id="btn-export" class="btn btn-md btn-primary btn-block" value="Export">
+		    	<a href="${pageContext.request.contextPath}/generate/pr" id="btn-export" class="btn btn-md btn-primary btn-block">Export</a>
 		    </div>
 	    </div>
 	    <div class="col-xs-2">
@@ -158,8 +158,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" id="batalinsert">Cancel</button>
-					<button type="button" class="btn btn-primary" id="tblkonfadd">Add</button>
+					<button type="button" class="btn btn-info" id="batalinsert">Reset</button>
+					<button type="button" class="btn btn-primary" id="tblkonfadd">Save</button>
 				</div>
 			</div>
 		</div>
