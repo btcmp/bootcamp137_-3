@@ -73,12 +73,12 @@
 		$('#tbl-delete').click(function(){
 			var id = $('#edit-id').val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/delete/'+id,
+				url : '${pageContext.request.contextPath}/master/supplier/delete/'+id,
 				type : 'DELETE',
 				success : function(id){
 					console.log(id);
 					alert('Delete success..');
-					window.location = '${pageContext.request.contextPath}/supplier';
+					window.location = '${pageContext.request.contextPath}/master/supplier';
 				},
 				error : function(id){
 					console.log(id);
@@ -110,14 +110,14 @@
 				
 			};
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/save',
+				url : '${pageContext.request.contextPath}/master/supplier/save',
 				type : 'POST',
 				data : JSON.stringify(supplier),
 				contentType : 'application/json',
 				success : function(){
 					console.log(supplier);
 					alert('yes..');
-					window.location = '${pageContext.request.contextPath}/supplier';
+					window.location = '${pageContext.request.contextPath}/master/supplier';
 				},
 				error : function(){
 					console.log(supplier);
@@ -135,7 +135,7 @@
 			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/get-region/'+id,
+				url : '${pageContext.request.contextPath}/master/supplier/get-region/'+id,
 				type : 'GET',
 				success : function(regions){
 					console.log(regions);
@@ -157,7 +157,7 @@
 			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/get-district/'+id,
+				url : '${pageContext.request.contextPath}/master/supplier/get-district/'+id,
 				type : 'GET',
 				success : function(districts){
 					console.log(districts);
@@ -178,7 +178,7 @@
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/take/' + id,
+				url : '${pageContext.request.contextPath}/master/supplier/take/' + id,
 				type : 'GET',
 				success : function(supplier){
 					$('#edit-name').val(supplier.name);
@@ -190,7 +190,7 @@
 					$('#prov-edit').val(supplier.province.id);
 					var idProv = supplier.province.id;
 					$.ajax({
-						url : '${pageContext.request.contextPath}/supplier/get-region/'+idProv,
+						url : '${pageContext.request.contextPath}/master/supplier/get-region/'+idProv,
 						type : 'GET',
 						success : function(regions){
 							console.log(regions);
@@ -202,7 +202,7 @@
 							$('#reg-edit').val(supplier.region.id);
 							var idReg = supplier.region.id;
 							$.ajax({
-								url : '${pageContext.request.contextPath}/supplier/get-district/'+idReg,
+								url : '${pageContext.request.contextPath}/master/supplier/get-district/'+idReg,
 								type : 'GET',
 								success : function(districts){
 									$('#dist-edit').empty();
@@ -241,7 +241,7 @@
 			$('#dist-edit').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/get-region/' + id,
+				url : '${pageContext.request.contextPath}/master/supplier/get-region/' + id,
 				type : 'GET',
 				success : function(regions){
 					console.log(regions);
@@ -262,7 +262,7 @@
 			$('#dist-edit').append('<option disabled selected value=""> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/get-district/' + id,
+				url : '${pageContext.request.contextPath}/master/supplier/get-district/' + id,
 				type : 'GET',
 				success : function(districts){
 					console.log(districts);
@@ -299,7 +299,7 @@
 			};
 			
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/update',
+				url : '${pageContext.request.contextPath}/master/supplier/update',
 				type : 'PUT',
 				data : JSON.strigify(supplier),
 				contentType : 'application/json',
@@ -318,7 +318,7 @@
 		$('#supplier-search').on('input', function(){
 			var keyword = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/supplier/search?search='+keyword,
+				url : '${pageContext.request.contextPath}/master/supplier/search?search='+keyword,
 				type : 'GET',
 				data : 'json',
 				success : function(data){

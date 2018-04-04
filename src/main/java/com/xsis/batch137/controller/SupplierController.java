@@ -22,7 +22,7 @@ import com.xsis.batch137.model.Supplier;
 import com.xsis.batch137.service.SupplierService;
 
 @Controller
-@RequestMapping("/supplier")
+@RequestMapping("master/supplier")
 public class SupplierController {
 
 	@Autowired
