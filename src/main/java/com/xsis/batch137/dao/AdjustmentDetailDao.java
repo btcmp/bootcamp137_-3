@@ -2,6 +2,7 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.AdjustmentDetail;
 
 
@@ -14,6 +15,6 @@ public interface AdjustmentDetailDao {
 	public void delete(AdjustmentDetail adjDetail);
 	
 	public List<AdjustmentDetail> selectAll();
-	
-	public AdjustmentDetail getOne(long id);
+
+	public List<AdjustmentDetail> getDetailByAdjustment(Adjustment adjustment);
 }

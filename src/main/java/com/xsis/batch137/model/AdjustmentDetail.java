@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="adjustment_detail")
 public class AdjustmentDetail {
@@ -41,6 +43,7 @@ public class AdjustmentDetail {
 	
 	@ManyToOne
 	@JoinColumn(name="adjustment_id", nullable=false)
+	@JsonBackReference
 	private Adjustment adjustment;
 	
 	@ManyToOne
