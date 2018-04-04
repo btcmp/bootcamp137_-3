@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.TransferStock;
 //
 @Repository
@@ -46,5 +48,20 @@ public class TransferStockDaoImpl implements TransferStockDao {
 		session.saveOrUpdate(transferStock);
 		session.flush();
 	}
+
+	@Override
+	public List<TransferStock> getTransferStockByOutletId(Long search) {
+		Session session=sessionFactory.getCurrentSession();
+		String hql = "from TransferStock ts where ts.toOutlet.id = :search";
+		List<TransferStock> transferStocks=session.createQuery(hql).setParameter("search", search).list();
+		if(transferStocks.isEmpty()) {
+			return null;
+		}
+		
+		return transferStocks;
+		
+	}
+
+	
 
 }

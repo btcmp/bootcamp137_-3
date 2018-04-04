@@ -7,6 +7,8 @@ import com.xsis.batch137.model.TransferStock;
 
 public interface TransferStockDao {
 	
+
+	
 	public void save(TransferStock transferStock);
 	
 	public List<TransferStock> selectAll();
@@ -18,5 +20,7 @@ public interface TransferStockDao {
 	public void update(TransferStock transferStock);
 	//
 	public void saveAtauUpdate(TransferStock transferStock);
+
+	public List<TransferStock> getTransferStockByOutletId(Long search);
 	
 }

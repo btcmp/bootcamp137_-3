@@ -151,5 +151,35 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 		
 		return itemInventories;
 	}
-}
+
+	@Override
+	public List<ItemInventory> getItemInvetoryByOutlet(Long search, Long id) {
+		Session session=sessionFactory.getCurrentSession();
+		/*String hql="from ItemInventory itemInventory right outer join ItemVariant itemVariant on itemInventory.itemVariant.id=itemVariant.id "
+				+ "where itemVariant.item = :item" ;*/
+		String hql="from ItemInventory i where i.itemVariant.item.id = :search and i.outlet.id= :outId";
+		List<ItemInventory> itemInventories=session.createQuery(hql).setParameter("search", search).setParameter("outId", id).list();
+		if(itemInventories.isEmpty()) {
+			return null;
+		}
+		
+		return itemInventories;
+	}
+
+	@Override
+	public List<ItemInventory> listInventoryByOutlet(Long search) {
+		Session session=sessionFactory.getCurrentSession();
+		/*String hql="from ItemInventory itemInventory right outer join ItemVariant itemVariant on itemInventory.itemVariant.id=itemVariant.id "
+				+ "where itemVariant.item = :item" ;*/
+		String hql="from ItemInventory i where i.outlet.id = :search";
+		List<ItemInventory> itemInventories=session.createQuery(hql).setParameter("search", search).list();
+		if(itemInventories.isEmpty()) {
+			return null;
+		}
+		
+		return itemInventories;
+	}
+	}
+
+
 

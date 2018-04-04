@@ -68,6 +68,17 @@ public class TransferStockController {
 		return inventz;
 	}
 	
+	@RequestMapping(value = "/search-outlet", method = RequestMethod.GET)
+	public String indexSearch(Model model, @RequestParam(value="search", defaultValue="") Long search) {
+		List<TransferStock> transferStocks = transferStockService.getTransferStockByOutletId(search);
+		List<Outlet> outlets = outletService.selectAll();
+		List<ItemInventory> itemsInventorys= itemInventoryService.selectAll();
+		model.addAttribute("transferStocks", transferStocks);
+		model.addAttribute("outlets", outlets);
+		model.addAttribute("itemInventorys", itemsInventorys);
+		return "/transferStock/transferStock";
+	}
+	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody TransferStock transferStock) {

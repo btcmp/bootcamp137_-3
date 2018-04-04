@@ -24,6 +24,7 @@
 	 	$('#add-transfer-item').on('click',function(evt){
 			evt.preventDefault;
 			$('#modal-add-transfer-item').modal();
+			
 			document.getElementById("btn-save-transfer-item").disabled = true;
 		}); 
 		
@@ -60,6 +61,8 @@
 					console.log(dataFromAddItem)
 			}
 		}); 
+		
+		
 		
 		//delete transfer item
 		$('body').on('click', 'a.delete-transfer-item', function(evt){
@@ -116,13 +119,13 @@
 		  //console.log(transferStock)
 		  
 			$.ajax({
-				url : '${pageContext.request.contextPath }/transfer-stock/save',
+				url : '${pageContext.request.contextPath }/transaction/transfer-stock/save',
 				type : 'POST',
 				data : JSON.stringify(transferStock),
 				contentType : 'application/json',
 				success : function(){
 					alert('save successfully');
-					window.location='${pageContext.request.contextPath}/transfer-stock';
+					window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
 				}, error : function(){
 					alert('save failed');
 				}
@@ -166,17 +169,29 @@
 		});
 		
 		
+		//cancel modal
+		$('#cancel-add-transfer-item').on('click',function(){
+			saved=[];
+			$('#isi-popup-transfer-stock').empty();
+			$('#search-item').val('');
+			$('#modal-add-transfer-item').modal('toggle');
+		})
+		
+		
+		var added=[];
 	 	$('#search-item').on('input',function(e){
 	 		var keyword=$(this).val();
+	 		var outletId = $('#add-transfer-from').val();
+			console.log(outletId);
 	 		if(keyword==""){
 	 			$('#isi-popup-transfer-stock').empty();
-	 			
 	 		}
 	 		
 	 		else{
 	 			$.ajax({
+	 			
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/transfer-stock/search-item?search='+keyword,
+					url : '${pageContext.request.contextPath}/transaction/transfer-stock/search-item?search='+keyword+'&outlet-id='+outletId,
 					dataType : 'json',
 					success : function (data){
 			 			$('#isi-popup-transfer-stock').empty();
@@ -219,9 +234,11 @@
 
 			$.ajax({
 				type : 'GET',
-				url : '${pageContext.request.contextPath}/transfer-stock/get-one/'+id,
+				url : '${pageContext.request.contextPath}/transaction/transfer-stock/get-one/'+id,
 				dataType: 'json',
 				success : function(data){
+					$('#hidden-from-outlet-id').val(data.fromOutlet.id);	
+					$('#hidden-outlet-id').val(data.toOutlet.id);
 					$('#hidden-id').val(data.id);
 					$('#created-by').val(data.createdBy);
 					$('#transfer-status').val(data.status);
@@ -242,7 +259,7 @@
 					$('#more-option').html(option);
 
 					$.ajax({
-						url : '${pageContext.request.contextPath }/transfer-stock/search-transfer-stock-detail?search='+id,
+						url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-transfer-stock-detail?search='+id,
 						type : 'GET',
 						dataType : 'json',
 						success : function(data){
@@ -251,13 +268,48 @@
 					 		$('#isi-transfer-stock-detail').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 						 			+ '<td>'+val.inStock+'</td>'
 									+ '<td>'+val.transferQty+'</td>'
+									+ '<td>'+val.itemVariant.id+'</td>'
+									+'<td>'+$('#hidden-outlet-id').val()+'</td>'
 									+ '</tr>');
 					 		});
+					 		
+					 		var idz = []
+					 		$('#data-transfer-stock-detail > tbody > tr').each(function(index,data){
+					 			var idx = {
+					 					id : $(data).find('td').eq(3).text(),
+					 					trStock : $(data).find('td').eq(2).text()
+					 			}
+					 			idz.push(idx)
+					 		});
+					 		
+					 		 idz.forEach(function(element){
+					 			 //console.log(element)
+						   		$.ajax({
+					 				url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-item-inventory?search='+element.id,
+									type : 'GET',
+									dataType : 'json',
+									success : function(data){
+								 		$.each(data, function(key, val) {
+
+										$('#isi-hidden-id').append('<tr><td>'+val.id+'</td>'
+									 	 		+ '<td>'+element.trStock+'</td>'
+									 	 		+ '<td>'+val.outlet.id+'</td>'
+												+ '</tr>');
+								 		});
+									},
+									error : function(data){
+										alert('failed')
+									}
+					 			});  
+					 		 });
+					 		
 					 		
 						}, error : function(){
 							alert('error to get data');
 						}
 					});
+					
+					
 					
 				},
 				error : function(){
@@ -267,15 +319,20 @@
 	 	
 	});
 	 	
+
+	 	
 	 $('#more-option').change(function(evt){
 		evt.preventDefault();
 		var newStatus = $(this).val();
+
 		if (newStatus=="Approved" || newStatus=="Rejected") {
+			
+			
 			transferStockId = $('#hidden-id').val();
-			console.log(newStatus);
-			console.log(transferStockId);
-			$.ajax({
-				url : '${pageContext.request.contextPath }/transfer-stock/update-status/'+transferStockId,
+			/* console.log(newStatus);
+			console.log(transferStockId); */
+		 	 $.ajax({
+				url : '${pageContext.request.contextPath }/transaction/transfer-stock/update-status/'+transferStockId,
 				type : 'PUT',
 				data : JSON.stringify(newStatus),
 				contentType : 'application/json',
@@ -284,13 +341,68 @@
 				}, error : function(){
 					alert('update status failed');
 				}
+			})   
+		
+			if(newStatus=="Approved"){
 				
-			})
+				 $('#data-hidden-inventory > tbody > tr').each(function(index,data){
+					var updateTrstock = {
+						id: $(data).find('td').eq(0).text(),
+						transferStockQty : $(data).find('td').eq(1).text(),
+						 outlet : {
+							 id : $('#hidden-outlet-id').val() //transferTo
+						}
+					}
+				console.log(updateTrstock)
+				
+				var outId = parseInt($(data).find('td').eq(2).text());
+				var fromId = parseInt($('#hidden-from-outlet-id').val());
+				
+				console.log(outId);
+				console.log ('z');		
+				console.log(fromId);
+				
+				if(outId == fromId){
+					 	$.ajax({
+							url : '${pageContext.request.contextPath}/item/update-inventory',
+							type : 'PUT',
+							data : JSON.stringify(updateTrstock),
+							contentType : 'application/json',
+							success : function(){
+								alert('update to inventory');
+							}, error : function(){
+								alert('update inventory failed');
+							}
+						
+						}) 
+					}
+				
+				 }); //data-hidden.each
+				 
+				
+				 
+			}
+		
+		 
+		 
+			
 		} else if (newStatus=="Print") {
 			//window.locationd='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
-		}	 
+		}	
+		
 	 });
-	 	
+	 
+	 //search outlet to tampilan awal
+	  $('#search-outlet-to').change(function(evt){
+		  var keyword = $(this).val();
+		  if(keyword=="all"){
+			  window.location = "${pageContext.request.contextPath}/transaction/transfer-stock";
+		  }
+		  
+		  else if (keyword !== "kosong"){
+				window.location = "${pageContext.request.contextPath}/transaction/transfer-stock/search-outlet?search="+keyword;
+		  }
+	  });
 	 	
 	 	
 	});
@@ -304,10 +416,12 @@
 	<div class="container">
 		<div>
 			<div style="float: left; margin-right: 600px;">
-				<select>
+				<select id="search-outlet-to">
+				<option value="kosong">Search Outlet</option>
 					<c:forEach var="out" items="${outlets}">
 						<option value="${out.id}">${out.name}</option>
 					</c:forEach>
+				<option value="all">All Outlet</option>	
 				</select>
 			</div>
 			

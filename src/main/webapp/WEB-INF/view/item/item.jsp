@@ -294,7 +294,7 @@ $(document).ready(function(){
 							    	 id : $(data).find('td').eq(6).text()
 							     },
 				    			 outlet : {
-				    				id : $(data).find('td').eq(8).text()
+				    				id : $('#add-outlet').val()
 				    			 }
 				    	
 						 }
@@ -385,11 +385,12 @@ $(document).ready(function(){
 	  //$('.edit-data').on('click', function(evt) {
 		  	clearFormEditItem();
 	    	evt.preventDefault();
-	    	var id=$(this).attr('id');	
-	    	
+	    	var id=$(this).attr('id');
+	    	var outletId = $('#add-outlet').val();
+	   
 	    	console.log(id)
 	    		$.ajax({
-				url :'${pageContext.request.contextPath}/item/get-one/'+id,
+				url :'${pageContext.request.contextPath}/item/search-inventory-outlet?search='+id+'&outlet-id='+outletId,
 				type :'GET',
 				dataType:'json',
 				success : function(xxx){	
@@ -505,47 +506,15 @@ $(document).ready(function(){
 		});
 	});  
 	
-	//export pdf
-	$('#export').on('click',function(){
-		var pdf = new jsPDF('p', 'pt', 'letter');
-	    // source can be HTML-formatted string, or a reference
-	    // to an actual DOM element from which the text will be scraped.
-	    source = $('#daftar-barang')[0];
-
-	    // we support special element handlers. Register them with jQuery-style 
-	    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-	    // There is no support for any other type of selectors 
-	    // (class, of compound) at this time.
-	    specialElementHandlers = {
-	        // element with id of "bypass" - jQuery style selector
-	        '#bypassme': function (element, renderer) {
-	            // true = "handled elsewhere, bypass text extraction"
-	            return true
-	        }
-	    };
-	    margins = {
-	        top: 80,
-	        bottom: 60,
-	        left: 40,
-	        width: 522
-	    };
-	    // all coords and widths are in jsPDF instance's declared units
-	    // 'inches' in this case
-	    pdf.fromHTML(
-	    source, // HTML string or DOM elem ref.
-	    margins.left, // x coord
-	    margins.top, { // y coord
-	        'width': margins.width, // max width of content on PDF
-	        'elementHandlers': specialElementHandlers
-	    },
-
-	    function (dispose) {
-	        // dispose: object with X, Y of the last line add to the PDF 
-	        //          this allow the insertion of new lines after html
-	        pdf.save('Test.pdf');
-	    }, margins);
-	});
+	//data berdasarkan login
+ 	  $('#outlet-login').change(function(evt){
+		  var keyword = $(this).val();
+		  if (keyword !== "kosong"){
+				window.location = "${pageContext.request.contextPath}/item/search-inventory?search="+keyword;
+		  }
+	  });
 	
+
 });
 </script>
 
@@ -556,12 +525,24 @@ $(document).ready(function(){
 	<div class="container">
 	<div>
 		<div style="float: left; margin-right: 600px;">
+		<Label> Outlet Berdasarkan Login untuk create Data</Label>
 				<select id="add-outlet">
 					<c:forEach var="out" items="${outlets}">
 						<option value="${out.id}">${out.name}</option>
 					</c:forEach>
 				</select>
 			</div>
+			
+		<div style="float: left; margin-right: 600px;">
+		<Label> Outlet Search Data By Login</Label>
+				<select id="outlet-login">
+					<option value=kosong></option>
+					<c:forEach var="out" items="${outlets}">
+						<option value="${out.id}">${out.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			
 			
 		<div style="float:left;margin-right:600px;">
 			<span><input type="text" id="search-box" placeholder="Search"/></span>
