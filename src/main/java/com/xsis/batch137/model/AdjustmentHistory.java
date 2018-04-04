@@ -15,6 +15,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="adjustment_history")
 public class AdjustmentHistory {
@@ -37,6 +39,7 @@ public class AdjustmentHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="adjustment_id", nullable=false)
+	@JsonBackReference
 	private Adjustment adjustment;
 	
 	
