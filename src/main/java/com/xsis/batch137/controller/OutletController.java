@@ -22,7 +22,7 @@ import com.xsis.batch137.model.Region;
 import com.xsis.batch137.service.OutletService;
 
 @Controller
-@RequestMapping("/outlet")
+@RequestMapping("master/outlet")
 public class OutletController {
 
 	@Autowired

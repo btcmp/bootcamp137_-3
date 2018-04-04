@@ -73,12 +73,12 @@
 		$('#tbl-delete').click(function(){
 			var id = $('#edit-id').val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/delete?id='+id,
+				url : '${pageContext.request.contextPath}/master/outlet/delete?id='+id,
 				type : 'DELETE',
 				success : function(id){
 					console.log(id);
 					alert('Delete success..');
-					window.location = '${pageContext.request.contextPath}/outlet';
+					window.location = '${pageContext.request.contextPath}/master/outlet';
 				},
 				error : function(id){
 					console.log(id);
@@ -115,14 +115,14 @@
 			};
 			
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/save',
+				url : '${pageContext.request.contextPath}/master/outlet/save',
 				type : 'POST',
 				data : JSON.stringify(outlet),
 				contentType : 'application/json',
 				success : function(){
 					console.log(outlet);
 					alert('yes..');
-					window.location = '${pageContext.request.contextPath}/outlet';
+					window.location = '${pageContext.request.contextPath}/master/outlet';
 				},
 				error : function(){
 					console.log(outlet);
@@ -139,7 +139,7 @@
 			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+				url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
 				type : 'GET',
 				success : function(regions){
 					console.log(regions);
@@ -160,7 +160,7 @@
 			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
+				url : '${pageContext.request.contextPath}/master/outlet/get-district/'+id,
 				type : 'GET',
 				success : function(districts){
 					console.log(districts)
@@ -181,7 +181,7 @@
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/take?id=' + id,
+				url : '${pageContext.request.contextPath}/master/outlet/take?id=' + id,
 				type : 'GET',
 				success : function(outlet){
 					$('#edit-name').val(outlet.name);
@@ -193,7 +193,7 @@
 					$('#prov-edit').val(outlet.province.id);
 					var id = outlet.province.id;
 					$.ajax({
-						url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+						url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
 						type : 'GET',
 						success : function(regions){
 							console.log(regions);
@@ -205,7 +205,7 @@
 							$('#reg-edit').val(outlet.region.id);
 							var idReg = outlet.region.id;
 							$.ajax({
-								url : '${pageContext.request.contextPath}/outlet/get-district/'+idReg,
+								url : '${pageContext.request.contextPath}/master/outlet/get-district/'+idReg,
 								type : 'GET',
 								success : function(districts){
 									console.log(districts);
@@ -242,7 +242,7 @@
 			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+				url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
 				type : 'GET',
 				success : function(regions){
 					console.log(regions);
@@ -262,7 +262,7 @@
 			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 			var id = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
+				url : '${pageContext.request.contextPath}/master/outlet/get-district/'+id,
 				type : 'GET',
 				success : function(districts){
 					console.log(districts)
@@ -300,14 +300,14 @@
 			};
 			
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/update',
+				url : '${pageContext.request.contextPath}/master/outlet/update',
 				type : 'PUT',
 				data : JSON.stringify(outlet),
 				contentType : 'application/json',
 				success : function(){
 					console.log(outlet);
 					alert('Oke..');
-					window.location = '${pageContext.request.contextPath}/outlet';
+					window.location = '${pageContext.request.contextPath}/master/outlet';
 				},
 				error : function(){
 					console.log(outlet);
@@ -320,7 +320,7 @@
 		$('#outlet-search').on('input', function(){
 			var search = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/outlet/search?search=' + search,
+				url : '${pageContext.request.contextPath}/master/outlet/search?search=' + search,
 				type : 'GET',
 				dataType : 'json',
 				success : function(data){
