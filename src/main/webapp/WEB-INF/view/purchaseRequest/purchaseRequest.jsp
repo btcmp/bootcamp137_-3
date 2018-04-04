@@ -35,7 +35,7 @@
 	    
 	    <div class="col-xs-2">
 		    <div class="form-group">
-		    	<a href="${pageContext.request.contextPath}/generate/pr" id="btn-export" class="btn btn-md btn-primary btn-block">Export</a>
+		    	<input type="button" id="btn-export" class="btn btn-md btn-primary btn-block" value="Export">
 		    </div>
 	    </div>
 	    <div class="col-xs-2">
@@ -95,7 +95,7 @@
 	                	<div class="input-group-addon">
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
-	                	<input type="text" class="form-control pull-right" id="pilih-tanggal">
+	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal">
 	                	<input type="hidden" id="in-id">
 	                </div>
 	                <div class="form-group">
@@ -158,8 +158,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" id="batalinsert">Reset</button>
-					<button type="button" class="btn btn-primary" id="tblkonfadd">Save</button>
+					<button type="button" class="btn btn-info" id="batalinsert">Cancel</button>
+					<button type="button" class="btn btn-primary" id="tblkonfadd">Add</button>
 				</div>
 			</div>
 		</div>
@@ -194,7 +194,7 @@
 	    
 	    $('#pilih-tanggal').datepicker({
       		autoclose: true,
-      		startDate : new Date(),
+      		startDate : '+1d',
     	});
 	    
 	    var stat = '';
