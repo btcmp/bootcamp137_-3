@@ -36,14 +36,18 @@ public class EmployeeService {
 		employee.setEmail(emp.getEmail());
 		employee.setTitle(emp.getTitle());
 		employee.setActive(emp.isActive());
-		User usr = uDao.getUserByEmployee(employee);
-		if(usr == null) {
-			employee.setHaveAccount(false);
-		}else {
-			employee.setHaveAccount(true);
-			if(emp.isHaveAccount() == false) {
-				uDao.nonaktif(usr.getId());
+		if(employee.getId()!=0) {
+			User usr = uDao.getUserByEmployee(employee);
+			if(usr == null) {
+				employee.setHaveAccount(false);
+			}else {
+				employee.setHaveAccount(true);
+				if(emp.isHaveAccount() == false) {
+					uDao.nonaktif(usr.getId());
+				}
 			}
+		}else {
+			employee.setHaveAccount(emp.isHaveAccount());
 		}
 		empDao.save(employee);
 		
