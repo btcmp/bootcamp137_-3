@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="adjustment")
 public class Adjustment {
@@ -48,10 +50,13 @@ public class Adjustment {
 	@JoinColumn(name="outlet_id", nullable=false)
 	private Outlet outlet;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<AdjustmentDetail> adjustmentDetails;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "adjustment", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<AdjustmentHistory> adjustmentHistories;
 	
 	
