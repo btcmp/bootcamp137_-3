@@ -89,8 +89,13 @@ public class CategoryService {
 		Category cat = new Category();
 		cat.setId(id);
 		List<Item> items = itemDao.getItemByCategory(cat);
-		int itemStock = items.size();
-		return itemStock;
+		if(items.isEmpty()) {
+			return 0;
+		}
+		else {
+			int itemStock = items.size();
+			return itemStock;
+		}
 	}
 
 	
