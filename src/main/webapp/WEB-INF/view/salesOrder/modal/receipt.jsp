@@ -24,6 +24,17 @@
 					</div>
 				</form>
 			</div>
+			
+			<!-- table for get ID INVENTORY-->
+						<table id="inventory-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							<th>Inventory ID</th>
+							<th>QTY</th>
+						</thead>
+						<tbody id="inventory-tbl-body">
+						</tbody>
+					</table>
+					
 			<div class="modal-footer">
 				<button type="button" id="receipt-print" class="btn btn-primary form-control" data-dismiss="modal">Print Receipt</button>
 				<button type="button" id="receipt-done" class="btn btn-primary form-control" data-dismiss="modal">No, Thanks & Done</button>

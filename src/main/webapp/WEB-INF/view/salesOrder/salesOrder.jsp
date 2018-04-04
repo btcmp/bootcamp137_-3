@@ -334,6 +334,40 @@ $(document).ready(function() {
 		$('#receipt-cash').val("Out of Rp."+cash);
 		$('#receipt-change').val("Rp."+(cash-total));
 		$('#modal-receipt-sales-order').modal();
+		
+		var dataForUpdate = [];
+		$('#salesOrder-tbl-body > tr').each(function(index, data){
+			//for update inventory in database
+			var updateInventory = {
+					id : $(data).find('td').eq(0).attr('id'), //inventory
+					qtySalesOrder : $(data).find('td').eq(2).text() //untuk ngurangi stock
+			}
+			dataForUpdate.push(updateInventory);
+		});
+		
+		 dataForUpdate.forEach(function(element){
+	   		$.ajax({
+ 				url : '${pageContext.request.contextPath}/transaction/transfer-stock/search-item-inventory?search='+element.id,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data){
+			 		$.each(data, function(key, val) {
+
+					$('#inventory-tbl-body').append('<tr><td>'+val.id+'</td>'
+				 	 		+ '<td>'+element.qtySalesOrder+'</td>'
+				 	 		+ '<td>'+val.outlet.id+'</td>'
+							+ '</tr>');
+			 		});
+				},
+				error : function(data){
+					alert('failed')
+				}
+ 			});   
+ 		 });
+		
+		
+		
+		
 	})
 	
 	//send
@@ -349,6 +383,7 @@ $(document).ready(function() {
 					subTotal : $(data).find('td').eq(3).text().split("Rp.")[1]
 			}
 			salesOrderDetail.push(sod);
+
 		})
 		
 		var salesOrder = {
@@ -359,24 +394,51 @@ $(document).ready(function() {
 				salesOrderDetail : salesOrderDetail
 		}
 		console.log(salesOrder);
+		
 		$.ajax({
 			url : '${pageContext.request.contextPath }/transaction/sales-order/save',
 			type : 'POST',
 			data : JSON.stringify(salesOrder),
 			contentType : 'application/json',
 			success : function(){
-				window.location = "${pageContext.request.contextPath}/transaction/sales-order";
+				alert('ok')
+				//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
 			}, error : function(){
 				alert('save failed');
 			}
 			
-		})
+		}) 
+		
+		
+		$('#inventory-tbl-body > tr').each(function(index, data){
+			var updateDataInventory = {
+				id : $(data).find('td').eq(0).text(),
+				salesOrderQty :  $(data).find('td').eq(1).text(),
+				outlet : {
+					id : $(data).find('td').eq(2).text()
+				}
+			}
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/item/update-inventory-so',
+				type : 'PUT',
+				data : JSON.stringify(updateDataInventory),
+				contentType : 'application/json',
+				success : function(){
+					alert('update to inventory');
+				}, error : function(){
+					alert('update inventory failed');
+				}
+			
+			}) 
+			
+		});
+		
+		
+		
+	
+		
 	})
-	
-	
-	
-	
-	
 });
 </script>
 

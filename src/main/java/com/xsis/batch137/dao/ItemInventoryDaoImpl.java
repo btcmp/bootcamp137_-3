@@ -133,10 +133,7 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 			ivNoData.setTransferStockQty(0);
 			session.save(ivNoData);
 			session.flush();
-		}
-		
-		
-			
+		}	
 	}
 	
 	public List<ItemInventory> searchInventoryByVariant(Long search){
@@ -179,6 +176,17 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 		
 		return itemInventories;
 	}
+
+	@Override
+	public void updateSalesOrder(ItemInventory itemInventory) {
+		Session session = sessionFactory.getCurrentSession();
+		ItemInventory invent = session.get(ItemInventory.class, itemInventory.getId());
+		int currentQty = invent.getEndingQty() - itemInventory.getSalesOrderQty();
+		System.out.println(currentQty);
+		String hql = "update ItemInventory ivt set endingQty = :endingQty where id = :id and ivt.outlet.id = :outId";
+		session.createQuery(hql).setParameter("endingQty", currentQty).setParameter("id", itemInventory.getId()).setParameter("outId",itemInventory.getOutlet().getId()).executeUpdate();
+		
+		}
 	}
 
 

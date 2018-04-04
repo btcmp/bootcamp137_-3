@@ -113,7 +113,9 @@
 					},
 					transferStockDetail : transferStockDetail,
 					notes : $('#add-notes').val(),
-					status : "Submitted"
+					status : "Submitted",
+
+					
 			};
 		  
 		  //console.log(transferStock)
@@ -263,7 +265,7 @@
 						type : 'GET',
 						dataType : 'json',
 						success : function(data){
-					 		$('#modal-view-transfer-stock-detail').modal()
+					 		$('#modal-view-transfer-stock-detail').modal();
 					 		$.each(data, function(key, val) {
 					 		$('#isi-transfer-stock-detail').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 						 			+ '<td>'+val.inStock+'</td>'
@@ -302,14 +304,10 @@
 									}
 					 			});  
 					 		 });
-					 		
-					 		
 						}, error : function(){
 							alert('error to get data');
 						}
 					});
-					
-					
 					
 				},
 				error : function(){
@@ -326,8 +324,6 @@
 		var newStatus = $(this).val();
 
 		if (newStatus=="Approved" || newStatus=="Rejected") {
-			
-			
 			transferStockId = $('#hidden-id').val();
 			/* console.log(newStatus);
 			console.log(transferStockId); */

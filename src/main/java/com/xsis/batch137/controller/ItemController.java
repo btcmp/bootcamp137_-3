@@ -172,6 +172,14 @@ public class ItemController {
 		itemInventoryService.updateTransferStock(itemInventory);
 	}
 	
+	@RequestMapping(value="/update-inventory-so",method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateInventorySO(@RequestBody ItemInventory itemInventory) {
+		itemInventoryService.updateSalesOrder(itemInventory);
+	}
+	
+	
+	
 	@RequestMapping(value="/delete-inventory/{id}",method=RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteInventory(@PathVariable Long id) {

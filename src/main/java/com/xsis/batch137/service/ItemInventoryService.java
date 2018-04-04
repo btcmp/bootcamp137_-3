@@ -65,4 +65,8 @@ public class ItemInventoryService {
 		// TODO Auto-generated method stub
 		return itemInventoryDao.listInventoryByOutlet(search);
 	}
+	public void updateSalesOrder(ItemInventory itemInventory) {
+		// TODO Auto-generated method stub
+		itemInventoryDao.updateSalesOrder(itemInventory);
+	}
 }

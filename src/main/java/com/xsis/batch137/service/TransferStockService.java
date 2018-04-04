@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.TransferStockDao;
 import com.xsis.batch137.dao.TransferStockDetailDao;
+import com.xsis.batch137.dao.TransferStockHistoryDao;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
+import com.xsis.batch137.model.TransferStockHistory;
 ///
 @Service
 @Transactional
@@ -20,6 +22,9 @@ public class TransferStockService {
 	@Autowired
 	TransferStockDetailDao transferStockDetailDao;
 	
+	@Autowired
+	TransferStockHistoryDao transferStockHistoryDao;
+	
 	public void save(TransferStock transferStock) {
 		List<TransferStockDetail> transferStockDetails=transferStock.getTransferStockDetail();
 		transferStock.setTransferStockDetail(null);
@@ -29,6 +34,11 @@ public class TransferStockService {
 			tsd.setTransferStock(transferStock);
 			transferStockDetailDao.save(tsd);
 		}
+		
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setStatus(transferStock.getStatus());
+		tsh.setTransferStock(transferStock);
+		transferStockHistoryDao.save(tsh);
 		
 	}
 	public TransferStock getOne(Long id) {
@@ -52,6 +62,10 @@ public class TransferStockService {
 	
 	public void saveAtauUpdate(TransferStock transferStock) {
 		transferStockDao.saveAtauUpdate(transferStock);
+		TransferStockHistory tsh = new TransferStockHistory();
+		tsh.setStatus(transferStock.getStatus());
+		tsh.setTransferStock(transferStock);
+		transferStockHistoryDao.save(tsh);
 	}
 	public List<TransferStock> getTransferStockByOutletId(Long search) {
 		// TODO Auto-generated method stub

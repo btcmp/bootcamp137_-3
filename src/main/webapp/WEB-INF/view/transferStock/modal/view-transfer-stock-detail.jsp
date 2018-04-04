@@ -24,14 +24,10 @@
 			<div>Created By : <input type="text" class="form-control" id="created-by" disabled>  </div> 
 			<div>Transfer Status : <input type="text" class="form-control" id="transfer-status" disabled> </div> 
 			<div>Notes: </div>
-			<input type="text"
-							class="form-control" id="notes" disabled>
-			
+			<input type="text" class="form-control" id="notes" disabled>
 			</div>
-			
-				<form class="form-all">
-				
-						        			
+						
+				<form class="form-all">	        			
 					<table id="data-transfer-stock-detail" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>	
@@ -51,7 +47,8 @@
 						</tbody>
 					</table>
 					
-					<table id="data-hidden-inventory" class="table table-striped table-bordered table-hover">
+					<div style="display:none">
+					<table id="data-hidden-inventory" class="table table-striped table-bordered table-hover" >
 						<thead>
 							<tr>	
 								<th>ID</th>
@@ -67,7 +64,8 @@
 							</c:forEach>   --%>
 						</tbody>
 					</table>
-
+					</div>
+					
 					<div class="modal-footer">
 						<button type="submit" id="btn-done" class="btn btn-primary">Add</button>
 					</div>

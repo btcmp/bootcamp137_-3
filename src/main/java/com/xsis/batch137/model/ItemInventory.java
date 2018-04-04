@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -60,6 +61,19 @@ public class ItemInventory {
 	
 	@ManyToOne
 	private Outlet outlet;
+	
+	//save data qty sementara
+	@Transient
+	private int qtySalesOrder;
+	
+
+	public int getQtySalesOrder() {
+		return qtySalesOrder;
+	}
+
+	public void setQtySalesOrder(int qtySalesOrder) {
+		this.qtySalesOrder = qtySalesOrder;
+	}
 
 	public Long getId() {
 		return id;
