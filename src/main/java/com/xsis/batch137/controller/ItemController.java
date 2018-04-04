@@ -19,6 +19,7 @@ import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.ItemVariant;
 import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.service.CategoryService;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.ItemService;
@@ -50,17 +51,29 @@ public class ItemController {
 		List<ItemInventory> itemInventories=itemInventoryService.selectAll();
 		List<ItemVariant> itemVariants=itemVariantService.selectAll();
 		List<Category> categories=categoryService.selectAll();
-		List<Outlet> outlets=outletService.selectAll();
-		
-/*		for(ItemInventory ivt : itemInventories) {
-			ivt.setAlertAtQty(alertAtQty);
-		}*/
-		
+		List<Outlet> outlets=outletService.selectAll();		
 		model.addAttribute("outlets", outlets);
 		model.addAttribute("items", items);
 		model.addAttribute("categories", categories);
 		model.addAttribute("itemInventories", itemInventories);
 		model.addAttribute("itemVariants", itemVariants);
+		return "/item/item";
+	}
+	
+	@RequestMapping(value = "/search-inventory", method = RequestMethod.GET)
+	public String indexSearch(Model model, @RequestParam(value="search", defaultValue="") Long search) {
+		List<ItemInventory> itemInventories = itemInventoryService.listInventoryByOutlet(search);
+		List<Outlet> outlets = outletService.selectAll();
+		model.addAttribute("outlets", outlets);
+		model.addAttribute("itemInventories",itemInventories);
+		
+		List<Item> items=itemService.selectAll();
+		List<ItemVariant> itemVariants=itemVariantService.selectAll();
+		List<Category> categories=categoryService.selectAll();
+		model.addAttribute("items", items);
+		model.addAttribute("categories", categories);
+		model.addAttribute("itemVariants", itemVariants);
+		
 		return "/item/item";
 	}
 		
@@ -77,17 +90,13 @@ public class ItemController {
 		return itemService.selectAll();
 	}
 	
-	@RequestMapping(value="/get-one/{id}")
+	@RequestMapping(value="/search-inventory-outlet",method=RequestMethod.GET)
 	@ResponseBody
-	public List<ItemInventory> getOne (@PathVariable Long id,Model model) {
-		Item item=itemService.getOne(id);
-		//List<ItemVariant> dataVariant=itemVariantService.searchVariantByItem(item);
-		List<ItemInventory> dataInventory=itemInventoryService.searchInventoryByItem(item);
-		model.addAttribute("dataInventory",dataInventory);
-		//model.addAttribute("dataVariant",dataVariant);
-		model.addAttribute("item",item);
-		return dataInventory;
+	public List<ItemInventory> searchInventoryOutlet(@RequestParam(value="search", defaultValue="") Long search, @RequestParam(value="outlet-id", defaultValue="") Long id){
+		List<ItemInventory > itemInventories = itemInventoryService.getItemInventoryByOutlet(search, id);
+		return itemInventories;
 	}
+	
 	
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
