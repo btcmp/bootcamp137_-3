@@ -107,39 +107,55 @@
 <!-- page script -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<title>AdminLTE 2 | Log in</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="_csrf" content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	<!-- ... -->
+<title>Login</title>
+</head><!-- comment -->
 <body class="hold-transition login-page">
-	<!-- comment -->
+	
 	<div class="login-box">
 	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Admin</b>LTE</a>
+	    <a href="../../index2.html"><b>ACCESS</b>DENIED</a>
 	  </div>
 	  <!-- /.login-logo -->
 	  <div class="login-box-body">
-	    <p class="login-box-msg">Choose your outlet</p>
-		<select class="form-control col-sm-4" name="outlet-search"
-			id="outlet-search">
-			<option value="kosong">Search Outlet</option>
-			<c:forEach var="outlet" items="${outlets }">
-				<option value="${outlet.id }">${outlet.name }</option>
-			</c:forEach>
-		</select>
-		<input type="button" class="btn btn-primary" id="choose-outlet" value="choose"/>
+		<c:if test="${not empty error }">
+			<div class="login-box-msg">${error}</div>
+		</c:if>
+		<c:if test="${not empty logout }">
+			<div class="login-box-msg">${logout}</div>
+		</c:if>
+	    <p class="login-box-msg">Sign in to start your session</p>
+	
+	    <form name='loginForm' action="<c:url value='j_spring_security_check' />" method='POST'>
+	      <div class="form-group has-feedback">
+	        <input type="text" class="form-control" placeholder="Email/Username" name='username'>
+	        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+	      </div>
+	      <div class="form-group has-feedback">
+	        <input type="password" class="form-control" placeholder="Password" name='password'>
+	        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+	      </div>
+	      <div class="row">
+	        <div class="col-xs-8">
+	         
+	        </div>
+	        <!-- /.col -->
+	        <div class="col-xs-4">
+	          <button name="submit" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+	        </div>
+	        <!-- /.col -->
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	      </div>
+	    </form>
 	  </div>
 	  <!-- /.login-box-body -->
 	</div>
 	<!-- /.login-box -->
 </body>
-<script>
-$(document).ready(function(){
-	$('#choose-outlet').click(function(){
-		var idOutlet = $('#outlet-search').val();
-		if (idOutlet!=="kosong") {
-			window.location = "${pageContext.request.contextPath}/welcome-auth/home?id="+idOutlet;
-		}
-	})
-})
-/* ini comment */
-</script>
 </html>
