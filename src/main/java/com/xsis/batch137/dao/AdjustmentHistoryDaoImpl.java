@@ -48,4 +48,12 @@ public class AdjustmentHistoryDaoImpl implements AdjustmentHistoryDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(AdjustmentHistory.class, id);
 	}
+
+	public List<AdjustmentHistory> getHistoryByAdjustment(Adjustment adjustment) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from AdjustmentHistory where adjustment = :adj";
+		List<AdjustmentHistory> histories = session.createQuery(hql).setParameter("adj", adjustment).list();
+		return histories;
+	}
 }

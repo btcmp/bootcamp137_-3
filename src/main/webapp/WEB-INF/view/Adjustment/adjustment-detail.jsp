@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
+
 <div class="container">
 
 <div class="row">
@@ -33,7 +34,7 @@
 	<div style="margin-right:50px;">
 		<div><h5>Notes</h5></div>
 		<div >
-			<textarea class="form-control" rows="3" id="notes"></textarea>
+			<textarea class="form-control" rows="3" id="notes">${adjustment.notes }</textarea>
 		</div>
 	</div>
 	
@@ -50,8 +51,8 @@
 <br/>
 
 <div id="status-history">
-	<c:forEach items="${adjustment }" var="just">
-		<div>On </div>
+	<c:forEach items="${adjustment.adjustmentHistories }" var="history">
+		<div>On ${history.createdOn } - ${history.status }</div>
 	</c:forEach>
 </div>
 
@@ -70,22 +71,22 @@
 	<table id="adjustment-table" class="table table-striped table-bordered">
 		<thead>
 		<tr>
-			<th>Adjustment Date</th>
-			<th>Notes</th>
-			<th>Status</th>
+			<th>Item</th>
+			<th>In Stock</th>
+			<th>Adj Quantity</th>
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${adjustment }" var="adj">
+		<c:forEach items="${adjustment.adjustmentDetails }" var="detail">
 			<tr>
-				<td>${adj.createdOn }</td>
-				<td>${adj.notes }</td>
-				<td>${adj.status }</td>
+				<td>${detail.variant.item.name } - ${detail.variant.item.name }</td>
+				<td>${detail.inStock }</td>
+				<td>${detail.actualStock }</td>
 			<tr>
-		</c:forEach>
+		</c:forEach> 
 		</tbody>
 	</table>
-	<input type="hidden" id="adjustment-id" value="${adj.id }" />
+	<input type="hidden" id="adjustment-id" value="a" />
 </div>
 <hr style="border-color:black; border-top:1px dashed; margin-right:50px;">
 <br/>
@@ -97,8 +98,7 @@
 </div>
 
 </div>
-<%@ include file="/WEB-INF/view/Adjustment/modal/create.jsp"%>
-<%@ include file="/WEB-INF/view/Adjustment/modal/add-item.jsp"%>
+</body>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -112,12 +112,15 @@
 					status : status,
 				}
 				$.ajax({
-					url : '${pageContext.request.contextPath}/adjustment/update',
+					url : '${pageContext.request.contextPath}/transaksi/adjustment/update',
 					type : 'PUT',
 					data : JSON.stringify(adjustment),
 					contentType : 'application/json',
-					success : function(){
-						window.location = '${pageContext.request.contextPath}/adjustment/take';
+					success : function(acc){
+						$.each(acc, function(key, data))
+						$('#status-history').append('<div>'
+								+ 
+								+ '</div>')
 					},	
 					error : function(){
 						alert('')
@@ -126,13 +129,11 @@
 			}
 		});
 		
-		$('#status-history').append('<div>'
-			+ 
-			+ '</div>')
 		
 		$('#done-adjustment').click(function(){
-			window.location = '${pageContext.request.contextPath}/adjustment';
+			window.location = '${pageContext.request.contextPath}/transaksi/adjustment';
 		});
 		
 	});
 </script>
+</html>

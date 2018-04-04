@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.AdjustmentDetail;
 
 @Repository
@@ -46,5 +47,13 @@ public class AdjustmentDetailDaoImpl implements AdjustmentDetailDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(AdjustmentDetail.class, id);
+	}
+
+	public List<AdjustmentDetail> getDetailByAdjustment(Adjustment adjustment) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from AdjustmentDetail where adjustment = :adj";
+		List<AdjustmentDetail> details = session.createQuery(hql).setParameter("adj", adjustment).list();
+		return details;
 	}
 }
