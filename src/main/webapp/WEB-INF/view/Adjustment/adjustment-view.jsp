@@ -130,11 +130,12 @@
 		$('#tbl-simpan').click(function(){
 			var listAdjDetail = [];
 			
+			var adjHistory = {
+					status : "Submitted"
+				};
+			
 			$('#item-table-table > tbody > tr').each(function(index, data){
 				var adjDetail = {
-					adjustment : {
-						id : 0
-					},
 					variant : {
 						id : $(data).find('td').eq(3).attr('id')
 					},
@@ -143,16 +144,14 @@
 				};
 				listAdjDetail.push(adjDetail);
 			});
-			var adjHistory = {
-					status : "waiting"
-				};
 			
 			var adjustment = {
 				adjustmentDetails : listAdjDetail,
-				adjustmentHistories : adjHistory,
 				notes : $('#adj-notes').val(),
 				status : "Submitted",
-				outlet : $('#outlet-list').val()
+				outlet : {
+					id : $('#outlet-list').val()
+				}
 				
 			};
 			
@@ -161,15 +160,23 @@
 			
 			$.ajax({
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/adjustment/save',
+				url : '${pageContext.request.contextPath}/transaksi/adjustment/save',
 				data : JSON.stringify(adjustment),
 				contentType : 'application/json',
 				success : function(){
-					alert('yeayy');
+					alert('Berhasil Terkirim..');
+					window.location = ''
 				},
 				error : function(){
 					alert('no...');
 				}
+			});
+		});
+		
+		$('.btn-edit').click(function(){
+			var id = $(this).attr('id');
+			$.ajax({
+				
 			});
 		});
 		
@@ -178,7 +185,7 @@
 		$('#search-item').on('input', function(){
 			var search = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/adjustment/search-item?search='+ search,
+				url : '${pageContext.request.contextPath}/transaksi/adjustment/search-item?search='+ search,
 				type : 'GET',
 				dateType : 'json',
 				success : function(data){
@@ -186,12 +193,12 @@
 					$.each(data, function(key, invent){
 						console.log(invent);
 						$('#data-item').append('<tr>'
-								+ '<td class="item-name-'+invent.id+'">'+ invent.itemVariant.item.name + ' - ' + invent.itemVariant.name +'</td>'
-								+ '<td class="in-stock-'+invent.id+'">'+ invent.endingQty +'</td>'
+								+ '<td class="item-name-'+invent.itemVariant.id+'">'+ invent.itemVariant.item.name + ' - ' + invent.itemVariant.name +'</td>'
+								+ '<td class="in-stock-'+invent.itemVariant.id+'">'+ invent.endingQty +'</td>'
 								+ '<td><input class="form-control adj-quantity-'+invent.id +'" type="number" value="1"></td>'
-								+ '<td align="center"><a href="" id="'+invent.id+'" class="save-item-'+invent.id+ ' btn-save-item">SAVE</a> <a href="" class="saved-item-'+invent.id+' btn-saved-item">SAVED</a></td>'
+								+ '<td align="center"><a href="" id="'+invent.itemVariant.id+'" class="save-item-'+invent.itemVariant.id+ ' btn-save-item">SAVE</a> <a href="" class="saved-item-'+invent.itemVariant.id+' btn-saved-item">SAVED</a></td>'
 								+ '</tr>');
-						$('.saved-item-'+invent.id).hide();
+						$('.saved-item-'+invent.itemVariant.id).hide();
 					});
 				},
 				error : function(data){
