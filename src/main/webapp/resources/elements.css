@@ -1,13 +1,11 @@
 @import "http://fonts.googleapis.com/css?family=Raleway";
-/*----------------------------------------------
-CSS settings for HTML div Exact Center
-------------------------------------------------*/
+
 form {
 	padding: 10px;
 	border: 2px solid gray;
 	border-radius: 10px;
 	font-family: raleway;
-	background-color: #fff
+	
 }
 
 .checkbox-teal [type="checkbox"]:checked+label:before {
@@ -16,4 +14,24 @@ form {
 
 .modal {
   overflow-y:scroll;
+}
+
+.alert-sukses {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.peringatan {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-gagal {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
