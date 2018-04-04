@@ -1,6 +1,7 @@
 package com.xsis.batch137.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,12 @@ public class OutletService {
 	DistrictDao districtDao;
 	
 	public void save(Outlet outlet) {
+		outlet.setCreatedOn(new Date());
 		outletDao.save(outlet);
 	}
 	
 	public void update(Outlet outlet) {
+		outlet.setModifiedOn(new Date());
 		outletDao.update(outlet);
 	}
 	
