@@ -17,6 +17,13 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="order" value="1"></property>
+		<property name="basename" value="views"></property>
+	</bean>
+	
 	<!-- untuk mengaktifkan springmvc -->
 	<mvc:annotation-driven />
 	<!-- untuk membuat path resources assets -->
