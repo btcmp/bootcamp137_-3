@@ -100,22 +100,25 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 		int currentQty = ivt.getEndingQty()-invent.getTransferStockQty();
 		int transferStock = ivt.getTransferStockQty() + invent.getTransferStockQty();
 		Long toOutletId = invent.getOutlet().getId();
-		int currentQty2 = ivt.getEndingQty() + invent.getTransferStockQty();
 		List<ItemInventory> ivtss = session.createCriteria(ItemInventory.class).list();
 		
 		int aa=0;
-		
+		int currentQty2 = 0;
 		String hql = "update ItemInventory set transferStockQty = :invent, endingQty= :endingQty where id = :id";
 		session.createQuery(hql).setParameter("invent", transferStock).setParameter("endingQty", currentQty).setParameter("id", invent.getId()).executeUpdate();
 		
 		for(ItemInventory ivz : ivtss) {
 			if(ivz.getItemVariant().getId() == ivt.getItemVariant().getId() && ivz.getOutlet().getId() == invent.getOutlet().getId()) {
 				aa = 1;
+				currentQty2=ivz.getEndingQty()+invent.getTransferStockQty();
 				//System.out.println(aa);
 			}
 		}
 		
+		System.out.println(currentQty2);
+		
 		if (aa == 1) {
+			int currentQty2Fix = currentQty2 + invent.getTransferStockQty();
 			String hql2 = "update ItemInventory ivt set endingQty = :eQty where ivt.itemVariant.id = :id and outlet.id = :outId";
 			session.createQuery(hql2).setParameter("eQty", currentQty2).setParameter("id", ivt.getItemVariant().getId()).setParameter("outId", toOutletId).executeUpdate();
 		}
@@ -132,7 +135,7 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 			session.flush();
 		}
 		
-		//System.out.println(currentQty2);
+		
 			
 	}
 	

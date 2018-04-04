@@ -1,5 +1,6 @@
 package com.xsis.batch137.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,18 @@ public class TransferStockController {
 	
 	@RequestMapping(value="/search-item",method=RequestMethod.GET)
 	@ResponseBody
-	public List<ItemInventory> searchItem(@RequestParam(value="search",defaultValue="") String search){
+	public List<ItemInventory> searchItem(@RequestParam(value="search",defaultValue="") String search, @RequestParam(value="outlet-id",defaultValue="") Long id){
 		List<ItemInventory> itemInventories = itemInventoryService.searchItemInventoryByItemName(search);
-		return itemInventories;
+		List<ItemInventory> inventz = new ArrayList<>();
+		if(itemInventories != null) {
+			for(ItemInventory invent : itemInventories) {
+				System.out.println("outlet id="+id+" inventoutlet"+invent.getOutlet().getId());
+				if(invent.getOutlet().getId() == id) {
+					inventz.add(invent);
+				}
+			}
+		}
+		return inventz;
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
