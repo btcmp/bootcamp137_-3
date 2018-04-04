@@ -25,7 +25,15 @@ public class AdjustmentDaoImpl implements AdjustmentDao{
 	public void update(Adjustment adjustment) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.update(adjustment);
+		if(adjustment.getStatus().equals("Rejected")) {
+			String hql = "update Adjustment set status = 'Rejected' where id = :id";
+			session.createQuery(hql).setParameter("id", adjustment.getId()).executeUpdate();
+		}
+		else {
+			String hql = "update Adjustment set status = 'Approved' where id = :id";
+			session.createQuery(hql).setParameter("id", adjustment.getId()).executeUpdate();
+		}
+		System.out.println(adjustment.getStatus());
 		session.flush();
 	}
 
