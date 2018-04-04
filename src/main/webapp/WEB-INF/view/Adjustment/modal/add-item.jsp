@@ -29,10 +29,10 @@
 					<tbody id="data-item">
 						<c:forEach items="${inventories }" var="invent">
 						<tr>
-							<td class="item-name-${invent.id }">${invent.itemVariant.item.name } - ${invent.itemVariant.name }</td>
-							<td class="in-stock-${invent.id }">${invent.endingQty }</td>
-							<td><input id="${invent.id }" class="form-control adj-quantity-${invent.id }" type="number" value="1"></td>
-							<td align="center"><a href="#" id="${invent.id }" class="save-item-${invent.id } btn-save-item">SAVE</a> <a href="#" class="saved-item-${invent.id } btn-saved-item" style="display: none;">SAVED</a></td>
+							<td class="item-name-${invent.itemVariant.id }">${invent.itemVariant.item.name } - ${invent.itemVariant.name }</td>
+							<td class="in-stock-${invent.itemVariant.id }">${invent.endingQty }</td>
+							<td><input id="${invent.itemVariant.id }" class="form-control adj-quantity-${invent.itemVariant.id }" type="number" value="1"></td>
+							<td align="center"><a href="#" id="${invent.itemVariant.id }" class="save-item-${invent.itemVariant.id } btn-save-item">SAVE</a> <a href="#" class="saved-item-${invent.itemVariant.id } btn-saved-item" style="display: none;">SAVED</a></td>
 						</tr>
 						</c:forEach>
 					</tbody>	

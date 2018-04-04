@@ -44,22 +44,26 @@ public class AdjustmentService {
 		adjust.setStatus(adjustment.getStatus());
 		adjust.setNotes(adjustment.getNotes());
 		adjust.setCreatedOn(new Date());
-		adjustmentDao.save(adjust);
+		adjustmentDao.save(adjust); //dapat id adjustment sepertinya dari sini
 		
-		/*for(AdjustmentDetail det : adjustment.getAdjustmentDetails()) {
+		for(AdjustmentDetail det : adjustment.getAdjustmentDetails()) {
 			AdjustmentDetail detail =  new AdjustmentDetail();
 			detail.setActualStock(det.getActualStock());
 			detail.setInStock(det.getInStock());
 			detail.setVariant(det.getVariant());
-			detail.setAdjustment(adjust);
+			detail.setAdjustment(adjust); //ternyata dia sudah punya id adjustment
+			
+		System.out.println("Detail Variant: "+detail.getVariant().getId());
+		System.out.println("Detail Adjustment: "+detail.getAdjustment().getId());
 			detailDao.save(detail);
-		}*/
+		}
 		
 		
-		/*AdjustmentHistory history = new AdjustmentHistory();
+		AdjustmentHistory history = new AdjustmentHistory();
 		history.setAdjustment(adjust);
-		history.setStatus(getStatus());
-		historyDao.save(history);*/
+		history.setCreatedOn(new Date());
+		history.setStatus(adjust.getStatus());
+		historyDao.save(history);
 			
 	}
 	
