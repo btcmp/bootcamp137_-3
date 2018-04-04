@@ -18,7 +18,7 @@ import com.xsis.batch137.model.Category;
 import com.xsis.batch137.service.CategoryService;
 
 @Controller
-@RequestMapping(value="category")
+@RequestMapping(value="master/category")
 public class CategoryController {
 	
 	@Autowired

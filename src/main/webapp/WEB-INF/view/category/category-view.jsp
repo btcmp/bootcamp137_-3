@@ -68,14 +68,14 @@
 				active : true
 			};
 			$.ajax({
-				url : '${pageContext.request.contextPath}/category/save',
+				url : '${pageContext.request.contextPath}/master/category/save',
 				type : 'POST',
 				data : JSON.stringify(category),
 				contentType : 'application/json',
 				success : function(){
 					console.log(category);
 					alert('Saved..');
-					window.location = '${pageContext.request.contextPath}/category';
+					window.location = '${pageContext.request.contextPath}/master/category';
 				},
 				error : function(){
 					console.log(category);
@@ -89,7 +89,7 @@
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/category/take?id=' + id,
+				url : '${pageContext.request.contextPath}/master/category/take?id=' + id,
 				type : 'GET',
 				success : function(category){
 					$('#edit-category').val(category.name);
@@ -111,14 +111,14 @@
 				id : $('#id-edit').val()
 			};
 			$.ajax({
-				url : '${pageContext.request.contextPath}/category/update',
+				url : '${pageContext.request.contextPath}/master/category/update',
 				type : 'PUT',
 				data : JSON.stringify(category),
 				contentType : 'application/json',
 				success : function(){
 					console.log(category);
 					alert('Oke..');
-					window.location = '${pageContext.request.contextPath}/category';
+					window.location = '${pageContext.request.contextPath}/master/category';
 				},
 				error : function(){
 					console.log(category);
@@ -131,12 +131,12 @@
 			e.preventDefault();
 			var id = $('#id-edit').val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/category/delete/' + id,
+				url : '${pageContext.request.contextPath}/master/category/delete/' + id,
 				type : 'DELETE',
 				success : function(){
 					console.log(id);
 					alert('Deleted');
-					window.location = '${pageContext.request.contextPath}/category';
+					window.location = '${pageContext.request.contextPath}/master/category';
 				},
 				error : function(){
 					console.log(id);
@@ -149,7 +149,7 @@
 		$('#category-search').on('input', function(e){
 			var search = $(this).val();
 			$.ajax({
-				url : '${pageContext.request.contextPath}/category/search?search='+search,
+				url : '${pageContext.request.contextPath}/master/category/search?search='+search,
 				type : 'GET',
 				dataType : 'json',
 				success : function(data){
@@ -163,7 +163,7 @@
 								+ '</tr>');
 						var idCat = cat.id;
 						$.ajax({
-							url : '${pageContext.request.contextPath}/category/get-item-stock?id=' + idCat,
+							url : '${pageContext.request.contextPath}/master/category/get-item-stock?id=' + idCat,
 							type : 'get',
 							dataType : 'json',
 							success : function(itemStock){
