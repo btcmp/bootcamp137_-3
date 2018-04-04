@@ -1,15 +1,31 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
 	<form id="form-emp">
+		<div class="row" id="div-alert" style="display:none;">
+			<div class="col-xs-12">
+				<div class="alert alert-sukses" role="alert" id="tampilan-alert">
+				  <strong>Sukses!</strong> Data Berhasil Disimpan.
+				</div>
+			</div>
+		</div>
 			<div class="row">
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id">
-					<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true" required></div>
+					<div class="form-group" id="div-firstname">
+						<label class="control-label" for="in-fisrtname" style="display:none" id="lbl-firstname"><i class="fa fa-check"></i></label>
+						<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true" data-parsley-required-message="PLease insert your first name" required></div>
+					</div>
 				<div class="col-xs-3">
-					<input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true" required>
+					<div class="form-group" id="div-lastname">
+						<label class="control-label" for="in-lastname" style="display:none" id="lbl-lastname"><i class="fa fa-check"></i></label>
+						<input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true" data-parsley-required-message="Please insert last name" required>
+					</div>
 				</div>
 				<div class="col-xs-3">
-					<input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email" required>
+					<div class="form-group" id="div-email">
+						<label class="control-label" for="in-email" style="display:none" id="lbl-email"><i class="fa fa-check"></i></label>
+						<input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email" data-parsley-required-message="Please insert your email" required>
+					</div>
 				</div>
 				<div class="col-xs-3">
 					<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
@@ -41,10 +57,16 @@
 				</div>
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id-user">
-					<input type="text" placeholder="username" id="in-username" class="form-control" data-parsley-required="false">
+					<div class="form-group" id="div-username">
+						<label class="control-label" for="in-username" style="display:none" id="lbl-username"><i class="fa fa-check"></i></label>
+						<input type="text" placeholder="username" id="in-username" class="form-control" data-parsley-required="false">
+					</div>
 				</div>
 				<div class="col-xs-3">
-					<input type="password" placeholder="password" id="in-password" class="form-control" data-parsley-required="false">
+					<div class="form-group" id="div-password">
+						<label class="control-label" for="in-password" style="display:none" id="lbl-password"><i class="fa fa-check"></i></label>
+						<input type="password" placeholder="password" id="in-password" class="form-control" data-parsley-required="false">
+					</div>
 				</div>
 			</div>
 			<br>
@@ -190,6 +212,9 @@
 			userEdit = '';
 			emailValid = 0;
 			userValid = 0;
+			pValid = 0;
+			fValid = 0;
+			lValid = 0;
 	    });
 	    
 	    $('#data-emp').on('click', '.nonaktifkan', function(){
@@ -308,22 +333,62 @@
 			};
 			console.log(emailValid);
 			console.log(userValid);
+			console.log(fValid);
+			console.log(lValid);
+			console.log(pValid);
 			validate = $('#form-emp').parsley();
 			validate.validate();
-			if(validate.isValid() && emailValid == 1 && userValid == 1){
+			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1){
 				$.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath}/employee/save',
 					data : JSON.stringify(employee),
 					contentType : 'application/json',
 					success : function() {
-						console.log('simpan');
-						window.location = '${pageContext.request.contextPath}/employee';
+						$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+						$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+						$('#div-alert').fadeIn();
+						setTimeout(function() {
+							window.location = '${pageContext.request.contextPath}/employee';
+						}, 2000);
 					},
 					error : function() {
-						alert('save failed');
+						$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+						$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+						$('#div-alert').fadeIn();
+						setTimeout(function(){
+							$('#div-alert').fadeOut();
+						}, 4000);
 					}
 				});
+			}else if(validate.isValid() && emailValid == 0 && userValid == 0){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Error!</strong> Username dan Email tidak Unique.');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}else if(validate.isValid() && emailValid == 0 && userValid == 1){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Erro!</strong> Email tidak Unique.');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}else if(validate.isValid() && emailValid == 1 && userValid == 0){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Erro!</strong> Username tidak Unique.');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}else{
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database.');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
 			}
 		}); // end fungsi simpan
 
@@ -331,20 +396,26 @@
 		var userEdit = '';
 		var emailValid = 0;
 		var userValid = 0;
+		var pValid = 0;
+		var fValid = 0;
+		var lValid = 0;
 		
 		// cek username
-		$('#in-username').on('input',function(){
+		$('#in-username').on('keyup',function(){
 			var username = $('#in-username').val();
 			$.ajax({
 				type : 'get',
 				url : '${pageContext.request.contextPath}/employee/cek-user?user='+username,
 				success : function(data){
 					if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
-						// Non unique
+						$('#div-username').removeClass('has-success').addClass('has-error');
+						$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
+						$('#lbl-username').fadeIn();
 						userValid = 0;
 					}else {
-						// unique
-						$('#btn-simpan').prop('disabled', false);
+						$('#div-username').removeClass('has-error').addClass('has-success');
+						$('#lbl-username').html('<i class="fa fa-check"></i> Ok');
+						$('#lbl-username').fadeIn();
 						userValid = 1;
 					}
 				}, error : function(){
@@ -353,24 +424,78 @@
 			});
 		});
 		
-		$('#in-email').on('input',function(){
+		$('#in-email').on('keyup',function(){
 			var email = $('#in-email').val();
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			var valid =  regex.test(email);
 			$.ajax({
 				type : 'get',
 				url : '${pageContext.request.contextPath}/employee/cek-email?email='+email,
 				success : function(data){
-					if(data > 0 && email != emailEdit){
-						// Non unique
-						emailValid = 0;
+					if(valid && email.length > 6){
+						if(data > 0 && email != emailEdit){
+							$('#div-email').removeClass('has-success').addClass('has-error');
+							$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> email must be unique');
+							$('#lbl-email').fadeIn();
+							emailValid = 0;
+						}else{
+							$('#div-email').removeClass('has-error').addClass('has-success');
+							$('#lbl-email').html('<i class="fa fa-check"></i> Ok');
+							$('#lbl-email').fadeIn();
+							emailValid = 1;
+						}
 					}else{
-						// unique
-						$('#btn-simpan').prop('disabled', false);
+						$('#div-email').removeClass('has-success').addClass('has-error');
+						$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
+						$('#lbl-email').fadeIn();
 						emailValid = 1;
 					}
 				}, error : function(){
 					console.log('gagal')
 				}
 			});
+		});
+		
+		$('#in-firstname').on('keyup', function(){
+			if($(this).val().length > 0){
+				$('#div-firstname').removeClass('has-error').addClass('has-success');
+				$('#lbl-firstname').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-firstname').fadeIn();
+				lValid = 1;
+			}else{
+				$('#div-firstname').removeClass('has-success').addClass('has-error');
+				$('#lbl-firstname').html('<i class="fa fa-times-circle-o"></i> please insert first name');
+				$('#lbl-firstname').fadeIn();
+				fValid = 0;
+			}
+		});
+		
+		$('#in-lastname').on('keyup', function(){
+			if($(this).val().length > 0){
+				$('#div-lastname').removeClass('has-error').addClass('has-success');
+				$('#lbl-lastname').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-lastname').fadeIn();
+				lValid = 1;
+			}else{
+				$('#div-lastname').removeClass('has-success').addClass('has-error');
+				$('#lbl-lastname').html('<i class="fa fa-times-circle-o"></i> please insert last name');
+				$('#lbl-lastname').fadeIn();
+				lValid = 0;
+			}
+		});
+		
+		$('#in-password').on('keyup', function(){
+			if($(this).val().length > 6){
+				$('#div-password').removeClass('has-error').addClass('has-success');
+				$('#lbl-password').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-password').fadeIn();
+				pValid = 1;
+			}else{
+				$('#div-password').removeClass('has-success').addClass('has-error');
+				$('#lbl-password').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
+				$('#lbl-password').fadeIn();
+				pValid = 0;
+			}
 		});
 	});
 </script>
@@ -379,7 +504,7 @@
 		$('#data-emp').DataTable({
 			'paging' : true,
 			'lengthChange' : false,
-			'searching' : true,
+			'searching' : false,
 			'ordering' : true,
 			'info' : true,
 			'autoWidth' : false

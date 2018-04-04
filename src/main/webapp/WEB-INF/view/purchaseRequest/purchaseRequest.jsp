@@ -79,7 +79,13 @@
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
-					
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-sukses" role="alert" id="tampilan-alert">
+							  <strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Create New PR : </h4>
@@ -90,19 +96,20 @@
 						</select>
 				</div>
 				<div class="modal-body">
+				<form id="tambah-pr">
 					<h4>Tanggal Waktu Item Ready : </h4>
 					<div class="input-group date">
 	                	<div class="input-group-addon">
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
-	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal">
+	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal" data-parsley-required="true" required readonly>
 	                	<input type="hidden" id="in-id">
 	                </div>
 	                <div class="form-group">
 	                	<h4>Notes : </h4>
-	                	<textarea class="form-control" rows="5" id="in-notes"></textarea>
+	                	<textarea class="form-control" rows="5" id="in-notes" data-parsley-required="true" required></textarea>
 	                </div>
-	                
+	            </form>
 	                <h4>Purchase Request</h4>
 	                <hr style="border-color:black;">
 	                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
@@ -158,8 +165,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" id="batalinsert">Cancel</button>
-					<button type="button" class="btn btn-primary" id="tblkonfadd">Add</button>
+					<button type="button" class="btn btn-info" id="batalinsert">Reset</button>
+					<button type="button" class="btn btn-primary" id="tblkonfadd">Save</button>
 				</div>
 			</div>
 		</div>
@@ -167,6 +174,21 @@
 </section>
 </body>
 <script>
+	var itemsss = [];
+	$.ajax({
+		type : 'get',
+		url : '${pageContext.request.contextPath}/item/get-inventory',
+		dataType : 'json',
+		success : function(data){
+			$.each(data, function(key, val) {
+				var namaItem = val.itemVariant.item.name +'-'+ val.itemVariant.name;
+				itemsss.push(namaItem);
+			});
+		}, error : function(){
+			
+		}
+	});
+	
 	$(function(){
 		var awal = '';
 		var akhir = '';
@@ -202,19 +224,46 @@
 	    $('#tblsimpan').on('click',function(evt) {
 			evt.preventDefault();
 			stat = 'Created';
-			simpan();
+			var jmlBrg = $('#list-item tr').length;
+			validate = $('#tambah-pr').parsley();
+			var note = $('#in-notes').val().length;
+			var tuanggal = $('#pilih-tanggal').val().length;
+			validate.validate();
+			if(validate.isValid() && jmlBrg > 0 && note > 0 && tuanggal > 0){
+				simpan();
+			}else if(jmlBrg == 0){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Gagal!</strong> Mohon Pilih Item');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}
 		}); 
 	    
 	    $('#submit-pr').on('click', function(evt){
 	    	evt.preventDefault();
 	    	stat = 'Submitted';
-	    	simpan();
+	    	var jmlBrg = $('#list-item tr').length;
+			validate = $('#tambah-pr').parsley();
+			var note = $('#in-notes').val().length;
+			var tuanggal = $('#pilih-tanggal').val().length;
+			validate.validate();
+			if(validate.isValid() && jmlBrg > 0 && note > 0 && tuanggal > 0){
+				simpan();
+			}else if(jmlBrg == 0){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Gagal!</strong> Mohon Pilih Item');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}
 	    });
 	    
 		//fungsi simpan
 		function simpan(){
 			var prd = [];
-			
 			$('#list-item > tr').each(function(index,data) {
 				var detail = {
 						"requestQty" : $(this).find('td').eq(2).text(),
@@ -223,12 +272,9 @@
 						}
 				};
 				prd.push(detail);
-		
 			});
-			
 			var tgl = $('#pilih-tanggal').val().split('/');
 			var tanggal = tgl[2]+'-'+tgl[0]+'-'+tgl[1];
-			
 			var purReq = {
 				"id" : $('#in-id').val(),
 				"notes" : $('#in-notes').val(),
@@ -240,24 +286,28 @@
 				"status" : stat,
 				"readyTime" : tanggal
 			};
-			
-			//validate = $('#form-emp').parsley();
-			//validate.validate();
-			//if(validate.isValid()){
-				$.ajax({
-					type : 'post',
-					url : '${pageContext.request.contextPath}/transaksi/purchase-request/save',
-					data : JSON.stringify(purReq),
-					contentType : 'application/json',
-					success : function() {
-						
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/transaksi/purchase-request/save',
+				data : JSON.stringify(purReq),
+				contentType : 'application/json',
+				success : function() {
+					$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+					$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+					$('#div-alert').fadeIn();
+					setTimeout(function() {
 						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
-					},
-					error : function() {
-						alert('save failed');
-					}
-				});
-			//}
+					}, 2000);
+				},
+				error : function() {
+					$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+					$('#tampilan-alert').html('<strong>Gagal!</strong> Gagal Menyimpan ke Database');
+					$('#div-alert').fadeIn();
+					setTimeout(function(){
+						$('#div-alert').fadeOut();
+					}, 4000);
+				}
+			});
 		};
 		
 		
@@ -273,22 +323,7 @@
 		$('#search-item').easyAutocomplete(itemss);
 		
 		$('#btn-tambah-item').on('click', function(){
-			itemsss = [];
-			isiBarang = $('#list-item').html();
-			console.log(isiBarang);
-			$.ajax({
-				type : 'get',
-				url : '${pageContext.request.contextPath}/item/get-inventory',
-				dataType : 'json',
-				success : function(data){
-					$.each(data, function(key, val) {
-						var namaItem = val.itemVariant.item.name +'-'+ val.itemVariant.name;
-						itemsss.push(namaItem);
-					});
-				}, error : function(){
-					
-				}
-			});
+			var isiBarang = $('#list-item').html();
 		});
 		
 		$(".easy-autocomplete").removeAttr("style");
