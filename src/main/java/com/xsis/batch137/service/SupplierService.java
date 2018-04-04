@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,12 @@ public class SupplierService {
 	
 	//
 	public void save(Supplier sup) {
+		sup.setCreatedOn(new Date());
 		supplierDao.save(sup);
 	}
 	
 	public void update(Supplier sup) {
+		sup.setModifiedOn(new Date());
 		supplierDao.update(sup);
 	}
 	
