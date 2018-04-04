@@ -91,5 +91,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 	}
 
+	public Employee getEmpByUsername(String username) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee where user.username = :username";
+		List<Employee> emps = session.createQuery(hql).setParameter("username", username).list();
+		if(emps.isEmpty()) {
+			return null;
+		}else {
+			return emps.get(0);
+		}
+	}
+
 	
 }

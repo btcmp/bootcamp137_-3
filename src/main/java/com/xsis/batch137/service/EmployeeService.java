@@ -131,4 +131,8 @@ public class EmployeeService {
 	public int countUserByUsername(String username) {
 		return uDao.countUserByUsername(username);
 	}
+	
+	public Employee getEmployeeByUsername(String username) {
+		return empDao.getEmpByUsername(username);
+	}
 }

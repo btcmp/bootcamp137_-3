@@ -21,4 +21,6 @@ public interface EmployeeDao {
 	List<Employee> getEmployeeByEmail(String email);
 	
 	int countEmployeeByEmail(String email);
+	
+	Employee getEmpByUsername(String username);
 }
