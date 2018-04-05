@@ -85,7 +85,7 @@
 		});
 		
 		
-		$('.btn-edit').on('click', function(e){
+		$('#category-table').on('click', '.btn-edit', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
 			$.ajax({

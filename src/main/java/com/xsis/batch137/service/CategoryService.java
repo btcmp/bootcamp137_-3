@@ -89,7 +89,7 @@ public class CategoryService {
 		Category cat = new Category();
 		cat.setId(id);
 		List<Item> items = itemDao.getItemByCategory(cat);
-		if(items.isEmpty()) {
+		if(items == null) {
 			return 0;
 		}
 		else {
