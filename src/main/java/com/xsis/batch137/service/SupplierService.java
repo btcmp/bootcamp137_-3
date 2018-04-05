@@ -35,12 +35,21 @@ public class SupplierService {
 	//
 	public void save(Supplier sup) {
 		sup.setCreatedOn(new Date());
+		sup.setActive(true);
 		supplierDao.save(sup);
 	}
 	
 	public void update(Supplier sup) {
-		sup.setModifiedOn(new Date());
-		supplierDao.update(sup);
+		Supplier supplier = supplierDao.getOne(sup.getId());
+		supplier.setModifiedOn(new Date());
+		supplier.setAddress(sup.getAddress());
+		supplier.setDistrict(sup.getDistrict());
+		supplier.setEmail(sup.getEmail());
+		supplier.setName(sup.getName());
+		supplier.setPostalCode(sup.getPostalCode());
+		supplier.setProvince(sup.getProvince());
+		supplier.setRegion(sup.getRegion());
+		supplierDao.update(supplier);
 	}
 	
 	public void delete(long id) {

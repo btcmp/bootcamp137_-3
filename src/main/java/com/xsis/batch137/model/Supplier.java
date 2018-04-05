@@ -66,7 +66,7 @@ public class Supplier {
 	@JoinColumn(name="created_by")
 	private User createdBy;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_on")
 	private Date createdOn;
 	
@@ -74,7 +74,7 @@ public class Supplier {
 	@JoinColumn(name="modified_by")
 	private User modifiedBy;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
@@ -82,7 +82,7 @@ public class Supplier {
 	@Column(nullable=false)
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "supplier", cascade = CascadeType.ALL)
 	private List<PurchaseOrder> purchaseOrders;
 
 	public long getId() {

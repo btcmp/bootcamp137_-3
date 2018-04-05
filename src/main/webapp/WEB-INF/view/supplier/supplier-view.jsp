@@ -97,7 +97,6 @@
 				phone : $('#supplier-phone').val(),
 				email : $('#supplier-email').val(),
 				postalCode : $('#supplier-postal').val(),
-				active : true,
 				province : {
 					id : $('#prov-id').val()
 				},
@@ -286,7 +285,6 @@
 				email : $('#edit-email').val(),
 				id : $('#edit-id').val(),
 				postalCode : $('#edit-postal').val(),
-				active : true,
 				province : {
 					id : $('#prov-edit').val()
 				},
@@ -301,11 +299,12 @@
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/supplier/update',
 				type : 'PUT',
-				data : JSON.strigify(supplier),
+				data : JSON.stringify(supplier),
 				contentType : 'application/json',
 				success : function(){
 					console.log(supplier);
 					alert('Oke..');
+					window.location = '${pageContext.request.contextPath}/master/supplier';
 				},
 				error : function(){
 					console.log(supplier);
