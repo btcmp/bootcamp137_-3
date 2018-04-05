@@ -139,4 +139,17 @@ public class EmployeeService {
 	public Employee getEmployeeByUsername(String username) {
 		return empDao.getEmpByUsername(username);
 	}
+	
+	public List<Outlet> getOutletByEmployee(Employee emp){
+		List<EmployeeOutlet> eos = eoDao.getEmployeeOutletByEmployee(emp);
+		List<Outlet> outlets = new ArrayList<>();
+		if(eos==null) {
+			return null;
+		}else {
+			for(EmployeeOutlet eo : eos) {
+				outlets.add(eo.getOutlet());
+			}
+			return outlets;
+		}
+	}
 }

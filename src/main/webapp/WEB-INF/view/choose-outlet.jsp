@@ -113,7 +113,7 @@
 	<!-- comment -->
 	<div class="login-box">
 	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Admin</b>LTE</a>
+	    <a href="#"><b>Admin</b>LTE</a>
 	  </div>
 	  <!-- /.login-logo -->
 	  <div class="login-box-body">
@@ -136,7 +136,7 @@ $(document).ready(function(){
 	$('#choose-outlet').click(function(){
 		var idOutlet = $('#outlet-search').val();
 		if (idOutlet!=="kosong") {
-			window.location = "${pageContext.request.contextPath}/welcome-auth/home?id="+idOutlet;
+			window.location = "${pageContext.request.contextPath}/";
 		}
 	})
 })
