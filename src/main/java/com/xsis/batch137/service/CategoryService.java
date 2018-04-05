@@ -24,12 +24,12 @@ public class CategoryService {
 	
 	//
 	public void save(Category category) {
+		category.setActive(true);
 		category.setCreatedOn(new Date());
 		categoryDao.save(category);
 	}
 	
 	public void update(Category category) {
-		category.setActive(true);
 		category.setModifiedOn(new Date());
 		categoryDao.update(category);
 	}

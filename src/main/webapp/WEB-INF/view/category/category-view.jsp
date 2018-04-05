@@ -64,8 +64,7 @@
 		$('#tbl-simpan').on('click', function(e){
 			e.preventDefault();
 			var category = {
-				name : $('#create-category').val(),
-				active : true
+				name : $('#create-category').val()
 			};
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/category/save',

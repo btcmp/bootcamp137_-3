@@ -27,7 +27,8 @@ public class CategoryDaoImpl implements CategoryDao{
 	public void update(Category category) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.update(category);
+		String hql = "update Category set modifiedOn = :date, name = :name where id = :id";
+		session.createQuery(hql).setParameter("date", category.getModifiedOn()).setParameter("id", category.getId()).setParameter("name", category.getName()).executeUpdate();
 		session.flush();
 	}
 	
