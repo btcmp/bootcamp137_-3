@@ -1,5 +1,6 @@
 package com.xsis.batch137.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -54,6 +55,20 @@ public class AdjustmentDaoImpl implements AdjustmentDao{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Adjustment.class, id);
+	}
+
+	@Override
+	public List<Adjustment> searchAdjustmentByDate(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Adjustment where createdOn >= :start AND createdOn <= :end";
+		List<Adjustment> adjustments = session.createQuery(hql).setParameter("start", startDate).setParameter("end", endDate).list();
+		if(adjustments.isEmpty()) {
+			return null;
+		}
+		else {
+			return adjustments;
+		}
 	}
 	
 	

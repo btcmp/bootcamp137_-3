@@ -9,11 +9,19 @@
 <div class="container">
 	
 	<div class=row>
-		<div style="float: left; margin-right: 350px;">
-			<input class="form-control">
-		</div>
+	
+		<div class="col-xs-3">
+			<div class="form-group">
+		       <button type="button" class="btn btn-default btn-block" id="pilih-tanggal-range">
+		         <span>
+		           <i class="fa fa-calendar"></i> Pilih Tanggal
+		         </span>
+		         <i class="fa fa-caret-down"></i>
+		       </button>
+		    </div>
+	    </div>
 		
-		<div style="float:right;  margin-left:40px; margin-right:60px;">
+		<div style="float:right;  margin-left:40px; margin-right:90px;">
 			<button id="create" class="btn btn-primary btn-md">Create</button>
 		</div>
 		
@@ -35,7 +43,7 @@
 			<th>#</th>
 		</tr>
 		</thead>
-		<tbody>
+		<tbody id="isi-adjustment">
 		<c:forEach items="${adjustments }" var="adj">
 			<tr>
 				<td>
@@ -217,6 +225,62 @@
 				}
 			});
 		});
+		
+		//Search on main view, kalau ada.
+		//Cara pake search yang ke-dua kali
+		$('#adjustment-search').on('input', function(){
+			var keyword = $(this).val();
+			link : '${pageContext.request.contextPath}/transaksi/adjustment/search?search='+keyword;
+			search();
+		});
+		
+		//Search by date
+		$('#pilih-tanggal-range').daterangepicker(
+			      {
+			        ranges   : {
+			          'Today'       : [moment(), moment()],
+			          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+			          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+			          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+			          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+			          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+			        },
+			        startDate: moment().subtract(29, 'days'),
+			        endDate  : moment(),
+			      },
+			      function (start, end) {
+			        $('#pilih-tanggal-range').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+			        awal = start.format('YYYY-MM-DD');
+			        akhir = end.format('YYYY-MM-DD');
+			        link = '${pageContext.request.contextPath}/transaksi/adjustment/search?awal='+awal+'&akhir='+akhir;
+			        search();
+			      }
+		    );
+		
+		//Fungsi search berupa ajax
+		function search(){
+			$.ajax({
+				type : 'GET',
+				url : link,
+				success : function(data){
+					$('#isi-adjustment').empty();
+					$(data).each(function(key, val){
+						var json_data = '/Date('+val.createdOn+')/';
+						var asAMoment = moment(json_data);
+						var tanggal = asAMoment.format('DD-MM-YYYY HH:mm:ss');
+						
+						$('#isi-adjustment').append('<tr><td>'+tanggal+'</td>'
+							+'<td>'+val.notes+'</td>'
+							+'<td>'+val.status+'</td>'
+							+'<td><a href="http://localhost:8084/kelompok-3-batch137/transaksi/adjustment/take/'+val.id +'" id="'+val.id +'" class="btn-detail btn btn-warning">view</a></td>');
+					})
+				},
+				error : function(){
+					$('#isi-adjustment').empty();
+					console.log('gagal');
+				}
+			});
+		}
 		
 		/* $('.btn-detail').click(function(){
 			var id = $(this).attr('id');

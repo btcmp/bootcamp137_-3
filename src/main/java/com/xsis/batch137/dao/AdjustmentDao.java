@@ -1,5 +1,6 @@
 package com.xsis.batch137.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.xsis.batch137.model.Adjustment;
@@ -15,4 +16,6 @@ public interface AdjustmentDao {
 	public List<Adjustment> selectAll();
 	
 	public Adjustment getOne(long id);
+
+	public List<Adjustment> searchAdjustmentByDate(Date startDate, Date endDate);
 }

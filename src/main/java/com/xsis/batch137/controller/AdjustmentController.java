@@ -1,8 +1,10 @@
 package com.xsis.batch137.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,6 +77,13 @@ public class AdjustmentController {
 	public List<ItemInventory> searchItem(@RequestParam(value="search") String search){
 		List<ItemInventory> inventories = adjustmentService.searchItem(search);
 		return inventories;
+	}
+	
+	@RequestMapping(value="search")
+	@ResponseBody
+	public List<Adjustment> searchAdjustmentByDate(@RequestParam(value="awal") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
+		List<Adjustment> adjustments = adjustmentService.searchAdjustmentByDate(awal, akhir);
+		return adjustments;
 	}
 	
 	

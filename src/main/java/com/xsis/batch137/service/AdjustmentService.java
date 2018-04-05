@@ -1,6 +1,7 @@
 package com.xsis.batch137.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -116,5 +117,22 @@ public class AdjustmentService {
 	public List<ItemInventory> getInventory() {
 		// TODO Auto-generated method stub
 		return inventoryDao.selectAll();
+	}
+
+	public List<Adjustment> searchAdjustmentByDate(Date awal, Date akhir) {
+		// TODO Auto-generated method stub
+		Date startDate = awal;
+		Date endDate = akhir;
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		
+		cal1.setTime(startDate);
+		cal1.add(Calendar.DATE, -1);
+		startDate = cal1.getTime();
+		
+		cal2.setTime(endDate);
+		cal2.add(Calendar.DATE, 1);
+		endDate = cal2.getTime();
+		return adjustmentDao.searchAdjustmentByDate(startDate, endDate);
 	}
 }
