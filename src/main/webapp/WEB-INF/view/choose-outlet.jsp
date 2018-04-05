@@ -136,7 +136,7 @@ $(document).ready(function(){
 	$('#choose-outlet').click(function(){
 		var idOutlet = $('#outlet-search').val();
 		if (idOutlet!=="kosong") {
-			window.location = "${pageContext.request.contextPath}/";
+			window.location = "${pageContext.request.contextPath}/welcome-auth/home";
 		}
 	})
 })
