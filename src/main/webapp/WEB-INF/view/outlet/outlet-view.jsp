@@ -102,7 +102,6 @@
 				phone : $('#outlet-phone').val(),
 				email : $('#outlet-email').val(),
 				postalCode : $('#outlet-postal').val(),
-				active : true,
 				province : {
 					id : $('#prov-id').val()
 				},
@@ -287,7 +286,6 @@
 				email : $('#edit-email').val(),
 				id : $('#edit-id').val(),
 				postalCode : $('#edit-postal').val(),
-				active : true,
 				province : {
 					id : $('#prov-edit').val()
 				},

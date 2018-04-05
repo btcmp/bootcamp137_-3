@@ -35,12 +35,22 @@ public class OutletService {
 	
 	public void save(Outlet outlet) {
 		outlet.setCreatedOn(new Date());
+		outlet.setActive(true);
 		outletDao.save(outlet);
 	}
 	
 	public void update(Outlet outlet) {
-		outlet.setModifiedOn(new Date());
-		outletDao.update(outlet);
+		Outlet out = outletDao.getOne(outlet.getId());
+		out.setAddress(outlet.getAddress());
+		out.setDistrict(outlet.getDistrict());
+		out.setEmail(outlet.getEmail());
+		out.setModifiedOn(new Date());
+		out.setName(outlet.getName());
+		out.setPhone(outlet.getPhone());
+		out.setProvince(outlet.getProvince());
+		out.setRegion(outlet.getRegion());
+		out.setPostalCode(outlet.getPostalCode());
+		outletDao.update(out);
 	}
 	
 	public void delete(long id) {

@@ -33,7 +33,7 @@
 						<div class="row">
 							<div class="col-xs-4"><input type="text" name="outlet-phone" id="outlet-phone" data-parsley-required="true" /></div>
 							<div class="col-xs-4"><input type="text" name="outlet-email" id="outlet-email" data-parsley-required="true" placeholder="rama@gmail.com" /></div>
-							<div class="col-xs-3"><input type="text" name="outlet-postal" id="outlet-postal" data-parsley-required="true" placeholder="max six characters" /></div>
+							<div class="col-xs-3"><input type="text" pattern="\d{1,6}" title="Sorry it's not valid!" name="outlet-postal" id="outlet-postal" data-parsley-required="true" placeholder="max six characters" /></div>
 						</div>
 						
 						<div class="row">
