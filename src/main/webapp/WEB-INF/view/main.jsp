@@ -8,9 +8,7 @@
 </head>
 <body>
 <script>
-setTimeout(function() {
 	window.location = '${pageContext.request.contextPath}/';
-}, 0);
 </script>
 </body>
 </html>

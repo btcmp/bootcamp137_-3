@@ -120,7 +120,7 @@
 	
 	<div class="login-box">
 	  <div class="login-logo">
-	    <a href="../../index2.html"><b>Admin</b>LTE</a>
+	    <b>Kelompok</b>3
 	  </div>
 	  <!-- /.login-logo -->
 	  <div class="login-box-body">

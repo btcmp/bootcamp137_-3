@@ -1,7 +1,10 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
-<h1>Ini Mau Diisi apa ya?</h1>
-=======
-<h2>Hello World!AAHDAHAH</h2>
->>>>>>> branch 'master' of https://github.com/btcmp/bootcamp137_-3.git
+<section class="content">
+	<div class="row text-center">
+		<h1>SELAMAT DATANG</h1>
+		<h2>POINT OF SALES KELOMPOK 3</h2>
+		<h3>Batch 137 - PT XSIS MITRA UTAMA</h3>
+	</div>
+</section>
 </body>
 </html>
