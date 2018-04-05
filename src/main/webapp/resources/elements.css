@@ -8,6 +8,13 @@ form {
 	
 }
 
+#logoutForm {
+  all: initial;
+  * {
+    all: unset;
+  }
+}
+
 .checkbox-teal [type="checkbox"]:checked+label:before {
     border-color: transparent #009688 #009688 transparent;
 }
