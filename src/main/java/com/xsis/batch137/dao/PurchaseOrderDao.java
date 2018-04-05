@@ -33,4 +33,6 @@ public interface PurchaseOrderDao {
 	void reject(long id);
 	
 	void process(long id);
+	
+	List<PurchaseOrder> searchPOByOneDate(Date date);
 }

@@ -125,6 +125,19 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		}else {
 			return pos;
 		}
+	}
+
+	@Override
+	public List<PurchaseOrder> searchPOByOneDate(Date date) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')";
+		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("date", date).list();
+		if(pos.isEmpty()) {
+			return null;
+		}else {
+			return pos;
+		}
 	}	
 }
 

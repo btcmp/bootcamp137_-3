@@ -183,4 +183,8 @@ public class PurchaseOrderService {
 	public List<PurchaseOrder> searchGlobal(String search){
 		return poDao.searchPO(search);
 	}
+	
+	public List<PurchaseOrder> getPOByOneDate(Date date){
+		return poDao.searchPOByOneDate(date);
+	}
 }

@@ -101,4 +101,10 @@ public class PurchaseOrderController {
 	public List<PurchaseOrder> getByDate(@RequestParam(value="awal", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date awal, @RequestParam(value="akhir", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date akhir){
 		return poService.getPOByDate(awal, akhir);
 	}
+	
+	@RequestMapping("/search-one-date")
+	@ResponseBody
+	public List<PurchaseOrder> getByOneDate(@RequestParam(value="date", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date date){
+		return poService.getPOByOneDate(date);
+	}
 }
