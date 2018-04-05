@@ -210,7 +210,12 @@
 		        $('#pilih-tanggal-range').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
 		        awal = start.format('YYYY-MM-DD');
 		        akhir = end.format('YYYY-MM-DD');
-		        ur = '${pageContext.request.contextPath}/transaksi/purchase-request/search-date?awal='+awal+'&akhir='+akhir;
+		        if(awal == akhir){
+		        	console.log('sama');
+		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-request/search-one-date?date='+awal;
+		        }else{
+		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-request/search-date?awal='+awal+'&akhir='+akhir;
+		        }
 		        search();
 		      }
 	    );

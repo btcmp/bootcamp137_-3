@@ -321,4 +321,13 @@ public class PurchaseRequestService {
 	public List<PurchaseRequest> searchGlobal(String search){
 		return prDao.searchPR(search);
 	}
+	
+	public List<PurchaseRequest> getPRByOneDate(Date date){
+		/*Date tanggal = date;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(tanggal); 
+		c.add(Calendar.DATE, -1);
+		tanggal = c.getTime();*/
+		return prDao.searchPRByOneDate(date);
+	}
 }

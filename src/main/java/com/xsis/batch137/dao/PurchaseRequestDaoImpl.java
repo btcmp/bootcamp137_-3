@@ -103,7 +103,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	
 	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate){
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where createdOn >= :start AND createdOn <= :end";
+		String hql = "from PurchaseRequest where createdOn BETWEEN :start AND  :end";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("start", startDate)
 				.setParameter("end", endDate).list();
 		if(prs.isEmpty()) {
@@ -133,5 +133,18 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 			return 0;
 		}
 		return prs.size();
+	}
+
+	@Override
+	public List<PurchaseRequest> searchPRByOneDate(Date date) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("date", date).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
 	}
 }

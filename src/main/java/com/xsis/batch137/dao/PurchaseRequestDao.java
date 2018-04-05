@@ -35,4 +35,6 @@ public interface PurchaseRequestDao {
 	
 	int CountPrByPrNo(String prNo);
 	
+	List<PurchaseRequest> searchPRByOneDate(Date date);
+	
 }
