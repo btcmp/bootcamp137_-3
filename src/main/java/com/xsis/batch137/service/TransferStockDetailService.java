@@ -44,5 +44,5 @@ public class TransferStockDetailService {
 		// TODO Auto-generated method stub
 		return transferStockDetailDao.getTransferStockDetailByTransferStockId(search);
 	}
-	
+
 }

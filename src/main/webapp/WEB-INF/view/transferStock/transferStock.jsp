@@ -242,8 +242,8 @@
 					$('#hidden-from-outlet-id').val(data.fromOutlet.id);	
 					$('#hidden-outlet-id').val(data.toOutlet.id);
 					$('#hidden-id').val(data.id);
-					$('#created-by').val(data.createdBy);
-					$('#transfer-status').val(data.status);
+					$('#created-by').text("Created By : " + data.createdBy);
+					$('#transfer-status').text("Transfer Status : "+ data.status);
 					$('#notes').val(data.notes);
 				    $('#isi-transfer-stock-detail').empty();
 				    
@@ -259,6 +259,25 @@
 					}
 					
 					$('#more-option').html(option);
+					
+					//ajax for get transferstock-detail
+						$.ajax({
+					 		url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-transfer-stock-history?search='+id,
+							type : 'GET',
+							dataType : 'json',
+								success : function(data){
+								$('#view-status-history').empty();
+								$.each(data, function(key, val) {
+								$('#view-status-history').append('<tr><td> On '+val.createdOn+' - '+val.status+'</td>'
+										+ '</tr>');
+								 		});
+									},
+									error : function(data){
+										alert('failed')
+									}
+					 			});
+					
+					
 
 					$.ajax({
 						url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-transfer-stock-detail?search='+id,
@@ -275,7 +294,7 @@
 									+ '</tr>');
 					 		});
 					 		
-					 		var idz = []
+					 		var idz = [];
 					 		$('#data-transfer-stock-detail > tbody > tr').each(function(index,data){
 					 			var idx = {
 					 					id : $(data).find('td').eq(3).text(),
