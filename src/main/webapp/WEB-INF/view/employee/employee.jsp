@@ -337,6 +337,11 @@
 	
 			validate = $('#form-emp').parsley();
 			validate.validate();
+			console.log(emailValid);
+			console.log(userValid);
+			console.log(fValid);
+			console.log(lValid);
+			console.log(pValid);
 			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1){
 				$.ajax({
 					type : 'post',
@@ -460,7 +465,7 @@
 				$('#div-firstname').removeClass('has-error').addClass('has-success');
 				$('#lbl-firstname').html('<i class="fa fa-check"></i> Ok');
 				$('#lbl-firstname').fadeIn();
-				lValid = 1;
+				fValid = 1;
 			}else{
 				$('#div-firstname').removeClass('has-success').addClass('has-error');
 				$('#lbl-firstname').html('<i class="fa fa-times-circle-o"></i> please insert first name');

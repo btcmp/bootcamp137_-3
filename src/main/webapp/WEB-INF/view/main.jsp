@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>Welcome ${employee.firstName} ${employee.lastName}</p>
-<p>Oulet : ${outlet.name}</p>
+<script>
+setTimeout(function() {
+	window.location = '${pageContext.request.contextPath}/';
+}, 0);
+</script>
 </body>
 </html>
