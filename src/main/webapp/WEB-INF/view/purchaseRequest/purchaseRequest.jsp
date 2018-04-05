@@ -88,12 +88,13 @@
 					</div>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Create New PR : </h4>
-						<select id = "pil-outlet">
+						<h4 class="modal-title">Create New PR : ${outletLogin.name }</h4>
+						<input type="hidden" id = "pil-outlet" value="${outletLogin.id }">
+						<%-- <select id = "pil-outlet">
 							<c:forEach items="${outlets }" var="outlet">
 								<option value="${outlet.id }">${outlet.name }</option>
 							</c:forEach>
-						</select>
+						</select> --%>
 				</div>
 				<div class="modal-body">
 				<form id="tambah-pr">
