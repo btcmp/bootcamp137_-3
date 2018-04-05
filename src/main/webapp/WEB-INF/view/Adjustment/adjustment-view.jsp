@@ -1,4 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
+<section class="content">
+
 
 <div><h1>ADJUSTMENT</h1></div>
 <hr style="border-color:black; border-top:1px dashed;">
@@ -36,11 +38,19 @@
 		<tbody>
 		<c:forEach items="${adjustments }" var="adj">
 			<tr>
-				<td>${adj.createdOn }</td>
+				<td>
+					<script type="text/javascript">
+						var waktu = '${adj.createdOn}';
+						var time = waktu.split('.');
+						var wkt = time[0].split(' ');
+						var times = wkt[0].split('-');
+						document.write(times[2]+'-'+times[1]+'-'+times[0]+' '+wkt[1]);
+					</script>
+				</td>
 				<td>${adj.notes }</td>
 				<td>${adj.status }</td>
 				<td>
-					<a href="" id="${adj.id }" class="btn-edit btn btn-warning">view</a>
+					<a href="http://localhost:8084/kelompok-3-batch137/transaksi/adjustment/take/${adj.id }" id="${adj.id }" class="btn-detail btn btn-warning">view</a>
 				</td>
 			<tr>
 		</c:forEach>
@@ -49,7 +59,7 @@
 </div>
 <%@ include file="/WEB-INF/view/Adjustment/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/Adjustment/modal/add-item.jsp"%>
-
+</section>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//$('#supplier-table').DataTable();
@@ -208,6 +218,12 @@
 			});
 		});
 		
+		/* $('.btn-detail').click(function(){
+			var id = $(this).attr('id');
+			$.ajax({
+				window.location = '${pageContext.request.contextPath}/transaksi/adjustment/take/'+id;
+			});
+		}); */
 		
 	});
 </script>

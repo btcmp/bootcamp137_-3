@@ -55,8 +55,8 @@
 		<div>On 
 		<script type="text/javascript">
 			var waktu = '${history.createdOn}';
-			var wkt = waktu.split('.');
-			document.write(wkt[0]);
+			var time = waktu.split('.');
+			document.write(time[0]);
 		</script>
 		 - ${history.status }</div>
 	</c:forEach>
