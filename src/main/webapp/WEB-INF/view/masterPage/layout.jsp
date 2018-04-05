@@ -197,13 +197,13 @@ input.parsley-error {
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/employee"><i
+					<li><a href="${pageContext.request.contextPath}/master/employee"><i
 							class="fa fa-users"></i> Employee</a></li>
-					<li><a href="${pageContext.request.contextPath}/category"><i
+					<li><a href="${pageContext.request.contextPath}/master/category"><i
 							class="fa fa-object-group"></i> Category</a></li>
-					<li><a href="${pageContext.request.contextPath}/outlet"><i
+					<li><a href="${pageContext.request.contextPath}/master/outlet"><i
 							class="fa fa-shopping-bag"></i> Outlet</a></li>
-					<li><a href="${pageContext.request.contextPath}/supplier"><i
+					<li><a href="${pageContext.request.contextPath}/master/supplier"><i
 							class="fa fa-building"></i> Suppplier</a></li>
 					<li><a href="${pageContext.request.contextPath}/item"><i
 							class="fa fa-shopping-cart"></i> Item</a></li>

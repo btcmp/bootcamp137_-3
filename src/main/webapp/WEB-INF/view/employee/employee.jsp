@@ -256,6 +256,8 @@
 					userValid = 1;
 					emailValid = 1;
 					pValid = 1;
+					fValid = 1;
+					lValid = 1;
 					$('#in-id').val(data.id);
 					$('#in-firstname').val(data.firstName);
 					$('#in-lastname').val(data.lastName);
