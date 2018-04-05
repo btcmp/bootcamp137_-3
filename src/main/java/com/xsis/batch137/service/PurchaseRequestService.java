@@ -294,8 +294,6 @@ public class PurchaseRequestService {
 	public List<Object> getInventoryByVariantDanOutlet(long idPrd, long idPr){
 		PurchaseRequest pr = prDao.getOne(idPr);
 		PurchaseRequestDetail prd = prdDao.getOne(idPrd);
-		System.out.println(prd.getVariant().getId());
-		System.out.println(pr.getOutlet().getId());
 		return iDao.searchItemInventoryByItemVariantAndOutlet(prd.getVariant(), pr.getOutlet());
 	}
 	
@@ -323,11 +321,6 @@ public class PurchaseRequestService {
 	}
 	
 	public List<PurchaseRequest> getPRByOneDate(Date date){
-		/*Date tanggal = date;
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(tanggal); 
-		c.add(Calendar.DATE, -1);
-		tanggal = c.getTime();*/
 		return prDao.searchPRByOneDate(date);
 	}
 }

@@ -84,17 +84,24 @@
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
-					
+					<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div class="alert alert-sukses" role="alert" id="tampilan-alert">
+							  <strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Edit PO : </h4>
 				</div>
 				<div class="modal-body">
+				<form id="form-edit-po">
 					<h4>choose Supplier : </h4>
 					<div class="form-group">
 						<input type="hidden" id="in-id">
 						<input type="hidden" id="in-outlet">
-						<select id="pil-supplier" class="form-control">
+						<select id="pil-supplier" class="form-control" data-parsley-required="true">
 							<c:forEach items = "${sups }" var = "sup">
 								<option value = "${sup.id }">${sup.name }</option>
 							</c:forEach>
@@ -102,10 +109,10 @@
 					</div>
 	                <div class="form-group">
 	                	<h4>Notes : </h4>
-	                	<textarea class="form-control" rows="5" id="in-notes"></textarea>
+	                	<textarea class="form-control" rows="5" id="in-notes" data-parsley-required="true" required></textarea>
 	                </div>
-	                
-	                <h4>Purchase Request</h4>
+	                </form>
+	                <h4>Purchase Order</h4>
 	                <hr style="border-color:black;">
 	                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
 	                	<thead>
@@ -125,6 +132,7 @@
 						</tfoot>
 	                </table>
 				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success" data-dismiss="modal"
 						id="submit-po">Submit</button>
@@ -185,20 +193,24 @@
 	    	simpan();
 	    });
 		
+	    // fungsi simpan
 		function simpan(){
 			var pod = [];
-			
+			var errorCost = [];
 			$('#list-item > tr').each(function(index,data) {
+				var cost = $('#cost'+$(this).attr('key-id')+'').val();
+				if(cost == 0){
+					errorCost.push('#cost'+$(this).attr('key-id'));
+				}
 				var detail = {
 						"requestQty" : $(this).find('td').eq(2).text(),
 						"variant" : {
 							"id" : $(this).attr('key-id')
 						},
 						"subTotal" : $(this).find('td').eq(4).text(),
-						"unitCost" : $('#cost'+$(this).attr('key-id')+'').val()
+						"unitCost" : cost
 				};
 				pod.push(detail);
-				console.log(detail);
 			});
 			
 			var purOrd = {
@@ -214,24 +226,42 @@
 				},
 				"grandTotal" : $('#totalbanget').text()
 			};
-			console.log(purOrd);
-			//validate = $('#form-emp').parsley();
-			//validate.validate();
-			//if(validate.isValid()){
+			
+			var error = errorCost.length;
+			
+			validate = $('#form-edit-po').parsley();
+			validate.validate();
+			if(validate.isValid() && error == 0){
 				$.ajax({
 					type : 'put',
 					url : '${pageContext.request.contextPath}/transaksi/purchase-order/update',
 					data : JSON.stringify(purOrd),
 					contentType : 'application/json',
 					success : function() {
-						console.log('simpan');
-						window.location = '${pageContext.request.contextPath}/transaksi/purchase-order';
+						$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+						$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+						$('#div-alert').fadeIn();
+						setTimeout(function() {
+							window.location = '${pageContext.request.contextPath}/transaksi/purchase-order';
+						}, 2000);
 					},
 					error : function() {
-						alert('save failed');
+						$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+						$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+						$('#div-alert').fadeIn();
+						setTimeout(function(){
+							$('#div-alert').fadeOut();
+						}, 4000);
 					}
 				});
-			//}
+			}else if(error > 0){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Error!</strong> Harap masukkan cost');
+				$('#div-alert').fadeIn();
+				setTimeout(function(){
+					$('#div-alert').fadeOut();
+				}, 4000);
+			}
 		}
 		
 		$('#data-po').on('click', '.btn-edit-po', function(){
@@ -248,7 +278,7 @@
 					$('#in-id').val(data.id);
 					$('#in-outlet').val(data.outlet.id);
 					$('#totalbanget').text(data.grandTotal);
-					if(data.supplier.id==null){
+					if(data.supplier == null){
 						
 					}else{
 						$('#pil-supplier').val(data.supplier.id);
@@ -356,6 +386,7 @@
 				search();
 			}
 		});
+		
 	});
 </script>
 </html>

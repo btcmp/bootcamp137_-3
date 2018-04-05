@@ -8,28 +8,28 @@
 	<div class="col-xs-3">
 		<script>
 			if('${po.status}' == 'Created' || '${po.status}' == 'Submitted'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
 						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Rejected'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Processed'){
-				document.write('<select id="action-po" class="btn-poimary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-poimary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
 						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Approved'){
-				document.write('<select id="action-po" class="btn-primary form-control" key-id="${po.id }">'
+				document.write('<select id="action-po" class="btn-primary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
@@ -71,7 +71,7 @@
 				<td>PO Number : ${po.poNo }</td>
 			</tr>
 			<tr>
-				<td>Created By : ${po.createdBy }</td>
+				<td>Created By : ${po.createdBy.employee.firstName } ${po.createdBy.employee.lastName }</td>
 			</tr>
 			<tr>
 				<td>Email : ${po.outlet.email }
@@ -157,7 +157,7 @@
 </table>
 <div class="row">
 	<div class="col-xs-9"></div>
-	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-order" class="btn btn-primary btn-block">Done</a></div>
+	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-order" class="btn btn-primary btn-block no-print">Done</a></div>
 </div>
 </section>
 </body>

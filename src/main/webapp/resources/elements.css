@@ -42,3 +42,11 @@ form {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

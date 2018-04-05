@@ -211,7 +211,6 @@
 		        awal = start.format('YYYY-MM-DD');
 		        akhir = end.format('YYYY-MM-DD');
 		        if(awal == akhir){
-		        	console.log('sama');
 		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-request/search-one-date?date='+awal;
 		        }else{
 		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-request/search-date?awal='+awal+'&akhir='+akhir;
@@ -239,7 +238,7 @@
 				simpan();
 			}else if(jmlBrg == 0){
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Gagal!</strong> Mohon Pilih Item');
+				$('#tampilan-alert').html('<strong>Error!</strong> Mohon Pilih Item');
 				$('#div-alert').fadeIn();
 				setTimeout(function(){
 					$('#div-alert').fadeOut();
@@ -259,7 +258,7 @@
 				simpan();
 			}else if(jmlBrg == 0){
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Gagal!</strong> Mohon Pilih Item');
+				$('#tampilan-alert').html('<strong>Error!</strong> Mohon Pilih Item');
 				$('#div-alert').fadeIn();
 				setTimeout(function(){
 					$('#div-alert').fadeOut();
@@ -307,7 +306,7 @@
 				},
 				error : function() {
 					$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-					$('#tampilan-alert').html('<strong>Gagal!</strong> Gagal Menyimpan ke Database');
+					$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
 					$('#div-alert').fadeIn();
 					setTimeout(function(){
 						$('#div-alert').fadeOut();
@@ -321,7 +320,6 @@
 		var addedEdit = [];
 		var lagiEdit = 0;
 		// auto complete
-		var itemsss = [];
 		var itemss = {
 				data : itemsss,
 		};

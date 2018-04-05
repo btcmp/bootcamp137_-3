@@ -232,10 +232,10 @@
 			var id = $(this).attr('key');
 			console.log('klik tombol hapus')
 			$.ajax({
-				url : '${pageContext.request.contextPath}/employee/nonaktif/'+ id,
+				url : '${pageContext.request.contextPath}/master/employee/nonaktif/'+ id,
 				type : 'GET',
 				success : function(response) {
-					window.location = '${pageContext.request.contextPath}/employee';
+					window.location = '${pageContext.request.contextPath}/master/employee';
 					$('#konfirmdel').modal('hide');
 				},
 				error : function() {
@@ -247,7 +247,7 @@
 		$('#data-emp').on('click', '.tblupdate', function(){
 			var id = $(this).attr('key-id');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/employee/get-one/'+id,
+				url : '${pageContext.request.contextPath}/master/employee/get-one/'+id,
 				type : 'get',
 				dataType : 'json',
 				success : function(data){
@@ -345,7 +345,7 @@
 			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1){
 				$.ajax({
 					type : 'post',
-					url : '${pageContext.request.contextPath}/employee/save',
+					url : '${pageContext.request.contextPath}/master/employee/save',
 					data : JSON.stringify(employee),
 					contentType : 'application/json',
 					success : function() {
@@ -353,7 +353,7 @@
 						$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
 						$('#div-alert').fadeIn();
 						setTimeout(function() {
-							window.location = '${pageContext.request.contextPath}/employee';
+							window.location = '${pageContext.request.contextPath}/master/employee';
 						}, 2000);
 					},
 					error : function() {
@@ -409,7 +409,7 @@
 			var username = $('#in-username').val();
 			$.ajax({
 				type : 'get',
-				url : '${pageContext.request.contextPath}/employee/cek-user?user='+username,
+				url : '${pageContext.request.contextPath}/master/employee/cek-user?user='+username,
 				success : function(data){
 					if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
 						$('#div-username').removeClass('has-success').addClass('has-error');
@@ -434,7 +434,7 @@
 			var valid =  regex.test(email);
 			$.ajax({
 				type : 'get',
-				url : '${pageContext.request.contextPath}/employee/cek-email?email='+email,
+				url : '${pageContext.request.contextPath}/master/employee/cek-email?email='+email,
 				success : function(data){
 					if(valid && email.length > 6){
 						if(data > 0 && email != emailEdit){
