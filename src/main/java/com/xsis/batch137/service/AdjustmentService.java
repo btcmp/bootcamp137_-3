@@ -55,8 +55,8 @@ public class AdjustmentService {
 			detail.setCreatedOn(new Date());
 			detail.setAdjustment(adjust); //ternyata dia sudah punya id adjustment
 			
-		System.out.println("Detail Variant: "+detail.getVariant().getId());
-		System.out.println("Detail Adjustment: "+detail.getAdjustment().getId());
+		/*System.out.println("Detail Variant: "+detail.getVariant().getId());
+		System.out.println("Detail Adjustment: "+detail.getAdjustment().getId());*/
 			detailDao.save(detail);
 		}
 		

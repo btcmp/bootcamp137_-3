@@ -60,7 +60,6 @@ public class Category {
 	public List<Item> items;
 	
 	
-
 	public int getItemStock() {
 		return itemStock;
 	}

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -44,6 +46,7 @@ public class Adjustment {
 	private User modifiedBy;
 	
 	@Column(name="modified_on")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedOn;
 	
 	@ManyToOne
