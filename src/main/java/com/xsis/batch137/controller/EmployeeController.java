@@ -26,7 +26,7 @@ import com.xsis.batch137.service.OutletService;
 import com.xsis.batch137.service.RoleService;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/master/employee")
 public class EmployeeController {
 
 	@Autowired

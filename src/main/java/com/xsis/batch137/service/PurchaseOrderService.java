@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
 import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.PurchaseRequestHistory;
+import com.xsis.batch137.model.User;
 
 @Service
 @Transactional
@@ -33,6 +36,9 @@ public class PurchaseOrderService {
 	
 	@Autowired
 	ItemInventoryDao iDao;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	public List<PurchaseOrder> selectAll(){
 		return poDao.selectAll();
@@ -65,6 +71,7 @@ public class PurchaseOrderService {
 
 	public void update(PurchaseOrder po) {
 		// TODO Auto-generated method stub
+		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseOrder purOrd = new PurchaseOrder();
 		purOrd.setId(po.getId());
 		purOrd.setOutlet(po.getOutlet());
@@ -72,8 +79,10 @@ public class PurchaseOrderService {
 		purOrd.setStatus(po.getStatus());
 		purOrd.setNotes(po.getNotes());
 		purOrd.setModifiedOn(new Date());
+		purOrd.setModifiedBy(user);
 		PurchaseOrder puro = poDao.getOne(purOrd.getId());
 		purOrd.setCreatedOn(puro.getCreatedOn());
+		purOrd.setCreatedBy(puro.getCreatedBy());
 		purOrd.setPoNo(puro.getPoNo());
 		purOrd.setSupplier(po.getSupplier());
 		purOrd.setGrandTotal(po.getGrandTotal());
@@ -94,6 +103,8 @@ public class PurchaseOrderService {
 				PurchaseOrderDetail purOrDet = new PurchaseOrderDetail();
 				purOrDet.setId(pod.getId());
 				purOrDet.setCreatedOn(purOrd.getCreatedOn());
+				purOrDet.setCreatedBy(purOrd.getCreatedBy());
+				purOrDet.setModifiedBy(purOrd.getModifiedBy());
 				purOrDet.setModifiedOn(purOrd.getModifiedOn());
 				purOrDet.setPurchaseOrder(purOrd);
 				purOrDet.setVariant(pod.getVariant());
@@ -104,9 +115,10 @@ public class PurchaseOrderService {
 			}
 		}
 		
-		if(po.getStatus()!="Created") {
+		if(po.getStatus().equals("Submitted")) {
 			PurchaseOrderHistory poh = new PurchaseOrderHistory();
 			poh.setCreatedOn(new Date());
+			poh.setCreatedBy(user);
 			poh.setPurchaseOrder(purOrd);
 			poh.setStatus(po.getStatus());
 			pohDao.save(poh);
@@ -115,9 +127,11 @@ public class PurchaseOrderService {
 	
 	public void approve(long id) {
 		poDao.approve(id);
+		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseOrder pr = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
+		poh.setCreatedBy(user);
 		poh.setPurchaseOrder(pr);
 		poh.setStatus(pr.getStatus());
 		pohDao.save(poh);
@@ -125,9 +139,11 @@ public class PurchaseOrderService {
 	
 	public void reject(long id) {
 		poDao.reject(id);
+		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseOrder pr = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
+		poh.setCreatedBy(user);
 		poh.setPurchaseOrder(pr);
 		poh.setStatus(pr.getStatus());
 		pohDao.save(poh);
@@ -135,9 +151,11 @@ public class PurchaseOrderService {
 	
 	public void process(long id) {
 		poDao.process(id);
+		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseOrder pr = poDao.getOne(id);
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(new Date());
+		poh.setCreatedBy(user);
 		poh.setPurchaseOrder(pr);
 		poh.setStatus(pr.getStatus());
 		pohDao.save(poh);
