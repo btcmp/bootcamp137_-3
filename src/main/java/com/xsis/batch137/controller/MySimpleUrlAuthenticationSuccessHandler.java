@@ -47,27 +47,6 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     }
  
     protected String determineTargetUrl(Authentication authentication) {
-        /*boolean isUser = false;
-        boolean isAdmin = false;
-        Collection<? extends GrantedAuthority> authorities
-         = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_BACK_OFFICE")) {
-                isUser = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                isAdmin = true;
-                break;
-            }
-        }
- 
-        if (isUser) {
-            return "/free-autentication/choose-outlet";
-        } else if (isAdmin) {
-            return "/console.html";
-        } else {
-            throw new IllegalStateException();
-        }*/
         return "/welcome-auth/choose-outlet";
     }
  

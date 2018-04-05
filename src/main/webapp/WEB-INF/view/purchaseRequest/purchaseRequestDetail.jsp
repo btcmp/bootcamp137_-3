@@ -54,7 +54,7 @@
 		<td>PR Number : ${pr.prNo }</td>
 	</tr>
 	<tr>
-		<td>Created By : ${pr.createdBy }</td>
+		<td>Created By : ${pr.createdBy.employee.firstName } ${pr.createdBy.employee.lastName }</td>
 	</tr>
 	<tr>
 		<td>Target Waktu Item Ready : 

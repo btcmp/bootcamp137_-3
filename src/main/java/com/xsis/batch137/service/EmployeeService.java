@@ -152,4 +152,8 @@ public class EmployeeService {
 			return outlets;
 		}
 	}
+	
+	public User getUserByEmployee(Employee emp) {
+		return uDao.getUserByEmployee(emp);
+	}
 }

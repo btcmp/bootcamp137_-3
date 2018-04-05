@@ -157,6 +157,7 @@ input.parsley-error {
 							</div> <!-- /.row --> <!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-right">
+							<c:url value="/j_spring_security_logout" var="logoutUrl" />
 								<form action="${logoutUrl}" method="post" id="logoutForm">
 									<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}" /> <input type="submit" name="logout"

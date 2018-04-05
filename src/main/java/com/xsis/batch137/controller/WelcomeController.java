@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.User;
 import com.xsis.batch137.service.EmployeeService;
 import com.xsis.batch137.service.OutletService;
 
@@ -40,8 +41,10 @@ public class WelcomeController {
 	public String chooseOutlet(Model model, Principal principal) {
 		String username = principal.getName();
 		Employee emp = employeeService.getEmployeeByUsername(username);
+		User user = employeeService.getUserByEmployee(emp);
 		httpSession.setAttribute("usernameLogin", username);
 		httpSession.setAttribute("empLogin", emp);
+		httpSession.setAttribute("userLogin", user);
 		List<Outlet> outlets = employeeService.getOutletByEmployee(emp);
 		model.addAttribute("outlets", outlets);
 		return "choose-outlet";

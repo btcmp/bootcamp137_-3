@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import com.xsis.batch137.model.PurchaseOrderHistory;
 import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.PurchaseRequestDetail;
 import com.xsis.batch137.model.PurchaseRequestHistory;
+import com.xsis.batch137.model.User;
 
 @Service
 @Transactional
@@ -49,7 +52,12 @@ public class PurchaseRequestService {
 	@Autowired
 	ItemInventoryDao iDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	public void save(PurchaseRequest pr) {
+		User user = (User)httpSession.getAttribute("userLogin");
+		
 		PurchaseRequest pureq = new PurchaseRequest();
 		pureq.setId(pr.getId());
 		pureq.setOutlet(pr.getOutlet());
@@ -103,9 +111,11 @@ public class PurchaseRequestService {
 			PurchaseRequest pure = prDao.getOne(pureq.getId());
 			pureq.setCreatedOn(pure.getCreatedOn());
 			pureq.setPrNo(pure.getPrNo());
+			pureq.setModifiedBy(user);
 		}else {
 			pureq.setCreatedOn(new Date());
 			pureq.setPrNo(prNo);
+			pureq.setCreatedBy(user);
 		}
 		
 		prDao.save(pureq);
