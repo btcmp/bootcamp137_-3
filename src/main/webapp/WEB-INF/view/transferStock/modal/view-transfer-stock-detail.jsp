@@ -5,14 +5,19 @@
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header" style="float : left">
-				<h5 class="modal-title" id="exampleModalLabel">Transfer Stock Detail</h5>
-			</div>
-			
-			<div class="form-group style="float left">
+			<div class="modal-header">
+				<div style="float : left ; margin-right : 340px" >
+					<h5 class="modal-title" id="exampleModalLabel">Transfer Stock Detail</h5>
+				</div>
+				
+				<div class="form-group" style="float : left" >
 					<select name="more" id="more-option">
 					</select>
+				</div>
+			
 			</div>
+			
+			
 				
 			<div class="modal-body">
 			
@@ -21,11 +26,24 @@
 				<input type="hidden" id="hidden-outlet-id">
 				<input type="hidden" id="hidden-from-outlet-id">
 			
-			<div>Created By : <input type="text" class="form-control" id="created-by" disabled>  </div> 
-			<div>Transfer Status : <input type="text" class="form-control" id="transfer-status" disabled> </div> 
-			<div>Notes: </div>
+			<div>
+				<table>
+					<tr><td id="created-by"></td></tr>
+					<tr><td id="transfer-status"></td></tr>
+				</table>
+			</div> 
+			
+			<div>Notes : </div>
 			<input type="text" class="form-control" id="notes" disabled>
+			</div> <br/>
+			
+			<div> Status History
+				<table id="status-history">
+					<tbody id="view-status-history"></tbody>
+				</table>	
 			</div>
+			
+			<br/> 	
 						
 				<form class="form-all">	        			
 					<table id="data-transfer-stock-detail" class="table table-striped table-bordered table-hover">

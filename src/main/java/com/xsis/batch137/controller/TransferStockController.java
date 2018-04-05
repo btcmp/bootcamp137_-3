@@ -20,9 +20,11 @@ import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
+import com.xsis.batch137.model.TransferStockHistory;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.OutletService;
 import com.xsis.batch137.service.TransferStockDetailService;
+import com.xsis.batch137.service.TransferStockHistoryService;
 import com.xsis.batch137.service.TransferStockService;
 
 @Controller
@@ -40,6 +42,9 @@ public class TransferStockController {
 	
 	@Autowired
 	TransferStockDetailService transferStockDetailService;
+	
+	@Autowired
+	TransferStockHistoryService transferStockHistoryService;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -97,6 +102,13 @@ public class TransferStockController {
 	public List<TransferStockDetail> searchTransferStockDetailByTransferStockId(@RequestParam(value="search",defaultValue="") Long search){
 		List<TransferStockDetail> transferStockDetails = transferStockDetailService.getTransferStockDetailByTransferStockId(search);
 		return transferStockDetails;
+	}
+	
+	@RequestMapping(value="/search-transfer-stock-history",method=RequestMethod.GET)
+	@ResponseBody
+	public List<TransferStockHistory> searchTransferStockHistoryByTransferStockId(@RequestParam(value="search",defaultValue="") Long search){
+		List<TransferStockHistory> transferStockHistory = transferStockHistoryService.getTransferStockHistoryByTransferStockId(search);
+		return transferStockHistory;
 	}
 	
 	@RequestMapping(value="/search-item-inventory",method=RequestMethod.GET)
