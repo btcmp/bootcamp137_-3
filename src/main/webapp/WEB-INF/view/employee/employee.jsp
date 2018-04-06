@@ -153,7 +153,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal">Save</button>
 				</div>
 			</div>
 
@@ -203,6 +203,7 @@
         		$('#in-password').prop('required', false);
         		userValid = 1;
         		pValid = 1;
+        		oValid = 1;
 	        }
 	    });
 	    $('#cek-akun').change();
@@ -216,6 +217,7 @@
 			pValid = 0;
 			fValid = 0;
 			lValid = 0;
+			oValid = 1;
 	    });
 	    
 	    $('#data-emp').on('click', '.nonaktifkan', function(){
@@ -258,6 +260,7 @@
 					pValid = 1;
 					fValid = 1;
 					lValid = 1;
+					oValid = 1;
 					$('#in-id').val(data.id);
 					$('#in-firstname').val(data.firstName);
 					$('#in-lastname').val(data.lastName);
@@ -307,7 +310,7 @@
 			});
 			
 			var usr;
-			
+			var outcb = $('input[name="in-outlet"]:checked').length;
 			if ($('#cek-akun').is(":checked"))
 			{
 				var akun = 1;
@@ -320,9 +323,15 @@
 						"id" : $('#pilih-role').val()
 					}
 				}
+				if(outcb > 0){
+					oValid = 1;
+				}else{
+					oValid = 0;
+				}
 			}else{
 				userValid = 1;
 				pValid = 1;
+				oValid = 1;
 			};
 			
 			var employee = {
@@ -344,7 +353,8 @@
 			console.log(fValid);
 			console.log(lValid);
 			console.log(pValid);
-			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1){
+			console.log(oValid);
+			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1){
 				$.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath}/master/employee/save',
@@ -405,9 +415,10 @@
 		var pValid = 0;
 		var fValid = 0;
 		var lValid = 0;
+		var oValid = 1;
 		
 		// cek username
-		$('#in-username').on('keyup',function(){
+		$('#in-username').on('input',function(){
 			var username = $('#in-username').val();
 			$.ajax({
 				type : 'get',
@@ -430,7 +441,7 @@
 			});
 		});
 		
-		$('#in-email').on('keyup',function(){
+		$('#in-email').on('input',function(){
 			var email = $('#in-email').val();
 			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var valid =  regex.test(email);
@@ -462,7 +473,7 @@
 			});
 		});
 		
-		$('#in-firstname').on('keyup', function(){
+		$('#in-firstname').on('input', function(){
 			if($(this).val().length > 0){
 				$('#div-firstname').removeClass('has-error').addClass('has-success');
 				$('#lbl-firstname').html('<i class="fa fa-check"></i> Ok');
@@ -476,7 +487,7 @@
 			}
 		});
 		
-		$('#in-lastname').on('keyup', function(){
+		$('#in-lastname').on('input', function(){
 			if($(this).val().length > 0){
 				$('#div-lastname').removeClass('has-error').addClass('has-success');
 				$('#lbl-lastname').html('<i class="fa fa-check"></i> Ok');
@@ -490,7 +501,7 @@
 			}
 		});
 		
-		$('#in-password').on('keyup', function(){
+		$('#in-password').on('input', function(){
 			if($(this).val().length > 6){
 				$('#div-password').removeClass('has-error').addClass('has-success');
 				$('#lbl-password').html('<i class="fa fa-check"></i> Ok');

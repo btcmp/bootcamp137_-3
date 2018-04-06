@@ -66,7 +66,7 @@ public class PurchaseOrderService {
 		// TODO Auto-generated method stub
 		PurchaseOrder po = poDao.getOne(idPo);
 		PurchaseOrderDetail pod = podDao.getOne(idPod);
-		return iDao.searchItemInventoryByItemVariantAndOutlet(pod.getVariant(), po.getOutlet());
+		return iDao.getQtyByItemVariantAndOutlet(pod.getVariant(), po.getOutlet());
 	}
 
 	public void update(PurchaseOrder po) {

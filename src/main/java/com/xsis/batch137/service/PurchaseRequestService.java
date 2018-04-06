@@ -294,7 +294,7 @@ public class PurchaseRequestService {
 	public List<Object> getInventoryByVariantDanOutlet(long idPrd, long idPr){
 		PurchaseRequest pr = prDao.getOne(idPr);
 		PurchaseRequestDetail prd = prdDao.getOne(idPrd);
-		return iDao.searchItemInventoryByItemVariantAndOutlet(prd.getVariant(), pr.getOutlet());
+		return iDao.getQtyByItemVariantAndOutlet(prd.getVariant(), pr.getOutlet());
 	}
 	
 	public List<PurchaseRequest> getPRByStatus(String status){
