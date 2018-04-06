@@ -65,11 +65,37 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 	
 	public void updateInventory(ItemVariant iv, TransferStock ts, TransferStockDetail tsd) {
 		Session session=sessionFactory.getCurrentSession(); 
+		List<ItemInventory> itemInventories = session.createCriteria(ItemInventory.class).list();
+		int aa = 0;
+		for(ItemInventory ivz : itemInventories) {
+			
+			if(ivz.getItemVariant() == iv && ivz.getOutlet() == ts.getToOutlet()) {
+				aa = 1;
+			}
+		}
 		
 		String hql="update ItemInventory set transferStockQty=transferStockQty + :tsQty, endingQty=endingQty - :eQty where itemVariant=:iv and outlet = :fromOutlet";
 		session.createQuery(hql).setParameter("tsQty",tsd.getTransferQty()).setParameter("eQty", tsd.getTransferQty()).setParameter("fromOutlet", ts.getFromOutlet()).setParameter("iv", iv).executeUpdate();
 		
+		if(aa == 1) {
+			String hql2 = "update ItemInventory set endingQty = endingQty + :tsQty2 where itemVariant=:iv2 and outlet = :toOutlet";
+			session.createQuery(hql2).setParameter("tsQty2", tsd.getTransferQty()).setParameter("iv2",iv).setParameter("toOutlet", ts.getToOutlet()).executeUpdate();
+		}
 		
+		else {
+			ItemInventory ivNoData = new ItemInventory();
+			ivNoData.setAlertAtQty(0);
+			ivNoData.setBeginning(tsd.getTransferQty());
+			ivNoData.setEndingQty(tsd.getTransferQty());
+			ivNoData.setItemVariant(iv);
+			ivNoData.setOutlet(ts.getToOutlet());
+			ivNoData.setTransferStockQty(0);
+			session.save(ivNoData);
+			session.flush();
+		}
+		
+		
+				
 	}
 	
 

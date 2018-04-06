@@ -367,9 +367,24 @@
 				}, error : function(){
 					alert('update status failed');
 				}
-			})   
+			});  
 		
 			if(newStatus=="Approved"){
+				
+				$.ajax({
+				url : '${pageContext.request.contextPath }/transaction/transfer-stock/update-inventory-data?search='+transferStockId,
+				type : 'GET',
+				data : JSON.stringify(newStatus),
+				contentType : 'application/json',
+				success : function(){
+					alert('update status successfully');
+				}, error : function(){
+					alert('update status failed');
+				}
+			}); 
+				
+				
+				
 				
 	/* 				 /* $('#data-hidden-inventory > tbody > tr').each(function(index,data){
 						var updateTrstock = {
