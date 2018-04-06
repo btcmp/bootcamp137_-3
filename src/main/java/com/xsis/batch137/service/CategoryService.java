@@ -3,6 +3,8 @@ package com.xsis.batch137.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import com.xsis.batch137.dao.CategoryDao;
 import com.xsis.batch137.dao.ItemDao;
 import com.xsis.batch137.model.Category;
 import com.xsis.batch137.model.Item;
+import com.xsis.batch137.model.User;
 
 @Service
 @Transactional
@@ -22,14 +25,21 @@ public class CategoryService {
 	@Autowired
 	ItemDao itemDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	//
 	public void save(Category category) {
+		User userLogin = (User) httpSession.getAttribute("userLogin");
+		category.setCreatedBy(userLogin);
 		category.setActive(true);
 		category.setCreatedOn(new Date());
 		categoryDao.save(category);
 	}
 	
 	public void update(Category category) {
+		User userLogin = (User) httpSession.getAttribute("userLogin");
+		category.setModifiedBy(userLogin);
 		category.setModifiedOn(new Date());
 		categoryDao.update(category);
 	}
