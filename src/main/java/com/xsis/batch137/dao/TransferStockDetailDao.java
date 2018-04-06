@@ -2,6 +2,9 @@ package com.xsis.batch137.dao;
 //
 import java.util.List;
 
+import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
 //
 public interface TransferStockDetailDao {
@@ -19,6 +22,8 @@ public interface TransferStockDetailDao {
 	public void update(TransferStockDetail transferStockDetail);
 	
 	public void saveAtauUpdate(TransferStockDetail transferStockDetail);
+
+	public void updateInventory(ItemVariant iv, TransferStock ts, TransferStockDetail tsd);
 
 
 }

@@ -46,7 +46,7 @@
 				 					+'<td>'+val.item+'</td>'
 									+ '<td>'+val.inStock+'</td>'
 									+ '<td id="qty-'+val.id+'">'+val.transferQty+'</td>'
-									+ '<td>'+val.idVariant+'</td>'
+									+ '<td style="display : none">'+val.idVariant+'</td>'
 									+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item">X</a> </td>'
 									+ '</tr>');
 							alreadyId.push(val.id);
@@ -141,32 +141,42 @@
 		$('body').on('click', 'a.btn-save-item', function(evt){
 			document.getElementById("btn-save-transfer-item").disabled = false;
 			var id = $(this).attr('id');
+			var transQty=parseInt($('.add-transfer-stock-qty'+id).val());
+			var stock = parseInt($('.in-stock'+id).text());
 			
-			var transQty=$('.add-transfer-stock-qty'+id).val();
+			if(transQty > stock){
+				alert('not enough stock!')
+			}
 			
-			var fullData = {
-					id : id,
-					item : $('.item-name'+id).text(),
-					inStock : $('.in-stock'+id).text(),
-					transferQty : $('.add-transfer-stock-qty'+id).val(),
-					idVariant : $('.item-variant'+id).text()
+			else{
+				
+				var fullData = {
+						id : id,
+						item : $('.item-name'+id).text(),
+						inStock : $('.in-stock'+id).text(),
+						transferQty : $('.add-transfer-stock-qty'+id).val(),
+						idVariant : $('.item-variant'+id).text()
+				}
+				
+			
+				dataFromAddItem.push(fullData);
+				
+				//console.log (dataFromAddItem);
+				//console.log(id);
+				evt.preventDefault();
+				/* $('#td-qty-'+id).html(transQty); */
+				saved.push(id);
+				savedQty.push(transQty);
+				//supaya gak bsa d edit lg
+	 			//console.log(saved)
+				//console.log(savedQty) 
+				$('#qty-'+id).html(transQty);
+				$(this).hide();
+				$('.add-transfer-saved'+id).show();
+				
 			}
 			
 		
-			dataFromAddItem.push(fullData);
-			
-			//console.log (dataFromAddItem);
-			//console.log(id);
-			evt.preventDefault();
-			/* $('#td-qty-'+id).html(transQty); */
-			saved.push(id);
-			savedQty.push(transQty);
-			//supaya gak bsa d edit lg
- 			//console.log(saved)
-			//console.log(savedQty) 
-			$('#qty-'+id).html(transQty);
-			$(this).hide();
-			$('.add-transfer-saved'+id).show();
 
 		});
 		
@@ -201,8 +211,8 @@
 						if(saved.indexOf(val.id.toString())==-1){
 							$('#isi-popup-transfer-stock').append('<tr><td class="item-name'+val.id+'">'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 									+ '<td class="in-stock'+val.id+'">'+val.endingQty+'</td>'
-									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" /></td>'
-									+ '<td class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
+									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" min="1" max="'+val.endingQty+'"/></td>'
+									+ '<td style="display : none" class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
 									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'">SAVED</a> </td>'
 									+ '</tr>');
 							$('.add-transfer-saved'+val.id).hide();
@@ -213,7 +223,7 @@
 							$('#isi-popup-transfer-stock').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 									+ '<td>'+val.endingQty+'</td>'
 									+ '<td id="qty-'+val.id+'">'+savedQty[x]+'</td>'
-									+ '<td class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
+									+ '<td style="display : none" class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
 									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item">SAVE</a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'">SAVED</a> </td>'
 									+ '</tr>');
 							$('.save-item'+val.id).hide();
@@ -278,19 +288,19 @@
 					 			});
 					
 					
-
+ 
 					$.ajax({
 						url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-transfer-stock-detail?search='+id,
 						type : 'GET',
 						dataType : 'json',
-						success : function(data){
+						success : function(data){ 
 					 		$('#modal-view-transfer-stock-detail').modal();
 					 		$.each(data, function(key, val) {
 					 		$('#isi-transfer-stock-detail').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 						 			+ '<td>'+val.inStock+'</td>'
 									+ '<td>'+val.transferQty+'</td>'
-									+ '<td>'+val.itemVariant.id+'</td>'
-									+'<td>'+$('#hidden-outlet-id').val()+'</td>'
+									+ '<td style="display : none">'+val.itemVariant.id+'</td>'
+									+'<td style="display : none">'+$('#hidden-outlet-id').val()+'</td>'
 									+ '</tr>');
 					 		});
 					 		
@@ -299,7 +309,8 @@
 					 			var idx = {
 					 					id : $(data).find('td').eq(3).text(),
 					 					trStock : $(data).find('td').eq(2).text()
-					 			}
+					 			};
+					 			
 					 			idz.push(idx)
 					 		});
 					 		
@@ -360,47 +371,44 @@
 		
 			if(newStatus=="Approved"){
 				
-				 $('#data-hidden-inventory > tbody > tr').each(function(index,data){
-					var updateTrstock = {
-						id: $(data).find('td').eq(0).text(),
-						transferStockQty : $(data).find('td').eq(1).text(),
-						 outlet : {
-							 id : $('#hidden-outlet-id').val() //transferTo
-						}
-					}
-				console.log(updateTrstock)
-				
-				var outId = parseInt($(data).find('td').eq(2).text());
-				var fromId = parseInt($('#hidden-from-outlet-id').val());
-				
-				console.log(outId);
-				console.log ('z');		
-				console.log(fromId);
-				
-				if(outId == fromId){
-					 	$.ajax({
-							url : '${pageContext.request.contextPath}/item/update-inventory',
-							type : 'PUT',
-							data : JSON.stringify(updateTrstock),
-							contentType : 'application/json',
-							success : function(){
-								alert('update to inventory');
-							}, error : function(){
-								alert('update inventory failed');
+	/* 				 /* $('#data-hidden-inventory > tbody > tr').each(function(index,data){
+						var updateTrstock = {
+							id: $(data).find('td').eq(0).text(),
+							transferStockQty : $(data).find('td').eq(1).text(),
+							 outlet : {
+								 id : $('#hidden-outlet-id').val() //transferTo
 							}
-						
-						}) 
-					}
+						}
+					console.log(updateTrstock)
+					
+					var outId = parseInt($(data).find('td').eq(2).text());
+					var fromId = parseInt($('#hidden-from-outlet-id').val());
+					
+					console.log(outId);
+					console.log ('z');		
+					console.log(fromId);
+					
+					if(outId == fromId){
+						 	$.ajax({
+								url : '${pageContext.request.contextPath}/item/update-inventory',
+								type : 'PUT',
+								data : JSON.stringify(updateTrstock),
+								contentType : 'application/json',
+								success : function(){
+									alert('update to inventory');
+								}, error : function(){
+									alert('update inventory failed');
+								}
+							
+							}) 
+						}
+					
+					 }); //data-hidden.each
+					  */
 				
-				 }); //data-hidden.each
 				 
-				
-				 
-			}
+			} 
 		
-		 
-		 
-			
 		} else if (newStatus=="Print") {
 			//window.locationd='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
 		}	
@@ -434,8 +442,15 @@
 				<select id="search-outlet-to">
 				<option value="kosong">Search Outlet</option>
 					<c:forEach var="out" items="${outlets}">
-						<option value="${out.id}">${out.name}</option>
-					</c:forEach>
+							<c:set var = "outId" scope = "session" value = "${outletLogin.id}"/>
+						
+							<c:choose>
+    		  				<c:when test = "${out.id != outId}">
+       			  				<option value="${out.id}">${out.name}</option>
+     		 				</c:when>
+     		 				</c:choose>
+						
+						</c:forEach>
 				<option value="all">All Outlet</option>	
 				</select>
 			</div>

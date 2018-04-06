@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,14 +37,16 @@ public class Item {
 	@Size(max=255)
 	private String name;
 	
-	@Column(name="created_by")
-	private Long createdBy;
+	@JoinColumn(name="created_by")
+	@ManyToOne
+	private User createdBy;
 	
 	@Column(name="created_on")
 	private Date createdOn;
 	
-	@Column(name="modified_by")
-	private Long modifiedBy;
+	@JoinColumn(name="x_by")
+	@ManyToOne
+	private User modifiedBy;
 	
 	@Column(name="modified_on")
 	private Date modifiedOn;
@@ -58,6 +61,24 @@ public class Item {
 	//relation to itemvariant	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<ItemVariant> itemVariants;
+
+	
+	
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 
 	public Long getId() {
 		return id;
@@ -75,13 +96,7 @@ public class Item {
 		this.name = name;
 	}
 
-	public Long getCreatedBy() {
-		return createdBy;
-	}
 
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
 
 	public Date getCreatedOn() {
 		return createdOn;
@@ -91,13 +106,7 @@ public class Item {
 		this.createdOn = createdOn;
 	}
 
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
 
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
 
 	public Date getModifiedOn() {
 		return modifiedOn;

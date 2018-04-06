@@ -1,6 +1,9 @@
 package com.xsis.batch137.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,13 +48,19 @@ public class ItemController {
 	@Autowired
 	OutletService outletService;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	@RequestMapping
 	public String index(Model model) {
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		long outId = outlet.getId();
 		List<Item> items=itemService.selectAll();
-		List<ItemInventory> itemInventories=itemInventoryService.selectAll();
+		List<ItemInventory> itemInventories=itemInventoryService.getItemInventoryByOutletLogin(outId);
 		List<ItemVariant> itemVariants=itemVariantService.selectAll();
 		List<Category> categories=categoryService.selectAll();
 		List<Outlet> outlets=outletService.selectAll();		
+		model.addAttribute("outlet",outlet);
 		model.addAttribute("outlets", outlets);
 		model.addAttribute("items", items);
 		model.addAttribute("categories", categories);
@@ -116,7 +125,18 @@ public class ItemController {
 	@ResponseBody
 	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
 		List<ItemInventory > itemInventories = itemInventoryService.searchItemInventoryByItemName(search);
-		return itemInventories;
+		List<ItemInventory> invent = new ArrayList<>();
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		long outId = outlet.getId();
+		if(itemInventories != null) {
+			for (ItemInventory ivt : itemInventories) {
+				if(ivt.getOutlet().getId() == outId) {
+					invent.add(ivt);
+				}
+			}
+		}
+		
+		return invent;
 	}
 	
 /*==================================CRUD FOR ITEMVARIANT============================*/

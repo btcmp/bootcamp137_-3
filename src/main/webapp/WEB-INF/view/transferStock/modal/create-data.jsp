@@ -12,25 +12,24 @@
 				<form class="form-all">
 						        			
 					<div class="form-group">
-						<p>CREATE NEW TRANSFER STOCK FORM</p> 
+						<table>
+							<tr><td>Create New Transfer Stock From : ${outletLogin.name}<td></tr>
+						</table>
+						<input style="display:none" id="add-transfer-from" value="${outletLogin.id}"/>
 					</div>
 					
-					
-						<div class="form-group">
-						<label for="input-region">From</label> <select
-							class=form-control id="add-transfer-from">
-							<c:forEach var="out" items="${outlets}">
-								<option value="${out.id}">${out.name}</option>
-							</c:forEach>
-						</select>
-					</div>
-					
-
 					<div class="form-group">
 						<label for="input-region">To</label> <select
 							class=form-control id="add-transfer-to">
 							<c:forEach var="out" items="${outlets}">
-								<option value="${out.id}">${out.name}</option>
+							<c:set var = "outId" scope = "session" value = "${outletLogin.id}"/>
+							
+							<c:choose>
+    		  				<c:when test = "${out.id != outId}">
+       			  				<option value="${out.id}">${out.name}</option>
+     		 				</c:when>
+     		 				</c:choose>
+						
 							</c:forEach>
 						</select>
 					</div>
@@ -50,7 +49,7 @@
 								<th>Item</th>
 								<th>In Stock</th>
 								<th>Trans. Qty</th>
-								<th>ID VARIANT</th>
+								<th style="display : none">ID VARIANT</th>
 								<th>#</th>
 							</tr>
 						</thead>

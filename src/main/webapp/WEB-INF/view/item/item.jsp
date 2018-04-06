@@ -313,7 +313,7 @@ $(document).ready(function(){
 						 itemVar.push(itemVariant)
 					}); 
 				    
-				    console.log(itemVar)
+				    //console.log(itemVar)
 				    
 				    var item = {
 				    	id : $('#edit-item-input-id').val(),
@@ -325,7 +325,7 @@ $(document).ready(function(){
 				    	itemVariants : itemVar
 				    }
 				
-			    
+			    	console.log(item)
 				    if(item.name!==""){
 				    	//console.log(item.name)
 				    	 $.ajax({
@@ -466,13 +466,13 @@ $(document).ready(function(){
 	
 	function clearFormAddItem() {
 		$('#add-item-name').val('');
-		$('#add-category').val('');
+		//$('#add-category').val('');
 		$('#isi-popup-itm').empty();
 	}
 	
 	function clearFormEditItem() {
 		$('#edititem-item-name').val('');
-		$('#edititem-category').val('');
+		//$('#edititem-category').val('');
 		$('#isi-popup-edit').empty();
 	}
 	
@@ -506,15 +506,6 @@ $(document).ready(function(){
 		});
 	});  
 	
-	//data berdasarkan login
- 	  $('#outlet-login').change(function(evt){
-		  var keyword = $(this).val();
-		  if (keyword !== "kosong"){
-				window.location = "${pageContext.request.contextPath}/item/search-inventory?search="+keyword;
-		  }
-	  });
-	
-
 });
 </script>
 
@@ -525,24 +516,9 @@ $(document).ready(function(){
 	<div class="container">
 	<div>
 		<div style="float: left; margin-right: 600px;">
-		<Label> Outlet Berdasarkan Login untuk create Data</Label>
-				<select id="add-outlet">
-					<c:forEach var="out" items="${outlets}">
-						<option value="${out.id}">${out.name}</option>
-					</c:forEach>
-				</select>
-			</div>
-			
-		<div style="float: left; margin-right: 600px;">
-		<Label> Outlet Search Data By Login</Label>
-				<select id="outlet-login">
-					<option value=kosong></option>
-					<c:forEach var="out" items="${outlets}">
-						<option value="${out.id}">${out.name}</option>
-					</c:forEach>
-				</select>
-			</div>
-			
+				<p> Outlet Login : ${outletLogin.name} </p>
+				<input style="display:none" id="add-outlet" value="${outletLogin.id}"/>
+		</div>
 			
 		<div style="float:left;margin-right:600px;">
 			<span><input type="text" id="search-box" placeholder="Search"/></span>

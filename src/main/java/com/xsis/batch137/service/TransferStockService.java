@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xsis.batch137.dao.TransferStockDao;
 import com.xsis.batch137.dao.TransferStockDetailDao;
 import com.xsis.batch137.dao.TransferStockHistoryDao;
+import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
 import com.xsis.batch137.model.TransferStockHistory;
@@ -70,6 +71,10 @@ public class TransferStockService {
 	public List<TransferStock> getTransferStockByOutletId(Long search) {
 		// TODO Auto-generated method stub
 		return transferStockDao.getTransferStockByOutletId(search);
+	}
+	public List<TransferStock> getTransferStockByOutletIdLogin(long outletId) {
+		// TODO Auto-generated method stub
+		return transferStockDao.getTransferStockByOutletIdLogin(outletId);
 	}
 	
 	

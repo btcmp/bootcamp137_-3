@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
 //
 @Repository
@@ -59,5 +62,15 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 		
 		return transferStockDetails;
 	}
+	
+	public void updateInventory(ItemVariant iv, TransferStock ts, TransferStockDetail tsd) {
+		Session session=sessionFactory.getCurrentSession(); 
+		
+		String hql="update ItemInventory set transferStockQty=transferStockQty + :tsQty, endingQty=endingQty - :eQty where itemVariant=:iv and outlet = :fromOutlet";
+		session.createQuery(hql).setParameter("tsQty",tsd.getTransferQty()).setParameter("eQty", tsd.getTransferQty()).setParameter("fromOutlet", ts.getFromOutlet()).setParameter("iv", iv).executeUpdate();
+		
+		
+	}
+	
 
 }

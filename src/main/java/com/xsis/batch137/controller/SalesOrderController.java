@@ -1,6 +1,9 @@
 package com.xsis.batch137.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.xsis.batch137.model.Customer;
 import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.Province;
 import com.xsis.batch137.model.SalesOrder;
 import com.xsis.batch137.service.CustomerService;
@@ -37,6 +41,9 @@ public class SalesOrderController {
 	
 	@Autowired
 	CustomerService customerService;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -90,8 +97,20 @@ public class SalesOrderController {
 	@RequestMapping(value = "/search-item", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search) {
-		List<ItemInventory> itemsInventory = itemInventoryService.searchItemInventoryByItemName(search);
-		return itemsInventory;
+		List<ItemInventory> itemInventory = itemInventoryService.searchItemInventoryByItemName(search);
+		List<ItemInventory> invent = new ArrayList<>();
+		
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		long outId = outlet.getId();
+		if(itemInventory != null) {
+			for (ItemInventory ivt : itemInventory) {
+				if(ivt.getOutlet().getId() == outId) {
+					invent.add(ivt);
+				}
+			}
+		}
+		
+		return invent;
 	}
 	
 	@RequestMapping(value = "/search-customer", method = RequestMethod.GET)

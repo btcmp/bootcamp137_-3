@@ -69,4 +69,8 @@ public class ItemInventoryService {
 		// TODO Auto-generated method stub
 		itemInventoryDao.updateSalesOrder(itemInventory);
 	}
+	public List<ItemInventory> getItemInventoryByOutletLogin(long outId) {
+		// TODO Auto-generated method stub
+		return itemInventoryDao.getItemInventoryByOutletLogin(outId);
+	}
 }

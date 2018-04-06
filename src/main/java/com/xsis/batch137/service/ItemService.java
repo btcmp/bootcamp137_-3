@@ -2,6 +2,8 @@ package com.xsis.batch137.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import com.xsis.batch137.dao.ItemVariantDao;
 import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.User;
 
 
 @Service
@@ -25,10 +28,15 @@ public class ItemService {
 	@Autowired
 	ItemInventoryDao itemInventoryDao;
 	
+	@Autowired
+	HttpSession httpSession;
 
 	public void save(Item item) {
 		List<ItemVariant> itemVariants = item.getItemVariants();
 		item.setItemVariants(null);
+		User usr = (User) httpSession.getAttribute("userLogin");
+		//System.out.println(usr.getId());
+		item.setCreatedBy(usr);
 		itemDao.save(item);
 		ItemInventory inventory;
 		
@@ -91,6 +99,9 @@ public class ItemService {
 	public void update(Item item) {
 	List<ItemVariant> itemVariants = item.getItemVariants();
 		item.setItemVariants(null);
+		User usr = (User) httpSession.getAttribute("userLogin");
+		item.setModifiedBy(usr);
+		//item.getCreatedBy();
 		itemDao.update(item);
 		ItemInventory inventory;
 		for(ItemVariant ivar : itemVariants) {

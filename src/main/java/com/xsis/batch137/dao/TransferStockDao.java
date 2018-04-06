@@ -22,5 +22,9 @@ public interface TransferStockDao {
 	public void saveAtauUpdate(TransferStock transferStock);
 
 	public List<TransferStock> getTransferStockByOutletId(Long search);
+
+	public List<TransferStock> getTransferStockByOutletIdLogin(long outletId);
+
+	public TransferStock getTransferStockById(Long search);
 	
 }

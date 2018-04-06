@@ -21,7 +21,7 @@
 								<th>Item</th>
 								<th>In Stock</th>
 								<th>Trans. Qty</th>
-								<th>ID VARIANT</th>
+								<th style="display : none">ID VARIANT</th>
 								<th>#</th>
 							</tr>
 						</thead>
