@@ -2,6 +2,8 @@ package com.xsis.batch137.dao;
 
 import java.util.List;
 
+import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.SalesOrderDetail;
 
 public interface SalesOrderDetailDao {
@@ -15,4 +17,7 @@ public interface SalesOrderDetailDao {
 	public SalesOrderDetail getOne(String id);
 	
 	public List<SalesOrderDetail> selectAll();
+	
+	public void updateSalesOrder(SalesOrderDetail sd, Outlet ot);
+
 }

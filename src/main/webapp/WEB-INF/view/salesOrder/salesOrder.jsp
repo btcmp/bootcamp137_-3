@@ -151,7 +151,7 @@ $(document).ready(function() {
 				}, 
 				error : function(){
 					$('#search-customer-tbl').empty();
-					alert('show selected transferStock data in modal failed');
+					//alert('show selected transferStock data in modal failed');
 				}
 			})
 		}
@@ -410,7 +410,7 @@ $(document).ready(function() {
 		}) 
 		
 		
-		$('#inventory-tbl-body > tr').each(function(index, data){
+/* 		$('#inventory-tbl-body > tr').each(function(index, data){
 			var updateDataInventory = {
 				id : $(data).find('td').eq(0).text(),
 				salesOrderQty :  $(data).find('td').eq(1).text(),
@@ -432,7 +432,7 @@ $(document).ready(function() {
 			
 			}) 
 			
-		});
+		}); */
 		
 		
 		

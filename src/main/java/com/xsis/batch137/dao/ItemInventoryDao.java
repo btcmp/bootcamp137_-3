@@ -23,5 +23,4 @@
 		public List<ItemInventory> listInventoryByOutlet(Long search);
 		public void updateSalesOrder(ItemInventory itemInventory);
 		public List<ItemInventory> getItemInventoryByOutletLogin(long outId);
-	//a
 	}

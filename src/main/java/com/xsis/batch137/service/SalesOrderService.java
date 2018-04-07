@@ -2,12 +2,15 @@ package com.xsis.batch137.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.SalesOrderDao;
 import com.xsis.batch137.dao.SalesOrderDetailDao;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.SalesOrder;
 import com.xsis.batch137.model.SalesOrderDetail;
 
@@ -23,14 +26,20 @@ public class SalesOrderService {
 	@Autowired
 	SalesOrderDetailDao salesOrderDetailDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	public void save(SalesOrder salesOrder) {
 		List<SalesOrderDetail> salesOrderDetails=salesOrder.getSalesOrderDetail();
 		salesOrder.setSalesOrderDetail(null);
 		salesOrderDao.save(salesOrder);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+
 		
 		for(SalesOrderDetail sod : salesOrderDetails) {
 			sod.setSalesOrder(salesOrder);
 			salesOrderDetailDao.save(sod);
+			salesOrderDetailDao.updateSalesOrder(sod, outlet);
 		}
 		
 	}

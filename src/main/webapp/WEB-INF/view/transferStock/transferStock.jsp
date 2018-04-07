@@ -359,7 +359,7 @@
 			console.log(transferStockId); */
 		 	 $.ajax({
 				url : '${pageContext.request.contextPath }/transaction/transfer-stock/update-status/'+transferStockId,
-				type : 'PUT',
+				type : 'PUT',	
 				data : JSON.stringify(newStatus),
 				contentType : 'application/json',
 				success : function(){

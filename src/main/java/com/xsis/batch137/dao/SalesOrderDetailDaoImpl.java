@@ -7,6 +7,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.ItemVariant;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.SalesOrderDetail;
 
 
@@ -48,5 +51,12 @@ public class SalesOrderDetailDaoImpl implements SalesOrderDetailDao{
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(SalesOrderDetail.class).list();
 	}
+	
+	public void updateSalesOrder(SalesOrderDetail sd, Outlet ot) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update ItemInventory set endingQty = endingQty - :qty where itemVariant = :iVar and outlet = :outlet";
+		session.createQuery(hql).setParameter("qty", sd.getQty()).setParameter("iVar", sd.getItemVariant()).setParameter("outlet", ot).executeUpdate();
+		}
+	
 
 }
