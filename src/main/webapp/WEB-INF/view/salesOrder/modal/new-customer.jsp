@@ -62,8 +62,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button style="float: left;" type="button" id="btn-cancel-save" class="btn btn-primary">CANCEL</button>
-				<button style="float: right;" type="button" id="btn-simpan" class="btn btn-primary">SAVE</button>
+				<button style="float: left;" type="button" id="btn-cancel-save" class="btn btn-primary" data-dismiss="modal">Back</button>
+				<button style="float: right;" type="button" id="btn-simpan" class="btn btn-primary">Save</button>
 			</div>
 		</div>
 	</div>

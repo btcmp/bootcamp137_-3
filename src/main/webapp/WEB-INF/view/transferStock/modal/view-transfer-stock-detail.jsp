@@ -1,6 +1,5 @@
 <!-- Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <div class="modal fade" id="modal-view-transfer-stock-detail" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -78,13 +77,18 @@
 									<td>${tsdetail.inStock}</td>
 									<td>${tsdetail.transferQty}</td>
 								</tr>
-							</c:forEach>   --%>
+							</c:forEach>z   --%>
 						</tbody>
 					</table>
-					</div>
 					
-			
+					
+					</div>
 			</div>
+			
+			<div class="modal-footer">
+						<button type="button" id="back-view-transfer-stock" class="btn btn-primary" data-dismiss="modal">Back</button>
+					</div>	
+			
 		</div>
 	</div>
 </div>

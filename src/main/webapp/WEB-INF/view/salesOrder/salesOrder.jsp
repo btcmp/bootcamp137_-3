@@ -138,7 +138,7 @@ $(document).ready(function() {
 	//search customer
 	$('#name-cust').on('input',function(e){
 		var word = $(this).val();
-		console.log(word)
+		
 		if (word=="") {
 			$('#table-cust').empty();
 		} else {
@@ -200,7 +200,7 @@ $(document).ready(function() {
 					$.each(data, function(key, val) {
 						if(added.indexOf(val.id.toString()) == -1) {
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button 	type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
@@ -229,42 +229,48 @@ $(document).ready(function() {
 	$('body').on('click', 'button.btn-add-item', function(){
 		var id = $(this).attr('id');
 		var transQty = $('.add-item-qty'+id).val();
-		if (transQty<1) {
-			alert("at least 1");
-		} else {
-			added.push(id);
-			addedQty.push(transQty);
-			$('#td-qty'+id).html(transQty);
-			$(this).hide();
-			$('.btn-added-item'+id).show();
-			$.ajax({
-				type : 'GET',
-				url : '${pageContext.request.contextPath}/transaction/sales-order/get-one-item/'+id,
-				dataType: 'json',
-				success : function(data){
-					document.getElementById("charge").disabled = false;
-					if (added.length=="1") {
-						$('#salesOrder-tbl-body').empty();
+		
+		validate=$('#form-sales-order').parsley();
+		validate.validate();
+		
+		if(validate.isValid()){
+			if (transQty<1) {
+				alert("at least 1");
+			} else {
+				added.push(id);
+				addedQty.push(transQty);
+				$('#td-qty'+id).html(transQty);
+				$(this).hide();
+				$('.btn-added-item'+id).show();
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/transaction/sales-order/get-one-item/'+id,
+					dataType: 'json',
+					success : function(data){
+						document.getElementById("charge").disabled = false;
+						if (added.length=="1") {
+							$('#salesOrder-tbl-body').empty();
+						}
+						
+						$('#salesOrder-tbl-body').append('<tr id="tr-salesOrder'+ data.id +'"><td id="'+ data.itemVariant.id +'">'+ data.itemVariant.item.name +'-'+ data.itemVariant.name +'</td><td>Rp.'
+								+ data.itemVariant.price +'</td><td>'+ transQty +'</td><td>Rp.'+ data.itemVariant.price*transQty +'</td><td><button type="button" id="'+ data.id +'" class="btn-cancel-item'
+								+ data.id +' btn-cancel-item btn btn-danger"> &#10006;</button></td></tr>');
+						$('#salesOrder-tbl-foot').empty();
+						var total = 0;
+						
+						$('#salesOrder-tbl-body > tr').each(function(index, data){
+							var price = $(data).find('td').eq(3).text().split("Rp.")[1];
+							total = total + parseInt(price);
+						})
+						
+						$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
+						$('#charge').text("Charge Rp."+total)
+					},
+					error : function(){
+						alert('get one item inventory failed');
 					}
-					
-					$('#salesOrder-tbl-body').append('<tr id="tr-salesOrder'+ data.id +'"><td id="'+ data.itemVariant.id +'">'+ data.itemVariant.item.name +'-'+ data.itemVariant.name +'</td><td>Rp.'
-							+ data.itemVariant.price +'</td><td>'+ transQty +'</td><td>Rp.'+ data.itemVariant.price*transQty +'</td><td><button type="button" id="'+ data.id +'" class="btn-cancel-item'
-							+ data.id +' btn-cancel-item btn btn-primary">Cancel</button></td></tr>');
-					$('#salesOrder-tbl-foot').empty();
-					var total = 0;
-					
-					$('#salesOrder-tbl-body > tr').each(function(index, data){
-						var price = $(data).find('td').eq(3).text().split("Rp.")[1];
-						total = total + parseInt(price);
-					})
-					
-					$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
-					$('#charge').text("Charge Rp."+total)
-				},
-				error : function(){
-					alert('get one item inventory failed');
-				}
-			})
+				})
+			}
 		}
 	})
 	
@@ -475,7 +481,7 @@ $(document).ready(function() {
 				<div class="box-body">
 				<div class="col-lg-6">
 					<input type="text" id="search-item" class="form-control" placeholder="Search">
-					
+				<form id="form-sales-order" style="border:none">
 					<table id="table-item" class="table table-stripped table-bordered table-hover">
 						<thead>
 							<th>Item</th>
@@ -486,6 +492,7 @@ $(document).ready(function() {
 						<tbody id="item-tbl">
 						</tbody>
 					</table>
+				</form>
 				</div>
 				<div class="col-lg-6">
 					<a href="#" class="customer form-control btn btn-primary">Choose Customer</a>
@@ -507,7 +514,9 @@ $(document).ready(function() {
 							</tr>
 						</tfoot>
 					</table>
+					<div>
 					
+					</div>
 						<a href="#" id="clear-sale" class="clear-sod btn btn-primary">Clear Sale</a>
 						<a href="#" id="charge" class="bayar-sod btn btn-primary">Charge Rp</a>
 					</div>

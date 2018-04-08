@@ -6,14 +6,11 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Variant</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+				<h5 align="center" class="modal-title" id="exampleModalLabel">Edit Variant</h5>
+				
 			</div>
 			<div class="modal-body">
-				<form class="form-all" id="form-variant-edit-data">				
+				<form class="form-all" id="form-variant-edit-data" style="border:none">				
 					<!-- aaadddddddddddddddddddddddddddddddddd -->
 					<div class="form-group" align="left" style="float:left;width:33%">
 					<label>Variant Name</label>
@@ -31,8 +28,7 @@
 					<input type="text" placeholder="SKU"
 							 id="edit-sku" data-parsley-required="true" required>
 					</div>
-
-					<label for="input-variant-name">Set Beginning Stock</label> 					
+				
 					<div class="form-group">
 
 						<div style="float:left;width:33%">
@@ -44,7 +40,10 @@
 						<label>Alert at</label>
 							<input placeholder="Alert At" type="number" id="edit-alert-at" data-parsley-required="true" required>
 						</div>
-					</div> <br/>
+					</div> 
+					
+					<div style="clear: both	"></div>	
+					
 					
 					<div class="checkbox" style="display:none" >
 						<label for="edit-active"><input id="edit-active-variant" type="checkbox"

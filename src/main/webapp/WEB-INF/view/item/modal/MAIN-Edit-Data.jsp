@@ -6,11 +6,11 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Edit Master Item</h5>
+				<h5 align="center" class="modal-title" id="exampleModalLabel">Edit Item Master</h5>
 			</div>
 			<div class="modal-body">
 			<input type="hidden" id="edit-item-input-id" class="form-control">			
-				<form class="form-all" id="form-main-edit-data">
+				<form style="border:none" class="form-all" id="form-main-edit-data">
 					<div class="form-group">
 						<label for="input-item-name">Item Name</label> <input type="text" 
 							class="form-control" id="edititem-item-name" placeholder="enter item name" data-parsley-required="true" required>
@@ -35,6 +35,14 @@
 						</form>
 					</div>
 					
+					<div style="float:left"> 
+						<br/> <label for="input-active">Variant List</label>	
+					 </div>
+					 
+					 <div style="float:right"> 
+					 	<button type="submit" id="edititem-btn-add-variant" class="btn btn-primary">Add Variant</button>
+					 </div>	
+					
 					<table id="dt-popup-edit" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
@@ -46,7 +54,7 @@
 								<th style="display:none">Active</th>
 								<th style="display:none">Variant ID</th>
 								<th style="display:none">Inventory ID</th>
-								<th>#</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody id="isi-popup-edit">
@@ -54,7 +62,6 @@
 						</tbody>
 					</table>
 
-					<button type="submit" id="edititem-btn-add-variant" class="btn btn-primary">Add Variant</button>
 
 					<div class="modal-footer">
 						<button type="button" id=btn-back-edit class="btn btn-primary" data-dismiss="modal">Back</button>

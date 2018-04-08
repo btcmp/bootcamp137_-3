@@ -6,14 +6,14 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Transfer Stock</h5>
+				<h5 align="center" class="modal-title" id="exampleModalLabel">Transfer Stock</h5>
 			</div>
 			<div class="modal-body">
-				<form class="form-all">
+				<form class="form-all" style="border:none">
 						        			
 					<div class="form-group">
 						<table>
-							<tr><td>Create New Transfer Stock From : ${outletLogin.name}<td></tr>
+							<tr><td>Create New Transfer Stock From :</td> <td> <span style="font-weight:bold">&nbsp;${outletLogin.name}</span></td></tr>
 						</table>
 						<input style="display:none" id="add-transfer-from" value="${outletLogin.id}"/>
 					</div>
