@@ -7,11 +7,30 @@
 		<h2>ADJUSTMENT DETAIL</h2>
 	</div>
 	<div class="col-xs-2" style="float:right; margin-right:50px; margin-top:25px">
-		<select class="form-control btn-info" id="status-adjustment">
-			<option disabled selected>MORE</option>
-			<option value="Approved">Approve</option>
-			<option value="Rejected">Reject</option>
-			<option value="Printed">Print</option>
+		<script type="text/javascript">
+			if('${adjustment.status}' == 'Submitted'){
+				document.write('<select class="form-control btn-info" id="status-adjustment">'
+					+ '<option disabled selected>MORE</option>'
+					+ '<option value="Approved">Approve</option>'
+					+ '<option value="Rejected">Reject</option>'
+					+ '<option value="Printed">Print</option>');
+			}
+			else if(('${adjustment.status}' == 'Rejected')  || ('${adjustment.status}' == 'Approved')){
+				document.write('<select class="form-control btn-info" id="status-adjustment">'
+					+ '<option disabled selected>MORE</option>'
+					+ '<option disabled value="Approved">Approve</option>'
+					+ '<option disabled value="Rejected">Reject</option>'
+					+ '<option value="Printed">Print</option>');
+			}
+			/* else if('${adjustment.status}' == 'Approved'){
+				document.write('<select class="form-control btn-info" id="status-adjustment">'
+					+ '<option disabled selected>MORE</option>'
+					+ '<option disabled value="Approved">Approve</option>'
+					+ '<option disabled value="Rejected">Reject</option>'
+					+ '<option value="Printed">Print</option>');
+			} */ 
+		</script>
+		
 		</select>
 	</div>
 </div>
@@ -22,7 +41,7 @@
 	<div class="row">
 		<div class="col-xs-2">Created By</div>
 		<div class="col-xs-1">:</div>
-		<div class="col-xs-3">[User]</div>
+		<div class="col-xs-3">${adjustment.createdBy.username }</div>
 	</div>
 	
 	<div class="row">
@@ -149,6 +168,7 @@
 		$('#done-adjustment').click(function(){
 			window.location = '${pageContext.request.contextPath}/transaksi/adjustment';
 		});
+		
 		
 	});
 </script>
