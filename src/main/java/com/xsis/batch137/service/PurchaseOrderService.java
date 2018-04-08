@@ -14,6 +14,7 @@ import com.xsis.batch137.dao.ItemInventoryDao;
 import com.xsis.batch137.dao.PurchaseOrderDao;
 import com.xsis.batch137.dao.PurchaseOrderDetailDao;
 import com.xsis.batch137.dao.PurchaseOrderHistoryDao;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
@@ -42,6 +43,11 @@ public class PurchaseOrderService {
 	
 	public List<PurchaseOrder> selectAll(){
 		return poDao.selectAll();
+	}
+	
+	public List<PurchaseOrder> getByOutlet(){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return poDao.getPOByOutlet(outlet);
 	}
 
 	public PurchaseOrder getOne(long id) {

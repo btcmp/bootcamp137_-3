@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseRequest;
 
 @Repository
@@ -141,6 +143,18 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseRequest where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("date", date).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
+
+	@Override
+	public List<PurchaseRequest> searchPRByOutlet(Outlet outlet) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<PurchaseRequest> prs = session.createCriteria(PurchaseRequest.class).add(Restrictions.eq("outlet", outlet)).list();
 		if(prs.isEmpty()) {
 			return null;
 		}else {

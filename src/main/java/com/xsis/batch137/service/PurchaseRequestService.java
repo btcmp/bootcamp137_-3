@@ -19,6 +19,7 @@ import com.xsis.batch137.dao.PurchaseRequestDao;
 import com.xsis.batch137.dao.PurchaseRequestDetailDao;
 import com.xsis.batch137.dao.PurchaseRequestHistoryDao;
 import com.xsis.batch137.model.ItemInventory;
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseOrderDetail;
 import com.xsis.batch137.model.PurchaseOrderHistory;
@@ -174,6 +175,24 @@ public class PurchaseRequestService {
 			return prs;
 		}
 		 
+	}
+	
+	public List<PurchaseRequest> selectByOutlet(){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		List<PurchaseRequest> prs = prDao.searchPRByOutlet(outlet);
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			for(PurchaseRequest pr : prs) {
+				List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
+				if(prds == null) {
+					
+				}else {
+					pr.setDetail(prds);
+				}
+			}
+			return prs;
+		}
 	}
 
 	public PurchaseRequest getOne(long id) {

@@ -40,12 +40,10 @@ public class PurchaseRequestController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<PurchaseRequest> prs = prService.selectAll();
-		List<Outlet> outlets = oService.selectActive();
+		List<PurchaseRequest> prs = prService.selectByOutlet();
 		List<ItemInventory> items = iService.selectAll();
 		model.addAttribute("prs", prs);
 		model.addAttribute("items", items);
-		model.addAttribute("outlets", outlets);
 		return "purchaseRequest/purchaseRequest";
 	}
 	

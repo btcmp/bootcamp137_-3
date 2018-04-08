@@ -34,7 +34,7 @@ public class PurchaseOrderController {
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<PurchaseOrder> pos = poService.selectAll();
+		List<PurchaseOrder> pos = poService.getByOutlet();
 		List<Supplier> sups = supService.selectAll();
 		model.addAttribute("pos", pos);
 		model.addAttribute("sups", sups);
