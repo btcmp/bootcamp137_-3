@@ -14,6 +14,7 @@
 		<intercept-url pattern="/master/category/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/master/outlet/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/master/supplier/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/transaksi/adjustment/**" access="hasRole('ROLE_ADMIN')"/>
 		<form-login
 			login-processing-url="/j_spring_security_check"
 			login-page="/login"
