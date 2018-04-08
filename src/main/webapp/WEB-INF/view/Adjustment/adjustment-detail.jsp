@@ -22,13 +22,13 @@
 					+ '<option disabled value="Rejected">Reject</option>'
 					+ '<option value="Printed">Print</option>');
 			}
-			/* else if('${adjustment.status}' == 'Approved'){
+			/* else if('${adjustment.status}' == 'Printed'){
 				document.write('<select class="form-control btn-info" id="status-adjustment">'
 					+ '<option disabled selected>MORE</option>'
 					+ '<option disabled value="Approved">Approve</option>'
 					+ '<option disabled value="Rejected">Reject</option>'
 					+ '<option value="Printed">Print</option>');
-			} */ 
+			} */
 		</script>
 		
 		</select>
@@ -132,10 +132,13 @@
 		$('#status-adjustment').change(function(e){
 			e.preventDefault();
 			var status = $(this).val();
-			if(status !== null){
+			if(status === 'Printed'){
+				window.print();
+			}
+			else{
 				var adjustment = {
 					id : $('#adjustment-id').val(),
-					status : status,
+					status : status
 				}
 				$.ajax({
 					url : '${pageContext.request.contextPath}/transaksi/adjustment/update',
