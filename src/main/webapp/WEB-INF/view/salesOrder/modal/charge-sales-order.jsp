@@ -5,17 +5,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Charge Sales Order</h5>
+				<h5 class="modal-title" id="exampleModalLabel" align="center">Charge Sales Order</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="form-all">
+				<form id="form-charge-so" class="form-all" style="border:none">
 					<div class="form-group">
-						<label for="charge-cash">Cash</label> <input type="number"
-							class="form-control" id="charge-cash" value="0">
+						<label id="charge-cash-label" for="charge-cash">Cash</label> <!-- <input type="number"
+							class="form-control" id="charge-cash" value="0"> -->
 					</div>
 				</form>
 			</div>

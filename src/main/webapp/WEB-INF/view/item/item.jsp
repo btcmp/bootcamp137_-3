@@ -581,7 +581,7 @@ $(document).ready(function(){
 	});  
 	
  	$('#export').click(function(){
-		window.location = '${pageContext.request.contextPath}/generate/ts'; 
+		window.location = '${pageContext.request.contextPath}/generate/item'; 
 	})
 	
 });

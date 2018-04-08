@@ -25,12 +25,12 @@
 					
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="receipt-email">How do you want to receive your receipt?</label>
 						<br/>
 						<input style="width:80%;float:left" type="email"  class="form-control" id="receipt-email" placeholder="customer mail">
 						<button style="width:20%;float:left" type="button" id="receipt-email-btn" class="btn btn-primary" data-dismiss="modal">Send</button>
-					</div>
+					</div> -->
 				</form>
 			</div>
 			
