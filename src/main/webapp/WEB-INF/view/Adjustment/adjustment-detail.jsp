@@ -155,6 +155,12 @@
 						});
 						$('#cetatus').empty();
 						$('#cetatus').append($('#status-adjustment').val());
+						$('#status-adjustment').empty();
+						$('#status-adjustment').append('<option disabled selected>MORE</option>'
+								+ '<option disabled value="Approved">Approve</option>'
+								+ '<option disabled value="Rejected">Reject</option>'
+								+ '<option value="Printed">Print</option>'
+								);
 						alert('Yeesss..');
 					},	
 					error : function(){
