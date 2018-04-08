@@ -64,6 +64,8 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	
+	<input type="hidden" value="${outletLogin.id }" id="outlet" />
 </div>
 <%@ include file="/WEB-INF/view/Adjustment/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/Adjustment/modal/add-item.jsp"%>
@@ -148,17 +150,13 @@
 		$('#tbl-simpan').click(function(){
 			var listAdjDetail = [];
 			
-			var adjHistory = {
-					status : "Submitted"
-				};
-			
 			$('#item-table-table > tbody > tr').each(function(index, data){
 				var adjDetail = {
 					variant : {
 						id : $(data).find('td').eq(3).attr('id')
 					},
 					inStock : $(data).find('td').eq(1).text(),
-					actualStock : $(data).find('td').eq(2).text()
+					actualStock : $(data).find('td').eq(2).val()
 				};
 				listAdjDetail.push(adjDetail);
 			});
@@ -168,7 +166,7 @@
 				notes : $('#adj-notes').val(),
 				status : "Submitted",
 				outlet : {
-					id : $('#outlet-list').val()
+					id : $('#outlet').val()
 				}
 				
 			};

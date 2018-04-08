@@ -13,11 +13,11 @@
 						
 						
 							<div class="form-group">
-								CREATE NEW ADJUSTMENT <a id="tombol-outlet" href="#">Outlet Login</a>
+								CREATE NEW ADJUSTMENT <!-- <a id="tombol-outlet" href="#">Outlet Login</a> -->
 								<hr style="border-color:black; border-top:1px dashed;">
 							</div>
 							
-							<div id="outlet" style="display:none">
+							<%-- <div id="outlet" style="display:none">
 								<div class="form-group">
 									<label for="input-region">Choose Outlet</label>
 									<select class="form-control" id="outlet-list">
@@ -31,7 +31,7 @@
 							
 							<div id="list-outlet">
 								
-							</div>
+							</div> --%>
 							
 							<div class="form-group">
 								<p>Notes</p>
