@@ -345,53 +345,30 @@ $(document).ready(function() {
 	
 	//charge
 		$('#charge').on('click',function(){
+		
+		var total = parseInt($('#charge').text().split("Rp.")[1]);
 		if ($('.customer').attr("id") === undefined) {
 			alert("choose customer first");
 		}else {
+			$('#charge-cash-label').append( "<input type='number' class='form-control' id='charge-cash' value="+total+" min="+total+" data-parsley-required='true' required>");
 			$('#modal-charge-sales-order').modal();
 		}
 	});
 	
 	//done
 		$('#charge-done').click(function(){
-		var cash = parseInt($('#charge-cash').val());
-		var total = parseInt($('#charge').text().split("Rp.")[1]);
-		document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
-		document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
-		/* $('#receipt-cash').val("Out of Rp."+cash);
-		$('#receipt-change').val("Rp."+(cash-total));
-		 */
-		 $('#modal-receipt-sales-order').modal();
 
-	/* 	var dataForUpdate = [];
-		$('#salesOrder-tbl-body > tr').each(function(index, data){
-			//for update inventory in database
-			var updateInventory = {
-					id : $(data).find('td').eq(0).attr('id'), //inventory
-					qtySalesOrder : $(data).find('td').eq(2).text() //untuk ngurangi stock
-			}
-			dataForUpdate.push(updateInventory);
-		}); */
+		validate=$('#form-charge-so').parsley();
+		validate.validate();
 		
-	/* 	 dataForUpdate.forEach(function(element){
-	   		$.ajax({
- 				url : '${pageContext.request.contextPath}/transaction/transfer-stock/search-item-inventory?search='+element.id,
-				type : 'GET',
-				dataType : 'json',
-				success : function(data){
-			 		$.each(data, function(key, val) {
-
-					$('#inventory-tbl-body').append('<tr><td>'+val.id+'</td>'
-				 	 		+ '<td>'+element.qtySalesOrder+'</td>'
-				 	 		+ '<td>'+val.outlet.id+'</td>'
-							+ '</tr>');
-			 		});
-				},
-				error : function(data){
-					alert('failed')
-				}
- 			});   
- 		 }); */	
+		if(validate.isValid()){
+			var cash = parseInt($('#charge-cash').val());
+			var total = parseInt($('#charge').text().split("Rp.")[1]);
+			document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
+			document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
+			$('#modal-receipt-sales-order').modal();
+		}
+		
 	})
 	
 	//send
@@ -431,37 +408,7 @@ $(document).ready(function() {
 				alert('save failed');
 			}
 			
-		}) 
-		
-		
-/* 		$('#inventory-tbl-body > tr').each(function(index, data){
-			var updateDataInventory = {
-				id : $(data).find('td').eq(0).text(),
-				salesOrderQty :  $(data).find('td').eq(1).text(),
-				outlet : {
-					id : $(data).find('td').eq(2).text()
-				}
-			}
-			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/item/update-inventory-so',
-				type : 'PUT',
-				data : JSON.stringify(updateDataInventory),
-				contentType : 'application/json',
-				success : function(){
-					alert('update to inventory');
-				}, error : function(){
-					alert('update inventory failed');
-				}
-			
-			}) 
-			
-		}); */
-		
-		
-		
-	
-		
+		}) 		
 	})
 });
 </script>
