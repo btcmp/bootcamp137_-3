@@ -1,9 +1,10 @@
 package com.xsis.batch137.service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.xsis.batch137.model.AdjustmentDetail;
 import com.xsis.batch137.model.AdjustmentHistory;
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.User;
 
 @Service
 @Transactional
@@ -39,8 +41,15 @@ public class AdjustmentService {
 	@Autowired
 	AdjustmentHistoryDao historyDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	public void save(Adjustment adjustment) {
 		Adjustment adjust = new Adjustment();
+		User userLogin = (User) httpSession.getAttribute("userLogin");
+		//Outlet outletLogin = (Outlet) httpSession.getAttribute("outletLogin");
+		adjust.setCreatedBy(userLogin);
+		//adjust.setOutlet(outletLogin);
 		adjust.setOutlet(adjustment.getOutlet());
 		adjust.setStatus(adjustment.getStatus());
 		adjust.setNotes(adjustment.getNotes());
@@ -67,13 +76,19 @@ public class AdjustmentService {
 		history.setCreatedOn(new Date());
 		history.setStatus(adjust.getStatus());
 		historyDao.save(history);
-			
 	}
 	
 	//Update di sini ketika done di Adjustment Detail
 	public List<AdjustmentHistory> update(Adjustment adjustment) {
-		adjustment.setModifiedOn(new Date());
-		adjustmentDao.update(adjustment);
+		User userLogin = (User) httpSession.getAttribute("userLogin");
+		Outlet outletLogin = (Outlet) httpSession.getAttribute("outletLogin");
+		Adjustment adjust = adjustmentDao.getOne(adjustment.getId());
+		adjust.setModifiedBy(userLogin);
+		adjust.setOutlet(outletLogin);
+		adjust.setModifiedOn(new Date());
+		adjust.setAdjustmentHistories(adjustment.getAdjustmentHistories());
+		adjust.setStatus(adjustment.getStatus());
+		adjustmentDao.update(adjust);
 		AdjustmentHistory history = new AdjustmentHistory();
 		history.setAdjustment(adjustment);
 		history.setCreatedOn(new Date());
@@ -103,6 +118,7 @@ public class AdjustmentService {
 		return adjustment;
 	}
 
+	//Nanti harus getOutletByUser
 	public List<Outlet> getOutletForAdjustment() {
 		// TODO Auto-generated method stub
 		return outletDao.selectActive();
@@ -114,7 +130,8 @@ public class AdjustmentService {
 		return inventoryDao.searchItemInventoryByItemName(search);
 	}
 
-	public List<ItemInventory> getInventory() {
+	//Nanti harus getInventoryByOutlet beneran
+	public List<ItemInventory> getInventoryByOutlet(Outlet outlet) {
 		// TODO Auto-generated method stub
 		return inventoryDao.selectAll();
 	}
@@ -134,5 +151,10 @@ public class AdjustmentService {
 		cal2.add(Calendar.DATE, 1);
 		endDate = cal2.getTime();
 		return adjustmentDao.searchAdjustmentByDate(startDate, endDate);
+	}
+
+	public List<ItemInventory> getInventory() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
