@@ -66,7 +66,7 @@ $(document).ready(function() {
 		//console.log(id);
 		if (id!==""){
 			$.ajax({
-				url : '${pageContext.request.contextPath}/region/get-region?id='+id,
+				url : '${pageContext.request.contextPath}/master/region/get-region?id='+id,
 				type : 'GET',
 				success : function(regionss) {
 					var region = [];
@@ -89,19 +89,19 @@ $(document).ready(function() {
 	$('#prov-id').change(function(){
 		$('#reg-id').empty();
 		$('#dist-id').empty();
-		$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
-		$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+		$('#reg-id').append('<option disabled selected value=\"\">Select A Region</option>');
+		$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
 		var id = $(this).val();
 		$.ajax({
 			
-			url : '${pageContext.request.contextPath}/outlet/get-region/'+id,
+			url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
 			type : 'GET',
 			success : function(regions){
 				console.log(regions);
 				$(regions).each(function(index, data){
 					$('#reg-id').append('<option value=\"'+data.id+'\">'+data.name+'</option>');
 				});
-			},
+			},	
 			error : function(regions){
 				console.log(regions);
 				alert('Cannot take regions..');
@@ -112,10 +112,10 @@ $(document).ready(function() {
 	//Get District By Region
 	$('#reg-id').change(function(){
 		$('#dist-id').empty();
-		$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+		$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
 		var id = $(this).val();
 		$.ajax({
-			url : '${pageContext.request.contextPath}/outlet/get-district/'+id,
+			url : '${pageContext.request.contextPath}/master/outlet/get-district/'+id,
 			type : 'GET',
 			success : function(districts){
 				console.log(districts)
@@ -130,27 +130,46 @@ $(document).ready(function() {
 		});
 	});
 	
+	$('#pilih-tanggal').datepicker({
+   		autoclose: true,
+   		endDate : '-10y'
+ 	});
+	
 	//search customer
 	$('#name-cust').on('input',function(e){
 		var word = $(this).val();
 		console.log(word)
 		if (word=="") {
-			$('#search-customer-tbl').empty();
+			$('#table-cust').empty();
 		} else {
 			$.ajax({
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/transaction/sales-order/search-customer?search='+word,
 				dataType: 'json',
 				success : function(data){
-					$('#search-customer-tbl').empty();
-					$.each(data, function(key, val) {
+					$('#table-cust').empty();
+					
+					$('#table-cust').append('<table  id="table-customer" class="table table-stripped table-bordered table-hover">'
+							+'<thead>'
+							+	'<tr>'
+							+		'<th>Name</th>'
+							+		'<th>Email</th>'
+							+		'<th>phone</th>'
+							+		'<th>#</th>'
+							+	'</tr>'
+						+	'</thead>'
+						+	'<tbody id="search-customer-tbl">'
+						+	'</tbody>'
+					+	'</table>');
+					
+					$.each(data, function(key, val) {	
 						$('#search-customer-tbl').append('<tr><td id="customer-name'+ val.id+'">'+ val.name +'</td><td>'
 								+ val.phone +'</td><td>'+ val.email +'</td><td><button type="button" id="'+ val.id +'" class="btn-choose-customer'
 								+ val.id +' btn-choose-customer btn btn-primary"  data-dismiss="modal">Choose</button></td></tr>');
 					});
 				}, 
 				error : function(){
-					$('#search-customer-tbl').empty();
+					$('##table-cust').empty();
 					//alert('show selected transferStock data in modal failed');
 				}
 			})
@@ -182,15 +201,15 @@ $(document).ready(function() {
 						if(added.indexOf(val.id.toString()) == -1) {
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
 									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
-									+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
-									+ val.id +' btn-added-item btn">Added</button></td></tr>');
+									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button 	type="button" id="'+ val.id +'" class="btn-added-item'
+									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
 						} else {
 							var a = added.indexOf(val.id.toString());
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
 									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
-									+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
-									+ val.id +' btn-added-item btn">Added</button></td></tr>');
+									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button type="button" id="'+ val.id +'" class="btn-added-item'
+									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-add-item'+val.id).hide();
 						}
 					});
@@ -239,7 +258,7 @@ $(document).ready(function() {
 						total = total + parseInt(price);
 					})
 					
-					//$('#total-harga-fix').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
+					$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
 					$('#charge').text("Charge Rp."+total)
 				},
 				error : function(){
@@ -331,11 +350,14 @@ $(document).ready(function() {
 		$('#charge-done').click(function(){
 		var cash = parseInt($('#charge-cash').val());
 		var total = parseInt($('#charge').text().split("Rp.")[1]);
-		$('#receipt-cash').val("Out of Rp."+cash);
+		document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
+		document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
+		/* $('#receipt-cash').val("Out of Rp."+cash);
 		$('#receipt-change').val("Rp."+(cash-total));
-		$('#modal-receipt-sales-order').modal();
-		
-		var dataForUpdate = [];
+		 */
+		 $('#modal-receipt-sales-order').modal();
+
+	/* 	var dataForUpdate = [];
 		$('#salesOrder-tbl-body > tr').each(function(index, data){
 			//for update inventory in database
 			var updateInventory = {
@@ -343,9 +365,9 @@ $(document).ready(function() {
 					qtySalesOrder : $(data).find('td').eq(2).text() //untuk ngurangi stock
 			}
 			dataForUpdate.push(updateInventory);
-		});
+		}); */
 		
-		 dataForUpdate.forEach(function(element){
+	/* 	 dataForUpdate.forEach(function(element){
 	   		$.ajax({
  				url : '${pageContext.request.contextPath}/transaction/transfer-stock/search-item-inventory?search='+element.id,
 				type : 'GET',
@@ -363,11 +385,7 @@ $(document).ready(function() {
 					alert('failed')
 				}
  			});   
- 		 });
-		
-		
-		
-		
+ 		 }); */	
 	})
 	
 	//send

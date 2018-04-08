@@ -44,8 +44,7 @@
 			</div>
 			
 			<br/> 	
-						
-				<form class="form-all">	        			
+				<label>Transfer Item</label>      			
 					<table id="data-transfer-stock-detail" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>	
@@ -84,10 +83,7 @@
 					</table>
 					</div>
 					
-					<div class="modal-footer">
-						<button type="submit" id="btn-done" class="btn btn-primary">Add</button>
-					</div>
-				</form>
+			
 			</div>
 		</div>
 	</div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public class TransferStockDaoImpl implements TransferStockDao {
 
 	public List<TransferStock> selectAll() {
 		Session session=sessionFactory.getCurrentSession();
-		return session.createCriteria(TransferStock.class).list();
+		return session.createCriteria(TransferStock.class).addOrder(Order.desc("transfer_date")).list();
 	}
 	
 	public TransferStock getOne(TransferStock transferStock) {

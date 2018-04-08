@@ -252,7 +252,7 @@
 					$('#hidden-from-outlet-id').val(data.fromOutlet.id);	
 					$('#hidden-outlet-id').val(data.toOutlet.id);
 					$('#hidden-id').val(data.id);
-					$('#created-by').text("Created By : " + data.createdBy);
+					$('#created-by').text("Created By : " + data.createdBy.username);
 					$('#transfer-status').text("Transfer Status : "+ data.status);
 					$('#notes').val(data.notes);
 				    $('#isi-transfer-stock-detail').empty();
@@ -278,7 +278,7 @@
 								success : function(data){
 								$('#view-status-history').empty();
 								$.each(data, function(key, val) {
-								$('#view-status-history').append('<tr><td> On '+val.createdOn+' - '+val.status+'</td>'
+								$('#view-status-history').append('<tr><td> On '+getDateFormat(val.createdOn)+' - '+val.status+'</td>'
 										+ '</tr>');
 								 		});
 									},
@@ -441,6 +441,26 @@
 				window.location = "${pageContext.request.contextPath}/transaction/transfer-stock/search-outlet?search="+keyword;
 		  }
 	  });
+	 
+	 //function date format
+
+		function getDateFormat(date) {
+			var d = new Date(Number(date)),
+			month = '' + (d.getMonth() + 1),
+			day = '' + d.getDate(),
+			year = d.getFullYear();
+			if (month.length < 2)
+			    month = '0' + month;
+			if (day.length < 2)
+			    day = '0' + day;
+			var date = new Date();
+			date.toLocaleDateString();
+			return [year, month, day].join('-');
+		};
+		
+		$('#export').click(function(){
+			window.location = '${pageContext.request.contextPath}/generate/ts'; 
+		})
 	 	
 	 	
 	});
@@ -448,8 +468,9 @@
 
 </head>
 <body>
-
-	<div>TRANSFER STOCK</div>
+<section class="content">
+	<h3>Transfer Stock</h3>
+	<hr style="border-color:black;">
 	<br />
 	<div class="container">
 		<div>
@@ -496,7 +517,29 @@
 				<tbody id="isi-transfer-stock-list">
 					<c:forEach items="${transferStocks}" var="trstock">
 						<tr>
-							<td>${trstock.modifiedOn}</td>
+							<%-- <td>${trstock.modifiedOn}</td> --%> 
+							<script>
+								var modifiedOn = Date.parse("${trstock.modifiedOn}");
+								var date = getDateFormat(modifiedOn);
+								
+								function getDateFormat(date) {
+									var d = new Date(Number(date)),
+									month = '' + (d.getMonth() + 1),
+									day = '' + d.getDate(),
+									year = d.getFullYear();
+									if (month.length < 2)
+									    month = '0' + month;
+									if (day.length < 2)
+									    day = '0' + day;
+									var date = new Date();
+									date.toLocaleDateString();
+									return [year, month, day].join('-');
+								};
+								
+								document.write("<td>"+date+"</td>");
+							</script>
+							
+							
 							<td>${trstock.fromOutlet.name}</td>
 							<td>${trstock.toOutlet.name}</td>
 							<td>${trstock.status}</td>
@@ -513,6 +556,6 @@
 		<%@ include file="modal/view-transfer-stock-detail.jsp"%>
 	
 	</div>
-
+</section>
 </body>
 </html>

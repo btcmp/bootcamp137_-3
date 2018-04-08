@@ -6,7 +6,7 @@
 				<h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
 			</div>
 			<div class="modal-body">
-				<form action="#">
+				<form action="#" style="border:none">
 					<div class="form-group">
 						<label>PROFILE</label>
 						<input type="text" class="form-control" id="save-name-cust" aria-describedby="emailHelp" placeholder="Customer Name" />
@@ -16,8 +16,16 @@
 					
 					<div class="form-group">
 						<label>Day Of Birth</label>
-						<input type="date" max="2018-03-27" class="form-control" id="save-dob-cust" aria-describedby="emailHelp" placeholder="Day Of Birth" />
+							<div class="input-group date">
+	                	<div class="input-group-addon">
+	                  	<i class="fa fa-calendar"></i>
+	                	</div>
+	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal" data-parsley-required="true" required readonly>
+	                	<input type="hidden" id="in-id">
+	                </div>
 					</div>
+					
+					
 					
 					<div class="form-group">
 						<label>Address</label>
@@ -35,28 +43,21 @@
 								<option value="">District</option>
 							</select> --%>
 							
-							<select name="area" required="required" id="prov-id">
-    					<option disabled selected value=""> --- Select A Province --- </option>
+							<select style="width:30%;float:left;margin-right:5%" name="area" required="required" id="prov-id" class="form-control">
+    					<option disabled selected value="">Select A Province</option>
     					<c:forEach var="prov" items="${provinces }">
     						<option value="${prov.id }">${prov.name }</option>
     					</c:forEach>
 						</select>
 						
-						
-						
-						<select name="area" required="required" id="reg-id">
-    						<option disabled selected value=""> --- Select A Region --- </option>
+						<select style="width:30%;float:left;margin-right:5%" class="form-control" name="area" required="required" id="reg-id">
+    						<option disabled selected value="">Select A Region</option>
 						</select>
 						
-						
-						
-						<select name="area" required="required" id="dist-id">
-    						<option disabled selected value=""> --- Select A District --- </option>
+						<select style="width:30%;float:left" class="form-control" name="area" required="required" id="dist-id">
+    						<option disabled selected value="">Select A District</option>
 						</select>
 						
-							
-							
-							
 					</div>
 				</form>
 			</div>

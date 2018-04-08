@@ -20,4 +20,5 @@ public interface OutletDao {
 
 	public List<Outlet> searchOutlet(String search);
 
+
 }

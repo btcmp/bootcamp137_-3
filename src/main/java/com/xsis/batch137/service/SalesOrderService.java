@@ -35,7 +35,6 @@ public class SalesOrderService {
 		salesOrderDao.save(salesOrder);
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 
-		
 		for(SalesOrderDetail sod : salesOrderDetails) {
 			sod.setSalesOrder(salesOrder);
 			salesOrderDetailDao.save(sod);

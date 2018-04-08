@@ -2,6 +2,8 @@ package com.xsis.batch137.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
 import com.xsis.batch137.model.TransferStockHistory;
+import com.xsis.batch137.model.User;
 ///
 @Service
 @Transactional
@@ -26,19 +29,29 @@ public class TransferStockService {
 	@Autowired
 	TransferStockHistoryDao transferStockHistoryDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
+	
 	public void save(TransferStock transferStock) {
 		List<TransferStockDetail> transferStockDetails=transferStock.getTransferStockDetail();
 		transferStock.setTransferStockDetail(null);
-		transferStockDao.save(transferStock);
+		User usr = (User) httpSession.getAttribute("userLogin");
+		transferStock.setCreatedBy(usr);
+		transferStock.setModifiedBy(usr);
+		transferStockDao.save(transferStock);	
 		
 		for(TransferStockDetail tsd: transferStockDetails) {
 			tsd.setTransferStock(transferStock);
+			tsd.setCreatedBy(usr);
+			tsd.setModifiedBy(usr);
 			transferStockDetailDao.save(tsd);
 		}
 		
 		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setStatus(transferStock.getStatus());
 		tsh.setTransferStock(transferStock);
+		tsh.setCreatedBy(usr);
 		transferStockHistoryDao.save(tsh);
 		
 	}
@@ -65,6 +78,8 @@ public class TransferStockService {
 		transferStockDao.saveAtauUpdate(transferStock);
 		TransferStockHistory tsh = new TransferStockHistory();
 		tsh.setStatus(transferStock.getStatus());
+		User usr = (User) httpSession.getAttribute("userLogin");
+		tsh.setCreatedBy(usr);
 		tsh.setTransferStock(transferStock);
 		transferStockHistoryDao.save(tsh);
 	}

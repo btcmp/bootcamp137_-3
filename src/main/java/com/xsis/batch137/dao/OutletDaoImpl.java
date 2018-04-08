@@ -72,6 +72,8 @@ public class OutletDaoImpl implements OutletDao{
 			return outlets;
 		}
 	}
+
+
 	
 	
 

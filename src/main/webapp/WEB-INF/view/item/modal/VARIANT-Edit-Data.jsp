@@ -6,38 +6,45 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Variant</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Edit Variant</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="form-all" id="form-variant-edit-data">
-					<div class="form-group">
-						<label for="input-variant-name">Variant Namee</label> <input type="text"
-							class="form-control" id="edit-variant-name" disabled>
+				<form class="form-all" id="form-variant-edit-data">				
+					<!-- aaadddddddddddddddddddddddddddddddddd -->
+					<div class="form-group" align="left" style="float:left;width:33%">
+					<label>Variant Name</label>
+						<input type="text" placeholder="Variant Name" 
+							 id="edit-variant-name" data-parsley-required="true" data-required-message="Please insert your name" required>
 					</div>
 					
-					<div class="form-group">
-						<label for="input-variant-name">Unit Price</label> <input type="text"
-							class="form-control" data-parsley-required="true" required id="edit-unit-price" >
+					<div class="form-group" style="float:left ;width:33%">
+					<label>Unit Price</label>
+					<input type="number" placeholder="Unit Price" id="edit-unit-price" required>
 					</div>
 					
+					<div class="form-group" style="float:left;width:33%">
+					<label>SKU</label>
+					<input type="text" placeholder="SKU"
+							 id="edit-sku" data-parsley-required="true" required>
+					</div>
+
+					<label for="input-variant-name">Set Beginning Stock</label> 					
 					<div class="form-group">
-						<label for="input-variant-name">SKU</label> <input type="text"
-							class="form-control" id="edit-sku" disabled>
-					</div>
-					
-					<div class="form-group">
-						<label for="input-variant-name">Beginning Stock</label> <input type="text"
-							class="form-control" id="edit-beginning-stock" disabled>
-					</div>
-					
-						<div class="form-group">
-						<label for="input-variant-name">Alert at</label> <input type="text"
-							class="form-control" id="edit-alert-at" data-parsley-required="true" required>
-					</div>
+
+						<div style="float:left;width:33%">
+							<label>Beginning Stock</label>
+							<input placeholder="Beginning Stock" type="number" id="edit-beginning-stock" data-parsley-required="true" required>
+						</div>
+						
+						<div style="float:left;width:33%">
+						<label>Alert at</label>
+							<input placeholder="Alert At" type="number" id="edit-alert-at" data-parsley-required="true" required>
+						</div>
+					</div> <br/>
 					
 					<div class="checkbox" style="display:none" >
 						<label for="edit-active"><input id="edit-active-variant" type="checkbox"
@@ -48,7 +55,7 @@
 
 					<div class="modal-footer">
 						<button type="button" id="btn-close" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-						<button type="submit" id="btn-edit-save-variant" class="btn btn-primary">Add</button>
+						<button type="submit" id="btn-edit-save-variant" class="btn btn-primary">Save</button>
 					</div>
 				</form>
 

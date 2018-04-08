@@ -24,9 +24,15 @@ $(document).ready(function(){
 	}); 
 /* ============================== [SHOW MODAL] FOR ADD VARIANT ======================================*/
     $('#btn-add-variant').on('click', function(evt) {
-    	evt.preventDefault();
-		$('#modal-add-variant').modal();
-		clearForm();
+    	
+		validate=$('#form-add-data').parsley();
+		validate.validate();
+		
+		if(validate.isValid()){
+			evt.preventDefault();
+			$('#modal-add-variant').modal();
+			clearForm();
+		}
 	});
     
     $('#edititem-btn-add-variant').on('click', function(evt) {
@@ -505,6 +511,8 @@ $(document).ready(function(){
 			}
 		});
 	});  
+	
+ 
 	
 });
 </script>
