@@ -204,8 +204,8 @@ input.parsley-error {
 					<li><a href="${pageContext.request.contextPath}/master/outlet"><i
 							class="fa fa-shopping-bag"></i> Outlet</a></li>
 					<li><a href="${pageContext.request.contextPath}/master/supplier"><i
-							class="fa fa-building"></i> Suppplier</a></li>
-					<li><a href="${pageContext.request.contextPath}/item"><i
+							class="fa fa-building"></i> Supplier</a></li>
+					<li><a href="${pageContext.request.contextPath}master/item"><i
 							class="fa fa-shopping-cart"></i> Item</a></li>
 				</ul></li>
 
@@ -224,10 +224,10 @@ input.parsley-error {
 					<li><a
 						href="${pageContext.request.contextPath}/transaksi/adjustment"><i
 							class="fa fa-circle-o"></i> Adjustment</a></li>
-					<li><a href="${pageContext.request.contextPath}/supplier"><i
-							class="fa fa-circle-o"></i> Suppplier</a></li>
-					<li><a href="${pageContext.request.contextPath}/item"><i
-							class="fa fa-circle-o"></i> Item</a></li>
+					<li><a href="${pageContext.request.contextPath}/transaksi/supplier"><i
+							class="fa fa-circle-o"></i> Transfer Stock</a></li>
+					<li><a href="${pageContext.request.contextPath}/transaksi/item"><i
+							class="fa fa-circle-o"></i> Purchase Order</a></li>
 				</ul></li>
 		</ul>
 		</section> <!-- /.sidebar --> </aside>
