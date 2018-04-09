@@ -28,16 +28,23 @@
 					</div>
 				</div>
 				<div class="col-xs-3">
-					<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
-						<option value="Mr.">Mr.</option>
-						<option value="Mrs.">Mrs.</option>
-					</select>
+					<div class="form-group" id="div-title">
+						<label class="control-label" for="in-title" style="display:none" id="lbl-title"><i class="fa fa-check"></i></label>
+						<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
+							<option disabled selected>Choose Title</option>
+							<option value="Mr.">Mr.</option>
+							<option value="Mrs.">Mrs.</option>
+						</select>
+					</div>
 				</div>
 			</div>
 			<br/>
 			<div class="row">
 				<div class="col-xs-3">
-					<input type="button" class="btn btn-info btn-block" id="btn-outlet" value="Assign Outlet">
+					<div class="form-group" id="div-outlet">
+						<label class="control-label" for="btn-outlet" style="display:none" id="lbl-outlet"><i class="fa fa-check"></i></label>
+						<input type="button" class="btn btn-info btn-block" id="btn-outlet" value="Assign Outlet">
+					</div>
 				</div>
 				<div class="col-xs-3">
 					<div class="form-check checkbox-teal">
@@ -49,11 +56,15 @@
 			<hr style="border-color:black; border-top:1px dashed;">
 			<div class="row" id = "buat-akun" style="display:none;">
 				<div class="col-xs-3">
-					<select id = "pilih-role" class="form-control">
-						<c:forEach items = "${roles }" var= "role">
-							<option value="${role.id }">${role.description }</option>
-						</c:forEach>
-					</select>
+					<div class="form-group" id="div-role">
+						<label class="control-label" for="pilih-role" style="display:none" id="lbl-role"><i class="fa fa-check"></i></label>
+						<select id = "pilih-role" class="form-control">
+							<option disabled selected>Choose Role</option>
+							<c:forEach items = "${roles }" var= "role">
+								<option value="${role.id }">${role.description }</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id-user">
@@ -204,9 +215,26 @@
         		userValid = 1;
         		pValid = 1;
         		oValid = 1;
+        		rValid = 1;
 	        }
 	    });
 	    $('#cek-akun').change();
+	    
+	    $('.in-outlet').change(function(){
+	    	var outcb = $('input[name="in-outlet"]:checked').length;
+	    	if(outcb > 0){
+	    		$('#div-outlet').removeClass('has-error').addClass('has-success');
+				$('#lbl-outlet').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-outlet').fadeIn();
+				oValid = 1;
+	    	}else if(outcb == 0 && $('#cek-akun').is(":checked")){
+	    		$('#div-outlet').removeClass('has-success').addClass('has-error');
+				$('#lbl-outlet').html('<i class="fa-times-circle-o"></i> Please choose outlet');
+				$('#lbl-outlet').fadeIn();
+				oValid = 0;
+	    	}
+	    });
+	    $('.in-outlet').change();
 	    
 	    $('#btn-batal').click(function(){
 	    	$('#buat-akun').fadeOut('fast');
@@ -261,6 +289,8 @@
 					fValid = 1;
 					lValid = 1;
 					oValid = 1;
+					tValid = 1;
+					rValid = 1;
 					$('#in-id').val(data.id);
 					$('#in-firstname').val(data.firstName);
 					$('#in-lastname').val(data.lastName);
@@ -328,10 +358,16 @@
 				}else{
 					oValid = 0;
 				}
+				if($('#pilih-role').val() == null){
+					rValid = 0;
+				}else{
+					rValid = 1;
+				}
 			}else{
 				userValid = 1;
 				pValid = 1;
 				oValid = 1;
+				rVAlid = 1;
 			};
 			
 			var employee = {
@@ -346,38 +382,42 @@
 				"empOutlet" : empOut
 			};
 	
-			validate = $('#form-emp').parsley();
-			validate.validate();
 			console.log(emailValid);
 			console.log(userValid);
 			console.log(fValid);
 			console.log(lValid);
 			console.log(pValid);
 			console.log(oValid);
-			if(validate.isValid() && emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1){
-				$.ajax({
-					type : 'post',
-					url : '${pageContext.request.contextPath}/master/employee/save',
-					data : JSON.stringify(employee),
-					contentType : 'application/json',
-					success : function() {
-						$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
-						$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-						$('#div-alert').fadeIn();
-						setTimeout(function() {
-							window.location = '${pageContext.request.contextPath}/master/employee';
-						}, 2000);
-					},
-					error : function() {
-						$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-						$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-						$('#div-alert').fadeIn();
-						setTimeout(function(){
-							$('#div-alert').fadeOut();
-						}, 4000);
-					}
-				});
-			}else if(validate.isValid() && emailValid == 0 && userValid == 0){
+			console.log(tValid);
+			console.log(rValid);
+			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1){
+				validate = $('#form-emp').parsley();
+				validate.validate();
+				if(validate.isValid()){
+					$.ajax({
+						type : 'post',
+						url : '${pageContext.request.contextPath}/master/employee/save',
+						data : JSON.stringify(employee),
+						contentType : 'application/json',
+						success : function() {
+							$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+							$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function() {
+								window.location = '${pageContext.request.contextPath}/master/employee';
+							}, 2000);
+						},
+						error : function() {
+							$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+							$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function(){
+								$('#div-alert').fadeOut();
+							}, 4000);
+						}
+					});
+				}
+			}/* else if(validate.isValid() && emailValid == 0 && userValid == 0){
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
 				$('#tampilan-alert').html('<strong>Error!</strong> Username dan Email tidak Unique.');
 				$('#div-alert').fadeIn();
@@ -398,13 +438,71 @@
 				setTimeout(function(){
 					$('#div-alert').fadeOut();
 				}, 4000);
-			}else{
+			} */else{
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
 				$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database.');
 				$('#div-alert').fadeIn();
 				setTimeout(function(){
 					$('#div-alert').fadeOut();
 				}, 4000);
+			}
+			if(emailValid == 0){
+				if($('#in-email').val().length < 7){
+					$('#div-email').removeClass('has-success').addClass('has-error');
+					$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> Please insert your email');
+					$('#lbl-email').fadeIn();
+				}else{
+					$('#div-email').removeClass('has-success').addClass('has-error');
+					$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> email must be unique');
+					$('#lbl-email').fadeIn();
+				}
+			}
+			if(emailValid == 2){
+				$('#div-email').removeClass('has-success').addClass('has-error');
+				$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
+				$('#lbl-email').fadeIn();
+				emailValid = 2;
+			}
+			if(userValid == 0){
+				if($('#in-username').val().length == 0){
+					$('#div-username').removeClass('has-success').addClass('has-error');
+					$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> Please insert username');
+					$('#lbl-username').fadeIn();
+				}else{
+					$('#div-username').removeClass('has-success').addClass('has-error');
+					$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
+					$('#lbl-username').fadeIn();
+				}
+			}
+			if(pValid == 0){
+				$('#div-password').removeClass('has-success').addClass('has-error');
+				$('#lbl-password').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
+				$('#lbl-password').fadeIn();
+			}
+			if(fValid == 0){
+				$('#div-firstname').removeClass('has-success').addClass('has-error');
+				$('#lbl-firstname').html('<i class="fa fa-times-circle-o"></i> please insert first name');
+				$('#lbl-firstname').fadeIn();
+			}
+			if(lValid == 0){
+				$('#div-lastname').removeClass('has-success').addClass('has-error');
+				$('#lbl-lastname').html('<i class="fa fa-times-circle-o"></i> please insert last name');
+				$('#lbl-lastname').fadeIn();
+			}
+			if(tValid == 0){
+				$('#div-title').removeClass('has-success').addClass('has-error');
+				$('#lbl-title').html('<i class="fa fa-times-circle-o"></i> Please select title');
+				$('#lbl-title').fadeIn();
+			}
+			if(rValid == 0){
+				$('#div-role').removeClass('has-success').addClass('has-error');
+				$('#lbl-role').html('<i class="fa fa-times-circle-o"></i> Please select user role');
+				$('#lbl-role').fadeIn();
+			}
+			if(oValid == 0){
+				$('#div-outlet').removeClass('has-success').addClass('has-error');
+				$('#lbl-outlet').html('<i class="fa fa-times-circle-o"></i> Please choose outlet');
+				$('#lbl-outlet').fadeIn();
 			}
 		}); // end fungsi simpan
 
@@ -416,29 +514,39 @@
 		var fValid = 0;
 		var lValid = 0;
 		var oValid = 1;
+		var tValid = 0;
+		var rValid = 1;
 		
 		// cek username
 		$('#in-username').on('input',function(){
 			var username = $('#in-username').val();
-			$.ajax({
-				type : 'get',
-				url : '${pageContext.request.contextPath}/master/employee/cek-user?user='+username,
-				success : function(data){
-					if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
-						$('#div-username').removeClass('has-success').addClass('has-error');
-						$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
-						$('#lbl-username').fadeIn();
-						userValid = 0;
-					}else {
-						$('#div-username').removeClass('has-error').addClass('has-success');
-						$('#lbl-username').html('<i class="fa fa-check"></i> Ok');
-						$('#lbl-username').fadeIn();
-						userValid = 1;
+			if(username.length > 0){
+				$.ajax({
+					type : 'get',
+					url : '${pageContext.request.contextPath}/master/employee/cek-user?user='+username,
+					success : function(data){
+						if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
+							$('#div-username').removeClass('has-success').addClass('has-error');
+							$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
+							$('#lbl-username').fadeIn();
+							userValid = 0;
+						}else {
+							$('#div-username').removeClass('has-error').addClass('has-success');
+							$('#lbl-username').html('<i class="fa fa-check"></i> Ok');
+							$('#lbl-username').fadeIn();
+							userValid = 1;
+						}
+					}, error : function(){
+						console.log('gagal')
 					}
-				}, error : function(){
-					console.log('gagal')
-				}
-			});
+				});
+			}else{
+				$('#div-username').removeClass('has-success').addClass('has-error');
+				$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> please insert username');
+				$('#lbl-username').fadeIn();
+				userValid = 0;
+			}
+			
 		});
 		
 		$('#in-email').on('input',function(){
@@ -465,7 +573,7 @@
 						$('#div-email').removeClass('has-success').addClass('has-error');
 						$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
 						$('#lbl-email').fadeIn();
-						emailValid = 1;
+						emailValid = 2;
 					}
 				}, error : function(){
 					console.log('gagal')
@@ -512,6 +620,34 @@
 				$('#lbl-password').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
 				$('#lbl-password').fadeIn();
 				pValid = 0;
+			}
+		});
+		
+		$('#in-title').on('change', function(){
+			if($(this).val() != ''){
+				$('#div-title').removeClass('has-error').addClass('has-success');
+				$('#lbl-title').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-title').fadeIn();
+				tValid = 1;
+			}else{
+				$('#div-title').removeClass('has-success').addClass('has-error');
+				$('#lbl-title').html('<i class="fa fa-times-circle-o"></i> Please select title');
+				$('#lbl-title').fadeIn();
+				tValid = 0;
+			}
+		});
+		
+		$('#pilih-role').on('change', function(){
+			if($(this).val() != ''){
+				$('#div-role').removeClass('has-error').addClass('has-success');
+				$('#lbl-role').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-role').fadeIn();
+				rValid = 1;
+			}else{
+				$('#div-role').removeClass('has-success').addClass('has-error');
+				$('#lbl-role').html('<i class="fa fa-times-circle-o"></i> Please select user role');
+				$('#lbl-role').fadeIn();
+				rValid = 0;
 			}
 		});
 	});
