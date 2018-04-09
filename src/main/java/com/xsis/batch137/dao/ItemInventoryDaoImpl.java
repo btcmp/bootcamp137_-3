@@ -214,6 +214,22 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 			return itemInventories;
 		}
 	}
+	
+	@Override
+	public List<ItemInventory> searchInventoryByOutlet(String search, long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from ItemInventory invent where invent.outlet.id = :id and lower(invent.itemVariant.item.name) like :search "
+				+ "or lower(invent.itemVariant.name) like :search "
+				+ "or lower(concat(invent.itemVariant.item.name, '-' ,invent.itemVariant.name)) like :search";
+		List<ItemInventory> invents = session.createQuery(hql).setParameter("id", id).setParameter("search", "%"+search.toLowerCase()+"%").list();
+		if(invents.isEmpty()) {
+			return null;
+		}
+		else {
+			return invents;
+		}
+	}
 }
 
 
