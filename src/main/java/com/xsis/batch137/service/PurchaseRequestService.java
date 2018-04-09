@@ -161,7 +161,7 @@ public class PurchaseRequestService {
 	
 	public List<PurchaseRequest> selectAll(){
 		List<PurchaseRequest> prs = prDao.selectAll();
-		if(prs.isEmpty()) {
+		if(prs == null) {
 			return null;
 		}else {
 			for(PurchaseRequest pr : prs) {
@@ -180,7 +180,7 @@ public class PurchaseRequestService {
 	public List<PurchaseRequest> selectByOutlet(){
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		List<PurchaseRequest> prs = prDao.searchPRByOutlet(outlet);
-		if(prs.isEmpty()) {
+		if(prs == null) {
 			return null;
 		}else {
 			for(PurchaseRequest pr : prs) {
@@ -200,12 +200,12 @@ public class PurchaseRequestService {
 		PurchaseRequest pr = prDao.getOne(id);
 		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
 		List<PurchaseRequestHistory> prhs = prhDao.selectByPR(pr);
-		if(prds.isEmpty()) {
+		if(prds == null ) {
 			
 		}else {
 			pr.setDetail(prds);
 		}
-		if(prhs.isEmpty()) {
+		if(prhs == null) {
 			
 		}else {
 			pr.setHistory(prhs);
@@ -244,7 +244,7 @@ public class PurchaseRequestService {
 		
 		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
 		
-		if(prds.isEmpty()) {
+		if(prds == null) {
 			
 		}else {
 			pr.setDetail(prds);

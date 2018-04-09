@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
+import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.service.ItemInventoryService;
+import com.xsis.batch137.service.PurchaseOrderService;
 import com.xsis.batch137.service.PurchaseRequestService;
 import com.xsis.batch137.service.TransferStockService;
 
@@ -31,6 +33,9 @@ public class ExportPdfController {
 	
 	@Autowired
 	ItemInventoryService ivtService;
+	
+	@Autowired
+	PurchaseOrderService poService;
 	
 	@Autowired
 	HttpSession httpSession;
@@ -71,5 +76,15 @@ public class ExportPdfController {
 	return new ModelAndView("pdfViewIvt","ivt",ivt);
  	}
 	
-	
+	@RequestMapping(value = "/generate/po", method = RequestMethod.GET)
+	ModelAndView generatePdfPo(HttpServletRequest request,
+	HttpServletResponse response) throws Exception {
+		System.out.println("Calling generatePdf()...");
+		//user data
+		response.setHeader("Content-Disposition", "attachment; filename=\"po.pdf\"");
+		response.setContentType("application/pdf");
+		java.util.List<PurchaseOrder> po = poService.selectAll();
+
+	return new ModelAndView("pdfViewPo","po", po);
+ 	}
 }

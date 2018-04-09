@@ -55,12 +55,12 @@ public class PurchaseOrderService {
 		PurchaseOrder po = poDao.getOne(id);
 		List<PurchaseOrderDetail> pods = podDao.selectDetailByPO(po);
 		List<PurchaseOrderHistory> pohs = pohDao.selectByPO(po);
-		if(pods.isEmpty()) {
+		if(pods == null) {
 			
 		}else {
 			po.setDetail(pods);
 		}
-		if(pohs.isEmpty()) {
+		if(pohs == null) {
 			
 		}else {
 			po.setHistory(pohs);

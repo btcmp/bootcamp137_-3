@@ -40,7 +40,7 @@
 	    </div>
 	    <div class="col-xs-2">
 		    <div class="form-group">
-		    	<input type="button" id="btn-export" class="btn btn-md btn-primary float-right btn-block" value="Export">
+		    	<a href="${pageContext.request.contextPath}/generate/po" id="btn-export" class="btn btn-md btn-primary float-right btn-block">Export</a>
 		    </div>
 	    </div>
 	</div>

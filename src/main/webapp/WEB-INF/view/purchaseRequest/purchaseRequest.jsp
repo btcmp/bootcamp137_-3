@@ -35,7 +35,7 @@
 	    
 	    <div class="col-xs-2">
 		    <div class="form-group">
-		    	<input type="button" id="btn-export" class="btn btn-md btn-primary btn-block" value="Export">
+		    	<a href="${pageContext.request.contextPath}/generate/pr" id="btn-export" class="btn btn-md btn-primary btn-block">Export</a>
 		    </div>
 	    </div>
 	    <div class="col-xs-2">
@@ -178,7 +178,7 @@
 	var itemsss = [];
 	$.ajax({
 		type : 'get',
-		url : '${pageContext.request.contextPath}/item/get-inventory',
+		url : '${pageContext.request.contextPath}/transaksi/purchase-request/get-item',
 		dataType : 'json',
 		success : function(data){
 			$.each(data, function(key, val) {

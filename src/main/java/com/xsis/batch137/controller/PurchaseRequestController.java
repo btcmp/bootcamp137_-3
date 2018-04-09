@@ -3,6 +3,8 @@ package com.xsis.batch137.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,9 @@ public class PurchaseRequestController {
 	@Autowired
 	ItemInventoryService iService;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<PurchaseRequest> prs = prService.selectByOutlet();
@@ -69,7 +74,15 @@ public class PurchaseRequestController {
 	@RequestMapping(value="/search-item",method=RequestMethod.GET)
 	@ResponseBody
 	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
-		List<ItemInventory > itemInventories = iService.searchItemInventoryByItemName(search);
+		List<ItemInventory > itemInventories = iService.searchItemInventoryByItemNameAndOutlet(search);
+		return itemInventories;
+	}
+	
+	@RequestMapping(value="/get-item",method=RequestMethod.GET)
+	@ResponseBody
+	public List<ItemInventory> getItem(){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		List<ItemInventory > itemInventories = iService.getItemInventoryByOutletLogin(outlet.getId());
 		return itemInventories;
 	}
 	
