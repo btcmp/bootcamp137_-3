@@ -51,7 +51,7 @@
 				<div class="col-xs-3">
 					<select id = "pilih-role" class="form-control">
 						<c:forEach items = "${roles }" var= "role">
-							<option value="${role.id }">${role.name }</option>
+							<option value="${role.id }">${role.description }</option>
 						</c:forEach>
 					</select>
 				</div>

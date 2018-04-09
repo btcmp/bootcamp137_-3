@@ -45,7 +45,12 @@ public class WelcomeController {
 		httpSession.setAttribute("usernameLogin", username);
 		httpSession.setAttribute("empLogin", emp);
 		httpSession.setAttribute("userLogin", user);
-		List<Outlet> outlets = employeeService.getOutletByEmployee(emp);
+		List<Outlet> outlets = null;
+		if(user.getRole().getName().equals("ROLE_SUPER")) {
+			outlets = outletService.selectActive();
+		}else {
+			outlets = employeeService.getOutletByEmployee(emp); 
+		}
 		model.addAttribute("outlets", outlets);
 		return "choose-outlet";
 	}
