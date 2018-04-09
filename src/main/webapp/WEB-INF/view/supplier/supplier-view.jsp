@@ -60,12 +60,36 @@
 		});
 		
 		
-		//Mereset form create
+		//Reset pas create
 		$('#tbl-reset').click(function(){
+			$('#supplier-name').val("");
+			$('#supplier-address').val("");
+			$('#supplier-phone').val("");
+			$('#supplier-email').val("");
+			$('#supplier-postal').val("");
+			$('#prov-id option').prop('selected', function() {
+		        return this.defaultSelected;
+		    });
 			$('#reg-id').empty();
 			$('#dist-id').empty();
-			$('#reg-id').append('<option disabled selected value=""> --- Select A Region --- </option>');
-			$('#dist-id').append('<option disabled selected value=""> --- Select A District --- </option>');
+			$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
+			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+		});
+		
+		//Reset pas edit
+		$('#tbl-cancel').click(function(){
+			$('#edit-name').val("");
+			$('#edit-address').val("");
+			$('#edit-phone').val("");
+			$('#edit-email').val("");
+			$('#edit-postal').val("");
+			$('#prov-edit option').prop('selected', function() {
+		        return this.defaultSelected;
+		    });
+			$('#reg-edit').empty();
+			$('#dist-edit').empty();
+			$('#reg-edit').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
+			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
 		});
 		
 		

@@ -9,10 +9,10 @@
 					<h4 id="judul-modal">Create Supplier</h4>
 				</div>
 				
-				<form id="formdepartemen" data-parsley-validate method="post">
+				
 				<div class="modal-body">
 					
-					
+					<form id="formdepartemen" data-parsley-validate method="post">
 						<div>
 							<div><h5>Supplier Name</h5></div>
 							<div ><input type="text" class="form-control full-span" id="supplier-name" data-parsley-required="true" /></div>
@@ -68,7 +68,7 @@
 						
 						<input type="hidden" name="id" id="id">
 						
-						
+						</form>
 						
 				</div>
 				<div class="modal-footer">
@@ -81,7 +81,7 @@
 						</div>
 				</div>
 				</div>
-				</form>
+				
 			</div>
 
 		</div>

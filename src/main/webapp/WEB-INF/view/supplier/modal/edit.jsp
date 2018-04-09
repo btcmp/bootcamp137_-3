@@ -65,6 +65,8 @@
 						</div>
 						<input type="hidden" name="id" id="edit-id">
 						
+						</form>
+						
 				</div>
 				<div class="modal-footer">
 				<div class="row">
@@ -80,7 +82,7 @@
 					</div>
 				</div>
 				
-				</form>
+				
 			</div>
 
 		</div>
