@@ -23,4 +23,5 @@
 		public List<ItemInventory> listInventoryByOutlet(Long search);
 		public void updateSalesOrder(ItemInventory itemInventory);
 		public List<ItemInventory> getItemInventoryByOutletLogin(long outId);
+		public List<ItemInventory> searchItemInventoryByItemNameAndOutlet(String search, Outlet outlet);
 	}
