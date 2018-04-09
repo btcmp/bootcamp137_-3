@@ -47,7 +47,7 @@ public class ExportPdfController {
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"pr.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<PurchaseRequest> pr = prService.selectAll();
+		java.util.List<PurchaseRequest> pr = prService.selectByOutlet();
 
 	return new ModelAndView("pdfView","pr", pr);
  	}
@@ -83,7 +83,7 @@ public class ExportPdfController {
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"po.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<PurchaseOrder> po = poService.selectAll();
+		java.util.List<PurchaseOrder> po = poService.getByOutlet();
 
 	return new ModelAndView("pdfViewPo","po", po);
  	}
