@@ -205,7 +205,7 @@ input.parsley-error {
 							class="fa fa-shopping-bag"></i> Outlet</a></li>
 					<li><a href="${pageContext.request.contextPath}/master/supplier"><i
 							class="fa fa-building"></i> Supplier</a></li>
-					<li><a href="${pageContext.request.contextPath}master/item"><i
+					<li><a href="${pageContext.request.contextPath}/master/item"><i
 							class="fa fa-shopping-cart"></i> Item</a></li>
 				</ul></li>
 
