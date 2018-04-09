@@ -9,10 +9,10 @@
 					<h4 id="judul-modal">Create Outlet</h4>
 				</div>
 				
-				<form id="formdepartemen" data-parsley-validate method="post">
+				
 				
 				<div class="modal-body">
-					
+					<form id="formdepartemen" data-parsley-validate method="post">
 						<div>
 							<div><h5>Outlet Name</h5></div>
 							<div ><input type="text" class="form-control full-span" id="outlet-name" data-parsley-required="true" /></div>
@@ -66,13 +66,14 @@
 						
 						</div>
 						<input type="hidden" name="id" id="id">
-						
+						</form>
 				</div>	
+				
 
 				<div class="modal-footer">
 					<div class="row">
 						<div class="form-group" style="float:left; margin-left:20px;">
-							<button type="reset" class="btn btn-danger" id="tbl-reset">Cancel</button>
+							<button type="button" class="btn btn-danger" id="tbl-reset">Cancel</button>
 						</div>
 						<div class="form-group" style="float:right; margin-right:20px;">
 							<button type="button" class="btn btn-info" id="tbl-simpan">Save</button>
@@ -82,7 +83,7 @@
 					
 				</div>
 				
-				</form>
+				
 				
 			</div>
 
