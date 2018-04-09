@@ -224,10 +224,10 @@ input.parsley-error {
 					<li><a
 						href="${pageContext.request.contextPath}/transaksi/adjustment"><i
 							class="fa fa-circle-o"></i> Adjustment</a></li>
-					<li><a href="${pageContext.request.contextPath}/transaksi/supplier"><i
+					<li><a href="${pageContext.request.contextPath}/transaction/transfer-stock"><i
 							class="fa fa-circle-o"></i> Transfer Stock</a></li>
-					<li><a href="${pageContext.request.contextPath}/transaksi/item"><i
-							class="fa fa-circle-o"></i> Purchase Order</a></li>
+					<li><a href="${pageContext.request.contextPath}/transaction/sales-order"><i
+							class="fa fa-circle-o"></i> Sales Order</a></li>
 				</ul></li>
 		</ul>
 		</section> <!-- /.sidebar --> </aside>
