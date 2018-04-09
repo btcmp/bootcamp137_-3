@@ -39,7 +39,8 @@ function readURL(input) {
 					        			
 					<div class="form-group">
 						<label for="input-item-name">Item Name</label> <input type="text"
-							class="form-control" id="add-item-name" placeholder="enter item name" data-parsley-required="true" required>
+							class="form-control" id="add-item-name" placeholder="enter item name" data-required-message="Please insert your name"
+							data-parsley-required="true" required>
 					</div>
 					
 					<div>

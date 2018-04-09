@@ -58,7 +58,9 @@ public class ExportPdfController {
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"transfer_stock.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<TransferStock> tss = tsService.selectAll();
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		long outId = outlet.getId();
+		java.util.List<TransferStock> tss = tsService.getTransferStockByOutletIdLogin(outId);
 
 	return new ModelAndView("pdfViewTS","tss",tss);
  	}

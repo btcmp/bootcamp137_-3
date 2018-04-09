@@ -6,7 +6,8 @@
 <%@ include file="modal/EDITITEM-VARIANT-Add-Data.jsp"%>
 <%@ include file="modal/EDITITEM-VARIANT-Edit-Data.jsp"%>
 
-<section class="content">
+<div class="content">
+<section class="box content">
 	<h3>Master Item</h3>
 	<hr style="border-color:black;"/>
 		<div style="display:none;float: left; margin-right: 600px;">
@@ -16,7 +17,7 @@
 		
 		<div> 
 		<div style="float:left;margin-right:200px;">
-			<span><input style="width:200%" type="text" id="search-box" placeholder="Search Item"/></span>
+			<span><input class="form-control" style="width:200%" type="text" id="search-box" placeholder="Search Item"/></span>
 		</div>
 		
 		
@@ -29,6 +30,10 @@
 		</div>	
 		
 		</div>
+		
+		<div style="clear:both"></div>
+		<br/>
+		
 	<div id="daftar-barang">
 		<table id="dt-view-item" class="table table-striped table-bordered table-hover">
 		<thead>
@@ -69,16 +74,16 @@
 		</tbody>	
 		</table>
 		</div>	
-	
 </section>
+</div>
 </body>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	
 	$('#dt-view-item').DataTable({
-		paging : true,
-		searching : false
+		searching : false,
+        "dom": 'rt<"bottom"flp><"clear">'
 	});
 	
 	var index=0;
@@ -323,13 +328,13 @@ $(document).ready(function(){
 			
 			if(validate.isValid()){
 			    $.ajax({
-			    	url:'${pageContext.request.contextPath}/item/save',
+			    	url:'${pageContext.request.contextPath}/master/item/save',
 			    	type : 'POST',
 			    	data : JSON.stringify(item),
 			    	contentType : 'application/JSON',
 			    	success : function(){
 			    		alert('save success')
-			    		window.location = '${pageContext.request.contextPath}/item/';
+			    		window.location = '${pageContext.request.contextPath}/master/item/';
 			    	},
 			    	error : function(){
 			    		alert('save failed')
@@ -403,13 +408,13 @@ $(document).ready(function(){
 				    if(item.name!==""){
 				    	//console.log(item.name)
 				    	 $.ajax({
-						    	url:'${pageContext.request.contextPath}/item/update',
+						    	url:'${pageContext.request.contextPath}/master/item/update',
 						    	type : 'PUT',
 						    	data : JSON.stringify(item),
 						    	contentType : 'application/JSON',
 						    	success : function(){
 						    		alert('save success')
-						    		window.location = '${pageContext.request.contextPath}/item/';
+						    		window.location = '${pageContext.request.contextPath}/master/item/';
 						    	},
 						    	error : function(){
 						    		alert('save failed')
@@ -420,11 +425,11 @@ $(document).ready(function(){
 				    
 				    idDelete.forEach(function(element){
 				    	$.ajax({
-							url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
+							url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
 							type:'DELETE',
 							success : function (){
 								//alert('delete successfully');
-								window.location = '${pageContext.request.contextPath}/item/';
+								window.location = '${pageContext.request.contextPath}/master/item/';
 							},
 							
 							error : function(){
@@ -436,12 +441,12 @@ $(document).ready(function(){
 				    
 				    idClear.forEach(function(element){
 				    	$.ajax({
-							url : '${pageContext.request.contextPath}/item/delete-inventory/'+element,
+							url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
 							type:'DELETE',
 							success : function (){
 								//alert('delete successfully');
 								alert('save successfully')
-								window.location = '${pageContext.request.contextPath}/item/';
+								window.location = '${pageContext.request.contextPath}/master/item/';
 							},
 							
 							error : function(){
@@ -464,7 +469,7 @@ $(document).ready(function(){
 	   
 	    	console.log(id)
 	    		$.ajax({
-				url :'${pageContext.request.contextPath}/item/search-inventory-outlet?search='+id+'&outlet-id='+outletId,
+				url :'${pageContext.request.contextPath}/master/item/search-inventory-outlet?search='+id+'&outlet-id='+outletId,
 				type :'GET',
 				dataType:'json',
 				success : function(xxx){	
@@ -558,7 +563,7 @@ $(document).ready(function(){
 		//console.log(keyword)
 		$.ajax({
 			type : 'GET',
-			url : '${pageContext.request.contextPath}/item/search-item?search='+keyword,
+			url : '${pageContext.request.contextPath}/master/item/search-item?search='+keyword,
 			dataType : 'json',
 			success : function (data){
 				$('#full-data-utama').empty();

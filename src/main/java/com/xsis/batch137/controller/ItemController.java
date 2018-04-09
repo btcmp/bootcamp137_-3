@@ -31,7 +31,7 @@ import com.xsis.batch137.service.OutletService;
 
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/master/item")
 public class ItemController {
 	@Autowired
 	ItemService itemService;

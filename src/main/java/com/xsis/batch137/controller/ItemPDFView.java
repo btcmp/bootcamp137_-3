@@ -21,7 +21,7 @@ public class ItemPDFView extends AbstractPdfView {
 		// TODO Auto-generated method stub
 		List<ItemInventory> ivt = (List<ItemInventory>) model.get("ivt");
 		   
-		   PdfPTable table = new PdfPTable(4);
+		   PdfPTable table = new PdfPTable(5);
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 
@@ -29,12 +29,21 @@ public class ItemPDFView extends AbstractPdfView {
 			table.addCell("Category");
 			table.addCell("Unit Price");
 			table.addCell("In Stock");
+			table.addCell("Stock Alert");
 
 			for (ItemInventory ivts : ivt) {
 				table.addCell(ivts.getItemVariant().getName());
 				table.addCell(ivts.getItemVariant().getItem().getCategory().getName());
 				table.addCell(String.valueOf(ivts.getItemVariant().getPrice()));
 				table.addCell(String.valueOf(ivts.getEndingQty()));
+				if(ivts.getEndingQty() < ivts.getAlertAtQty()) {
+					table.addCell("LOW");
+				}
+				
+				else {
+					table.addCell("OK");
+				}
+				
 			}
 			doc.add(table);
 	}

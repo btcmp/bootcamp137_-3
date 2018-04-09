@@ -50,7 +50,7 @@
 								<th>In Stock</th>
 								<th>Trans. Qty</th>
 								<th style="display : none">ID VARIANT</th>
-								<th>#</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody id="isi-popup-transfer">

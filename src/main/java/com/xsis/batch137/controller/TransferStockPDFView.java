@@ -6,11 +6,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
-
+import com.itextpdf.text.FontFactory;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.xsis.batch137.model.TransferStock;
@@ -26,8 +30,7 @@ public class TransferStockPDFView extends AbstractPdfView {
 		   PdfPTable table = new PdfPTable(4);
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-			table.addCell("Created Date");
+			table.addCell("Transfer Date");
 			table.addCell("From Outlet");
 			table.addCell("To Outlet");
 			table.addCell("Notes");

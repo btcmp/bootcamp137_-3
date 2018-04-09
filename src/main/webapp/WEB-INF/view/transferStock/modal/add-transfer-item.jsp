@@ -6,7 +6,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Add Transfer Item</h5>
+				<h5 align="center" class="modal-title" id="exampleModalLabel">Add Transfer Item</h5>
 			</div>
 			<div class="modal-body">
 				<form class="form-all" id="form-add-transfer-item" style="border:none">

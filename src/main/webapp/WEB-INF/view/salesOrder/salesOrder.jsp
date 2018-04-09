@@ -13,12 +13,12 @@ $(document).ready(function() {
 	
 	//Create customer
 	$('.customer').on('click', function() {
-		$('#choose-cust').modal();
+		$('#choose-cust').modal({backdrop: 'static', keyboard: false});
 	})
 	
 	//Add Customer
 	$('#add-new').on('click', function() {
-		$('#new-cust').modal();
+		$('#new-cust').modal({backdrop: 'static', keyboard: false});
 	})
 	
 	//save customer
@@ -351,7 +351,7 @@ $(document).ready(function() {
 			alert("choose customer first");
 		}else {
 			$('#charge-cash-label').append( "<input type='number' class='form-control' id='charge-cash' value="+total+" min="+total+" data-parsley-required='true' required>");
-			$('#modal-charge-sales-order').modal();
+			$('#modal-charge-sales-order').modal({backdrop: 'static', keyboard: false});
 		}
 	});
 	
@@ -366,7 +366,7 @@ $(document).ready(function() {
 			var total = parseInt($('#charge').text().split("Rp.")[1]);
 			document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
 			document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
-			$('#modal-receipt-sales-order').modal();
+			$('#modal-receipt-sales-order').modal({backdrop: 'static', keyboard: false});
 		}
 		
 	})

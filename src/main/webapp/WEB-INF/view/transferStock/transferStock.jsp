@@ -3,12 +3,13 @@
 <%@ include file="modal/add-transfer-item.jsp"%>
 <%@ include file="modal/view-transfer-stock-detail.jsp"%>
 
-<section class="content">
+<div class="content">
+<section class="box content">
 	<h3>Transfer Stock</h3>
 	<hr style="border-color:black;">
 		<div>
-			<div style="float: left; margin-right: 600px;">
-				<select id="search-outlet-to">
+			<div style="float:left;margin-right:150px;">
+				<select style="width:200%" id="search-outlet-to">
 				<option value="kosong">Search Outlet</option>
 					<c:forEach var="out" items="${outlets}">
 							<c:set var = "outId" scope = "session" value = "${outletLogin.id}"/>
@@ -24,12 +25,12 @@
 				</select>
 			</div>
 			
-			<div align="right" style="float: left; margin-right: 30px;">
-				<button id="export" class="btn btn-primary btn-md">Export</button>
+			<div align="right" style="float:left;margin-right:10px">
+				<button id="export" class="btn btn-primary btn-md">Export Transfer Stock Data</button>
 			</div>
 
 			<div align="right" style="float: left">
-				<button id="create-transfer-stock" class="btn btn-primary btn-md">Create</button>
+				<button id="create-transfer-stock" class="btn btn-primary btn-md">Create Transfer Stock Data</button>
 			</div>
 
 
@@ -44,7 +45,7 @@
 						<th>From Outlet</th>
 						<th>To Outlet</th>
 						<th>Status</th>
-						<th>#</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody id="isi-transfer-stock-list">
@@ -84,6 +85,7 @@
 			</table>
 		</div>
 </section>
+</div>
 </body>
 
 <script type="text/javascript">
