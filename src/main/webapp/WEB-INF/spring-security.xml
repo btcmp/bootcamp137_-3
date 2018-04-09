@@ -13,6 +13,8 @@
 		<intercept-url pattern="/transaksi/**" access="hasAnyRole('ROLE_BACK_OFFICE, ROLE_SUPER')"/>
 		<intercept-url pattern="/generate/**" access="hasAnyRole('ROLE_ADMIN, ROLE_BACK_OFFICE, ROLE_CASHIER, ROLE_SUPER')"/>
 		<intercept-url pattern="/transaction/**" access="hasAnyRole('ROLE_BACK_OFFICE, ROLE_SUPER')"/>
+		<intercept-url pattern="/transaction/sales-order/**" access="hasAnyRole('ROLE_CASHIER, ROLE_SUPER')"/>
+		<intercept-url pattern="/master/item/**" access="hasAnyRole('ROLE_CASHIER, ROLE_SUPER')"/>
 		<form-login
 			login-processing-url="/j_spring_security_check"
 			login-page="/login"
