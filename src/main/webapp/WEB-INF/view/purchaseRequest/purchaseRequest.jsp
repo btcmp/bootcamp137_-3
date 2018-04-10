@@ -90,44 +90,50 @@
 						aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Create New PR : ${outletLogin.name }</h4>
 						<input type="hidden" id = "pil-outlet" value="${outletLogin.id }">
-						<%-- <select id = "pil-outlet">
-							<c:forEach items="${outlets }" var="outlet">
-								<option value="${outlet.id }">${outlet.name }</option>
-							</c:forEach>
-						</select> --%>
 				</div>
 				<div class="modal-body">
 				<form id="tambah-pr">
 					<h4>Tanggal Waktu Item Ready : </h4>
-					<div class="input-group date">
+					<div class="input-group date" id="div-tanggal">
+						<div class="row">
+						<div class="col-xs-12">
+						<label class="control-label" for="pilih-tanggal" style="display:none" id="lbl-tanggal"><i class="fa fa-check"></i></label>
+	                	</div>
+	                	</div>
 	                	<div class="input-group-addon">
 	                  	<i class="fa fa-calendar"></i>
 	                	</div>
 	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal" data-parsley-required="true" required readonly>
 	                	<input type="hidden" id="in-id">
 	                </div>
-	                <div class="form-group">
+	                <div class="form-group" id="div-notes">
 	                	<h4>Notes : </h4>
+	                	<label class="control-label" for="in-notes" style="display:none" id="lbl-notes"><i class="fa fa-check"></i></label>
 	                	<textarea class="form-control" rows="5" id="in-notes" data-parsley-required="true" required></textarea>
 	                </div>
 	            </form>
 	                <h4>Purchase Request</h4>
 	                <hr style="border-color:black;">
-	                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
-	                	<thead>
-	                		<th>
-	                			Item
-	                		</th>
-	                		<th>
-	                			In Stock
-	                		</th>
-	                		<th>
-	                			Request Qty.
-	                		</th>
-	                	</thead>
-	                	<tbody id = "list-item">
-	                	</tbody>
-	                </table>
+	                <div class="row">
+		                <div class="col-xs-12" id="div-item">
+		                	<label class="control-label" for="data-purchase-item" style="display:none" id="lbl-item"><i class="fa fa-check"></i></label>
+			                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
+			                	<thead>
+			                		<th>
+			                			Item
+			                		</th>
+			                		<th>
+			                			In Stock
+			                		</th>
+			                		<th>
+			                			Request Qty.
+			                		</th>
+			                	</thead>
+			                	<tbody id = "list-item">
+			                	</tbody>
+			                </table>
+		                </div>
+	                </div>
 	                <button type="button" class="btn btn-md btn-primary btn-block" id="btn-tambah-item" data-toggle="modal" data-target="#add-item-pr">Add Item</button>
 	                
 				</div>
@@ -534,6 +540,40 @@
 		
 		$('#tblkonfadd').on('click', function(){
 			$('#add-item-pr').modal('hide');
+		});
+		
+		var tValid = 0;
+		
+		$('#pilih-tanggal').on('change', function(){
+			var tanggal = $(this).val().length;
+			if(tanggal > 0){
+				$('#div-tanggal').removeClass('has-error').addClass('has-success');
+				$('#lbl-tanggal').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-tanggal').fadeIn();
+				tValid = 1;
+			}else{
+				$('#div-tanggal').removeClass('has-success').addClass('has-error');
+				$('#lbl-tanggal').html('<i class="fa fa-times-circle-o"></i> Please select date');
+				$('#lbl-tanggal').fadeIn();
+				tValid = 0;
+			}
+		});
+		
+		var nValid = 0;
+		
+		$('#in-notes').on('input', function(){
+			var notes = $(this).val().length;
+			if(notes > 0){
+				$('#div-notes').removeClass('has-error').addClass('has-success');
+				$('#lbl-notes').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-notes').fadeIn();
+				nValid = 1;
+			}else{
+				$('#div-notes').removeClass('has-success').addClass('has-error');
+				$('#lbl-notes').html('<i class="fa fa-times-circle-o"></i> Please insert notes');
+				$('#lbl-notes').fadeIn();
+				nValid = 0;
+			}
 		});
 	});
 </script>
