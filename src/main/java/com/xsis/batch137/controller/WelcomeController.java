@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,13 +42,15 @@ public class WelcomeController {
 	@RequestMapping(value="/choose-outlet")
 	public String chooseOutlet(Model model, Principal principal) {
 		String username = principal.getName();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean superr = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_SUPER"));
 		Employee emp = employeeService.getEmployeeByUsername(username);
 		User user = employeeService.getUserByEmployee(emp);
 		httpSession.setAttribute("usernameLogin", username);
 		httpSession.setAttribute("empLogin", emp);
 		httpSession.setAttribute("userLogin", user);
 		List<Outlet> outlets = null;
-		if(user.getRole().getName().equals("ROLE_SUPER")) {
+		if(superr) {
 			outlets = outletService.selectActive();
 		}else {
 			outlets = employeeService.getOutletByEmployee(emp); 
