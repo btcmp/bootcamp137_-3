@@ -1,4 +1,4 @@
 # Kelompok 3
-1. Yusuf
-2. Yosia
-3. Isfan
+1. Yusuf Fahmi Adiputera
+2. Yosia Manurun
+3. Isfan Azhabil
