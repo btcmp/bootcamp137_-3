@@ -1,6 +1,8 @@
 <script>
-	if("${outletLogin.id}" == null){
+	if("${userLogin.id}" == null){
 		window.location = "${pageContext.request.contextPath}/login";
+	}else if("${outletLogin.id}" == null){
+		window.location = "${pageContext.request.contextPath}/welcome-auth/choose-outlet";
 	}
 </script>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

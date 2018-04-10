@@ -615,6 +615,4 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	public void setCreatePurchaseOrderHistory(List<PurchaseOrderHistory> createPurchaseOrderHistory) {
 		this.createPurchaseOrderHistory = createPurchaseOrderHistory;
 	}
-	
-	//sesuatu
 }
