@@ -165,6 +165,10 @@ public class PurchaseOrderService {
 		poh.setPurchaseOrder(pr);
 		poh.setStatus(pr.getStatus());
 		pohDao.save(poh);
+		List<PurchaseOrderDetail> pods =  podDao.selectDetailByPO(pr);
+		for(PurchaseOrderDetail pod : pods) {
+			iDao.setPurchaseQty(pod.getRequestQty(), pod.getVariant().getId(), pr.getOutlet().getId());
+		}
 	}
 	
 	public List<PurchaseOrder> getPOByStatus(String status){

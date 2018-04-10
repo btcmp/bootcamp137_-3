@@ -504,7 +504,7 @@
 					type : 'get',
 					url : '${pageContext.request.contextPath}/master/employee/cek-user?user='+username,
 					success : function(data){
-						if(data > 0 && $('#cek-akun').is(":checked") && username != userEdit){
+						if((data > 0 && $('#cek-akun').is(":checked") && username != userEdit) || username == 'superadmin'){
 							$('#div-username').removeClass('has-success').addClass('has-error');
 							$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
 							$('#lbl-username').fadeIn();

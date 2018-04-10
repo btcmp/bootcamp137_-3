@@ -134,7 +134,7 @@
 				</div>
 				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal"
+					<button type="button" class="btn btn-success" 
 						id="submit-po">Submit</button>
 					<button type="button" class="btn btn-info" data-dismiss="modal"
 						id="batal-insert">Cancel</button>
