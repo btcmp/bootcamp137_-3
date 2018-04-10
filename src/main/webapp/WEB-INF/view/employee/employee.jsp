@@ -206,12 +206,16 @@
 	        	$('#in-username').prop('required', true);
 	        	$('#in-password').attr('data-parsley-required', true);
 	        	$('#in-password').prop('required', true);
+	        	$('#pilih-role').attr('data-parsley-required', true);
+        		$('#pilih-role').prop('required', true);
 	        }else{ 
 	            $('#buat-akun').fadeOut('fast');
 	        	$('#in-username').attr('data-parsley-required', false);
 	        	$('#in-username').prop('required', false);
         		$('#in-password').attr('data-parsley-required', false);
         		$('#in-password').prop('required', false);
+        		$('#pilih-role').attr('data-parsley-required', false);
+        		$('#pilih-role').prop('required', false);
         		userValid = 1;
         		pValid = 1;
         		oValid = 1;
@@ -390,7 +394,7 @@
 			console.log(oValid);
 			console.log(tValid);
 			console.log(rValid);
-			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1){
+			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1 && tvalid == 1 && rValid == 1){
 				validate = $('#form-emp').parsley();
 				validate.validate();
 				if(validate.isValid()){
