@@ -417,28 +417,7 @@
 						}
 					});
 				}
-			}/* else if(validate.isValid() && emailValid == 0 && userValid == 0){
-				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Error!</strong> Username dan Email tidak Unique.');
-				$('#div-alert').fadeIn();
-				setTimeout(function(){
-					$('#div-alert').fadeOut();
-				}, 4000);
-			}else if(validate.isValid() && emailValid == 0 && userValid == 1){
-				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Erro!</strong> Email tidak Unique.');
-				$('#div-alert').fadeIn();
-				setTimeout(function(){
-					$('#div-alert').fadeOut();
-				}, 4000);
-			}else if(validate.isValid() && emailValid == 1 && userValid == 0){
-				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Erro!</strong> Username tidak Unique.');
-				$('#div-alert').fadeIn();
-				setTimeout(function(){
-					$('#div-alert').fadeOut();
-				}, 4000);
-			} */else{
+			}else{
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
 				$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database.');
 				$('#div-alert').fadeIn();

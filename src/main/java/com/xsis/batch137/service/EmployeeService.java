@@ -105,7 +105,7 @@ public class EmployeeService {
 	
 	public List<Employee> selectAll(){
 		List<Employee> emps = empDao.selectAll(); 
-		if(emps.isEmpty()) {
+		if(emps == null) {
 			return null;
 		}else {
 			for(Employee emp : emps) {
@@ -119,7 +119,7 @@ public class EmployeeService {
 	public Employee getOne(long id) {
 		Employee empss = empDao.getOne(id);
 		List<EmployeeOutlet> empOUtlets = eoDao.getEmployeeOutletByEmployee(empss);
-		if(empOUtlets.isEmpty()) {
+		if(empOUtlets == null) {
 			
 		}else {
 			empss.setEmpOutlet(empOUtlets);
