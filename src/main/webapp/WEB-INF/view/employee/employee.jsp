@@ -128,7 +128,7 @@
 					<td>
 						<script>
 							if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "true"){
-									document.write("${emp.user.role.name }");
+									document.write("${emp.user.role.description }");
 								}else if("${emp.haveAccount}" === "true" && "${emp.user.active}" === "false"){
 									document.write("User Tidak Aktif");
 								}else{
