@@ -230,6 +230,15 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 			return invents;
 		}
 	}
+
+	@Override
+	public void setPurchaseQty(int qty, long variant, long outlet) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update ItemInventory set purchaseQty = :qty where itemVariant.id = :variant and outlet.id = :outlet";
+		session.createQuery(hql).setParameter("qty", qty).setParameter("variant", variant).setParameter("outlet", outlet).executeUpdate();
+		session.flush();
+	}
 }
 
 

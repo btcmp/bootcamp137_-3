@@ -25,4 +25,5 @@
 		public List<ItemInventory> getItemInventoryByOutletLogin(long outId);
 		public List<ItemInventory> searchItemInventoryByItemNameAndOutlet(String search, Outlet outlet);
 		public List<ItemInventory> searchInventoryByOutlet(String search, long id);
+		public void setPurchaseQty(int qty, long variant, long outlet);
 	}
