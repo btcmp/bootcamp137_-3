@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.model.Item;
 import com.xsis.batch137.model.ItemVariant;
 
@@ -58,5 +59,18 @@ public class ItemVariantDaoImpl implements ItemVariantDao {
 		}
 		
 		return itemVariants;
+	}
+
+	@Override
+	public int countSku(String sku) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from ItemVariant where lower(sku) = :sku";
+		List<ItemVariant> ivt = session.createQuery(hql).setParameter("sku", sku.toLowerCase()).list();
+		if(ivt.isEmpty()) {
+			return 0;
+		}
+		else{
+			return ivt.size();
+		}
 	}
 }

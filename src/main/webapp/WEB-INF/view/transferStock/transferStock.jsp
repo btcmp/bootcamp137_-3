@@ -9,7 +9,7 @@
 	<hr style="border-color:black;">
 		<div>
 			<div style="float:left;margin-right:150px;">
-				<select style="width:200%" id="search-outlet-to">
+				<select class="form-control" style="width:180%" id="search-outlet-to">
 				<option value="kosong">Search Outlet</option>
 					<c:forEach var="out" items="${outlets}">
 							<c:set var = "outId" scope = "session" value = "${outletLogin.id}"/>
@@ -228,7 +228,7 @@
 		
 		//clik save item
 		//a >> tag
-		$('body').on('click', 'a.btn-save-item', function(evt){
+		$('body').on('click', 'button.btn-save-item', function(evt){
 			document.getElementById("btn-save-transfer-item").disabled = false;
 			var id = $(this).attr('id');
 			var transQty=parseInt($('.add-transfer-stock-qty'+id).val());
@@ -309,7 +309,7 @@
 									+ '<td class="in-stock'+val.id+'">'+val.endingQty+'</td>'
 									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required/></td>'
 									+ '<td style="display : none" class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
-									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item"> &#10004; </a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'"> Added </a> </td>'
+									+ '<td> <button href="#" id='+val.id +' class="save-item'+val.id+' btn btn-save-item btn-primary"> Confirm </button> <a href="#" id='+val.id +' class="btn btn-success add-transfer-saved'+val.id+'"> Confirmed </a> </td>'
 									+ '</tr>');
 							$('.add-transfer-saved'+val.id).hide();
 						}
@@ -320,7 +320,7 @@
 									+ '<td>'+val.endingQty+'</td>'
 									+ '<td id="qty-'+val.id+'">'+savedQty[x]+'</td>'
 									+ '<td style="display : none" class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
-									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn-save-item">  &#10004; </a> <a href="#" id='+val.id +' class="add-transfer-saved'+val.id+'">Added</a> </td>'
+									+ '<td> <a href="#" id='+val.id +' class="save-item'+val.id+' btn btn-save-item btn-primary">  Confirm </button> <a href="#" id='+val.id +' class="btn btn-success add-transfer-saved'+val.id+'"> Confirmed </a> </td>'
 									+ '</tr>');
 							$('.save-item'+val.id).hide();
 						}

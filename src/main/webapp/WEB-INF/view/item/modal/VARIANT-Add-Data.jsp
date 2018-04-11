@@ -9,32 +9,40 @@
 				<h5 class="modal-title" id="exampleModalLabel">Add Variant</h5>
 			</div>
 			<div class="modal-body">
-				<form class="form-all" id="form-add-varian-data">
+				<form style="border:none" class="form-all" id="form-add-varian-data">
 					<div class="form-group" align="left" style="float:left;width:33%">
 						<input type="text" placeholder="Variant Name" 
-							 id="add-variant-name" data-parsley-required="true" data-required-message="Please insert your name" required>
+							 id="add-variant-name" data-parsley-required-message="Please insert the variant name"
+							data-parsley-required>
 					</div>
 					
 					<div class="form-group" style="float:left ;width:33%">
-					<input type="number" placeholder="Unit Price" id="add-unit-price" required=""></span>
+					<input type="number" placeholder="Unit Price" id="add-unit-price" data-parsley-required-message="Please insert the unit price"
+							data-parsley-required min="1"></span>
 					
 					<!-- 	<label for="input-variant-name">Unit Price</label>  -->
 <!-- 						<span class="currencyinput" style="border: 1px inset #ccc">$<input style="border: 0" type="number" class="form-control" id="add-unit-price"></span>
  -->					</div>
 					
-					<div class="form-group" style="float:left;width:33%">
-					<input type="text" placeholder="SKU"
-							 id="add-sku" data-parsley-required="true" required>
+					<div id="div-add-sku" class="form-group" style="float:left;width:33%">
+					<input type="text" placeholder="SKU" id="add-sku" data-parsley-required-message="Please insert the SKU"
+							data-parsley-required>
+					<label style="display:none"  class="control-label" for="in-sku"id="lbl-sku"><i class="fa fa-check"></i></label>
 					</div>
-
-					<label for="input-variant-name">Set Beginning Stock</label> 					
+					
+					<div>										
+						<label for="input-variant-name">Set Beginning Stock</label> 					
+					</div>
+					
 					<div class="form-group">
 						<div style="float:left;width:33%">
-							<input placeholder="Beginning Stock" type="number" id="add-beginning-stock" data-parsley-required="true" required>
+							<input min="1" placeholder="Beginning Stock" type="number"  data-parsley-required-message="Please insert the beginning stock"
+							data-parsley-required>
 						</div>
 						
 						<div style="float:left;width:33%">
-							<input placeholder="Alert At" type="number" id="add-alert-at" data-parsley-required="true" required>
+							<input min="1" placeholder="Alert At" type="number" data-parsley-required-message="Please insert the alert at quantity"
+							data-parsley-required>
 						</div>
 					</div> <br/>
 					

@@ -123,7 +123,7 @@ $(document).ready(function(){
 		 validate=$('#form-add-varian-data').parsley();
 			validate.validate();
 			
-			if(validate.isValid()){
+			if(validate.isValid() && skuValid==1){
 				$('#modal-add-variant').modal('toggle');
 				$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td><p>'+
 						$('#add-unit-price').val()+'</p></td><td><p>'+$('#add-sku').val()
@@ -333,11 +333,18 @@ $(document).ready(function(){
 			    	data : JSON.stringify(item),
 			    	contentType : 'application/JSON',
 			    	success : function(){
-			    		alert('save success')
-			    		window.location = '${pageContext.request.contextPath}/master/item/';
+			    		$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+			    		$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+			    		$('#div-alert').fadeIn();
+			    		
+			    		setTimeout(function(){
+				    		window.location = '${pageContext.request.contextPath}/master/item/';
+				    		},1000);
 			    	},
 			    	error : function(){
-			    		alert('save failed')
+			    		$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+			    		$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+			    		$('#div-alert').fadeIn(); 
 			    	}
 			    });   
 			}
@@ -345,14 +352,72 @@ $(document).ready(function(){
 		  
 		});
 		
+		var skuValid;
+		
+		$('#add-sku').on('input',function(){
+			var sku = $('#add-sku').val();
+			console.log(sku)
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/master/item/cek-sku?sku='+sku,
+				success : function(data){
+					if(data>0){
+						$('#div-add-sku').removeClass('has-success').addClass('has-error');
+						$('#lbl-sku').html('SKU must be unique');
+						$('#lbl-sku').fadeIn();
+						skuValid = 0;
+					}
+					
+					else{
+						console.log('oke')
+						$('#div-add-sku').removeClass('has-success').addClass('has-error');
+						// $('#lbl-sku').html('SKU must be unique');
+						$('#lbl-sku').fadeOut();
+						skuValid = 1;
+					}
+				}, error : function(){
+					
+				}
+			});
+		});
+		
+		$('#edit-sku').on('input',function(){
+			var sku = $('#edit-sku').val();
+			console.log(sku)
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/master/item/cek-sku?sku='+sku,
+				success : function(data){
+					if(data>0){
+						$('#div-edit-sku').removeClass('has-success').addClass('has-error');
+						$('#lbl-edit-sku').html('SKU must be unique');
+						$('#lbl-edit-sku').fadeIn();
+						skuValid = 0;
+					}
+					
+					else{
+						console.log('oke')
+						$('#div-edit-sku').removeClass('has-success').addClass('has-error');
+						// $('#lbl-sku').html('SKU must be unique');
+						$('#lbl-edit-sku').fadeOut();
+						skuValid = 1;
+					}
+				}, error : function(){
+					
+				}
+			});
+		});
+		
+		
 		
 		$('#edititem-btn-create-data').on('click',function(evt){
 			evt.preventDefault();
-			
+		
 			validate=$('#form-main-edit-data').parsley();
 			validate.validate();
 				
 				if(validate.isValid()){
+					
 					var active = "true";
 				      $('#edititem-checkbox:checked').each(function(){
 				        active=$(this).val()
@@ -403,9 +468,45 @@ $(document).ready(function(){
 				    	},
 				    	itemVariants : itemVar
 				    }
-				
+				    
+				    if(idDelete!=""){
+				    		idDelete.forEach(function(element){
+						    	$.ajax({
+									url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
+									type:'DELETE',
+									success : function (){
+										//alert('delete successfully');
+										//window.location = '${pageContext.request.contextPath}/master/item/';
+									},
+									
+									error : function(){
+										//alert('delete failed');
+									} 
+									  
+								});
+					    	});
+				    }
+				    
+				    if (idClear!=""){
+				        idClear.forEach(function(element){
+					    	$.ajax({
+								url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
+								type:'DELETE',
+								success : function (){
+									//alert('delete successfully');
+									//alert('save successfully')
+									//window.location = '${pageContext.request.contextPath}/master/item/';
+								},
+								
+								error : function(){
+									//alert('delete failed');
+								} 
+								
+							});
+					    }); 	
+				    }
+				    
 			    	console.log(item)
-				    if(item.name!==""){
 				    	//console.log(item.name)
 				    	 $.ajax({
 						    	url:'${pageContext.request.contextPath}/master/item/update',
@@ -413,48 +514,21 @@ $(document).ready(function(){
 						    	data : JSON.stringify(item),
 						    	contentType : 'application/JSON',
 						    	success : function(){
-						    		alert('save success')
-						    		window.location = '${pageContext.request.contextPath}/master/item/';
+						    		$('#tampilan-alert-edit-data').removeClass('alert-gagal').addClass('alert-sukses');
+						    		$('#tampilan-alert-edit-data').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+						    		$('#div-alert-edit-data').fadeIn();
+						    		
+						    		setTimeout(function(){
+						    			window.location = '${pageContext.request.contextPath}/master/item/';
+							    		},1000);
+						    		
 						    	},
 						    	error : function(){
-						    		alert('save failed')
+						    		$('#tampilan-alert-edit-data').removeClass('alert-sukses').addClass('alert-gagal');
+						    		$('#tampilan-alert-edit-data').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+						    		$('#div-alert-edit-data').fadeIn(); 
 						    	}
-						    });
-				    }
-				    
-				    
-				    idDelete.forEach(function(element){
-				    	$.ajax({
-							url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
-							type:'DELETE',
-							success : function (){
-								//alert('delete successfully');
-								window.location = '${pageContext.request.contextPath}/master/item/';
-							},
-							
-							error : function(){
-								//alert('delete failed');
-							} 
-							  
-						});
-			    	});
-				    
-				    idClear.forEach(function(element){
-				    	$.ajax({
-							url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
-							type:'DELETE',
-							success : function (){
-								//alert('delete successfully');
-								alert('save successfully')
-								window.location = '${pageContext.request.contextPath}/master/item/';
-							},
-							
-							error : function(){
-								//alert('delete failed');
-							} 
-							
-						});
-				    });  	
+						    });		    
 				}
 		    
 		});
@@ -524,7 +598,7 @@ $(document).ready(function(){
    				+'<td style="display:none"><p>null</p></td>'
    				+'<td style="display:none"><p>null</p></td>'
    				+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
-    			+'<td><a href="#" id="edititem-tombol-edit-variant" class="btn-warning"> Edit </a> | <a href="#" id="edititem-delete-variant-data">&#10006; </a>'+'</td></tr>');
+    			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data">Delete </a>'+'</td></tr>');
     }
    
 	function clearForm() {

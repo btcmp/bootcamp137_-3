@@ -213,4 +213,12 @@ public class ItemController {
 	public List<ItemInventory> getAllInventory(){
 		return itemInventoryService.selectAll();
 	}
+	
+	//cek SKU
+	@RequestMapping("/cek-sku")
+	@ResponseBody
+	public int getVariantSku(@RequestParam(value="sku", defaultValue="") String sku) {
+		return itemVariantService.countSku(sku);
+	}
+	
 }

@@ -22,8 +22,36 @@ function readURL(input) {
 </script>
 
 <style>
-  article, aside, figure, footer, header, hgroup, 
-  menu, nav, section { display: block; }
+  input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+    color: #468847;
+    background-color: #F2F9F0 !important;
+    border: 1px solid #D6E9C6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+    color: #B94A48;
+    background-color: #F9F0F0 !important;
+    border: 1px solid #f09784;
+}
+
+.parsley-errors-list {
+    list-style-type: none;
+    opacity: 0;
+    transition: all .3s ease-in;
+
+    color: #d16e6c;
+    margin-top: 5px;
+    margin-bottom: 0;
+  padding-left: 0;
+}
+
+.parsley-errors-list.filled {
+    opacity: 1;
+}
 </style>
 
 
@@ -36,11 +64,17 @@ function readURL(input) {
 			</div>
 			<div class="modal-body">
 				<form style="border:none" id="form-add-data" class="form-all">
-					        			
+				 	<div class="row" id="div-alert" style="display:none;">
+						<div class="col-xs-12">
+							<div id="tampilan-alert" class="alert alert-sukses" role="alert">
+								<strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="input-item-name">Item Name</label> <input type="text"
-							class="form-control" id="add-item-name" placeholder="enter item name" data-required-message="Please insert your name"
-							data-parsley-required="true" required>
+							class="form-control" id="add-item-name" placeholder="Enter item name" data-parsley-required-message="Please insert the item name"
+							data-parsley-required>
 					</div>
 					
 					<div>

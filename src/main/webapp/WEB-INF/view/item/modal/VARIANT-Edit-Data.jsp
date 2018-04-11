@@ -23,10 +23,11 @@
 					<input type="number" placeholder="Unit Price" id="edit-unit-price" required>
 					</div>
 					
-					<div class="form-group" style="float:left;width:33%">
 					<label>SKU</label>
+					<div id="div-edit-sku" class="form-group" style="float:left;width:33%">
 					<input type="text" placeholder="SKU"
 							 id="edit-sku" data-parsley-required="true" required>
+					<label style="display:none" class="control-label" id="lbl-edit-sku"><i class="fa fa-check"></i></label>
 					</div>
 				
 					<div class="form-group">

@@ -11,6 +11,15 @@
 			<div class="modal-body">
 			<input type="hidden" id="edit-item-input-id" class="form-control">			
 				<form style="border:none" class="form-all" id="form-main-edit-data">
+					
+						<div class="row" id="div-alert-edit-data" style="display:none;">
+						<div class="col-xs-12">
+							<div id="tampilan-alert-edit-data" class="alert alert-sukses" role="alert">
+								<strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
+					
 					<div class="form-group">
 						<label for="input-item-name">Item Name</label> <input type="text" 
 							class="form-control" id="edititem-item-name" placeholder="enter item name" data-parsley-required="true" required>

@@ -83,4 +83,7 @@ public class ItemVariantService {
 	public List<ItemVariant> searchVariantByItem(Item item){
 		return itemVariantDao.searchVariantByItem(item);
 	}
+	public int countSku(String sku) {
+		return itemVariantDao.countSku(sku);
+	}
 }

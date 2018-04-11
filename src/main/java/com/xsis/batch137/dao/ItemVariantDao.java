@@ -13,4 +13,5 @@ public interface ItemVariantDao {
 	public void update(ItemVariant itemVariant);
 	public void saveAtauUpdate(ItemVariant itemVariant);
 	public List<ItemVariant> searchVariantByItem(Item item);
+	public int countSku(String sku);
 }

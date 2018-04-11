@@ -9,7 +9,7 @@
 				<h5 class="modal-title" id="exampleModalLabel">Add Variant</h5>
 			</div>
 			<div class="modal-body">
-				<form class="form-all" id="form-edititem-variant-add-data">
+				<form class="form-all" style="border:none" id="form-edititem-variant-add-data">
 					<div class="form-group" align="left" style="float:left;width:33%">
 						<input type="text" placeholder="Variant Name" 
 							 id="edititem-add-variant-name" data-parsley-required="true" data-required-message="Please insert your name" required>
