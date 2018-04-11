@@ -15,6 +15,7 @@ import com.lowagie.text.Font;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfPage;
 import com.lowagie.text.pdf.PdfWriter;
 import com.xsis.batch137.model.PurchaseOrder;
 
@@ -30,12 +31,12 @@ public class PurchaseOrderPDFView extends AbstractPdfView {
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 			
-			Font font = new Font(Font.BOLD, 14);
+			Font font = new Font(Font.BOLD, 16);
 			Chunk title = new Chunk("Purchase Order", font);
 			Paragraph judul = new Paragraph(title);
 			judul.setAlignment(Element.ALIGN_CENTER);
 			doc.add(judul);
-			doc.add(new Paragraph());
+			doc.add(new Paragraph(new Chunk("  ")));
 			table.addCell("Created On");
 			table.addCell("PO No");
 			table.addCell("Notes");
