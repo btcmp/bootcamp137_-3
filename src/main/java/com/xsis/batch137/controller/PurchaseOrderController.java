@@ -3,6 +3,8 @@ package com.xsis.batch137.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseRequest;
 import com.xsis.batch137.model.Supplier;
@@ -31,6 +34,9 @@ public class PurchaseOrderController {
 	
 	@Autowired
 	SupplierService supService;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	@RequestMapping
 	public String index(Model model) {

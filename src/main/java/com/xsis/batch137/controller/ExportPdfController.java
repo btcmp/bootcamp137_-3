@@ -1,6 +1,7 @@
 package com.xsis.batch137.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,13 +44,11 @@ public class ExportPdfController {
 	@RequestMapping(value = "/generate/pr", method = RequestMethod.GET)
 	ModelAndView generatePdf(HttpServletRequest request,
 	HttpServletResponse response) throws Exception {
-		System.out.println("Calling generatePdf()...");
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"pr.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<PurchaseRequest> pr = prService.selectByOutlet();
-
-	return new ModelAndView("pdfView","pr", pr);
+		List<PurchaseRequest> pr = prService.selectByOutlet();
+		return new ModelAndView("pdfViewPr","pr", pr);
  	}
 	
 	@RequestMapping(value = "/generate/ts", method = RequestMethod.GET)
@@ -73,7 +72,7 @@ public class ExportPdfController {
 		response.setContentType("application/pdf");
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		long outId = outlet.getId();
-		java.util.List<ItemInventory> ivt = ivtService.getItemInventoryByOutletLogin(outId);
+		List<ItemInventory> ivt = ivtService.getItemInventoryByOutletLogin(outId);
 
 	return new ModelAndView("pdfViewIvt","ivt",ivt);
  	}
@@ -81,12 +80,9 @@ public class ExportPdfController {
 	@RequestMapping(value = "/generate/po", method = RequestMethod.GET)
 	ModelAndView generatePdfPo(HttpServletRequest request,
 	HttpServletResponse response) throws Exception {
-		System.out.println("Calling generatePdf()...");
-		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"po.pdf\"");
 		response.setContentType("application/pdf");
-		java.util.List<PurchaseOrder> po = poService.getByOutlet();
-
-	return new ModelAndView("pdfViewPo","po", po);
+		List<PurchaseOrder> pos = poService.getByOutlet();
+		return new ModelAndView("pdfViewPo","pos", pos);
  	}
 }
