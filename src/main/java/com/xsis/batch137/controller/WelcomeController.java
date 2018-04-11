@@ -51,9 +51,13 @@ public class WelcomeController {
 		httpSession.setAttribute("userLogin", user);
 		List<Outlet> outlets = null;
 		if(superr) {
+			httpSession.setAttribute("superr", 1);
 			outlets = outletService.selectActive();
 		}else {
 			outlets = employeeService.getOutletByEmployee(emp); 
+			emp = employeeService.getEmployeeByUsername(username);
+			user = employeeService.getUserByEmployee(emp);
+			httpSession.setAttribute("superr", 0);
 		}
 		model.addAttribute("outlets", outlets);
 		return "choose-outlet";

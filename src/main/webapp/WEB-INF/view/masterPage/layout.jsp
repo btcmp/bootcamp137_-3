@@ -1,7 +1,15 @@
 <script>
-	if("${userLogin.id}" == null){
+	var userId = "${userLogin.id}";
+	var outletId = "${outletLogin.id}";
+	var superr = "${superr}";
+	console.log(userId.length);
+	console.log(outletId.length);
+	console.log(superr);
+	if(superr == 1 && outletId.length == 1){
+		
+	}else if(userId.length == 0){
 		window.location = "${pageContext.request.contextPath}/login";
-	}else if("${outletLogin.id}" == null){
+	}else if(outletId.length == 0){
 		window.location = "${pageContext.request.contextPath}/welcome-auth/choose-outlet";
 	}
 </script>
