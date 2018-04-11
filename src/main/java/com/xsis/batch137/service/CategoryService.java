@@ -107,5 +107,10 @@ public class CategoryService {
 			return itemStock;
 		}
 	}
+
+	public int countCategory(String name) {
+		// TODO Auto-generated method stub
+		return categoryDao.countCategory(name);
+	}
 	
 }

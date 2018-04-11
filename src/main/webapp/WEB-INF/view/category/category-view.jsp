@@ -66,21 +66,36 @@
 			var category = {
 				name : $('#create-category').val()
 			};
+			if(nameValid != 1){
+				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+				$('#tampilan-alert').fadeIn();
+				$('#validasi-name').removeClass('has-success').addClass('has-error');
+				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Cannot Save');
+				$('#label-name').fadeIn();
+			}
+			else {
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/category/save',
 				type : 'POST',
 				data : JSON.stringify(category),
 				contentType : 'application/json',
 				success : function(){
-					console.log(category);
-					alert('Saved..');
-					window.location = '${pageContext.request.contextPath}/master/category';
+					$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+					$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+					$('#tampilan-alert').fadeIn();
+						
+					setTimeout(function() {
+						window.location = '${pageContext.request.contextPath}/master/category';
+					}, 2000);
 				},
 				error : function(){
-					console.log(category);
-					alert();
+						$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+						$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+						$('#tampilan-alert').fadeIn(); 
 				}
 			});
+			}
 		});
 		
 		
@@ -179,6 +194,42 @@
 					console.log(data);
 				}
 			});
+		});
+		
+		var nameValid = 0;
+		
+		//validasi
+		$('#create-category').on('input', function(){
+			var name = $('#create-category').val();
+			if(name.length > 0){
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/master/category/cek-name?name='+name,
+					success : function(data){
+						if(data > 0){
+							$('#validasi-name').removeClass('has-success').addClass('has-error');
+							$('#label-name').html('<i class="fa fa-times-circle-o"></i> category name must be unique');
+							$('#label-name').fadeIn();
+							nameValid = 0;
+						}
+						else {
+							$('#validasi-name').removeClass('has-error').addClass('has-success');
+							$('#label-name').html('<i class="fa fa-times-circle-o"></i> Ok');
+							$('#label-name').fadeIn();
+							nameValid = 1;
+						}
+					},
+					error : function(){
+						console.log('Gagal!');
+					}
+				});
+			}
+			else{
+				$('#validasi-name').removeClass('has-success').addClass('has-error');
+				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Cannot be empty');
+				$('#label-name').fadeIn();
+				nameValid = 0;
+			}
 		});
 		
 	});

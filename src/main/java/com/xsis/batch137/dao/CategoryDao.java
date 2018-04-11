@@ -17,4 +17,6 @@ public interface CategoryDao {
 	public Category getOne(long id);
 
 	public List<Category> searchCategory(String search);
+
+	public int countCategory(String name);
 }

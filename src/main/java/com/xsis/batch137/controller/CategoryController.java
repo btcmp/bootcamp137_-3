@@ -69,4 +69,10 @@ public class CategoryController {
 		int itemStock = categoryService.getItemStock(id);
 		return itemStock;
 	}
+	
+	@RequestMapping("/cek-name")
+	@ResponseBody
+	public int countCategory(@RequestParam("name") String name) {
+		return categoryService.countCategory(name);
+	}
 }

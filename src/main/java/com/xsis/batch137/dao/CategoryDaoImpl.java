@@ -70,6 +70,18 @@ public class CategoryDaoImpl implements CategoryDao{
 			return cats;			
 		}
 	}
+
+	@Override
+	public int countCategory(String name) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Category where lower(name) = :nama";
+		List<Category> cats = session.createQuery(hql).setParameter("nama", name.toLowerCase()).list();
+		if(cats.isEmpty()) {
+			return 0;
+		}
+		return cats.size();
+	}
 	
 	
 }

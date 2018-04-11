@@ -5,16 +5,18 @@
 			<div class="modal-content">
 			
 				<div class="modal-header">
+					<div id="tampilan-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
 					<h3 id="judul-modal">Create Category</h3>
 				</div>
 				
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-						<div>
-							<div><h4>Category Name</h4></div>
-							<div ><input type="text" class="form-control full-span" id="create-category" data-parsley-required="true" /></div>
-						</div>
+					<div id="validasi-name">
+						<div><h4>Category Name</h4></div>
+						<label class="control-label" for="in-username" style="display:none" id="label-name"><i class="fa fa-check"></i></label>
+						<div ><input type="text" class="form-control full-span" id="create-category" data-parsley-required="true" /></div>
+					</div>
 						<input type="hidden" name="id" id="id">
 					</form>
 				</div>
