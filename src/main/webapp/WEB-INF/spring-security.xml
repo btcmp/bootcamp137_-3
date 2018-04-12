@@ -47,6 +47,17 @@
 					inner join ROLE r
 					on u.role_id = r.id where u.username=?" />
 		</authentication-provider>
+		<!-- <authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query=
+					"select e.email, u.password, u.active from EMPLOYEE e, USER_137 u where e.email=? and u.active=1 and u.id = e.id"
+				authorities-by-username-query=
+					"select 
+					  e.email, 
+					  r.name,
+					  u.username FROM EMPLOYEE e, USER_137 u, ROLE r 
+					  where e.email=? and u.employee_id = e.id" />
+		</authentication-provider> -->
 		<authentication-provider>
 			<user-service>
 				<user name="superadmin" password="12345" authorities="ROLE_SUPER"/>
