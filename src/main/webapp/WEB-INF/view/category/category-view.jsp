@@ -43,6 +43,7 @@
 </div>
 <%@ include file="/WEB-INF/view/category/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/category/modal/edit.jsp"%>
+<%@ include file="/WEB-INF/view/category/modal/delete.jsp"%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -184,7 +185,7 @@
 						
 					setTimeout(function() {
 						window.location = '${pageContext.request.contextPath}/master/category';
-					}, 3000);
+					}, 2500);
 				},
 				error : function(){
 						$('#edit-alert').removeClass('alert-sukses').addClass('alert-gagal');
@@ -196,6 +197,11 @@
 		});
 		
 		
+		$('#call-delete').click(function(e){
+			e.preventDefault();
+			$('#modal-delete').modal();
+		});
+		
 		$('#tbl-delete').click(function(e){
 			e.preventDefault();
 			var id = $('#id-edit').val();
@@ -203,13 +209,19 @@
 				url : '${pageContext.request.contextPath}/master/category/delete/' + id,
 				type : 'DELETE',
 				success : function(){
-					console.log(id);
-					alert('Deleted');
-					window.location = '${pageContext.request.contextPath}/master/category';
+					$('#delete-alert').removeClass('alert-gagal').addClass('alert-sukses');
+					$('#delete-alert').html('<strong>Delete success!</strong>');
+					$('#delete-alert').fadeIn();
+					
+					setTimeout(function(){
+						window.location = '${pageContext.request.contextPath}/master/category';
+					}, 2500);
 				},
 				error : function(){
 					console.log(id);
-					alert('Cannot Delete..');
+					$('#delete-alert').removeClass('alert-sukses').addClass('alert-gagal');
+					$('#delete-alert').html('<strong>Delete failed!</strong>');
+					$('#delete-alert').fadeIn();
 				}
 			});
 		});

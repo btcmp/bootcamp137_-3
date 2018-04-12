@@ -24,7 +24,7 @@
 				<div class="modal-footer">
 				<div class="row">
 						<div class="form-group" style="float:left; margin-left:20px;">
-							<button type="button" class="btn btn-danger" id="tbl-delete">X</button>
+							<button type="button" class="btn btn-danger" id="call-delete">X</button>
 						</div>
 						<div class="form-group" style="float:left; margin-left:370px;">
 							<button type="reset" class="btn btn-warning" id="tbl-cancel">Cancel</button>
