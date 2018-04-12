@@ -81,7 +81,7 @@ textarea.parsley-error {
 					<!-- <div>
 						<input type='file'  id="images-input" onchange="preview_image(event)"/>
 						<img id="output_image" alt="your image" style="max-width: 100%"/>
-					</div> -->
+					</div>z -->
 					
 					<div class="fileinput fileinput-new" data-provides="fileinput">
   						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
