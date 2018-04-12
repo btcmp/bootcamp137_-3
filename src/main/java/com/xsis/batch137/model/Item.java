@@ -62,8 +62,16 @@ public class Item {
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="item",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<ItemVariant> itemVariants;
 
+	private String image;
 	
-	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public User getCreatedBy() {
 		return createdBy;
 	}

@@ -28,6 +28,8 @@
 					<input type="text" placeholder="SKU"
 							 id="edititem-edit-sku" data-parsley-required="true" required>
 					</div>
+					
+					<div style="clear:both"></div>
 
 					<div class="form-group">
 

@@ -21,41 +21,76 @@ $(document).ready(function() {
 		$('#new-cust').modal({backdrop: 'static', keyboard: false});
 	})
 	
+	
+	
+	//validate email
+		$('#save-email-cust').on('input',function(){
+			var email = $('#save-email-cust').val();
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/transaction/sales-order/cek-sku?sku='+sku,
+				success : function(data){
+					if(data>0){
+						$('#div-add-sku').removeClass('has-success').addClass('has-error');
+						$('#lbl-sku').html('SKU must be unique');
+						$('#lbl-sku').fadeIn();
+						skuValid = 0;
+					}
+					
+					else{
+						console.log('oke')
+						$('#div-add-sku').removeClass('has-success').addClass('has-error');
+						// $('#lbl-sku').html('SKU must be unique');
+						$('#lbl-sku').fadeOut();
+						skuValid = 1;
+					}
+				}, error : function(){
+					
+				}
+			});
+		});
+	
 	//save customer
 	$('#btn-simpan').on('click', function(evt) {
 		evt.preventDefault();
-		var customer = {
-				name : $('#save-name-cust').val(),
-				email : $('#save-email-cust').val(),
-				phone : $('#save-phone-cust').val(),
-				dob : $('#save-dob-cust').val(),
-				address : $('#save-address-cust').val(),
-				province : {
-					id : $('#prov-id').val()
+		validate=$('#form-add-customer').parsley();
+		validate.validate();
+		
+		if(validate.isValid()){
+			var customer = {
+					name : $('#save-name-cust').val(),
+					email : $('#save-email-cust').val(),
+					phone : $('#save-phone-cust').val(),
+					dob : $('#save-dob-cust').val(),
+					address : $('#save-address-cust').val(),
+					province : {
+						id : $('#prov-id').val()
+					},
+					region : {
+						id : $('#reg-id').val()
+					},
+					district : {
+						id : $('#dist-id').val()
+					},
+					active : 1
+			}
+			console.log(customer);
+		
+		
+			$.ajax({
+				url : '${pageContext.request.contextPath}/transaction/sales-order/save-customer',
+				type : 'POST',
+				contentType : 'application/json',
+				data : JSON.stringify(customer),
+				success : function(data) {
+					alert('save success');
 				},
-				region : {
-					id : $('#reg-id').val()
-				},
-				district : {
-					id : $('#dist-id').val()
-				},
-				active : 1
+				error : function() {
+					alert('saving failed!');
+				}                              
+			}); 
+			
 		}
-		console.log(customer);
-	
-	
-		$.ajax({
-			url : '${pageContext.request.contextPath}/transaction/sales-order/save-customer',
-			type : 'POST',
-			contentType : 'application/json',
-			data : JSON.stringify(customer),
-			success : function(data) {
-				alert('save success');
-			},
-			error : function() {
-				alert('saving failed!');
-			}                              
-		}); 
 		
 	});
 	
@@ -402,7 +437,7 @@ $(document).ready(function() {
 			data : JSON.stringify(salesOrder),
 			contentType : 'application/json',
 			success : function(){
-				alert('ok')
+				alert('transaction success')
 				//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
 			}, error : function(){
 				alert('save failed');

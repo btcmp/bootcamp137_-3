@@ -11,6 +11,14 @@
 			<div class="modal-body">
 				<form class="form-all" id="form-add-transfer-item" style="border:none">
 				
+				<div class="row" id="div-alert-add-transfer-item" style="display:none">
+					<div class="col-xs-12">
+						<div id="tampilan-alert-add-transfer-item" class="alert alert-sukses" role="alert">
+							<strong>Sukses!</strong> Data Berhasil Disimpan.
+						</div>
+					</div>
+				</div>
+				
 				<div>
 					<span><input class="form-control" type="text" id="search-item" placeholder="Search Item"/></span>
 				</div>

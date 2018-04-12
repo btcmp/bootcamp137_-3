@@ -1,17 +1,53 @@
+<style>
+  input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+    color: #468847;
+    background-color: #F2F9F0 !important;
+    border: 1px solid #D6E9C6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+    color: #B94A48;
+    background-color: #F9F0F0 !important;
+    border: 1px solid #f09784;
+}
+
+.parsley-errors-list {
+    list-style-type: none;
+    opacity: 0;
+    transition: all .3s ease-in;
+
+    color: #d16e6c;
+    margin-top: 5px;
+    margin-bottom: 0;
+  padding-left: 0;
+}
+
+.parsley-errors-list.filled {
+    opacity: 1;
+}
+</style>
+
 <div class="modal fade" id="new-cust" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
+				<h5 class="modal-title" align="center" id="exampleModalLabel">New Customer</h5>
 			</div>
 			<div class="modal-body">
-				<form action="#" style="border:none">
+				<form id="form-add-customer" style="border:none">
 					<div class="form-group">
 						<label>PROFILE</label>
-						<input type="text" class="form-control" id="save-name-cust" aria-describedby="emailHelp" placeholder="Customer Name" />
-						<input type="email" class="form-control" id="save-email-cust" aria-describedby="emailHelp" placeholder="Email" />
-						<input type="text" class="form-control" id="save-phone-cust" aria-describedby="emailHelp" placeholder="Phone" />
+						<input type="text" class="form-control" id="save-name-cust" placeholder="Customer Name" data-parsley-required-message="Please insert the customer name"
+							data-parsley-required/>
+						<input type="email" class="form-control" id="save-email-cust" placeholder="Email" data-parsley-required-message="Please insert the email"
+							data-parsley-required/>
+						<input type="text" class="form-control" id="save-phone-cust" placeholder="Phone" data-parsley-required-message="Please insert the phone number"
+							data-parsley-required/>
 					</div>
 					
 					<div class="form-group">
@@ -29,34 +65,36 @@
 					
 					<div class="form-group">
 						<label>Address</label>
-						<input type="text" class="form-control" id="save-address-cust" aria-describedby="emailHelp" placeholder="address" />
-					<%-- 		<select class="form-control" id="save-pro-cust">
-								<option value="">Provinsi</option>
-								<c:forEach var="prov" items="${provinces}">
-									<option id="sprov" value="${prov.id}"> ${prov.name}</option>
-								</c:forEach>
+						<input type="text" class="form-control" id="save-address-cust" placeholder="address" data-parsley-required-message="Please insert the address"
+							data-parsley-required/>
+					</div>
+					
+					<div>		
+						<div style="width:30%;float:left;margin-right:5%">
+							<select name="area" id="prov-id" class="form-control" data-parsley-required>
+    							<option disabled selected value="">Select A Province</option>
+    								<c:forEach var="prov" items="${provinces }">
+    							<option value="${prov.id }">${prov.name }</option>
+    						</c:forEach>
 							</select>
-							<select class="form-control" name="save-reg" id="save-reg-cust">
-								<option value=""> Region</option>
-							</select>
-							<select class="form-control" name="save-dis" id="save-dis-cust">
-								<option value="">District</option>
-							</select> --%>
 							
-							<select style="width:30%;float:left;margin-right:5%" name="area" required="required" id="prov-id" class="form-control">
-    					<option disabled selected value="">Select A Province</option>
-    					<c:forEach var="prov" items="${provinces }">
-    						<option value="${prov.id }">${prov.name }</option>
-    					</c:forEach>
-						</select>
-						
-						<select style="width:30%;float:left;margin-right:5%" class="form-control" name="area" required="required" id="reg-id">
+						</div>
+									
+						<div style="width:30%;float:left;margin-right:5%" >
+							<select class="form-control" name="area" id="reg-id" data-parsley-required>
     						<option disabled selected value="">Select A Region</option>
 						</select>
+						</div>
 						
-						<select style="width:30%;float:left" class="form-control" name="area" required="required" id="dist-id">
+						<div style="width:30%;float:left" >
+							<select class="form-control" name="area" id="dist-id" data-parsley-required>
     						<option disabled selected value="">Select A District</option>
-						</select>
+							</select>
+						</div>
+												
+						
+						
+						
 						
 					</div>
 				</form>

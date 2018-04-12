@@ -20,14 +20,19 @@
 						</div>
 					</div>
 					
-					<div class="form-group">
+					<div style="float:left;margin-right:3%;width:30%">
+					<img id="images-edit" src="" style="width:100%">
+					</div>
+					
+					<div style="float:left;width:67%">
+					<div>
 						<label for="input-item-name">Item Name</label> <input type="text" 
 							class="form-control" id="edititem-item-name" placeholder="enter item name" data-parsley-required="true" required>
 							<input type="text" style="display:none"
 							class="form-control" id="outlet-id" placeholder="enter item name">
 					</div>
 
-					<div class="form-group">
+					<div>
 						<label for="input-region">Category</label> <select
 							class=form-control id="edititem-category">
 							<c:forEach var="ctg" items="${categories}">
@@ -35,6 +40,9 @@
 							</c:forEach>
 						</select>
 					</div>
+					</div>
+					
+					<div style="clear:both"></div>
 
 					<div class="form-group">
 						<label for="input-active">Deactive Item</label>

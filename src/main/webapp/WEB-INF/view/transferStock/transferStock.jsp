@@ -3,6 +3,40 @@
 <%@ include file="modal/add-transfer-item.jsp"%>
 <%@ include file="modal/view-transfer-stock-detail.jsp"%>
 
+<style>
+  input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+    color: #468847;
+    background-color: #F2F9F0 !important;
+    border: 1px solid #D6E9C6;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+    color: #B94A48;
+    background-color: #F9F0F0 !important;
+    border: 1px solid #f09784;
+}
+
+.parsley-errors-list {
+    list-style-type: none;
+    opacity: 0;
+    transition: all .3s ease-in;
+
+    color: #d16e6c;
+    margin-top: 5px;
+    margin-bottom: 0;
+  padding-left: 0;
+}
+
+.parsley-errors-list.filled {
+    opacity: 1;
+}
+</style>
+
+
 <div class="content">
 <section class="box content">
 	<h3>Transfer Stock</h3>
@@ -112,7 +146,9 @@
 		
 		//Add transfer item
 	 	$('#add-transfer-item').on('click',function(evt){
-			evt.preventDefault;
+			$('#search-item').val('');
+			$('#isi-popup-transfer-stock').empty();
+	 		evt.preventDefault();
 			$('#modal-add-transfer-item').modal({backdrop: 'static', keyboard: false});
 			
 			document.getElementById("btn-save-transfer-item").disabled = true;
@@ -120,10 +156,16 @@
 		
 		//save transfer item
 		$('#btn-save-transfer-item').on('click',function(evt){
-			
+			clickSaveItem++;
+			spliceAlreadyId = [];
+			resDataFromAddItem = [];
 			evt.preventDefault();
 			if(dataFromAddItem==""){
-				alert('Please fill the data')
+				$('#tampilan-alert-add-transfer-item').removeClass('alert-gagal').addClass('alert-sukses');
+	    		$('#tampilan-alert-add-transfer-item').html('<strong>Please fill the data!</strong>');
+	    		$('#div-alert-add-transfer-item').fadeIn();
+				
+				//alert('Please fill the data')
 			}
 			
 			else{
@@ -137,7 +179,7 @@
 									+ '<td>'+val.inStock+'</td>'
 									+ '<td id="qty-'+val.id+'">'+val.transferQty+'</td>'
 									+ '<td style="display : none">'+val.idVariant+'</td>'
-									+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item">X</a> </td>'
+									+ '<td> <a href="#" id='+val.id +' class="delete-transfer-item">Delete</a> </td>'
 									+ '</tr>');
 							alreadyId.push(val.id);
 						}
@@ -216,10 +258,21 @@
 				data : JSON.stringify(transferStock),
 				contentType : 'application/json',
 				success : function(){
-					alert('save successfully');
-					window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
+					
+					$('#tampilan-alert-transfer-stock').removeClass('alert-gagal').addClass('alert-sukses');
+		    		$('#tampilan-alert-transfer-stock').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+		    		$('#div-alert-transfer-stock').fadeIn();
+		    		
+		    		setTimeout(function(){
+						window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
+			    		},1000);
+					
+					//alert('save successfully');
 				}, error : function(){
-					alert('save failed');
+					$('#tampilan-alert-transfer-stock').removeClass('alert-sukses').addClass('alert-gagal');
+		    		$('#tampilan-alert-transfer-stock').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+		    		$('#div-alert-transfer-stock').fadeIn(); 
+					//alert('save failed');
 				}
 			}) 
 			
@@ -229,15 +282,17 @@
 		//clik save item
 		//a >> tag
 		$('body').on('click', 'button.btn-save-item', function(evt){
-			document.getElementById("btn-save-transfer-item").disabled = false;
-			var id = $(this).attr('id');
-			var transQty=parseInt($('.add-transfer-stock-qty'+id).val());
-			var stock = parseInt($('.in-stock'+id).text());
 			
 			validate=$('#form-add-transfer-item').parsley();
 			validate.validate();
 			
 			if(validate.isValid()){
+				
+				document.getElementById("btn-save-transfer-item").disabled = false;
+				var id = $(this).attr('id');
+				var transQty=parseInt($('.add-transfer-stock-qty'+id).val());
+				var stock = parseInt($('.in-stock'+id).text());
+				
 				if(transQty > stock){
 					alert('not enough stock!');
 				}
@@ -258,12 +313,13 @@
 					
 				
 					dataFromAddItem.push(fullData);
-					
+					resDataFromAddItem.push(fullData);
 					//console.log (dataFromAddItem);
 					//console.log(id);
 					evt.preventDefault();
 					/* $('#td-qty-'+id).html(transQty); */
 					saved.push(id);
+					spliceAlreadyId.push(id);
 					savedQty.push(transQty);
 					//supaya gak bsa d edit lg
 		 			//console.log(saved)
@@ -277,12 +333,31 @@
 		});
 		
 		
+		//reset dataFromAddItem
+		var resDataFromAddItem = [];
+		var clickSaveItem = 0;
+		var spliceAlreadyId = [];
+		
 		//cancel modal
 		$('#cancel-add-transfer-item').on('click',function(){
-			saved=[];
-			$('#isi-popup-transfer-stock').empty();
-			$('#search-item').val('');
-			$('#modal-add-transfer-item').modal('toggle');
+			
+				resDataFromAddItem.forEach(function(element){
+					let index = dataFromAddItem.findIndex((id) => id == element.id);
+					dataFromAddItem.splice(index,1);	
+				});
+				
+				spliceAlreadyId.forEach(function(element){
+					var a = saved.indexOf(element.toString());
+					saved.splice(a,1);
+				});
+				
+				//console.log(alreadyId);
+				$('#isi-popup-transfer-stock').empty();
+				$('#search-item').val('');
+				$('#modal-add-transfer-item').modal('toggle');
+				resDataFromAddItem = [];
+				spliceAlreadyId = [];
+	
 		})
 		
 		

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
+import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.xsis.batch137.model.ItemInventory;
@@ -25,6 +26,8 @@ public class ItemPDFView extends AbstractPdfView {
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 
+	
+			
 			table.addCell("Name");
 			table.addCell("Category");
 			table.addCell("Unit Price");

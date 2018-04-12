@@ -15,7 +15,7 @@
 					<div class="form-group" align="left" style="float:left;width:33%">
 					<label>Variant Name</label>
 						<input type="text" placeholder="Variant Name" 
-							 id="edit-variant-name" data-parsley-required="true" data-required-message="Please insert your name" required>
+							 id="edit-variant-name" disabled>
 					</div>
 					
 					<div class="form-group" style="float:left ;width:33%">
@@ -26,20 +26,20 @@
 					<label>SKU</label>
 					<div id="div-edit-sku" class="form-group" style="float:left;width:33%">
 					<input type="text" placeholder="SKU"
-							 id="edit-sku" data-parsley-required="true" required>
-					<label style="display:none" class="control-label" id="lbl-edit-sku"><i class="fa fa-check"></i></label>
-					</div>
+							 id="edit-sku" disabled>
+<!-- 					<label style="display:none" class="control-label" id="lbl-edit-sku"><i class="fa fa-check"></i></label>
+ -->					</div>
 				
 					<div class="form-group">
 
 						<div style="float:left;width:33%">
 							<label>Beginning Stock</label>
-							<input placeholder="Beginning Stock" type="number" id="edit-beginning-stock" data-parsley-required="true" required>
+							<input placeholder="Beginning Stock" type="number" id="edit-beginning-stock" disabled>
 						</div>
 						
 						<div style="float:left;width:33%">
 						<label>Alert at</label>
-							<input placeholder="Alert At" type="number" id="edit-alert-at" data-parsley-required="true" required>
+							<input placeholder="Alert At" max="document.getElementById('edit-beginning-stock').value" type="number" id="edit-alert-at" data-parsley-required="true" required>
 						</div>
 					</div> 
 					

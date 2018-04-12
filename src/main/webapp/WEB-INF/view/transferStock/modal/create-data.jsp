@@ -10,6 +10,14 @@
 			</div>
 			<div class="modal-body">
 				<form class="form-all" style="border:none">
+					
+					<div class="row" id="div-alert-transfer-stock" style="display:none;">
+						<div class="col-xs-12">
+							<div id="tampilan-alert-transfer-stock" class="alert alert-sukses" role="alert">
+								<strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
 						        			
 					<div class="form-group">
 						<table>
