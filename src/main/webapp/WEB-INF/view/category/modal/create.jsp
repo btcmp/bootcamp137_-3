@@ -5,7 +5,7 @@
 			<div class="modal-content">
 			
 				<div class="modal-header">
-					<div id="tampilan-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
+					<div id="create-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
 					<h3 id="judul-modal">Create Category</h3>
 				</div>

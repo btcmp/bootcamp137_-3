@@ -4,15 +4,16 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					
+					<div id="edit-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
 					<h3 id="judul-modal">Edit Category</h3>
 				</div>
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
 						
-						<div>
+						<div id="validasi-edit">
 							<div><h4>Category Name</h4></div>
+							<label class="control-label" for="in-username" style="display:none" id="label-edit"><i class="fa fa-check"></i></label>
 							<div ><input type="text" class="form-control full-span" id="edit-category" data-parsley-required="true" /></div>
 							<input type="hidden" name="id-edit" id="id-edit">
 						</div>
