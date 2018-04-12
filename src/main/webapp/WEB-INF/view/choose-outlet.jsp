@@ -120,7 +120,7 @@
 	    <p class="login-box-msg">Choose your outlet</p>
 		<select class="form-control col-sm-4" name="outlet-search"
 			id="outlet-search">
-			<option value="kosong">Search Outlet</option>
+			<option disabled selected>Search Outlet</option>
 			<c:forEach var="outlet" items="${outlets }">
 				<option value="${outlet.id }">${outlet.name }</option>
 			</c:forEach>
