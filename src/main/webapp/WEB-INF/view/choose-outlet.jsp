@@ -119,7 +119,7 @@
 	  <div class="login-box-body">
 	    <p class="login-box-msg">Choose your outlet</p>
 		<select class="form-control col-sm-4" name="outlet-search"
-			id="outlet-search">
+			id="outlet-search" data-parsley-required="true">
 			<option disabled selected>Search Outlet</option>
 			<c:forEach var="outlet" items="${outlets }">
 				<option value="${outlet.id }">${outlet.name }</option>
@@ -135,7 +135,7 @@
 $(document).ready(function(){
 	$('#choose-outlet').click(function(){
 		var idOutlet = $('#outlet-search').val();
-		if (idOutlet!=="kosong") {
+		if (idOutlet.length > 0) {
 			window.location = "${pageContext.request.contextPath}/welcome-auth/home?id="+idOutlet;
 		}
 	})
