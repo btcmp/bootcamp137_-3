@@ -136,6 +136,7 @@
 						+ '<td id="'+data.id+'"><button class="hapus btn btn-danger">X</button></td>'
 						+ '</tr>');
 			});
+			console.log(data.adjust);
 		});
 		
 		
@@ -168,7 +169,6 @@
 				outlet : {
 					id : $('#outlet').val()
 				}
-				
 			};
 			
 			console.log(adjustment);
@@ -197,11 +197,16 @@
 		});
 		
 		
-		//search
+		//search item and variant
 		$('#search-item').on('input', function(){
+			alert('Tahan, liat dulu..')
 			var search = $(this).val();
+			var outletId = $('#outlet').val();
+			console.log(search);
+			console.log(outletId);
+			alert('Tahan..');
 			$.ajax({
-				url : '${pageContext.request.contextPath}/transaksi/adjustment/search-item?search='+ search,
+				url : '${pageContext.request.contextPath}/transaksi/adjustment/search-item?outlet='+outletId+'&search='+ search,
 				type : 'GET',
 				dateType : 'json',
 				success : function(data){
@@ -223,6 +228,7 @@
 				}
 			});
 		});
+		
 		
 		//Search on main view, kalau ada.
 		//Cara pake search yang ke-dua kali
@@ -255,6 +261,7 @@
 			      }
 		    );
 		
+		
 		//Fungsi search berupa ajax
 		function search(){
 			$.ajax({
@@ -279,6 +286,9 @@
 				}
 			});
 		}
+		
+		
+		$('#')
 		
 		/* $('.btn-detail').click(function(){
 			var id = $(this).attr('id');

@@ -125,15 +125,15 @@ public class AdjustmentService {
 	}
 
 	//search item
-	public List<ItemInventory> searchItem(String search) {
+	public List<ItemInventory> searchItem(String search, long id) {
 		// TODO Auto-generated method stub
-		return inventoryDao.searchItemInventoryByItemName(search);
+		return inventoryDao.searchInventoryByOutlet(search, id);
 	}
 
 	//Nanti harus getInventoryByOutlet beneran
 	public List<ItemInventory> getInventoryByOutlet(Outlet outlet) {
 		// TODO Auto-generated method stub
-		return inventoryDao.selectAll();
+		return inventoryDao.getItemInventoryByOutletLogin(outlet.getId());
 	}
 
 	public List<Adjustment> searchAdjustmentByDate(Date awal, Date akhir) {
