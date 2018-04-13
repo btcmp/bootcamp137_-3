@@ -69,7 +69,11 @@
 					</td>
 					<td>${po.supplier.name }</td>
 					<td>${po.poNo }</td>
-					<td>${po.grandTotal }
+					<td>
+						<script>
+							document.write('Rp. ' + ${po.grandTotal }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+						</script>
+					</td>
 					<td>${po.status }</td>
 					<td>
 						<input type="button" class="btn-edit-po btn btn-default" value="Edit" key-id="${po.id }"> | 
@@ -281,7 +285,7 @@
 					$('#in-notes').val(data.notes);
 					$('#in-id').val(data.id);
 					$('#in-outlet').val(data.outlet.id);
-					$('#totalbanget').text(data.grandTotal);
+					$('#totalbanget').text('Rp. '+data.grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-');
 					if(data.supplier == null){
 						
 					}else{
@@ -293,7 +297,7 @@
 							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
 							+'<td><input type="number" min="10000" max="10000000000" id="cost'+val.variant.id+'" placeholder="20000" value="'+val.unitCost+'" class="edit-cost form-control"></td>'
-							+'<td id="subtotal'+val.id+'">'+val.subTotal+'</td>'
+							+'<td id="subtotal'+val.id+'">Rp. '+val.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td>'
 						);
 						$.ajax({
 							type : 'GET',
@@ -331,13 +335,13 @@
 			var subLoc = tr.find('td').eq(4);
 			var reqQty = parseInt(tr.find('td').eq(2).text());
 			var subTotal = cost*reqQty;
-			subLoc.text(subTotal);
+			subLoc.text('Rp. '+subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-');
 			var total = 0;
 			$('#list-item > tr').each(function(index,data) {
 				var subtot = parseInt($(this).find('td').eq(4).text());
-				total = total + subtot;
+				total = total + subTotal;
 			});
-			$('#totalbanget').text(total);
+			$('#totalbanget').text('Rp. '+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 		});
 		
 		var ur='';
