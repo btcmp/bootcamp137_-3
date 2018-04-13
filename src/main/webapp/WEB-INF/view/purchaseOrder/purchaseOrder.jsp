@@ -358,7 +358,7 @@
 			});
 		});
 		
-		$('#list-item').on('keyup', '.edit-cost',function(e){
+		$('#list-item').on('keyup', '.edit-cost',function(){
 			var cost = parseInt($(this).val());
 			var tr = $(this).parent().parent();
 			var subLoc = tr.find('td').eq(4);
