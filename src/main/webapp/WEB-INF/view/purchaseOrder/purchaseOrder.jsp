@@ -373,8 +373,11 @@
 			$('#totalbanget').text('Rp. '+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 		});
 		
+		var cost;
+		
 		$("#list-item").on('keydown', '.edit-cost', function (e) {
 	        // Allow: backspace, delete, tab, escape, enter and .
+	        cost = $(this).val();
 	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
 	             // Allow: Ctrl/cmd+A
 	            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -391,6 +394,10 @@
 	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
 	            e.preventDefault();
 	        }
+	        if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)){
+	        	cost = cost + e.key;
+	        }
+	        console.log(cost);
 	    });
 		
 		var ur='';
