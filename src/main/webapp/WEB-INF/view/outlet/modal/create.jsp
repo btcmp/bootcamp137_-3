@@ -4,7 +4,7 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					
+					<div class="alert alert-sukses" role="alert" id="create-alert" style="display:none"></div>
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
 					<h4 id="judul-modal">Create Outlet</h4>
 				</div>
@@ -13,8 +13,9 @@
 				
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-						<div>
+						<div id="validasi-name">
 							<div><h5>Outlet Name</h5></div>
+							<label class="control-label" for="in-username" style="display:none" id="label-name"><i class="fa fa-check"></i></label>
 							<div ><input type="text" class="form-control full-span" id="outlet-name" data-parsley-required="true" /></div>
 						</div>
 						
@@ -29,6 +30,11 @@
 							<div class="col-xs-4"><h5>Phone</h5></div>
 							<div class="col-xs-4"><h5>Email</h5></div>
 							<div class="col-xs-3"><h5>Postel Code</h5></div>
+						</div>
+						<div class="row" id="validasi-email">
+							<div class="col-xs-4"></div>
+							<div class="col-xs-4"><label class="control-label" for="in-username" style="display:none" id="label-email"><i class="fa fa-check"></i></label></div>
+							<div class="col-xs-3"></div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4"><input type="text" name="outlet-phone" id="outlet-phone" data-parsley-required="true" /></div>

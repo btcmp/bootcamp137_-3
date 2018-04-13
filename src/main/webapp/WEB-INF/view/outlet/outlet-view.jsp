@@ -54,6 +54,7 @@
 		//$('#outlet-table').DataTable();
 		
 		
+		
 		//Reset pas create
 		$('#tbl-reset').click(function(){
 			$('#outlet-name').val("");
@@ -354,6 +355,72 @@
 				},
 				error : function(){
 					
+				}
+			});
+		});		
+		
+		function notEmpty(validasi, label){
+			$(validasi).removeClass('has-success').addClass('has-error');
+			$(label).html('<i class="fa fa-times-circle-o"></i> Cannot empty');
+			$(label).fadeIn();
+		}
+		
+		function mustUnique(validasi, label){
+			$(validasi).removeClass('has-success').addClass('has-error');
+			$(label).html('<i class="fa fa-times-circle-o"></i> This must be unique');
+			$(label).fadeIn();
+		}
+		
+		function oke(validasi, label){
+			$(validasi).removeClass('has-error').addClass('has-success');
+			$(label).html('<i class="fa fa-check-circle-o"></i> Ok');
+			$(label).fadeIn();
+		}
+		
+		var nameValid = 0;
+		
+		//Input create name checking..
+		$('#outlet-name').on('input', function(){
+			var name = $(this).val();
+			if (name.length > 0){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/master/outlet/checking?name='+name,
+					type : 'GET',
+					success : function(data){
+						if(data > 0) {
+							mustUnique('#validasi-name', '#label-name');
+						}
+						else{
+							oke('#validasi-name', '#label-name');
+						}
+					},
+					error : function(){
+						
+					}
+				});
+			}
+			else{
+				notEmpty('#validasi-name', '#label-name');
+			}
+		});
+		
+		$('#outlet-email').on('input', function(){
+			var email = $(this).val();
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			var valid =  regex.test(email);
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/master/outlet/checking?email='+email,
+				success : function(data){
+					if(data > 0){
+						mustUnique('#validasi-email', '#label-email');
+					}
+					else{
+						oke('#validasi-email', '#label-email');
+					}
+				},
+				error : function(){
+							
 				}
 			});
 		});

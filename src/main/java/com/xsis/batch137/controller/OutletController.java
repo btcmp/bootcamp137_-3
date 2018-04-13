@@ -83,4 +83,10 @@ public class OutletController {
 		List<Outlet> outs = outletService.searchOutlet(search);
 		return outs;
 	}
+	
+	@RequestMapping("/checking")
+	@ResponseBody
+	public int countName(@RequestParam("name") String name) {
+		return outletService.countName(name);
+	}
 }
