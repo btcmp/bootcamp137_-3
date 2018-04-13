@@ -3,6 +3,8 @@ package com.xsis.batch137.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -29,13 +31,16 @@ public class AdjustmentController {
 	@Autowired
 	AdjustmentService adjustmentService;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	@RequestMapping
 	public String selectAll(Model model) {
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		List<Adjustment> adjustments = adjustmentService.getAll();
-		List<Outlet> outlets = adjustmentService.getOutletForAdjustment();
-		List<ItemInventory> inventories = adjustmentService.getInventory();
+		List<ItemInventory> inventories = adjustmentService.getInventoryByOutlet(outlet);
+		//System.out.println("Nama outlet adalah: "+outlet.getName());
 		model.addAttribute("adjustments", adjustments);
-		model.addAttribute("outlets", outlets);
 		model.addAttribute("inventories", inventories);
 		return "/Adjustment/adjustment-view";
 	}
@@ -65,17 +70,18 @@ public class AdjustmentController {
 		return adjustmentService.update(adjustment);
 	}
 	
-	@RequestMapping(value="/get-all-outlet", method=RequestMethod.GET)
+	/*@RequestMapping(value="/get-all-outlet", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Outlet> getOutletForAdjustment() {
 		List<Outlet> outlets = adjustmentService.getOutletForAdjustment();
 		return outlets;
-	}
+	}*/
 	
 	@RequestMapping(value="/search-item")
 	@ResponseBody
-	public List<ItemInventory> searchItem(@RequestParam(value="search") String search){
-		List<ItemInventory> inventories = adjustmentService.searchItem(search);
+	public List<ItemInventory> searchItem(@RequestParam(value="outlet") long id, @RequestParam(value="search") String search){
+		List<ItemInventory> inventories = adjustmentService.searchItem(search, id);
+		System.out.println("Yang di-search adalah: "+search+", dengan id outletnya adalah: "+id);
 		return inventories;
 	}
 	
