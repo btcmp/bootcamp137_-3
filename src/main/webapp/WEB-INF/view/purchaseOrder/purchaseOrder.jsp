@@ -205,6 +205,17 @@
 		function simpan(){
 			var pod = [];
 			var errorCost = [];
+			var totalCost = $('#totalbanget').text();
+			var tc1 = totalCost.split(' ');
+			var tc2 = tc1[1].split(',');
+			var totalnya;
+			for(i = 0; i < tc2.length-1; i++){
+				if(i == 0){
+					totalnya = tc2[0];
+				}else{
+					totalnya = totalnya + tc2[i];
+				}
+			}
 			$('#list-item > tr').each(function(index,data) {
 				var cost = $('#cost'+$(this).attr('key-id')+'').val();
 				/* var cost1 = cost.split(' ');
@@ -250,7 +261,7 @@
 				"supplier" : {
 					"id" : $('#pil-supplier').val()
 				},
-				"grandTotal" : $('#totalbanget').text()
+				"grandTotal" : totalnya
 			};
 			
 			var error = errorCost.length;
