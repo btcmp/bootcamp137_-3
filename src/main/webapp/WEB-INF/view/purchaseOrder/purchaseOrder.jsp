@@ -207,6 +207,24 @@
 			var errorCost = [];
 			$('#list-item > tr').each(function(index,data) {
 				var cost = $('#cost'+$(this).attr('key-id')+'').val();
+				/* var cost1 = cost.split(' ');
+				var cost2 = cost1[1].split(',');
+				var costnya;
+				for(i = 1; i < cost2.length-1; i++){
+					costnya = costnya+cost2[i];
+				} */
+				var st = $(this).find('td').eq(4).text();
+				var st1 = st.split(' ');
+				var st2 = st1[1].split(',');
+				var subtotalnya;
+				for(i = 0; i < st2.length-1; i++){
+					if(i == 0){
+						subtotalnya = st2[0];
+					}else{
+						subtotalnya = subtotalnya + st2[i];
+					}
+				}
+				console.log(subtotalnya);
 				if(cost == 0){
 					errorCost.push('#cost'+$(this).attr('key-id'));
 				}
@@ -215,7 +233,7 @@
 						"variant" : {
 							"id" : $(this).attr('key-id')
 						},
-						"subTotal" : $(this).find('td').eq(4).text(),
+						"subTotal" : subtotalnya,
 						"unitCost" : cost
 				};
 				pod.push(detail);
