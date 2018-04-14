@@ -38,4 +38,6 @@ public interface PurchaseOrderDao {
 	List<PurchaseOrder> searchPOByOneDate(Date date);
 	
 	List<PurchaseOrder> getPOByOutlet(Outlet outlet);
+	
+	int CountApprovedPo();
 }

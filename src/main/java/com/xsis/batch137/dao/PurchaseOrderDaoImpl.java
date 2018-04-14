@@ -152,6 +152,15 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		}else {
 			return pos;
 		}
+	}
+
+	@Override
+	public int CountApprovedPo() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseOrder where status = 'Submitted'";
+		int jml = session.createQuery(hql).list().size();
+		return jml;
 	}	
 }
 
