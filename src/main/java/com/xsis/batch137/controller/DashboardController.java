@@ -21,6 +21,8 @@ public class DashboardController {
 	public String index(Model model) {
 		int jmlPO = ds.countApprovedPO();
 		model.addAttribute("jmlPO", jmlPO);
+		int jmlSo = ds.countSalesOrder();
+		model.addAttribute("jmlSo", jmlSo);
 		return "dashboard";
 	}
 	

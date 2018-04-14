@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xsis.batch137.dao.PurchaseOrderDao;
+import com.xsis.batch137.dao.SalesOrderDao;
 import com.xsis.batch137.model.PurchaseOrder;
 
 @Service
@@ -16,11 +17,18 @@ public class DashboardService {
 	@Autowired
 	PurchaseOrderDao pod;
 	
+	@Autowired
+	SalesOrderDao sod;
+	
 	public int countApprovedPO() {
 		return pod.CountApprovedPo();
 	}
 	
 	public List<PurchaseOrder> getApprovedPO() {
 		return pod.searchPOByStatus("Approved");
+	}
+	
+	public int countSalesOrder() {
+		return sod.selectAll().size();
 	}
 }
