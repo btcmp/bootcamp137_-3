@@ -1,3 +1,10 @@
+<script>
+	var role = "${userLogin.role.name}";
+	var superr = "${superr}";
+	if(superr == 1 || role == 'ROLE_ADMIN'){
+		window.location = '${pageContext.request.contextPath}/dashboard';
+	}
+</script>
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
 	<div class="row text-center">
