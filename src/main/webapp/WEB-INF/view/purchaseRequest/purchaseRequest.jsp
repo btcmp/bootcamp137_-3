@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
+<div class="box">
 	<h3>Purchase Request</h3>
 	<hr style="border-color:black;">
 	<div class="row">
@@ -74,7 +75,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 	<div id="create-pr" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
@@ -575,6 +576,15 @@
 				nValid = 0;
 			}
 		});
+		
+		$('#data-pr').DataTable({
+			'paging' : true,
+			'lengthChange' : false,
+			'searching' : false,
+			'ordering' : true,
+			'info' : true,
+			'autoWidth' : false
+		})
 	});
 </script>
 </html>
