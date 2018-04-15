@@ -12,6 +12,7 @@ import com.xsis.batch137.dao.SalesOrderDao;
 import com.xsis.batch137.dao.TransferStockDao;
 import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.PurchaseOrder;
+import com.xsis.batch137.model.SalesOrder;
 import com.xsis.batch137.model.TransferStock;
 
 @Service
@@ -30,6 +31,8 @@ public class DashboardService {
 	@Autowired
 	TransferStockDao tsd;
 	
+	/// PO
+	
 	public int countApprovedPO() {
 		return pod.CountApprovedPo();
 	}
@@ -38,20 +41,41 @@ public class DashboardService {
 		return pod.searchPOByStatus("Approved");
 	}
 	
+	// SO
+	
 	public int countSalesOrder() {
-		return sod.selectAll().size();
+		List<SalesOrder> so = sod.selectAll();
+		if(so == null) {
+			return 0;
+		}else {
+			return so.size();
+		} 
 	}
 	
+	// Adj
+	
 	public int countSubmittedAdjustment() {
-		return ad.getSubmitted().size();
+		List<Adjustment> adj = ad.getSubmitted(); 
+		if(adj == null) {
+			return 0;
+		}else {
+			return adj.size();
+		}
 	}
 	
 	public List<Adjustment> getSubmittedAdjustment(){
 		return ad.getSubmitted();
 	}
 	
+	// TS
+	
 	public int countSubmittedTs() {
-		return tsd.getSubmitted().size();
+		List<TransferStock> ts = tsd.getSubmitted(); 
+		if(ts == null) {
+			return 0;
+		}else {
+			return ts.size();
+		}
 	}
 	
 	public List<TransferStock> getSubmittedTs(){
