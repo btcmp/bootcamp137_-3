@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
+<div class="box">
 <div class="row">
 	<div class="col-xs-9">
 		<h3>PURCHASE ORDER DETAIL</h3>
@@ -170,6 +171,7 @@
 <div class="row">
 	<div class="col-xs-9"></div>
 	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-order" class="btn btn-primary btn-block no-print">Done</a></div>
+</div>
 </div>
 </section>
 </body>
