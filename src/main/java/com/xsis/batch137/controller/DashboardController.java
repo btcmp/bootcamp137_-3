@@ -23,6 +23,10 @@ public class DashboardController {
 		model.addAttribute("jmlPO", jmlPO);
 		int jmlSo = ds.countSalesOrder();
 		model.addAttribute("jmlSo", jmlSo);
+		int jmlTs = ds.countSubmittedTs();
+		model.addAttribute("jmlTs", jmlTs);
+		int jmlAdj = ds.countSubmittedAdjustment();
+		model.addAttribute("jmlAdj", jmlAdj);
 		return "dashboard";
 	}
 	
