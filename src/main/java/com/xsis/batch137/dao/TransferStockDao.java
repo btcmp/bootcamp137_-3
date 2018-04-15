@@ -27,4 +27,6 @@ public interface TransferStockDao {
 
 	public TransferStock getTransferStockById(Long search);
 	
+	public List<TransferStock> getSubmitted();
+	
 }

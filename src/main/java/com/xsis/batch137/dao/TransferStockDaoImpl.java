@@ -95,8 +95,16 @@ public class TransferStockDaoImpl implements TransferStockDao {
 	
 	}
 
-
-
-	
-
+	@Override
+	public List<TransferStock> getSubmitted() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from TransferStock where status = 'Submitted'";
+		List<TransferStock> ts = session.createQuery(hql).list();
+		if(ts.isEmpty()) {
+			return null;
+		}else {
+			return ts;
+		}
+	}
 }
