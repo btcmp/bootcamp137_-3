@@ -1,5 +1,11 @@
 <script>
-	window.location = '${pageContext.request.contextPath}/';
+	var role = "${userLogin.role.name}";
+	var superr = "${superr}";
+	if(superr == 1 || role == 'ROLE_ADMIN'){
+		window.location = '${pageContext.request.contextPath}/dashboard';
+	}else{
+		window.location = "${pageContext.request.contextPath}/";
+	}
 </script>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
