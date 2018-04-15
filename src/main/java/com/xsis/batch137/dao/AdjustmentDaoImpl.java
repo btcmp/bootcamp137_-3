@@ -70,6 +70,19 @@ public class AdjustmentDaoImpl implements AdjustmentDao{
 			return adjustments;
 		}
 	}
+
+	@Override
+	public List<Adjustment> getSubmitted() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Adjustment where status = 'Submitted'";
+		List<Adjustment> adjs = session.createQuery(hql).list();
+		if(adjs.isEmpty()) {
+			return null;
+		}else {
+			return adjs;
+		}
+	}
 	
 	
 }

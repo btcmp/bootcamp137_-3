@@ -18,4 +18,6 @@ public interface AdjustmentDao {
 	public Adjustment getOne(long id);
 
 	public List<Adjustment> searchAdjustmentByDate(Date startDate, Date endDate);
+	
+	public List<Adjustment> getSubmitted();
 }
