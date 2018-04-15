@@ -158,7 +158,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public int CountApprovedPo() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where status = 'Submitted'";
+		String hql = "from PurchaseOrder where status = 'Approved'";
 		int jml = session.createQuery(hql).list().size();
 		return jml;
 	}	
