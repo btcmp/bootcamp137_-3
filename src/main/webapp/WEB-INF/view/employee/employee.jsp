@@ -92,6 +92,7 @@
 			</div>
 		</div>
 	</form>
+	<div class="box">
 	<h2>Staff List</h2>
 	<hr style="border-color:black; border-top:1px dashed;">
 	<table id="data-emp"
@@ -142,6 +143,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 	<!-- end table employee -->
 
 	<!-- begin form outlet -->
