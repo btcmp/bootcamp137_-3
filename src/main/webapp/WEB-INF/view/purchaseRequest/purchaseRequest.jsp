@@ -95,12 +95,12 @@
 				<div class="modal-body">
 				<form id="tambah-pr">
 					<h4>Tanggal Waktu Item Ready : </h4>
-					<div class="input-group date" id="div-tanggal">
-						<div class="row">
+					<div class="row" id="div-tanggal-1">
 							<div class="col-xs-12">
 								<label class="control-label" for="pilih-tanggal" style="display:none" id="lbl-tanggal"><i class="fa fa-check"></i></label>
 	                		</div>
-	                	</div>
+	                </div>
+					<div class="input-group date" id="div-tanggal">
 	                	<div class="input-group-addon">
 	                  		<i class="fa fa-calendar"></i>
 	                	</div>
@@ -118,7 +118,7 @@
 	                <div class="row">
 		                <div class="col-xs-12" id="div-item">
 		                	<label class="control-label" for="data-purchase-item" style="display:none" id="lbl-item"><i class="fa fa-check"></i></label>
-			                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
+			                <table id="data-purchase-item" class="table table-striped table-bordered table-hover" style="display:none;">
 			                	<thead>
 			                		<th>
 			                			Item
@@ -236,45 +236,19 @@
 	    $('#tblsimpan').on('click',function(evt) {
 			evt.preventDefault();
 			stat = 'Created';
-			var jmlBrg = $('#list-item tr').length;
-			validate = $('#tambah-pr').parsley();
-			var note = $('#in-notes').val().length;
-			var tuanggal = $('#pilih-tanggal').val().length;
-			validate.validate();
-			if(validate.isValid() && jmlBrg > 0 && note > 0 && tuanggal > 0){
-				simpan();
-			}else if(jmlBrg == 0){
-				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Error!</strong> Mohon Pilih Item');
-				$('#div-alert').fadeIn();
-				setTimeout(function(){
-					$('#div-alert').fadeOut();
-				}, 4000);
-			}
+			simpan();
 		}); 
 	    
 	    $('#submit-pr').on('click', function(evt){
 	    	evt.preventDefault();
 	    	stat = 'Submitted';
-	    	var jmlBrg = $('#list-item tr').length;
-			validate = $('#tambah-pr').parsley();
-			var note = $('#in-notes').val().length;
-			var tuanggal = $('#pilih-tanggal').val().length;
-			validate.validate();
-			if(validate.isValid() && jmlBrg > 0 && note > 0 && tuanggal > 0){
-				simpan();
-			}else if(jmlBrg == 0){
-				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Error!</strong> Mohon Pilih Item');
-				$('#div-alert').fadeIn();
-				setTimeout(function(){
-					$('#div-alert').fadeOut();
-				}, 4000);
-			}
+			simpan();
 	    });
 	    
 		//fungsi simpan
 		function simpan(){
+			var jmlBrg = $('#list-item tr').length;
+			
 			var prd = [];
 			$('#list-item > tr').each(function(index,data) {
 				var detail = {
@@ -285,6 +259,7 @@
 				};
 				prd.push(detail);
 			});
+			
 			var tgl = $('#pilih-tanggal').val().split('/');
 			var tanggal = tgl[2]+'-'+tgl[0]+'-'+tgl[1];
 			var purReq = {
@@ -298,28 +273,51 @@
 				"status" : stat,
 				"readyTime" : tanggal
 			};
-			$.ajax({
-				type : 'post',
-				url : '${pageContext.request.contextPath}/transaksi/purchase-request/save',
-				data : JSON.stringify(purReq),
-				contentType : 'application/json',
-				success : function() {
-					$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
-					$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-					$('#div-alert').fadeIn();
-					setTimeout(function() {
-						window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
-					}, 2000);
-				},
-				error : function() {
-					$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-					$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-					$('#div-alert').fadeIn();
-					setTimeout(function(){
-						$('#div-alert').fadeOut();
-					}, 4000);
+			
+			if(jmlBrg > 0 && nValid == 1 && tValid == 1){
+				validate = $('#tambah-pr').parsley();
+				validate.validate();
+				if(validate.isValid()){
+					$.ajax({
+						type : 'post',
+						url : '${pageContext.request.contextPath}/transaksi/purchase-request/save',
+						data : JSON.stringify(purReq),
+						contentType : 'application/json',
+						success : function() {
+							$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+							$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function() {
+								window.location = '${pageContext.request.contextPath}/transaksi/purchase-request';
+							}, 2000);
+						},
+						error : function() {
+							$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+							$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function(){
+								$('#div-alert').fadeOut();
+							}, 4000);
+						}
+					});
 				}
-			});
+			}
+			if(jmlBrg == 0){
+				$('#div-item').removeClass('has-success').addClass('has-error');
+				$('#lbl-item').html('<i class="fa fa-times-circle-o"></i> Please select item(s)');
+				$('#lbl-item').fadeIn();
+			}
+			if(nValid == 0){
+				$('#div-notes').removeClass('has-success').addClass('has-error');
+				$('#lbl-notes').html('<i class="fa fa-times-circle-o"></i> Please insert notes');
+				$('#lbl-notes').fadeIn();
+			}
+			if(tValid == 0){
+				$('#div-tanggal').removeClass('has-success').addClass('has-error');
+				$('#div-tanggal-1').removeClass('has-success').addClass('has-error');
+				$('#lbl-tanggal').html('<i class="fa fa-times-circle-o"></i> Please select date');
+				$('#lbl-tanggal').fadeIn();
+			}
 		};
 		
 		
@@ -391,6 +389,7 @@
 				var newReq = parseInt(oldReq)+parseInt(reqQty);
 				target.find('td').eq(2).text(newReq);
 			}
+			$('#data-purchase-item').trigger('update');
 		});
 		
 		$('#data-purchase-item').on('click', '.btn-hapus-barang', function(){
@@ -400,6 +399,7 @@
 			if(index > -1){
 				added.splice(index, 1);
 			}
+			$('#data-purchase-item').trigger('update');
 		});
 		
 		var isiBarang = '';
@@ -549,11 +549,13 @@
 			var tanggal = $(this).val().length;
 			if(tanggal > 0){
 				$('#div-tanggal').removeClass('has-error').addClass('has-success');
+				$('#div-tanggal-1').removeClass('has-error').addClass('has-success');
 				$('#lbl-tanggal').html('<i class="fa fa-check"></i> Ok');
 				$('#lbl-tanggal').fadeIn();
 				tValid = 1;
 			}else{
 				$('#div-tanggal').removeClass('has-success').addClass('has-error');
+				$('#div-tanggal-1').removeClass('has-success').addClass('has-error');
 				$('#lbl-tanggal').html('<i class="fa fa-times-circle-o"></i> Please select date');
 				$('#lbl-tanggal').fadeIn();
 				tValid = 0;
@@ -574,6 +576,21 @@
 				$('#lbl-notes').html('<i class="fa fa-times-circle-o"></i> Please insert notes');
 				$('#lbl-notes').fadeIn();
 				nValid = 0;
+			}
+		});
+		
+		$('#data-purchase-item').on('update', function(){
+			var jmlBrg = $('#list-item tr').length;
+			if(jmlBrg > 0){
+				$('#div-item').removeClass('has-error').addClass('has-success');
+				$('#lbl-item').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-item').fadeIn();
+				$(this).fadeIn();
+			}else{
+				$('#div-item').removeClass('has-success').addClass('has-error');
+				$('#lbl-item').html('<i class="fa fa-times-circle-o"></i> Please select item(s)');
+				$('#lbl-item').fadeIn();
+				$(this).fadeOut();
 			}
 		});
 		
