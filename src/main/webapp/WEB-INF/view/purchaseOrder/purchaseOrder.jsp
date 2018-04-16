@@ -173,7 +173,7 @@
 		        awal = start.format('YYYY-MM-DD');
 		        akhir = end.format('YYYY-MM-DD');
 		        if(awal == akhir){
-		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-date?date='+awal;
+		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-one-date?date='+awal;
 		        }else{
 		        	ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-date?awal='+awal+'&akhir='+akhir;
 		        }
@@ -417,7 +417,7 @@
 						$('#isi-data-po').append('<tr><td>'+tanggal+'</td>'
 							+'<td>'+val.supplier.name+'</td>'
 							+'<td>'+val.poNo+'</td>'
-							+'<td>'+val.grandTotal+'</td>'
+							+'<td>Rp. '+val.grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-')+'</td>'
 							+'<td>'+val.status+'</td>'
 							+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
 							+'<a href="${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
@@ -432,7 +432,7 @@
 		
 		$('#pil-status').change(function(){
 			var status = $(this).val();
-			if(status == 'All'){
+			if(status == "All"){
 				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/get-all';
 				search();
 			}else{

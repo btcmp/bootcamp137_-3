@@ -59,6 +59,12 @@ public class PurchaseOrderController {
 		return poService.getOne(id);
 	}
 	
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<PurchaseOrder> getAll() {
+		return poService.getByOutlet();
+	}
+	
 	@RequestMapping("/detail/{id}")
 	public String detail(@PathVariable long id, Model model) {
 		PurchaseOrder po = poService.getOne(id);

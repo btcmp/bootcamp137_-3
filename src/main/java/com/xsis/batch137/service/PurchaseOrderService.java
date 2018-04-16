@@ -172,29 +172,33 @@ public class PurchaseOrderService {
 	}
 	
 	public List<PurchaseOrder> getPOByStatus(String status){
-		return poDao.searchPOByStatus(status);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return poDao.searchPOByStatusAndOutlet(status, outlet);
 	}
 	
 	public List<PurchaseOrder> getPOByDate(Date awal, Date akhir){
-		Date startDate = awal;
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		//Date startDate = awal;
 		Calendar c = Calendar.getInstance(); 
-		c.setTime(startDate); 
+		c.setTime(awal); 
 		c.add(Calendar.DATE, -1);
-		startDate = c.getTime();
+		awal = c.getTime();
 		
-		Date endDate = akhir;
+		//Date endDate = akhir;
 		Calendar c2 = Calendar.getInstance(); 
-		c2.setTime(endDate); 
+		c2.setTime(akhir); 
 		c2.add(Calendar.DATE, 1);
-		endDate = c2.getTime();
-		return poDao.searchPOByDate(startDate, endDate);
+		akhir = c2.getTime();
+		return poDao.searchPOByDateAndOutlet(awal, akhir, outlet);
 	}
 	
 	public List<PurchaseOrder> searchGlobal(String search){
-		return poDao.searchPO(search);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return poDao.searchPOByOutlet(search, outlet);
 	}
 	
 	public List<PurchaseOrder> getPOByOneDate(Date date){
-		return poDao.searchPOByOneDate(date);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return poDao.searchPOByOneDateAndOutlet(date, outlet);
 	}
 }
