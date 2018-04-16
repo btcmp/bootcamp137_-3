@@ -317,10 +317,12 @@ public class PurchaseRequestService {
 	}
 	
 	public List<PurchaseRequest> getPRByStatus(String status){
-		return prDao.searchPRByStatus(status);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return prDao.searchPRByStatusAndOutlet(status, outlet);
 	}
 	
 	public List<PurchaseRequest> getPRByDate(Date awal, Date akhir){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		Date startDate = awal;
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(startDate); 
@@ -332,14 +334,16 @@ public class PurchaseRequestService {
 		c2.setTime(endDate); 
 		c2.add(Calendar.DATE, 1);
 		endDate = c2.getTime();
-		return prDao.searchPRByDate(startDate, endDate);
+		return prDao.searchPRByDateAndOutlet(startDate, endDate, outlet);
 	}
 	
 	public List<PurchaseRequest> searchGlobal(String search){
-		return prDao.searchPR(search);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return prDao.searchPRByOutlet(search, outlet);
 	}
 	
 	public List<PurchaseRequest> getPRByOneDate(Date date){
-		return prDao.searchPRByOneDate(date);
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return prDao.searchPRByOneDateAndOutlet(date, outlet);
 	}
 }

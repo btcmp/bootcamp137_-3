@@ -103,11 +103,35 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		}
 	}
 	
+	public List<PurchaseRequest> searchPRByOutlet(String search, Outlet outlet) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where (lower(prNo) like :search or lower(status) like :search or lower(notes) like :search) and outlet = :outlet";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("search", "%"+search.toLowerCase()+"%").setParameter("outlet", outlet).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
+	
 	public List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate){
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from PurchaseRequest where createdOn BETWEEN :start AND  :end";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("start", startDate)
 				.setParameter("end", endDate).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
+	
+	public List<PurchaseRequest> searchPRByDateAndOutlet(Date startDate, Date endDate, Outlet outlet){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where (createdOn BETWEEN :start AND :end) and outlet = :outlet";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("start", startDate)
+				.setParameter("end", endDate).setParameter("outlet", outlet).list();
 		if(prs.isEmpty()) {
 			return null;
 		}else {
@@ -126,6 +150,17 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		}
 	}
 
+	public List<PurchaseRequest> searchPRByStatusAndOutlet(String search, Outlet outlet){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where status = :status and outlet = :outlet";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("status", search).setParameter("outlet", outlet).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
+	
 	public int CountPrByPrNo(String prNo) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
@@ -150,6 +185,18 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 		}
 	}
 
+	public List<PurchaseRequest> searchPRByOneDateAndOutlet(Date date, Outlet outlet) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from PurchaseRequest where (to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')) and outlet = :outlet";
+		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("date", date).setParameter("outlet", outlet).list();
+		if(prs.isEmpty()) {
+			return null;
+		}else {
+			return prs;
+		}
+	}
+	
 	@Override
 	public List<PurchaseRequest> searchPRByOutlet(Outlet outlet) {
 		// TODO Auto-generated method stub

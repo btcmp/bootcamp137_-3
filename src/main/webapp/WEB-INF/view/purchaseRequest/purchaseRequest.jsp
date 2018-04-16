@@ -97,12 +97,12 @@
 					<h4>Tanggal Waktu Item Ready : </h4>
 					<div class="input-group date" id="div-tanggal">
 						<div class="row">
-						<div class="col-xs-12">
-						<label class="control-label" for="pilih-tanggal" style="display:none" id="lbl-tanggal"><i class="fa fa-check"></i></label>
-	                	</div>
+							<div class="col-xs-12">
+								<label class="control-label" for="pilih-tanggal" style="display:none" id="lbl-tanggal"><i class="fa fa-check"></i></label>
+	                		</div>
 	                	</div>
 	                	<div class="input-group-addon">
-	                  	<i class="fa fa-calendar"></i>
+	                  		<i class="fa fa-calendar"></i>
 	                	</div>
 	                	<input type="text" class="datepicker form-control pull-right" id="pilih-tanggal" data-parsley-required="true" required readonly>
 	                	<input type="hidden" id="in-id">

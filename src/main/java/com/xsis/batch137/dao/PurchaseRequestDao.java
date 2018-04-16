@@ -30,13 +30,21 @@ public interface PurchaseRequestDao {
 	
 	List<PurchaseRequest> searchPR(String search);
 	
+	List<PurchaseRequest> searchPRByOutlet(String search, Outlet outlet);
+	
 	List<PurchaseRequest> searchPRByDate(Date startDate, Date endDate);
 	
+	List<PurchaseRequest> searchPRByDateAndOutlet(Date startDate, Date endDate, Outlet outlet);
+	
 	List<PurchaseRequest> searchPRByStatus(String search);
+	
+	List<PurchaseRequest> searchPRByStatusAndOutlet(String search, Outlet outlet);
 	
 	int CountPrByPrNo(String prNo);
 	
 	List<PurchaseRequest> searchPRByOneDate(Date date);
+	
+	List<PurchaseRequest> searchPRByOneDateAndOutlet(Date date, Outlet outlet);
 	
 	List<PurchaseRequest> searchPRByOutlet(Outlet outlet);
 	
