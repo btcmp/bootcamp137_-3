@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
+<div class="box content">
 	<h3>Purchase Order</h3>
 	<hr style="border-color:black;">
 	<div class="row">
@@ -58,7 +59,7 @@
 					<td>
 						<script>
 							var gt = "${po.grandTotal }";
-							document.write('Rp. ' + gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+							document.write('Rp. ' + String(gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."))+',-');
 						</script>
 					</td>
 					<td>${po.status }</td>
@@ -69,7 +70,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
+	</div>
 </section>
 </body>
 <script>

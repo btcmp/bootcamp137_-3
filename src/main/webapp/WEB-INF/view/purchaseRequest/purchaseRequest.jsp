@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-<div class="box">
+<div class="box content">
 	<h3>Purchase Request</h3>
 	<hr style="border-color:black;">
 	<div class="row">

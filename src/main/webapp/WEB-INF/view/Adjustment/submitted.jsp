@@ -1,12 +1,10 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-
+<div class="box content">
 
 <div><h1>ADJUSTMENT</h1></div>
 <hr style="border-color:black; border-top:1px dashed;">
 <br/>
-
-<div class="container">
 	
 	<div class=row>
 	
@@ -34,7 +32,7 @@
 		</tr>
 		</thead>
 		<tbody id="isi-adjustment">
-		<c:forEach items="${adjustments }" var="adj">
+		<c:forEach items="${adjs }" var="adj">
 			<tr>
 				<td>
 					<script type="text/javascript">

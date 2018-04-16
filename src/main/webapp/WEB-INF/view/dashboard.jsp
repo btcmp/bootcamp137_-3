@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
+<div class="box content">
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<h1>Dashboard</h1>
@@ -62,10 +63,11 @@
             <div class="icon">
               <i class="ion ion-ios-cart"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="${pageContext.request.contextPath}/dashboard/so" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
+      </div>
       </div>
 </section>
 </body>

@@ -81,4 +81,10 @@ public class DashboardService {
 	public List<TransferStock> getSubmittedTs(){
 		return tsd.getSubmitted();
 	}
+	
+	// SO
+	
+	public List<SalesOrder> getSO(){
+		return sod.selectAll();
+	}
 }

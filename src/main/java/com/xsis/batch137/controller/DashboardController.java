@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.PurchaseOrder;
+import com.xsis.batch137.model.SalesOrder;
 import com.xsis.batch137.model.TransferStock;
+import com.xsis.batch137.service.AdjustmentService;
 import com.xsis.batch137.service.DashboardService;
 import com.xsis.batch137.service.PurchaseOrderService;
 
@@ -23,6 +26,9 @@ public class DashboardController {
 	
 	@Autowired
 	PurchaseOrderService poService;
+	
+	@Autowired
+	AdjustmentService adjService;
 	
 	@RequestMapping
 	public String index(Model model) {
@@ -58,10 +64,24 @@ public class DashboardController {
 		return "/Adjustment/submitted";
 	}
 	
+	@RequestMapping("/detail/adj/{id}")
+	public String getOne(@PathVariable long id, Model model) {
+		Adjustment adjustment = adjService.getOne(id);
+		model.addAttribute("adjustment", adjustment);
+		return "/Adjustment/adjustment-detail";
+	}
+	
 	@RequestMapping("/ts")
 	public String listSubmittedTS(Model model) {
 		List<TransferStock> ts = ds.getSubmittedTs();
 		model.addAttribute("ts", ts);
 		return "/transferStock/submitted";
+	}
+	
+	@RequestMapping("/so")
+	public String listSO(Model model) {
+		List<SalesOrder> so = ds.getSO();
+		model.addAttribute("sos", so);
+		return "/salesOrder/listSo";
 	}
 }
