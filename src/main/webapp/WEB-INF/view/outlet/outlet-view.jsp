@@ -56,7 +56,8 @@
 		
 		
 		//Reset pas create
-		$('#tbl-reset').click(function(){
+		$('#tbl-reset').click(function(e){
+			e.preventDefault();
 			$('#outlet-name').val("");
 			$('#outlet-address').val("");
 			$('#outlet-phone').val("");
@@ -67,8 +68,26 @@
 		    });
 			$('#reg-id').empty();
 			$('#dist-id').empty();
-			$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
-			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#reg-id').append('<option disabled selected value=\"\">Select A Region</option>');
+			$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
+			$('#create-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#create-alert').hide();
+			$('#validasi-name').removeClass('has-success').removeClass('has-error');
+			$('#label-name').hide();
+			$('#validasi-addr').removeClass('has-success').removeClass('has-error');
+			$('#label-address').hide();
+			$('#validasi-phone').removeClass('has-success').removeClass('has-error');
+			$('#label-phone').hide();
+			$('#validasi-email').removeClass('has-success').removeClass('has-error');
+			$('#label-email').hide();
+			$('#validasi-postal').removeClass('has-success').removeClass('has-error');
+			$('#label-postal').hide();
+			$('#validasi-prov').removeClass('has-success').removeClass('has-error');
+			$('#label-prov').hide();
+			$('#validasi-reg').removeClass('has-success').removeClass('has-error');
+			$('#label-reg').hide();
+			$('#validasi-dist').removeClass('has-success').removeClass('has-error');
+			$('#label-dist').hide();
 		});
 		
 		//Reset pas edit
@@ -83,8 +102,8 @@
 		    });
 			$('#reg-edit').empty();
 			$('#dist-edit').empty();
-			$('#reg-edit').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
-			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#reg-edit').append('<option disabled selected value=\"\">Select A Region</option>');
+			$('#dist-edit').append('<option disabled selected value=\"\">Select A District</option>');
 		});
 		
 		$('#tbl-delete').click(function(){
@@ -129,30 +148,55 @@
 					id : $('#dist-id').val()
 				}
 			};
-			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/master/outlet/save',
-				type : 'POST',
-				data : JSON.stringify(outlet),
-				contentType : 'application/json',
-				success : function(){
-					console.log(outlet);
-					alert('yes..');
-					window.location = '${pageContext.request.contextPath}/master/outlet';
-				},
-				error : function(){
-					console.log(outlet);
-					alert('no..');
-				}
-			});
+			if(provValid == 1 && regValid == 1 && distValid == 1 && phoneValid == 1
+					&& nameValid == 3 && emailValid == 3 && postalValid == 3){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/master/outlet/save',
+					type : 'POST',
+					data : JSON.stringify(outlet),
+					contentType : 'application/json',
+					success : function(){
+						console.log(outlet);
+						$('#create-alert').removeClass('alert-gagal').addClass('alert-sukses');
+						$('#create-alert').html('<strong>Save Success!</strong>');
+						$('#create-alert').fadeIn();
+						setTimeout(function(){
+							window.location = '${pageContext.request.contextPath}/master/outlet';
+						}, 2500);
+					},
+					error : function(){
+						console.log(outlet);
+						$('#create-alert').removeClass('alert-sukses').addClass('alert-gagal');
+						$('#create-alert').html('<strong>Internal Error!</strong>');
+						$('#create-alert').fadeIn();
+					}
+				});
+			}
+			else{
+				$('#create-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#create-alert').html('<strong>Error!</strong> Failed to save. Please check again.');
+				$('#create-alert').fadeIn();
+			}
+			provValid = 0;
+			regValid = 0;
+			distValid = 0;
+			nameValid = 0;
+			emailValid = 3;
+			postalValid = 3;
+			phoneValid = 1;
 		});
+		
+		var provValid = 0;
+		var regValid = 0;
+		var distValid = 0;
 		
 		//Get Region By Province
 		$('#prov-id').change(function(){
 			$('#reg-id').empty();
 			$('#dist-id').empty();
-			$('#reg-id').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
-			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#reg-id').append('<option disabled selected value=\"\">Select A Region</option>');
+			$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
+			oke('#validasi-prov', '#label-prov');
 			var id = $(this).val();
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
@@ -168,13 +212,15 @@
 					alert('Cannot take regions..');
 				}
 			});
+			provValid = 1;
 		});
 		
 		//Get District By Region
 		$('#reg-id').change(function(){
 			$('#dist-id').empty();
-			$('#dist-id').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
 			var id = $(this).val();
+			oke('#validasi-reg', '#label-reg');
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/outlet/get-district/'+id,
 				type : 'GET',
@@ -189,6 +235,12 @@
 					alert('Cannot get districts');
 				}
 			});
+			regValid = 1;
+		});
+		
+		$('#dist-id').change(function(){
+			oke('#validasi-dist', '#label-dist');
+			distValid = 1;
 		});
 		
 		//Take data to edit
@@ -254,8 +306,8 @@
 		$('#prov-edit').change(function(){
 			$('#reg-edit').empty();
 			$('#dist-edit').empty();
-			$('#reg-edit').append('<option disabled selected value=\"\"> --- Select A Region --- </option>');
-			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#reg-edit').append('<option disabled selected value=\"\">Select A Region</option>');
+			$('#dist-edit').append('<option disabled selected value=\"\">Select A District</option>');
 			var id = $(this).val();
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/outlet/get-region/'+id,
@@ -275,7 +327,7 @@
 		
 		$('#reg-edit').change(function(){
 			$('#dist-edit').empty();
-			$('#dist-edit').append('<option disabled selected value=\"\"> --- Select A District --- </option>');
+			$('#dist-edit').append('<option disabled selected value=\"\">Select A District</option>');
 			var id = $(this).val();
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/outlet/get-district/'+id,
@@ -314,21 +366,42 @@
 				}
 			};
 			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/master/outlet/update',
-				type : 'PUT',
-				data : JSON.stringify(outlet),
-				contentType : 'application/json',
-				success : function(){
-					console.log(outlet);
-					alert('Oke..');
-					window.location = '${pageContext.request.contextPath}/master/outlet';
-				},
-				error : function(){
-					console.log(outlet);
-					alert('Failed bro..');
-				}
-			});
+			if(provValid == 1 && regValid == 1 && distValid == 1 && phoneValid == 1
+					&& nameValid == 3 && emailValid == 3 && postalValid == 3){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/master/outlet/update',
+					type : 'PUT',
+					data : JSON.stringify(outlet),
+					contentType : 'application/json',
+					success : function(){
+						console.log(outlet);
+						$('#edit-alert').removeClass('alert-gagal').addClass('alert-sukses');
+						$('#edit-alert').html('<strong>Save Success!</strong>');
+						$('#edit-alert').fadeIn();
+						setTimeout(function(){
+							window.location = '${pageContext.request.contextPath}/master/outlet';
+						}, 2500);
+					},
+					error : function(){
+						console.log(outlet);
+						$('#create-alert').removeClass('alert-sukses').addClass('alert-gagal');
+						$('#create-alert').html('<strong>Internal Error!</strong>');
+						$('#create-alert').fadeIn();
+					}
+				});
+			}
+			else{
+				$('#create-alert').removeClass('alert-sukses').addClass('alert-gagal');
+				$('#create-alert').html('<strong>Error!</strong> Failed to save. Please check again.');
+				$('#create-alert').fadeIn();
+			}
+			provValid = 0;
+			regValid = 0;
+			distValid = 0;
+			nameValid = 0;
+			emailValid = 3;
+			postalValid = 3;
+			phoneValid = 1;
 		});
 		
 		//Search
@@ -377,10 +450,27 @@
 			$(label).fadeIn();
 		}
 		
+		function notValid(validasi, label){
+			$(validasi).removeClass('has-success').addClass('has-error');
+			$(label).html('<i class="fa fa-times-circle-o"></i> The format must be valid');
+			$(label).fadeIn();
+		}
+		
+		function mustNumber(validasi, label){
+			$(validasi).removeClass('has-success').addClass('has-error');
+			$(label).html('<i class="fa fa-times-circle-o"></i> Must number');
+			$(label).fadeIn();
+		}
+		
 		var nameValid = 0;
+		var emailValid = 3;
+		var postalValid = 3;
+		var phoneValid = 1;
+		
 		
 		//Input create name checking..
-		$('#outlet-name').on('input', function(){
+		$('#outlet-name').on('input', function(e){
+			e.preventDefault();
 			var name = $(this).val();
 			if (name.length > 0){
 				$.ajax({
@@ -389,9 +479,11 @@
 					success : function(data){
 						if(data > 0) {
 							mustUnique('#validasi-name', '#label-name');
+							nameValid = 1;
 						}
 						else{
 							oke('#validasi-name', '#label-name');
+							nameValid = 3;
 						}
 					},
 					error : function(){
@@ -401,29 +493,96 @@
 			}
 			else{
 				notEmpty('#validasi-name', '#label-name');
+				nameValid = 0;
 			}
 		});
 		
 		$('#outlet-email').on('input', function(){
 			var email = $(this).val();
-			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9])+$/;
 			var valid =  regex.test(email);
-			$.ajax({
-				type : 'get',
-				url : '${pageContext.request.contextPath}/master/outlet/checking?email='+email,
-				success : function(data){
-					if(data > 0){
-						mustUnique('#validasi-email', '#label-email');
+			if(email.length > 0){
+				$.ajax({
+					type : 'get',
+					url : '${pageContext.request.contextPath}/master/outlet/check?email='+email,
+					success : function(data){
+						if(valid){
+							if(data > 0){
+								mustUnique('#validasi-email', '#label-email');
+								emailValid = 1;
+							}
+							else{
+								oke('#validasi-email', '#label-email');
+								emailValid = 3;
+							}
+						}
+						else{
+							notValid('#validasi-email', '#label-email');
+							emailValid = 2;
+						}
+					},
+					error : function(){
+								
 					}
-					else{
-						oke('#validasi-email', '#label-email');
-					}
-				},
-				error : function(){
-							
-				}
-			});
+				});
+			}
+			else{
+				$('#validasi-email').removeClass('has-success').removeClass('has-error');
+				$('#label-email').hide();
+			}
 		});
+		
+		$('#outlet-address').on('input', function(e){
+			e.preventDefault();
+			var address = document.getElementById('outlet-address').value;
+			if(address.length > 0){
+				oke('#validasi-addr', '#label-address');
+			}
+			else {
+				$('#validasi-addr').removeClass('has-success').removeClass('has-error');
+				$('#label-address').hide();
+			}
+		});
+		
+		$('#outlet-phone').on('input', function(e){
+			e.preventDefault();
+			var phone = $(this).val();
+			var regex = /^([0-9])+$/;
+			var valid =  regex.test(phone);
+			if(phone.length > 0){
+				if(valid){
+					oke('#validasi-phone', '#label-phone');
+					phoneValid = 1;
+				}
+				else{
+					mustNumber('#validasi-phone', '#label-phone');
+					phoneValid = 0;
+				}
+			}
+			else {
+				$('#validasi-phone').removeClass('has-success').removeClass('has-error');
+				$('#label-phone').hide();
+			}
+		});
+		
+		$('#outlet-postal').on('input', function(e){
+			e.preventDefault();
+			var postal = $(this).val();
+			if(postal.length > 0 && postal.length < 7){
+				oke('#validasi-postal', '#label-postal');
+				postalValid = 3;
+			}
+			else if (postal.length > 6 ){
+				notValid('#validasi-postal', '#label-postal');
+				postalValid = 2;
+			}
+			else{
+				$('#validasi-postal').removeClass('has-success').removeClass('has-error');
+				$('#label-postal').hide();
+			}
+		});
+		
+		
 		
 	});
 </script>
