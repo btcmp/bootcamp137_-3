@@ -72,7 +72,8 @@
 					<td>${po.poNo }</td>
 					<td>
 						<script>
-							document.write('Rp. ' + ${po.grandTotal }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+							var gt = "${po.grandTotal }"
+							document.write('Rp. ' + gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 						</script>
 					</td>
 					<td>${po.status }</td>
@@ -103,39 +104,47 @@
 				<div class="modal-body">
 				<form id="form-edit-po">
 					<h4>choose Supplier : </h4>
-					<div class="form-group">
+					<div class="form-group" id = "div-supplier">
 						<input type="hidden" id="in-id">
 						<input type="hidden" id="in-outlet">
+						<label class="control-label" for="pil-supplier" style="display:none" id="lbl-supplier"><i class="fa fa-check"></i></label>
 						<select id="pil-supplier" class="form-control" data-parsley-required="true">
+							<option disabled selected>Choose Supplier</option>
 							<c:forEach items = "${sups }" var = "sup">
 								<option value = "${sup.id }">${sup.name }</option>
 							</c:forEach>
 						</select>
 					</div>
-	                <div class="form-group">
+	                <div class="form-group has-success" id = "div-notes">
 	                	<h4>Notes : </h4>
+	                	<label class="control-label" for="in-notes" id="lbl-notes"><i class="fa fa-check"></i>Ok</label>
 	                	<textarea class="form-control" rows="5" id="in-notes" data-parsley-required="true" required></textarea>
 	                </div>
 	                </form>
 	                <h4>Purchase Order</h4>
 	                <hr style="border-color:black;">
-	                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
-	                	<thead>
-	                		<th>Item</th>
-	                		<th>In Stock</th>
-	                		<th>Qty.</th>
-	                		<th>Unit Cost</th>
-	                		<th>Sub Total</th>
-	                	</thead>
-	                	<tbody id = "list-item">
-	                	</tbody>
-	                	<tfoot>
-							<tr style=" border: none; background: none;">
-								<td colspan="4"><strong>TOTAL</strong></td>
-								<td id="totalbanget"></td>
-							</tr>
-						</tfoot>
-	                </table>
+	                <div class="row">
+		                <div class="col-xs-12" id="div-item">
+		                	<label class="control-label" for="data-purchase-item" style="display:none" id="lbl-item"><i class="fa fa-check"></i></label>
+			                <table id="data-purchase-item" class="table table-striped table-bordered table-hover">
+			                	<thead>
+			                		<th>Item</th>
+			                		<th>In Stock</th>
+			                		<th>Qty.</th>
+			                		<th>Unit Cost</th>
+			                		<th>Sub Total</th>
+			                	</thead>
+			                	<tbody id = "list-item">
+			                	</tbody>
+			                	<tfoot>
+									<tr style=" border: none; background: none;">
+										<td colspan="4"><strong>TOTAL</strong></td>
+										<td id="totalbanget"></td>
+									</tr>
+								</tfoot>
+			                </table>
+		               </div>
+	               </div>
 				</div>
 				
 				<div class="modal-footer">
@@ -392,7 +401,7 @@
 	                 return;
 	        }
 	        // Ensure that it is a number and stop the keypress
-	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105 )) {
 	            e.preventDefault();
 	        }
 	        if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)){
@@ -417,10 +426,11 @@
 						$('#isi-data-po').append('<tr><td>'+tanggal+'</td>'
 							+'<td>'+val.supplier.name+'</td>'
 							+'<td>'+val.poNo+'</td>'
-							+'<td>Rp. '+val.grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-')+'</td>'
+							+'<td>Rp. '+val.grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-</td>'
 							+'<td>'+val.status+'</td>'
 							+'<td><input type="button" class="btn-edit-pr btn btn-default" value="Edit" key-id="'+val.id+'" pr-status="'+val.status+'"> | '
-							+'<a href="${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>');
+							+'<a href="${pageContext.request.contextPath}/transaksi/purchase-order/detail/'+val.id+'" class="btn-view-pr btn btn-info" key-id="'+val.id+'">View</a></td>'
+							);
 					})
 				},
 				error : function(){
@@ -449,6 +459,38 @@
 			} else {
 				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search?search='+word;
 				search();
+			}
+		});
+		
+		var nValid = 1;
+		
+		$('#in-notes').on('input', function(){
+			var notes = $(this).val().length;
+			if(notes > 0){
+				$('#div-notes').removeClass('has-error').addClass('has-success');
+				$('#lbl-notes').html('<i class="fa fa-check"></i> Ok');
+				nValid = 1;
+			}else{
+				$('#div-notes').removeClass('has-success').addClass('has-error');
+				$('#lbl-notes').html('<i class="fa fa-times-circle-o"></i> Please insert notes');
+				nValid = 0;
+			}
+		});
+		
+		var sValid = 0;
+		
+		$('#pil-supplier').on('change', function(){
+			var notes = $(this).val().length;
+			if(notes > 0){
+				$('#div-supplier').removeClass('has-error').addClass('has-success');
+				$('#lbl-supplier').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-supplier').fadeIn();
+				sValid = 1;
+			}else{
+				$('#div-supplier').removeClass('has-success').addClass('has-error');
+				$('#lbl-supplier').html('<i class="fa fa-times-circle-o"></i> Please choose supplier');
+				$('#lbl-supplier').fadeIn();
+				sValid = 0;
 			}
 		});
 		

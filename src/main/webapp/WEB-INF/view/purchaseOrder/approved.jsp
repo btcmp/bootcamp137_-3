@@ -57,12 +57,13 @@
 					<td>${po.poNo }</td>
 					<td>
 						<script>
-							document.write('Rp. ' + ${po.grandTotal }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+							var gt = "${po.grandTotal }";
+							document.write('Rp. ' + gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 						</script>
 					</td>
 					<td>${po.status }</td>
 					<td>
-						<a href='${pageContext.request.contextPath}/transaksi/purchase-order/detail/${po.id}' class="btn-view-pr btn btn-info" key-id="${pr.id }">View</a>
+						<a href='${pageContext.request.contextPath}/dashboard/detail/po/${po.id}' class="btn-view-pr btn btn-info" key-id="${pr.id }">View</a>
 					</td>
 				</tr>
 			</c:forEach>

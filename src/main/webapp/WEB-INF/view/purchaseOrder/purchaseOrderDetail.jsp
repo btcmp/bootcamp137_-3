@@ -161,7 +161,8 @@
 				<td colspan="4" style="border-bottom:black dashed 1px;"><strong>TOTAL</strong></td>
 				<td style="border-bottom:black dashed 1px;">
 					<script>
-						document.write('Rp. ' + ${po.grandTotal }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+						var gt = "${po.grandTotal }"
+						document.write('Rp. ' + gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 					</script>
 				</td>
 			</tr>
