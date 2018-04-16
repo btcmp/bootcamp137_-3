@@ -147,20 +147,22 @@
 				<td>${pod.requestQty }</td>
 				<td>
 					<script>
-						document.write('Rp. ' + ${pod.unitCost }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+						var ucost = "${pod.unitCost }";
+						document.write('Rp. ' + ucost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 					</script>
 				</td>
 				<td>
 					<script>
-						document.write('Rp. ' + ${pod.subTotal }.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+						var subtot = "${pod.subTotal }";
+						document.write('Rp. ' + subtot.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
 					</script>
 				</td>
 			</tr>
 		</c:forEach>
 		<tfoot>
-			<tr style="border-bottom:black dashed 1px;">
-				<td colspan="4" style="border-bottom:black dashed 1px;"><strong>TOTAL</strong></td>
-				<td style="border-bottom:black dashed 1px;">
+			<tr style="border-bottom:black dashed 1px">
+				<td colspan="4"><strong>TOTAL</strong></td>
+				<td>
 					<script>
 						var gt = "${po.grandTotal }"
 						document.write('Rp. ' + gt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
@@ -209,7 +211,7 @@
 					}
 				});
 			}
-		});
-	});
+		})
+	})
 </script>
 </html>
