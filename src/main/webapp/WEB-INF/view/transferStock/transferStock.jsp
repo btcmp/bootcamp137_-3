@@ -221,60 +221,68 @@ textarea.parsley-error {
 		
 		//executeSave
 		$('#btn-save-submit').on('click',function(evt){
-			evt.preventDefault;
-		
-			var transferStockDetail=[];
+			evt.preventDefault();
 			
-			 $('#data-popup-transfer > tbody > tr').each(function(index,data){
-				var tsd = {
-						itemVariant : {
-							id : $(data).find('td').eq(3).text()
-						},
-						inStock : $(data).find('td').eq(1).text(),
-						transferQty : $(data).find('td').eq(2).text()
-				}
-				transferStockDetail.push(tsd);
-			});
-			 
-		  var transferStock = {
-					fromOutlet : {
-						id : $('#add-transfer-from').val()
-					},
-					toOutlet : {
-						id : $('#add-transfer-to').val()
-					},
-					transferStockDetail : transferStockDetail,
-					notes : $('#add-notes').val(),
-					status : "Submitted",
 
-					
-			};
-		  
-		  //console.log(transferStock)
-		  
-			$.ajax({
-				url : '${pageContext.request.contextPath }/transaction/transfer-stock/save',
-				type : 'POST',
-				data : JSON.stringify(transferStock),
-				contentType : 'application/json',
-				success : function(){
-					
-					$('#tampilan-alert-transfer-stock').removeClass('alert-gagal').addClass('alert-sukses');
-		    		$('#tampilan-alert-transfer-stock').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-		    		$('#div-alert-transfer-stock').fadeIn();
-		    		
-		    		setTimeout(function(){
-						window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
-			    		},1000);
-					
-					//alert('save successfully');
-				}, error : function(){
-					$('#tampilan-alert-transfer-stock').removeClass('alert-sukses').addClass('alert-gagal');
-		    		$('#tampilan-alert-transfer-stock').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-		    		$('#div-alert-transfer-stock').fadeIn(); 
-					//alert('save failed');
-				}
-			}) 
+			validate=$('#form-create-data').parsley();
+			validate.validate();
+			
+			if(validate.isValid()){
+				var transferStockDetail=[];
+				
+				 $('#data-popup-transfer > tbody > tr').each(function(index,data){
+					var tsd = {
+							itemVariant : {
+								id : $(data).find('td').eq(3).text()
+							},
+							inStock : $(data).find('td').eq(1).text(),
+							transferQty : $(data).find('td').eq(2).text()
+					}
+					transferStockDetail.push(tsd);
+				});
+				 
+			  var transferStock = {
+						fromOutlet : {
+							id : $('#add-transfer-from').val()
+						},
+						toOutlet : {
+							id : $('#add-transfer-to').val()
+						},
+						transferStockDetail : transferStockDetail,
+						notes : $('#add-notes').val(),
+						status : "Submitted",
+
+						
+				};
+			  
+			  //console.log(transferStock)
+			  
+				$.ajax({
+					url : '${pageContext.request.contextPath }/transaction/transfer-stock/save',
+					type : 'POST',
+					data : JSON.stringify(transferStock),
+					contentType : 'application/json',
+					success : function(){
+						
+						$('#tampilan-alert-transfer-stock').removeClass('alert-gagal').addClass('alert-sukses');
+			    		$('#tampilan-alert-transfer-stock').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+			    		$('#div-alert-transfer-stock').fadeIn();
+			    		
+			    		setTimeout(function(){
+							window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
+				    		},1000);
+						
+						//alert('save successfully');
+					}, error : function(){
+						$('#tampilan-alert-transfer-stock').removeClass('alert-sukses').addClass('alert-gagal');
+			    		$('#tampilan-alert-transfer-stock').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+			    		$('#div-alert-transfer-stock').fadeIn(); 
+						//alert('save failed');
+					}
+				}) 
+				
+			}
+		
 			
 		});
 		
@@ -382,7 +390,7 @@ textarea.parsley-error {
 						if(saved.indexOf(val.id.toString())==-1){
 							$('#isi-popup-transfer-stock').append('<tr><td class="item-name'+val.id+'">'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
 									+ '<td class="in-stock'+val.id+'">'+val.endingQty+'</td>'
-									+ '<td id="qty-'+val.id+'"><input type="number" class="add-transfer-stock-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required/></td>'
+									+ '<td id="qty-'+val.id+'"><input id='+val.id+' type="number" class="add-transfer-stock-qty'+ val.id +' input-transfer-stock" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required/></td>'
 									+ '<td style="display : none" class="item-variant'+val.id+'">'+val.itemVariant.id+'</td>'
 									+ '<td> <button href="#" id='+val.id +' class="save-item'+val.id+' btn btn-save-item btn-primary"> Confirm </button> <a href="#" id='+val.id +' class="btn btn-success add-transfer-saved'+val.id+'"> Confirmed </a> </td>'
 									+ '</tr>');
@@ -523,6 +531,7 @@ textarea.parsley-error {
 	 $('#more-option').change(function(evt){
 		evt.preventDefault();
 		var newStatus = $(this).val();
+		var id = $('#hidden-id').val();
 
 		if (newStatus=="Approved" || newStatus=="Rejected") {
 			transferStockId = $('#hidden-id').val();
@@ -598,11 +607,15 @@ textarea.parsley-error {
 			} 
 		
 		} else if (newStatus=="Print") {
-			//window.locationd='${pageContext.request.contextPath}/transaction/transfer-stock/detail';
+			window.location='${pageContext.request.contextPath}/generate/ts2/'+id;
 		}	
 		
 	 });
-	 
+	
+	 $('#back-view-transfer-stock').on('click',function(evt){
+		window.location='${pageContext.request.contextPath}/transaction/transfer-stock';
+	 });
+
 	 //search outlet to tampilan awal
 	  $('#search-outlet-to').change(function(evt){
 		  var keyword = $(this).val();
@@ -634,6 +647,24 @@ textarea.parsley-error {
 		$('#export').click(function(){
 			window.location = '${pageContext.request.contextPath}/generate/ts'; 
 		})
+		
+		//fix bug input stock
+		$('body').on('input', 'input.input-transfer-stock', function(evt){
+				evt.preventDefault();
+				 var id = $(this).attr('id');
+			     var max = parseInt($(this).attr('max'));
+			     var min = parseInt($(this).attr('min'));
+			      if ($(this).val() > max)
+			      {
+			          $(this).val(max);
+			      }
+			      else if ($(this).val() < min)
+			      {
+			          $(this).val(min);
+			      }     
+			    }); 
+		
+		
 	 	
 	 	
 	});

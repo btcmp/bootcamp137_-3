@@ -35,5 +35,10 @@ public class SalesOrderDetailService {
 	public List<SalesOrderDetail> selectAll(){
 		return salesOrderDetailDao.selectAll();
 	}
+
+	public List<SalesOrderDetail> getSodBySoId(Long id) {
+		// TODO Auto-generated method stub
+		return salesOrderDetailDao.getSodBySoId(id);
+	}
 	
 }

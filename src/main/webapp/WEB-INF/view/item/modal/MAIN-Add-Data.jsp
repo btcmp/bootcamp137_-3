@@ -83,7 +83,7 @@ textarea.parsley-error {
 						<img id="output_image" alt="your image" style="max-width: 100%"/>
 					</div>z -->
 					
-					<div class="fileinput fileinput-new" data-provides="fileinput">
+					<div class="fileinput fileinput-new" data-provides="fileinput" style="float:left;width:40%">
   						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
  					<div>
    					 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>
@@ -92,11 +92,12 @@ textarea.parsley-error {
   						</div>
 						</div>
 					
-					<div class="form-group">
+					<div style="float:right;width:60%">
+					<div>
 						<label for="input-item-name">Item Name</label> <input type="text"
 							class="form-control" id="add-item-name" placeholder="Enter item name" data-parsley-required-message="Please insert the item name"
 							data-parsley-required>
-					</div>
+					</div><br/>
 					
 					<div>
 						<label for="input-region">Category</label> <select
@@ -105,6 +106,7 @@ textarea.parsley-error {
 								<option value="${ctg.id}">${ctg.name}</option>
 							</c:forEach>
 						</select>
+					</div>
 					</div>
 					
 						<div style="clear: both	"></div>	
@@ -155,7 +157,7 @@ textarea.parsley-error {
 					<div class="modal-footer">
 						
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Back</button>
-						<button type="submit" id="btn-cancel" class="btn btn-primary">Cancel</button>
+						<button type="submit" id="btn-cancel" class="btn btn-primary">Clear Form</button>
 						<button type="submit" value="validate" id="btn-create-data" class="btn btn-primary">Save</button>
 					</div>
 				</form>

@@ -55,12 +55,17 @@
 				<tr>
 					<td>${invent.itemVariant.item.name} - ${invent.itemVariant.name} </td>
 					<td>${invent.itemVariant.item.category.name}</td>
-					<td>Rp. ${invent.itemVariant.price}</td>
+
+					<td>
+						<script>
+							document.write('Rp. ' + ${invent.itemVariant.price}.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+						</script>
+					</td>
 					<td>${invent.endingQty}</td>
 					<td id="stock-alert">	
 					<c:choose>
     		  				<c:when test = "${endQty <= alertQty}">
-       			  				<p>LOW<p>
+       			  				<p style="color:red">LOW<p>
      		 				</c:when>
      		
      		 				<c:otherwise>

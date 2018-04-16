@@ -10,7 +10,7 @@
 
 <script>
 $(document).ready(function() {
-	
+	var idSo;
 	//Create customer
 	$('.customer').on('click', function() {
 		$('#choose-cust').modal({backdrop: 'static', keyboard: false});
@@ -235,14 +235,14 @@ $(document).ready(function() {
 					$.each(data, function(key, val) {
 						if(added.indexOf(val.id.toString()) == -1) {
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td><td id="td-qty'+ val.id +'"><input id="'+val.id+'" type="number" class="input-add-item add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button 	type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
 						} else {
 							var a = added.indexOf(val.id.toString());
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-add-item'+val.id).hide();
@@ -287,19 +287,23 @@ $(document).ready(function() {
 							$('#salesOrder-tbl-body').empty();
 						}
 						
-						$('#salesOrder-tbl-body').append('<tr id="tr-salesOrder'+ data.id +'"><td id="'+ data.itemVariant.id +'">'+ data.itemVariant.item.name +'-'+ data.itemVariant.name +'</td><td>Rp.'
-								+ data.itemVariant.price +'</td><td>'+ transQty +'</td><td>Rp.'+ data.itemVariant.price*transQty +'</td><td><button type="button" id="'+ data.id +'" class="btn-cancel-item'
-								+ data.id +' btn-cancel-item btn btn-danger"> &#10006;</button></td></tr>');
+						$('#salesOrder-tbl-body').append('<tr id="tr-salesOrder'+ data.id +'"><td id="'+ data.itemVariant.id +'">'+ data.itemVariant.item.name +'-'+ data.itemVariant.name +'</td>'
+								+'<td style="display:none">Rp.'+data.itemVariant.price+'</td>'
+								+'<td>Rp.'+ data.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</td><td>'+ transQty +'</td><td style="display:none">Rp.'+ data.itemVariant.price*transQty +'</td>'
+								+'<td>'+'Rp.'+(data.itemVariant.price*transQty).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td>'
+								+'<td><button type="button" id="'+ data.id +'" class="btn-cancel-item'
+								+ data.id +' btn-cancel-item btn btn-danger" max="'+data.endingQty+'""> &#10006;</button></td></tr>');
 						$('#salesOrder-tbl-foot').empty();
 						var total = 0;
 						
 						$('#salesOrder-tbl-body > tr').each(function(index, data){
-							var price = $(data).find('td').eq(3).text().split("Rp.")[1];
+							var price = $(data).find('td').eq(4).text().split("Rp.")[1];
 							total = total + parseInt(price);
 						})
 						
-						$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
-						$('#charge').text("Charge Rp."+total)
+						$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</th></tr>');
+						$('#charge-tampilan').text("Charge Rp. "+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-');
+						$('#charge').text("Charge Rp."+total);
 					},
 					error : function(){
 						alert('get one item inventory failed');
@@ -312,10 +316,13 @@ $(document).ready(function() {
 	//btn-cancel
 	$('body').on('click', 'button.btn-cancel-item', function(){
 		var id = $(this).attr('id');
+		var max = ($(this).attr('max'));
+		
 		$('#tr-salesOrder'+id).remove();
 		$('.btn-added-item'+id).hide();
 		$('.btn-add-item'+id).show();
-		$('#td-qty'+id).html('<input type="number" class="add-item-qty'+ id +'" value="1" />');
+	   
+		$('#td-qty'+id).html('<input id="'+id+'" type="number" class="input-add-item add-item-qty'+ id +'" value="1" min="1" max="'+max+'" />');
 		var a = added.indexOf(id.toString());
 		added.splice(a,1);
 		addedQty.splice(a,1);
@@ -327,7 +334,7 @@ $(document).ready(function() {
 		$('#salesOrder-tbl-foot').empty();
 		var total = 0;
 		$('#salesOrder-tbl-body > tr').each(function(index, data){
-			var price = $(data).find('td').eq(3).text().split("Rp.")[1];
+			var price = $(data).find('td').eq(4).text().split("Rp.")[1];
 			total = total + parseInt(price);
 		})
 		$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
@@ -356,7 +363,7 @@ $(document).ready(function() {
 					$.each(data, function(key, val) {
 						if(added.indexOf(val.id.toString()) == -1) {
 							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input type="number" class="add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input id="'+val.id+'" type="number" class="add-item-qty'+ val.id +' input-add-item" value="1" min="1" max="'+val.endingQty+'" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn">Added</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
@@ -379,16 +386,22 @@ $(document).ready(function() {
 	})
 	
 	//charge
-		$('#charge').on('click',function(){
+		$('#charge-tampilan').on('click',function(){
 		
 		var total = parseInt($('#charge').text().split("Rp.")[1]);
 		if ($('.customer').attr("id") === undefined) {
 			alert("choose customer first");
 		}else {
-			$('#charge-cash-label').append( "<input type='number' class='form-control' id='charge-cash' value="+total+" min="+total+" data-parsley-required='true' required>");
+			$('#div-charge-cash').append( "<input type='number' class='form-control' id='charge-cash' value="+total+" min="+total+" data-parsley-required='true' required>");
 			$('#modal-charge-sales-order').modal({backdrop: 'static', keyboard: false});
 		}
 	});
+	
+	$('#charge-cancel').click(function(){
+		$('#modal-charge-sales-order').modal("toggle");
+		$('#div-charge-cash').empty();
+	});
+
 	
 	//done
 		$('#charge-done').click(function(){
@@ -401,6 +414,52 @@ $(document).ready(function() {
 			var total = parseInt($('#charge').text().split("Rp.")[1]);
 			document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
 			document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
+			
+			var salesOrderDetail = [];
+			$('#salesOrder-tbl-body > tr').each(function(index, data){
+				var sod = {
+						itemVariant : {
+							id : $(data).find('td').eq(0).attr('id')
+						},
+						qty : $(data).find('td').eq(3).text(),
+						unitPrice : $(data).find('td').eq(1).text().split("Rp.")[1],
+						subTotal : $(data).find('td').eq(4).text().split("Rp.")[1]
+				}
+				salesOrderDetail.push(sod);
+
+			})
+			
+			var salesOrder = {
+					customer : {
+						id : $('.customer').attr('id')
+					},
+					grandTotal : $('#charge').text().split("Rp.")[1],
+					salesOrderDetail : salesOrderDetail
+			}
+			console.log(salesOrder);
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath }/transaction/sales-order/save',
+				type : 'POST',
+				data : JSON.stringify(salesOrder),
+				contentType : 'application/json',
+				success : function(data){
+					idSo = data;
+					$('#tampilan-alert-so').removeClass('alert-gagal').addClass('alert-sukses');
+		    		$('#tampilan-alert-so').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+		    		$('#div-alert-so').fadeIn();
+		    		
+		    		/* setTimeout(function(){
+			    		window.location = '${pageContext.request.contextPath}/master/item/';
+			    		},1000); */
+					//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
+				}, error : function(){
+					$('#tampilan-alert-so').removeClass('alert-sukses').addClass('alert-gagal');
+		    		$('#tampilan-alert-so').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+		    		$('#div-alert-so').fadeIn(); 				}
+				
+			}) 		
+			
 			$('#modal-receipt-sales-order').modal({backdrop: 'static', keyboard: false});
 		}
 		
@@ -408,43 +467,31 @@ $(document).ready(function() {
 	
 	//send
 	$('#receipt-done').click(function(){
-		var salesOrderDetail = [];
-		$('#salesOrder-tbl-body > tr').each(function(index, data){
-			var sod = {
-					itemVariant : {
-						id : $(data).find('td').eq(0).attr('id')
-					},
-					qty : $(data).find('td').eq(2).text(),
-					unitPrice : $(data).find('td').eq(1).text().split("Rp.")[1],
-					subTotal : $(data).find('td').eq(3).text().split("Rp.")[1]
-			}
-			salesOrderDetail.push(sod);
-
-		})
-		
-		var salesOrder = {
-				customer : {
-					id : $('.customer').attr('id')
-				},
-				grandTotal : $('#charge').text().split("Rp.")[1],
-				salesOrderDetail : salesOrderDetail
-		}
-		console.log(salesOrder);
-		
-		$.ajax({
-			url : '${pageContext.request.contextPath }/transaction/sales-order/save',
-			type : 'POST',
-			data : JSON.stringify(salesOrder),
-			contentType : 'application/json',
-			success : function(){
-				alert('transaction success')
-				//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
-			}, error : function(){
-				alert('save failed');
-			}
-			
-		}) 		
+		window.location = "${pageContext.request.contextPath}/transaction/sales-order";
 	})
+	
+	$('#receipt-print').click(function(){
+		window.location = "${pageContext.request.contextPath}/generate/so/"+idSo;
+	})
+	
+	
+	
+	//fix bug input
+	$('body').on('input', 'input.input-add-item', function(evt){
+		evt.preventDefault();
+		 var id = $(this).attr('id');
+	     var max = parseInt($(this).attr('max'));
+	     var min = parseInt($(this).attr('min'));
+	      if ($(this).val() > max)
+	      {
+	          $(this).val(max);
+	      }
+	      else if ($(this).val() < min)
+	      {
+	          $(this).val(min);
+	      }     
+	    }); 
+	
 });
 </script>
 
@@ -500,7 +547,8 @@ $(document).ready(function() {
 					
 					</div>
 						<a href="#" id="clear-sale" class="clear-sod btn btn-primary">Clear Sale</a>
-						<a href="#" id="charge" class="bayar-sod btn btn-primary">Charge Rp</a>
+						<a href="#" id="charge-tampilan" class="bayar-sod btn btn-primary">Charge Rp</a>
+						<a style="display:none" href="#" id="charge" class="bayar-sod btn btn-primary">Charge Rp</a>
 					</div>
 
 				</div>

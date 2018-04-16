@@ -92,5 +92,9 @@ public class TransferStockService {
 		return transferStockDao.getTransferStockByOutletIdLogin(outletId);
 	}
 	
+	public TransferStock getTransferStockById(Long id) {
+		return transferStockDao.getTransferStockById(id);
+	}
+	
 	
 }

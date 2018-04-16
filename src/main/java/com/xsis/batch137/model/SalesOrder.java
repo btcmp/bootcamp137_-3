@@ -34,14 +34,24 @@ public class SalesOrder {
 	@NotNull
 	@Column(name="grand_total")
 	private float grandTotal;
-	@Column(name="created_by")
-	private Long createdBy;
+
 	@Column(name="created_on")
 	private Date createdOn;
-	@Column(name="modified_by")
-	private Long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
+	
+	@JoinColumn(name="created_by")
+	@ManyToOne
+	private User createdBy;
+	
+	public User getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@OneToMany(mappedBy="salesOrder", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<SalesOrderDetail> salesOrderDetail;
 	
@@ -69,24 +79,14 @@ public class SalesOrder {
 	public void setGrandTotal(float grandTotal) {
 		this.grandTotal = grandTotal;
 	}
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}

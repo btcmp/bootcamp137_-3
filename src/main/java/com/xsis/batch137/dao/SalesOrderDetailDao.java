@@ -20,4 +20,6 @@ public interface SalesOrderDetailDao {
 	
 	public void updateSalesOrder(SalesOrderDetail sd, Outlet ot);
 
+	public List<SalesOrderDetail> getSodBySoId(Long id);
+
 }

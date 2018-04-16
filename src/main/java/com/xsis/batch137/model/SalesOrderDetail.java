@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -36,15 +37,21 @@ public class SalesOrderDetail {
 	private float unitPrice;
 	@Column(name="sub_total")
 	private float subTotal;
-	@Column(name="created_by")
-	private Long createdBy;
 	@Column(name="created_on")
 	private Date createdOn;
-	@Column(name="modified_by")
-	private Long modifiedBy;
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	
+	@JoinColumn(name="created_by")
+	@ManyToOne
+	private User createdBy;
+	
+	public User getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -81,24 +88,14 @@ public class SalesOrderDetail {
 	public void setSubTotal(float subTotal) {
 		this.subTotal = subTotal;
 	}
-	public Long getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
+
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
+
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}

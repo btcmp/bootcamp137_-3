@@ -74,7 +74,7 @@ public class TransferStockController {
 		if(itemInventories != null) {
 			for(ItemInventory invent : itemInventories) {
 				System.out.println("outlet id="+id+" inventoutlet"+invent.getOutlet().getId());
-				if(invent.getOutlet().getId() == id) {
+				if(invent.getOutlet().getId() == id && invent.getEndingQty()>0) {
 					inventz.add(invent);
 				}
 			}

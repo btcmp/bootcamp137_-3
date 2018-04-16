@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,10 +18,15 @@ import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.model.PurchaseRequest;
+import com.xsis.batch137.model.SalesOrderDetail;
 import com.xsis.batch137.model.TransferStock;
+import com.xsis.batch137.model.TransferStockDetail;
 import com.xsis.batch137.service.ItemInventoryService;
 import com.xsis.batch137.service.PurchaseOrderService;
 import com.xsis.batch137.service.PurchaseRequestService;
+import com.xsis.batch137.service.SalesOrderDetailService;
+import com.xsis.batch137.service.SalesOrderService;
+import com.xsis.batch137.service.TransferStockDetailService;
 import com.xsis.batch137.service.TransferStockService;
 
 @Controller
@@ -33,17 +39,23 @@ public class ExportPdfController {
 	TransferStockService tsService;
 	
 	@Autowired
+	TransferStockDetailService tsdService;
+	
+	@Autowired
 	ItemInventoryService ivtService;
 	
 	@Autowired
 	PurchaseOrderService poService;
 	
 	@Autowired
+	SalesOrderDetailService sodService;
+	
+	@Autowired
 	HttpSession httpSession;
 	
 	@RequestMapping(value = "/generate/pr", method = RequestMethod.GET)
 	ModelAndView generatePdf(HttpServletRequest request,
-	HttpServletResponse response) throws Exception {
+	HttpServletResponse response) throws Exception { 
 		//user data
 		response.setHeader("Content-Disposition", "attachment; filename=\"pr.pdf\"");
 		response.setContentType("application/pdf");
@@ -85,4 +97,32 @@ public class ExportPdfController {
 		List<PurchaseOrder> pos = poService.getByOutlet();
 		return new ModelAndView("pdfViewPo","pos", pos);
  	}
+	
+	@RequestMapping(value = "/generate/ts2/{id}", method = RequestMethod.GET)
+	ModelAndView generatePdfTs2(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id) throws Exception {
+		System.out.println("Calling generatePdf()...");
+		System.out.println(id);
+		//user data
+		response.setHeader("Content-Disposition", "attachment; filename=\"print_ts.pdf\"");
+		response.setContentType("application/pdf");
+		//Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		//long outId = outlet.getId();
+		List<TransferStockDetail> tsd = tsdService.getTransferStockDetailByTransferStockId(id);
+		//TransferStock ts = tsService.getOne(id);
+		return new ModelAndView("printTs","tsd",tsd);
+	}
+	
+	
+	@RequestMapping(value = "/generate/so/{id}", method = RequestMethod.GET)
+	ModelAndView generatePdfSo(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id) throws Exception {
+		System.out.println("Calling generatePdf()...");
+		//user data
+		response.setHeader("Content-Disposition", "attachment; filename=\"print_ts.pdf\"");
+		response.setContentType("application/pdf");
+		List<SalesOrderDetail> sod = sodService.getSodBySoId(id);
+		//TransferStock ts = tsService.getOne(id);
+		return new ModelAndView("pdfViewSo","sod",sod);
+	}
+	
+	
 }
