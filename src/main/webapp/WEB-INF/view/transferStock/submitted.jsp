@@ -5,23 +5,6 @@
 	<h3>Transfer Stock</h3>
 	<hr style="border-color:black;">
 		<div>
-			<div style="float:left;margin-right:150px;">
-				<select class="form-control" style="width:180%" id="search-outlet-to">
-				<option value="kosong">Search Outlet</option>
-					<c:forEach var="out" items="${outlets}">
-							<c:set var = "outId" scope = "session" value = "${outletLogin.id}"/>
-						
-							<c:choose>
-    		  				<c:when test = "${out.id != outId}">
-       			  				<option value="${out.id}">${out.name}</option>
-     		 				</c:when>
-     		 				</c:choose>
-						
-						</c:forEach>
-				<option value="all">All Outlet</option>	
-				</select>
-			</div>
-			
 			<div align="right" style="float:left;margin-right:10px">
 				
 			</div>
@@ -69,8 +52,6 @@
 								
 								document.write("<td>"+date+"</td>");
 							</script>
-							
-							
 							<td>${trstock.fromOutlet.name}</td>
 							<td>${trstock.toOutlet.name}</td>
 							<td>${trstock.status}</td>

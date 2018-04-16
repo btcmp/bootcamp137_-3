@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xsis.batch137.model.Adjustment;
 import com.xsis.batch137.model.PurchaseOrder;
+import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.service.DashboardService;
 import com.xsis.batch137.service.PurchaseOrderService;
 
@@ -55,5 +56,12 @@ public class DashboardController {
 		List<Adjustment> adjs = ds.getSubmittedAdjustment();
 		model.addAttribute("adjs", adjs);
 		return "/Adjustment/submitted";
+	}
+	
+	@RequestMapping("/ts")
+	public String listSubmittedTS(Model model) {
+		List<TransferStock> ts = ds.getSubmittedTs();
+		model.addAttribute("ts", ts);
+		return "/transferStock/submitted";
 	}
 }
