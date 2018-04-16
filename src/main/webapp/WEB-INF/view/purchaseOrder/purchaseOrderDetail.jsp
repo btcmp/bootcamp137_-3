@@ -170,13 +170,19 @@
 </table>
 <div class="row">
 	<div class="col-xs-9"></div>
-	<div class="col-xs-3"><a href="${pageContext.request.contextPath}/transaksi/purchase-order" class="btn btn-primary btn-block no-print">Done</a></div>
+	<div class="col-xs-3"><button type="button" class="btn btn-primary btn-block no-print" id="btn-done">Done</button></div>
 </div>
 </div>
 </section>
 </body>
 <script>
 	$(function(){
+		var sebelum =  document.referrer;
+		console.log(sebelum);
+		
+		$('#btn-done').on('click', function(){
+			window.location = sebelum;
+		});
 		
 		$('#action-po').change(function(){
 			var action = $(this).val();
