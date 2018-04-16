@@ -22,5 +22,7 @@ public interface OutletDao {
 
 	public int getName(String name);
 
+	public int countEmail(String email);
+
 
 }

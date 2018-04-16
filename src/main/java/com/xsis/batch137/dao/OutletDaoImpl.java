@@ -87,6 +87,20 @@ public class OutletDaoImpl implements OutletDao{
 		}
 	}
 
+	@Override
+	public int countEmail(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Outlet where active = 1 and email = :emial";
+		List<Outlet> outs = session.createQuery(hql).setParameter("emial", email).list();
+		if(outs.isEmpty()) {
+			return 0;
+		}
+		else {
+			return outs.size();
+		}
+	}
+
 
 	
 	

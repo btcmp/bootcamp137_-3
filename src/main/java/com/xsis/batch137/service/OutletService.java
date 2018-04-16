@@ -116,4 +116,9 @@ public class OutletService {
 		// TODO Auto-generated method stub
 		return outletDao.getName(name);
 	}
+
+	public int countEmail(String email) {
+		// TODO Auto-generated method stub
+		return outletDao.countEmail(email);
+	}
 }

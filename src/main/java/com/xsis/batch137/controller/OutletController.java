@@ -86,7 +86,13 @@ public class OutletController {
 	
 	@RequestMapping("/checking")
 	@ResponseBody
-	public int countName(@RequestParam("name") String name) {
+	public int countDaName(@RequestParam("name") String name) {
 		return outletService.countName(name);
+	}
+	
+	@RequestMapping("/check")
+	@ResponseBody
+	public int countDaEmail(@RequestParam("email") String email) {
+		return outletService.countEmail(email);
 	}
 }
