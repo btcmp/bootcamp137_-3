@@ -9,14 +9,15 @@
 			</div>
 			<div class="modal-body">
 				<form id="form-charge-so" class="form-all" style="border:none">
-					<div class="form-group">
+					<div  id="div-charge-cash" class="form-group">
 						<label id="charge-cash-label" for="charge-cash">Cash</label> <!-- <input type="number"
 							class="form-control" id="charge-cash" value="0"> -->
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="charge-done" class="btn btn-primary">Done</button>
+				<button type="button" id="charge-cancel" class="btn btn-primary">Cancel</button>
+				<button type="button" id="charge-done" class="btn btn-primary">Confirm</button>
 			</div>
 		</div>
 	</div>

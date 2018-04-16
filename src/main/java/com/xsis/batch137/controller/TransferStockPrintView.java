@@ -21,62 +21,73 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.xsis.batch137.model.SalesOrderDetail;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
 import com.xsis.batch137.service.TransferStockDetailService;
 import com.xsis.batch137.service.TransferStockService;
 
-public class SalesOrderPDFView extends AbstractPdfView {
+public class TransferStockPrintView extends AbstractPdfView {
 
+	@Autowired
+	TransferStockDetailService tsdService;
+	
+	@Autowired
+	TransferStockService tsService;
+	
 	@Override
 	protected void buildPdfDocument(Map<String, Object> model, Document doc, PdfWriter writer, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		List<SalesOrderDetail> sod = (List<SalesOrderDetail>) model.get("sod");
-		String customer = null;
-		Date date = null;
-		float total = 0;
+		List<TransferStockDetail> tsd = (List<TransferStockDetail>) model.get("tsd");
 		
-		for (SalesOrderDetail sodDet : sod) {
-			customer=sodDet.getSalesOrder().getCustomer().getName();
-			date = sodDet.getCreatedOn();
-			total = sodDet.getSalesOrder().getGrandTotal();
+		
+		Date date = null;
+		String from = null;
+		String to = null;
+		String status = null;
+		String notes = null;
+		
+		for (TransferStockDetail tsdetGetTs : tsd) {
+			date = tsdetGetTs.getTransferStock().getModifiedOn();
+			from = tsdetGetTs.getTransferStock().getFromOutlet().getName();
+			to = tsdetGetTs.getTransferStock().getToOutlet().getName();
+			status = tsdetGetTs.getTransferStock().getStatus();
+			notes = tsdetGetTs.getTransferStock().getNotes();
 		}
 		
 		//System.out.println(ts.getId());
 		//TransferStock ts = tsService.getTransferStockById(id);
 		
-		PdfPTable table = new PdfPTable(4);
+		PdfPTable table = new PdfPTable(3);
 		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 		
 		HTMLWorker htmlWorker = new HTMLWorker(doc);
+		String str = "<html><head></head><body>"+
+				"<br/>" +
+		        "<h1 style='text-align: center;'>Transfer Stock Detail</h1>" +
+		        "<br/>" +
+		        "<p>Date : "+date+ "</p>" +
+		        "<p>From : "+from+ "</p>" +
+		        "<p>To : "+to+ "</p>" +
+		        "<p>Status : "+status+ "</p>" +
+		        "<p>Notes : "+notes+ "</p>" +
+		        "<br/>" +
+		        "</body></html>";
 		
-		 String str = "<html><head></head><body>"+
-				 	        "<h1 style='text-align: center;'>Sales Order</h1>" +
-				 	        "<br/>" +
-				 	        "<p style='text-align: left ;'>Customer : "+customer+"</p>"+
-				 	        "<p style=''text-align: right ;'>Date : "+date+"</p>"+
-				 	        "</body></html>";
-				 	      htmlWorker.parse(new StringReader(str));
+			htmlWorker.parse(new StringReader(str));
 			
-			 table.addCell("Item Name");
-			 table.addCell("Price");
-			 table.addCell("Quantity");
-			 table.addCell("Total");
+			 table.addCell("Item");
+			 table.addCell("Transfer Qty. ");
+			 table.addCell("In Stock");
 
-			for (SalesOrderDetail salesOrderDetail : sod) {
-				table.addCell(salesOrderDetail.getItemVariant().getItem().getName() +" - "+salesOrderDetail.getItemVariant().getName());
-				table.addCell(String.valueOf(salesOrderDetail.getUnitPrice())); 
-				table.addCell(String.valueOf(salesOrderDetail.getQty())); 
-				table.addCell(String.valueOf(salesOrderDetail.getSubTotal())); 
-			}
 			
-			table.addCell("Total Pembayaran");
-			table.addCell("");
-			table.addCell("");
-			table.addCell(String.valueOf(total));
+			for (TransferStockDetail tsdet : tsd) {
+				table.addCell(tsdet.getItemVariant().getItem().getName()+"-"+tsdet.getItemVariant().getName());
+				table.addCell(String.valueOf(tsdet.getTransferQty()));
+				table.addCell(String.valueOf(tsdet.getInStock()));
+			}
+
 			doc.add(table);
 	}
 }

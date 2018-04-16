@@ -55,9 +55,9 @@ public class SalesOrderController {
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveSalesOrder(@RequestBody SalesOrder salesOrder) {
-		salesOrderService.save(salesOrder);
+	@ResponseBody
+	public Long saveSalesOrder(@RequestBody SalesOrder salesOrder) {
+		return salesOrderService.save(salesOrder);
 	}
 	
 	@RequestMapping(value="/save-customer",method=RequestMethod.POST)
@@ -104,7 +104,7 @@ public class SalesOrderController {
 		long outId = outlet.getId();
 		if(itemInventory != null) {
 			for (ItemInventory ivt : itemInventory) {
-				if(ivt.getOutlet().getId() == outId) {
+				if(ivt.getOutlet().getId() == outId && ivt.getEndingQty()>0) {
 					invent.add(ivt);
 				}
 			}

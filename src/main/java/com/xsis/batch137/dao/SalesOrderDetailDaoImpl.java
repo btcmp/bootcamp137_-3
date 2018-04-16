@@ -11,6 +11,7 @@ import com.xsis.batch137.model.ItemInventory;
 import com.xsis.batch137.model.ItemVariant;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.SalesOrderDetail;
+import com.xsis.batch137.model.TransferStockDetail;
 
 
 
@@ -57,6 +58,18 @@ public class SalesOrderDetailDaoImpl implements SalesOrderDetailDao{
 		String hql = "update ItemInventory set endingQty = endingQty - :qty where itemVariant = :iVar and outlet = :outlet";
 		session.createQuery(hql).setParameter("qty", sd.getQty()).setParameter("iVar", sd.getItemVariant()).setParameter("outlet", ot).executeUpdate();
 		}
+
+	@Override
+	public List<SalesOrderDetail> getSodBySoId(Long id) {
+		Session session=sessionFactory.getCurrentSession();
+		String hql="from SalesOrderDetail sod where sod.salesOrder.id = :id";
+		List<SalesOrderDetail> salesOrderDetails=session.createQuery(hql).setParameter("id", id).list();
+		if(salesOrderDetails.isEmpty()) {
+			return null;
+		}
+		
+		return salesOrderDetails;
+	}
 	
 
 }

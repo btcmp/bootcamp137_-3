@@ -13,6 +13,7 @@ import com.xsis.batch137.dao.SalesOrderDetailDao;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.SalesOrder;
 import com.xsis.batch137.model.SalesOrderDetail;
+import com.xsis.batch137.model.User;
 
 ;
 
@@ -29,17 +30,22 @@ public class SalesOrderService {
 	@Autowired
 	HttpSession httpSession;
 	
-	public void save(SalesOrder salesOrder) {
+	public Long save(SalesOrder salesOrder) {
 		List<SalesOrderDetail> salesOrderDetails=salesOrder.getSalesOrderDetail();
 		salesOrder.setSalesOrderDetail(null);
+		User usr = (User) httpSession.getAttribute("userLogin");
+		salesOrder.setCreatedBy(usr);
 		salesOrderDao.save(salesOrder);
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 
 		for(SalesOrderDetail sod : salesOrderDetails) {
 			sod.setSalesOrder(salesOrder);
+			sod.setCreatedBy(usr);
 			salesOrderDetailDao.save(sod);
 			salesOrderDetailDao.updateSalesOrder(sod, outlet);
 		}
+		
+		return salesOrder.getId();
 		
 	}
 	

@@ -9,7 +9,7 @@
 				<h5 align="center" class="modal-title" id="exampleModalLabel">Transfer Stock</h5>
 			</div>
 			<div class="modal-body">
-				<form class="form-all" style="border:none">
+				<form id="form-create-data" class="form-all" style="border:none">
 					
 					<div class="row" id="div-alert-transfer-stock" style="display:none;">
 						<div class="col-xs-12">
@@ -44,7 +44,8 @@
 
 					<div class="form-group">
 						<label>Notes</label> <br/>
-						<textarea id="add-notes"  class=form-control rows="4" cols="50" name="comment" form="usrform"></textarea>
+						<textarea id="add-notes"  class=form-control rows="4" cols="50" name="comment" form="usrform" data-parsley-required-message="Please insert the note"
+							data-parsley-required></textarea>
 					</div>
 					
 					<div style="float:left"> 
