@@ -60,7 +60,14 @@
 </section>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#adjustment-table').DataTable();
+		$('#adjustment-table').DataTable({
+			'paging' : true,
+			'lengthChange' : false,
+			'searching' : false,
+			'ordering' : true,
+			'info' : true,
+			'autoWidth' : false
+		});
 
 		//Search on main view, kalau ada.
 		//Cara pake search yang ke-dua kali
