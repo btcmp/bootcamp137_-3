@@ -5,19 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xsis.batch137.model.PurchaseOrder;
 import com.xsis.batch137.service.DashboardService;
+import com.xsis.batch137.service.PurchaseOrderService;
 
 @Controller
-@RequestMapping
+@RequestMapping("/dashboard")
 public class DashboardController {
 
 	@Autowired
 	DashboardService ds;
 	
-	@RequestMapping("/dashboard")
+	@Autowired
+	PurchaseOrderService poService;
+	
+	@RequestMapping
 	public String index(Model model) {
 		int jmlPO = ds.countApprovedPO();
 		model.addAttribute("jmlPO", jmlPO);
@@ -30,10 +35,17 @@ public class DashboardController {
 		return "dashboard";
 	}
 	
-	@RequestMapping("/dashboard/po")
+	@RequestMapping("/po")
 	public String listApprovedPO(Model model) {
 		List<PurchaseOrder> pos = ds.getApprovedPO();
 		model.addAttribute("pos", pos);
 		return "purchaseOrder/approved";
+	}
+	
+	@RequestMapping("/detail/po/{id}")
+	public String detail(@PathVariable long id, Model model) {
+		PurchaseOrder po = poService.getOne(id);
+		model.addAttribute("po", po);
+		return "purchaseOrder/purchaseOrderDetail";
 	}
 }
