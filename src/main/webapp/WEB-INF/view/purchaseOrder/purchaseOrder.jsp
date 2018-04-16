@@ -275,39 +275,54 @@
 			};
 			
 			var error = errorCost.length;
-			
-			validate = $('#form-edit-po').parsley();
-			validate.validate();
-			if(validate.isValid() && error == 0){
-				$.ajax({
-					type : 'put',
-					url : '${pageContext.request.contextPath}/transaksi/purchase-order/update',
-					data : JSON.stringify(purOrd),
-					contentType : 'application/json',
-					success : function() {
-						$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
-						$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-						$('#div-alert').fadeIn();
-						setTimeout(function() {
-							window.location = '${pageContext.request.contextPath}/transaksi/purchase-order';
-						}, 2000);
-					},
-					error : function() {
-						$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-						$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-						$('#div-alert').fadeIn();
-						setTimeout(function(){
-							$('#div-alert').fadeOut();
-						}, 4000);
-					}
-				});
-			}else if(error > 0){
+			if(sValid == 1 && nValid == 1 && error == 0){
+				validate = $('#form-edit-po').parsley();
+				validate.validate();
+				if(validate.isValid()){
+					$.ajax({
+						type : 'put',
+						url : '${pageContext.request.contextPath}/transaksi/purchase-order/update',
+						data : JSON.stringify(purOrd),
+						contentType : 'application/json',
+						success : function() {
+							$('#tampilan-alert').removeClass('alert-gagal').addClass('alert-sukses');
+							$('#tampilan-alert').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function() {
+								window.location = '${pageContext.request.contextPath}/transaksi/purchase-order';
+							}, 2000);
+						},
+						error : function() {
+							$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
+							$('#tampilan-alert').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							$('#div-alert').fadeIn();
+							setTimeout(function(){
+								$('#div-alert').fadeOut();
+							}, 4000);
+						}
+					});
+				}
+			}else{
 				$('#tampilan-alert').removeClass('alert-sukses').addClass('alert-gagal');
-				$('#tampilan-alert').html('<strong>Error!</strong> Harap masukkan cost');
+				$('#tampilan-alert').html('<strong>Error!</strong> Gagal menyimpan ke database');
 				$('#div-alert').fadeIn();
 				setTimeout(function(){
 					$('#div-alert').fadeOut();
 				}, 4000);
+			}
+			if(error > 0){
+				$('#div-item').removeClass('has-success').addClass('has-error');
+				$('#lbl-item').html('<i class="fa fa-times-circle-o"></i> Please insert valid cost');
+				$('#lbl-item').fadeIn();
+			}
+			if(nValid == 0){
+				$('#div-notes').removeClass('has-success').addClass('has-error');
+				$('#lbl-notes').html('<i class="fa fa-times-circle-o"></i> Please insert notes');
+			}
+			if(sValid == 0){
+				$('#div-supplier').removeClass('has-success').addClass('has-error');
+				$('#lbl-supplier').html('<i class="fa fa-times-circle-o"></i> Please choose supplier');
+				$('#lbl-supplier').fadeIn();
 			}
 		}
 		
@@ -329,6 +344,7 @@
 						
 					}else{
 						$('#pil-supplier').val(data.supplier.id);
+						sValid = 1;
 					};
 					$(data.detail).each(function(key, val){
 						$('#list-item').append(
