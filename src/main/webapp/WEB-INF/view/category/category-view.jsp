@@ -82,7 +82,7 @@
 				$('#create-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-name').removeClass('has-success').addClass('has-error');
-				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Cannot empty');
+				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Required');
 				$('#label-name').fadeIn();
 			}
 			else if(nameValid == 1){
@@ -108,7 +108,7 @@
 						
 					setTimeout(function() {
 						window.location = '${pageContext.request.contextPath}/master/category';
-					}, 3000);
+					}, 2500);
 				},
 				error : function(){
 						$('#create-alert').removeClass('alert-sukses').addClass('alert-gagal');
@@ -159,7 +159,7 @@
 				$('#edit-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-edit').removeClass('has-success').addClass('has-error');
-				$('#label-edit').html('<i class="fa fa-times-circle-o"></i> Cannot empty');
+				$('#label-edit').html('<i class="fa fa-times-circle-o"></i> Required');
 				$('#label-edit').fadeIn();
 			}
 			else if(nameValid == 1){
