@@ -13,29 +13,30 @@
 						+'<option disabled selected>More</option>'
 						+'<option value="approve">Approve</option>'
 						+'<option value="reject">Reject</option>'
-						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Rejected'){
 				document.write('<select id="action-po" class="btn-primary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Processed'){
 				document.write('<select id="action-po" class="btn-poimary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="process" disabled>Process</option>'
 						+'<option value="print">Print</option>');
 			}else if('${po.status}' == 'Approved'){
 				document.write('<select id="action-po" class="btn-primary form-control no-print" key-id="${po.id }">'
 						+'<option disabled selected>More</option>'
 						+'<option value="approve" disabled>Approve</option>'
 						+'<option value="reject" disabled>Reject</option>'
-						+'<option value="process">Process</option>'
 						+'<option value="print">Print</option>');
+			}
+			if("${superr}" == 1 || "${userLogin.role.name}" == 'ROLE_ADMIN'){
+				document.write('<option value="process">Process</option>');
+			}else{
+				document.write('<option value="process" disabled>Process</option>');
 			}
 		</script>
 			
@@ -178,11 +179,16 @@
 </body>
 <script>
 	$(function(){
-		var sebelum =  document.referrer;
-		console.log(sebelum);
+		
+		var pathname = window.location.pathname;
+		var sumber = pathname.split('/')[2];
 		
 		$('#btn-done').on('click', function(){
-			window.location = sebelum;
+			if(sumber == 'transaksi'){
+				window.location = '${pageContext.request.contextPath}/transaksi/purchase-order';
+			}else{
+				window.location = '${pageContext.request.contextPath}/dashboard/po';
+			}
 		});
 		
 		$('#action-po').change(function(){
@@ -204,6 +210,6 @@
 				});
 			}
 		});
-	})
+	});
 </script>
 </html>

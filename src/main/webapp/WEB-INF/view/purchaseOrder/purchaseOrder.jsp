@@ -245,7 +245,6 @@
 						subtotalnya = subtotalnya + st2[i];
 					}
 				}
-				console.log(subtotalnya);
 				if(cost == 0){
 					errorCost.push('#cost'+$(this).attr('key-id'));
 				}
@@ -351,7 +350,7 @@
 							'<tr key-id="'+val.variant.id+'"><td>'+val.variant.item.name+'-'+val.variant.name+'</td>'
 							+'<td id="td'+val.id+'"></td>'
 							+'<td>'+val.requestQty+'</td>'
-							+'<td><input type="text" id="cost'+val.variant.id+'" placeholder="20000" value="'+val.unitCost+'" class="edit-cost form-control"></td>'
+							+'<td><input type="text" id="cost'+val.variant.id+'" placeholder="20000" value="'+val.unitCost+'" class="edit-cost form-control" data-parsley-required="true" required></td>'
 							+'<td id="subtotal'+val.id+'">Rp. '+val.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td>'
 						);
 						$.ajax({
