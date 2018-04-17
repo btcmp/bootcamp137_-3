@@ -46,12 +46,14 @@ public class EmployeeService {
 		if(employee.getId()!=0) {
 			employee.setModifiedBy(usrlogin);
 			employee.setModifiedOn(new Date());
-			User usr = uDao.getUserByEmployee(employee);
-			if(usr == null) {
-				employee.setHaveAccount(false);
-			}else {
+			if(emp.isHaveAccount()) {
 				employee.setHaveAccount(true);
-				if(emp.isHaveAccount() == false) {
+			}else {
+				User usr = uDao.getUserByEmployee(employee);
+				if(usr == null) {
+					employee.setHaveAccount(false);
+				}else {
+					employee.setHaveAccount(true);
 					uDao.nonaktif(usr.getId());
 				}
 			}
