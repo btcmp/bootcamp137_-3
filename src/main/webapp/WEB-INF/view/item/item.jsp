@@ -52,7 +52,10 @@
 			<c:forEach items="${itemInventories}" var="invent"> 
 			<c:set var = "endQty" scope = "session" value = "${invent.endingQty}"/>
 			<c:set var = "alertQty" scope = "session" value = "${invent.alertAtQty}"/>
-				<tr>
+			<c:set var = "activeItem" scope = "session" value = "${invent.itemVariant.item.active}"/>
+			<c:set var = "activeVariant" scope = "session" value = "${invent.itemVariant.active}"/>
+			<c:if test = "${activeVariant == true && activeItem == true}">
+         			<tr>
 					<td>${invent.itemVariant.item.name} - ${invent.itemVariant.name} </td>
 					<td>${invent.itemVariant.item.category.name}</td>
 
@@ -76,6 +79,8 @@
 					
 					<td><a href="#" id="${invent.itemVariant.item.id}" class="edit-data">Edit</a></td>
 				</tr>
+     		</c:if>
+		
 			</c:forEach> 
 		</tbody>	
 		</table>
@@ -136,13 +141,13 @@ $(document).ready(function(){
 			validate.validate();
 			
 			if(validate.isValid() && skuValid==1){
+				index++;
 				$('#modal-add-variant').modal('toggle');
 				$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td><p>'+
 						$('#add-unit-price').val()+'</p></td><td><p>'+$('#add-sku').val()
 						+'</p></td><td><p>'+$('#add-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#add-alert-at').val()
 						+'</p></td> <td style="display:none"><p>'+$('#add-active-variant').val()+'</p></td>'
 						+'<td> <a href="#" id="tombol-edit-variant">Edit</a> | <a href="#" id="delete-variant-data" >Delete </a>'+'</td></tr>');
-			 index++;
 			 console.log(index);
 			 uniqueSku.push($('#add-sku').val().toLowerCase());
 			 console.log(uniqueSku)
@@ -154,13 +159,22 @@ $(document).ready(function(){
 		
 	 $('#edititem-btn-add-data-variant').on('click', function(evt) {
 		 evt.preventDefault;
-	
 		 validate=$('#form-edititem-variant-add-data').parsley();
 		 validate.validate();
 			
 			if(validate.isValid()){
 				$('#edititem-modal-add-variant').modal('toggle');
-				reloadTableEdit();		
+				index++;
+		    	$('#isi-popup-edit').append('<tr id="tr-item'+index+'"><td><p id='+index+'>'+ $('#edititem-add-variant-name').val()+'</p></td><td><p>'+
+		    			$('#edititem-add-unit-price').val()+'</p></td><td><p>'+$('#edititem-add-sku').val()+'</p></td>'
+		    			+'<td><p>'+$('#edititem-add-beginning-stock').val()+'</p></td>'
+		    			+'<td style="display:none"><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
+		   				+'<td style="display:none"><p>'+$('#edititem-add-active-variant').val()+'</p></td>'
+		   				+'<td style="display:none"><p>null</p></td>'
+		   				+'<td style="display:none"><p>null</p></td>'
+		   				+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
+		   				+'<td style="display:none"><p>null</p></td>'
+		   				+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data">Remove </a>'+'</td></tr>');
 			}
 		 
 		});
@@ -173,7 +187,7 @@ $(document).ready(function(){
 			
 			if(validate.isValid() && skuValid==1){
 			 	$('#modal-edit-variant').modal('toggle');
-				var index=$('#id-item-hidden-variant-edit').val();
+				index=$('#id-item-hidden-variant-edit').val();
 				 console.log(index)
 				 $("#tr-item"+index).remove();
 			 	//reloadTableCreateEditVariant();
@@ -188,25 +202,57 @@ $(document).ready(function(){
 	 
 	 $('#edititem-btn-save-variant').on('click', function(evt) {
 		 evt.preventDefault();
- 
+		 var endingQty = parseInt($('#ending-qty').val());
+		 var endingQtyNull = $('#ending-qty').val();
+		 console.log(endingQty)
 		 validate=$('#form-edititem-variant-edit-data').parsley();
 		 validate.validate();
 			
 			if(validate.isValid()){
 				$('#edititem-modal-edit-variant').modal('toggle');
-				var index=$('#id-item-hidden').val();
-				 console.log(index)
-				 $("#tr-item"+index).remove();
+				indexRemove=$('#id-item-hidden').val();
+				console.log(indexRemove)
+				 $("#tr-item"+indexRemove).remove();
 				 console.log($('#edititem-add-variant-name').val())
-				 	//$.each(xxx,function(key,val){})
+				 	//a$.each(xxx,function(key,val){})
+
+				 if(endingQty==0){
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
+				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
+				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#ending-qty').val()+'</p></td>'
+				    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Deactive </a>'+'</td></tr>');
+				 }
 				 
-				 $('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
-			    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
-			    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
-			    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
-			    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
-			    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
-			    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Delete </a>'+'</td></tr>');
+				 else if(isNaN(endingQty)){
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
+				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
+				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#ending-qty').val()+'</p></td>'
+				    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Remove </a>'+'</td></tr>');
+				 }
+				 
+				 else{
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
+				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
+				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#variant-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
+				    			+'<td style="display:none"><p>'+$('#ending-qty').val()+'</p></td>'
+				    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a>'+'</td></tr>');
+				 }
+				 
+			
 			}
 			});
 			 
@@ -230,21 +276,30 @@ $(document).ready(function(){
 	 });
 	    
 	 $("#isi-popup-edit").on('click','#edititem-delete-variant-data',function(){
-	        var element = $(this).parent().parent();
-	        var id = element.find('td').eq(7).find('p').text();
-	       
-	        if(id=='null') {
-	        	$(this).parent().parent().remove();
-	        } 
-	         
-	        else  {
+	        var element = $(this).parent().parent(); //dari a ke td baru ke tr
+	        var id = element.find('td').eq(6).find('p').text();
 	        
-	 
-	        $(this).parent().parent().remove();
-	        idDelete.push(id);	    	
+	        if(confirm('Are you sure to deactive this variant?')){
+	        	 if(id=='null') {
+	 	        	$(this).parent().parent().remove();
+	 	        	console.log('null');
+	 	        } 
+	 	         
+	 	        else  {
+	 	        	$(this).parent().parent().hide();
+	 	        	idDelete.push(id);	    	
+	 	        	console.log(idDelete);
+	 	        }
 	        }
 	        
+	        else{
+	        	
+	        }
+	       
+	       
 	    });
+
+	 
 
 /* =================== [DELETE] VARIANT DATA AT MODAL-CREATE-DATA ===================================*/
 	 $("#btn-cancel").on('click',function(){
@@ -259,7 +314,7 @@ $(document).ready(function(){
 	 
 	 $("#edititem-btn-cancel").on('click',function(){
 		 $('#dt-popup-edit > tbody > tr').each(function(index,data){
-		    	var idInventory = $(data).find('td').eq(7).text()
+		    	var idInventory = $(data).find('td').eq(6).text()
 		    	 idClear.push(idInventory);
 		    });
 		 
@@ -297,6 +352,7 @@ $(document).ready(function(){
 	   		$('#edititem-edit-active-variant').val(element.find('td').eq(5).find('p').text());
 	   		$('#variant-id').val(element.find('td').eq(6).find('p').text());
 	   		$('#inventory-id').val(element.find('td').eq(7).find('p').text());
+	   		$('#ending-qty').val(element.find('td').eq(9).find('p').text());
 	   		$('#id-item-hidden').val(element.find('td').eq(0).find('p').attr('id'));
 	    });
 	    
@@ -348,7 +404,7 @@ $(document).ready(function(){
 					     sku : $(data).find('td').eq(2).text(),
 					     active : $(data).find('td').eq(5).text(),
 					     itemInventories : [itemInventory]
-				 }
+				 };
 				 itemVar.push(itemVariant)
 			}); 
 		    
@@ -371,7 +427,7 @@ $(document).ready(function(){
 					     var item = {
 						    	name : $('#add-item-name').val(),
 						    	image : data,
-						    	active : active,
+						    	active : 1,
 						    	category:{
 						    		id :  $('#add-category').val()
 						    	},
@@ -499,10 +555,11 @@ $(document).ready(function(){
 		});
 		
 		
-		
+		var imageStatus = 0;
 		$('#edititem-btn-create-data').on('click',function(evt){
 			evt.preventDefault();
-		
+			console.log(imageStatus)
+			
 			validate=$('#form-main-edit-data').parsley();
 			validate.validate();
 				
@@ -517,109 +574,250 @@ $(document).ready(function(){
 				    
 				    var itemVar = [];
 				    var varInv = [];
-				     
-				    //ID OUTLET BELUM
-				    $('#dt-popup-edit > tbody > tr').each(function(index,data){
-				    	var itemInventory = {
-				    			 id : $(data).find('td').eq(7).text(),
-								 beginning :$(data).find('td').eq(3).text(),
-							     alertAtQty :$(data).find('td').eq(4).text(),
-							     itemVariant : {
-							    	 id : $(data).find('td').eq(6).text()
-							     },
-				    			 outlet : {
-				    				id : $('#add-outlet').val()
-				    			 }
-				    	
-						 }
-				    	
-						 var itemVariant = {
-				    			 id : $(data).find('td').eq(6).text(),
-								 name : $(data).find('td').eq(0).text(),
-								 price : $(data).find('td').eq(1).text(),
-							     sku : $(data).find('td').eq(2).text(),
-							     active : 0,
-							     itemInventories : [itemInventory],
-							     item : {
-							    	id : $(data).find('td').eq(6).text()
-							     }
-						 }
-						 itemVar.push(itemVariant)
-					}); 
-				    
-				    //console.log(itemVar)
-				    
-				    var item = {
-				    	id : $('#edit-item-input-id').val(),
-				    	name : $('#edititem-item-name').val(),
-				    	active : active,
-				    	category:{
-				    		id :  $('#edititem-category').val()
-				    	},
-				    	itemVariants : itemVar
-				    }
-				    
-				    if(idDelete!=""){
-				    		idDelete.forEach(function(element){
-						    	$.ajax({
-									url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
-									type:'DELETE',
-									success : function (){
-										//alert('delete successfully');
-										//window.location = '${pageContext.request.contextPath}/master/item/';
-									},
-									
-									error : function(){
-										//alert('delete failed');
-									} 
-									  
-								});
-					    	});
-				    }
-				    
-				    if (idClear!=""){
-				        idClear.forEach(function(element){
-					    	$.ajax({
-								url : '${pageContext.request.contextPath}/master/item/delete-inventory/'+element,
-								type:'DELETE',
-								success : function (){
-									//alert('delete successfully');
-									//alert('save successfully')
-									//window.location = '${pageContext.request.contextPath}/master/item/';
-								},
+			
+				    if(imageStatus==1){
+				    	var formData = new FormData();
+						formData.append('image',$('#images-input-edit')[0].files[0]); //baca filenya
+						$.ajax({
+							type : 'POST',
+							url : '${pageContext.request.contextPath}/master/item/upload',
+							data : formData,
+							contentType : false,
+							processData : false,
+							cache : false,
+							success : function(data){ 
+							/* 	if(imageStatus==0){
+									fixImage=data;
+								} */
 								
-								error : function(){
-									//alert('delete failed');
-								} 
+								//ID OUTLET BELUM
+							    $('#dt-popup-edit > tbody > tr').each(function(index,data){
+							    	var itemInventory = {
+							    			 id : $(data).find('td').eq(7).text(),
+											 beginning :$(data).find('td').eq(3).text(),
+										     alertAtQty :$(data).find('td').eq(4).text(),
+										     endingQty :$(data).find('td').eq(9).text(),
+										     itemVariant : {
+										    	 id : $(data).find('td').eq(6).text()
+										     },
+							    			 outlet : {
+							    				id : $('#add-outlet').val()
+							    			 }
+							    	
+									 }
+							    	
+									 var itemVariant = {
+							    			 id : $(data).find('td').eq(6).text(),
+											 name : $(data).find('td').eq(0).text(),
+											 price : $(data).find('td').eq(1).text(),
+										     sku : $(data).find('td').eq(2).text(),
+										     active : 1,
+										     itemInventories : [itemInventory],
+										     item : {
+										    	id : $(data).find('td').eq(6).text()
+										     }
+									 };
+									 itemVar.push(itemVariant)
+								}); 
+							    
+							    //console.log(itemVar)
+							    
+							    var item = {
+							    	id : $('#edit-item-input-id').val(),
+							    	name : $('#edititem-item-name').val(),
+							    	active : active,
+							    	category:{
+							    		id :  $('#edititem-category').val()
+							    	},
+							    	itemVariants : itemVar,
+							    	image : data
+
+							    }
+							        
+						    	console.log(item)
+							    	//console.log(item.name)
 								
-							});
-					    }); 	
+								
+								$.ajax({
+							    	url:'${pageContext.request.contextPath}/master/item/update',
+							    	type : 'PUT',
+							    	data : JSON.stringify(item),
+							    	contentType : 'application/JSON',
+							    	success : function(){
+							    		$('#tampilan-alert-edit-data').removeClass('alert-gagal').addClass('alert-sukses');
+							    		$('#tampilan-alert-edit-data').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+							    		$('#div-alert-edit-data').fadeIn();
+							    		
+							    		
+							    	    if(idDelete!=""){
+								    		idDelete.forEach(function(element){
+										    	$.ajax({
+													url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
+													type:'GET',
+													success : function (){
+														//alert('delete successfully'+element);
+														//window.location = '${pageContext.request.contextPath}/master/item/';
+													},
+													
+													error : function(){
+														//alert('delete failed');
+													} 
+													  
+												});
+									    	});
+								    };
+							    	  
+								    if (idClear!=""){
+								        idClear.forEach(function(element){
+									    	$.ajax({
+												url :'${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
+												type:'DELETE',
+												success : function (){
+													//alert('delete successfully');
+													//alert('save successfully')
+													//window.location = '${pageContext.request.contextPath}/master/item/';
+												},
+												
+												error : function(){
+													//alert('delete failed');
+												} 
+												
+											});
+									    }); 	
+								    }
+							    	    
+							    		
+							    		setTimeout(function(){
+							    			window.location = '${pageContext.request.contextPath}/master/item/';
+								    		},1000);
+							    		
+							    	},
+							    	error : function(){
+							    		$('#tampilan-alert-edit-data').removeClass('alert-sukses').addClass('alert-gagal');
+							    		$('#tampilan-alert-edit-data').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+							    		$('#div-alert-edit-data').fadeIn(); 
+							    	}
+							    }); //ajax update
+							},
+							
+							error:function(data){
+								alert('error')
+							},
+							
+								}); //ajax upload
 				    }
 				    
-			    	console.log(item)
-				    	//console.log(item.name)
-				    	 $.ajax({
-						    	url:'${pageContext.request.contextPath}/master/item/update',
-						    	type : 'PUT',
-						    	data : JSON.stringify(item),
-						    	contentType : 'application/JSON',
-						    	success : function(){
-						    		$('#tampilan-alert-edit-data').removeClass('alert-gagal').addClass('alert-sukses');
-						    		$('#tampilan-alert-edit-data').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-						    		$('#div-alert-edit-data').fadeIn();
-						    		
-						    		setTimeout(function(){
-						    			window.location = '${pageContext.request.contextPath}/master/item/';
-							    		},1000);
-						    		
-						    	},
-						    	error : function(){
-						    		$('#tampilan-alert-edit-data').removeClass('alert-sukses').addClass('alert-gagal');
-						    		$('#tampilan-alert-edit-data').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-						    		$('#div-alert-edit-data').fadeIn(); 
-						    	}
-						    });		    
-				}
+				    else{
+					    $('#dt-popup-edit > tbody > tr').each(function(index,data){
+					    	var itemInventory = {
+					    			 id : $(data).find('td').eq(7).text(),
+									 beginning :$(data).find('td').eq(3).text(),
+								     alertAtQty :$(data).find('td').eq(4).text(),
+								     endingQty :$(data).find('td').eq(9).text(),
+								     itemVariant : {
+								    	 id : $(data).find('td').eq(6).text()
+								     },
+					    			 outlet : {
+					    				id : $('#add-outlet').val()
+					    			 }
+					    	
+							 }
+					    	
+							 var itemVariant = {
+					    			 id : $(data).find('td').eq(6).text(),
+									 name : $(data).find('td').eq(0).text(),
+									 price : $(data).find('td').eq(1).text(),
+								     sku : $(data).find('td').eq(2).text(),
+								     active : 1,
+								     itemInventories : [itemInventory],
+								     item : {
+								    	id : $(data).find('td').eq(6).text()
+								     }
+							 };
+							 itemVar.push(itemVariant)
+						}); 
+					    
+					    //console.log(itemVar)
+					    
+					    var item = {
+					    	id : $('#edit-item-input-id').val(),
+					    	name : $('#edititem-item-name').val(),
+					    	active : active,
+					    	category:{
+					    		id :  $('#edititem-category').val()
+					    	},
+					    	itemVariants : itemVar,
+					    	image : $('#edit-item-image').val()
+
+					    }
+					        
+				    	console.log(item)
+					    	//console.log(item.name)
+						
+						
+						$.ajax({
+					    	url:'${pageContext.request.contextPath}/master/item/update',
+					    	type : 'PUT',
+					    	data : JSON.stringify(item),
+					    	contentType : 'application/JSON',
+					    	success : function(){
+					    		$('#tampilan-alert-edit-data').removeClass('alert-gagal').addClass('alert-sukses');
+					    		$('#tampilan-alert-edit-data').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
+					    		$('#div-alert-edit-data').fadeIn();
+					    		
+					    		
+					    	    if(idDelete!=""){
+						    		idDelete.forEach(function(element){
+								    	$.ajax({
+											url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
+											type:'GET',
+											success : function (){
+												//alert('delete successfully'+element);
+												//window.location = '${pageContext.request.contextPath}/master/item/';
+											},
+											
+											error : function(){
+												//alert('delete failed');
+											} 
+											  
+										});
+							    	});
+						    };
+					    	  
+						    if (idClear!=""){
+						        idClear.forEach(function(element){
+							    	$.ajax({
+										url :'${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
+										type:'DELETE',
+										success : function (){
+											//alert('delete successfully');
+											//alert('save successfully')
+											//window.location = '${pageContext.request.contextPath}/master/item/';
+										},
+										
+										error : function(){
+											//alert('delete failed');
+										} 
+										
+									});
+							    }); 	
+						    }
+					    	    
+					    		
+					    		setTimeout(function(){
+					    			window.location = '${pageContext.request.contextPath}/master/item/';
+						    		},1000);
+					    		
+					    	},
+					    	error : function(){
+					    		$('#tampilan-alert-edit-data').removeClass('alert-sukses').addClass('alert-gagal');
+					    		$('#tampilan-alert-edit-data').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+					    		$('#div-alert-edit-data').fadeIn(); 
+					    	}
+					    }); //ajax update
+				    } //else
+				     	 
+				} //validateIsValid
 		    
 		});
 		
@@ -630,7 +828,9 @@ $(document).ready(function(){
 	    	evt.preventDefault();
 	    	var id=$(this).attr('id');
 	    	var outletId = $('#add-outlet').val();
-	   
+	    	var totalStock=0;
+
+	    	 
 	    	console.log(id)
 	    		$.ajax({
 				url :'${pageContext.request.contextPath}/master/item/search-inventory-outlet?search='+id+'&outlet-id='+outletId,
@@ -640,24 +840,55 @@ $(document).ready(function(){
 					$('#edit-itm').modal({backdrop: 'static', keyboard: false});
 					$('#edit-item-input-id').val(parseInt(id));
 				
-				 	var index = 0;
 					$.each(xxx,function(key,val){
+						totalStock = totalStock + parseInt(val.endingQty);
 						var image = val.itemVariant.item.image;
 						$('#images-edit').attr('src','${pageContext.request.contextPath}/resources/img/'+image);
 						$('#edititem-item-name').val(val.itemVariant.item.name);
 						$('#edititem-category').val(val.itemVariant.item.category.id);
 						$('#outlet-id').val(val.outlet.id);
-						$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
-								val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
-								+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
-								+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
-								+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
-								+'<td style="display:none"><p>'+val.id+'</p></td>'
-								+'<td style="display:none"><p>'+val.outlet.id+'</p></td>'
-								+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Delete </a>'
-								+'</tr>');
+						$('#edit-item-image').val(val.itemVariant.item.image);
+						
+						if(val.itemVariant.active==1){
+							if(val.endingQty==0){
+								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
+										val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
+										+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
+										+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
+										+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.outlet.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.endingQty+'</p></td>'
+										+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Deactive </a>'
+										+'</tr>');
+							}
+							
+							else{
+								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
+										val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
+										+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
+										+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
+										+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.outlet.id+'</p></td>'
+										+'<td style="display:none"><p>'+val.endingQty+'</p></td>'
+										+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a>'
+										+'</tr>');
+							}
+							
+							
+						}
+				
 						index++;
 					})
+					
+					if(totalStock == 0){
+						$("#edititem-checkbox").prop('disabled',false);
+					}
+					else{
+						$("#edititem-checkbox").prop('disabled',true);	
+					}
+					
 				}, 				
 				error:function() {
 					alert('failed getting data')
@@ -691,7 +922,8 @@ $(document).ready(function(){
    				+'<td style="display:none"><p>null</p></td>'
    				+'<td style="display:none"><p>null</p></td>'
    				+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
-    			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data">Delete </a>'+'</td></tr>');
+   				+'<td style="display:none"><p>null</p></td>'
+    			+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data">Remove </a>'+'</td></tr>');
     }
    
 	function clearForm() {
@@ -754,7 +986,19 @@ $(document).ready(function(){
 		window.location = '${pageContext.request.contextPath}/generate/item'; 
 	})
 	
-	
+	$('#images-input-edit').on('change',function(){
+		$('#images-edit').hide();
+		$('.fileinput-preview').show();
+		$('#remove-image-edit').show();
+		imageStatus=1;
+	});
+ 	
+ 	$('#remove-image-edit').on('click',function(){
+ 		$('.fileinput-preview').hide();
+		$('#images-edit').show();
+		$('#remove-image-edit').hide();  
+		imageStatus=0;
+	});
 	
 });
 </script>

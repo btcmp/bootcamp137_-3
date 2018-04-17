@@ -39,7 +39,7 @@
 						
 						<div style="float:left;width:33%">
 						<label>Alert at</label>
-							<input placeholder="Alert At" max="document.getElementById('edit-beginning-stock').value" type="number" id="edit-alert-at" data-parsley-required="true" required>
+							<input placeholder="Alert At" type="number" id="edit-alert-at" data-parsley-required="true" required>
 						</div>
 					</div> 
 					

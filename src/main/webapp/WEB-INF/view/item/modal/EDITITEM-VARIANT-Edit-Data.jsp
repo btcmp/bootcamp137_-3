@@ -53,7 +53,8 @@
 							
 					<input type="hidden" id="variant-id" class="form-control">
 					<input type="hidden" id="inventory-id" class="form-control">
-					<input type="hidden" id="id-item-hidden" class="form-control">		
+					<input type="hidden" id="id-item-hidden" class="form-control">	
+					<input type="hidden" id="ending-qty" class="form-control">	
 
 					<div class="modal-footer">
 						<button type="button" id="edititem-btn-close" class="btn btn-primary" data-dismiss="modal">Cancel</button>

@@ -1,5 +1,6 @@
 package com.xsis.batch137.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -64,6 +66,17 @@ public class Item {
 
 	private String image;
 	
+	@Transient
+	List<Long> updateActive = new ArrayList<Long>();
+	
+	public List<Long> getUpdateActive() {
+		return updateActive;
+	}
+
+	public void setUpdateActive(List<Long> updateActive) {
+		this.updateActive = updateActive;
+	}
+
 	public String getImage() {
 		return image;
 	}

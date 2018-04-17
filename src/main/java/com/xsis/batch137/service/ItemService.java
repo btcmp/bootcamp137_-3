@@ -117,7 +117,6 @@ public class ItemService {
 			else {
 				itemVariantDao.update(ivar);
 				inventory.setItemVariant(ivar);
-				inventory.setEndingQty(inventory.getBeginning());
 				itemInventoryDao.update(inventory);
 			
 			}

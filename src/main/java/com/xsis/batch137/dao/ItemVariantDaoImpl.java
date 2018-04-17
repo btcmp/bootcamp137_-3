@@ -73,4 +73,11 @@ public class ItemVariantDaoImpl implements ItemVariantDao {
 			return ivt.size();
 		}
 	}
+
+	@Override
+	public void updateActiveVariant(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update ItemVariant set active = 0 where id = :id";
+		session.createQuery(hql).setParameter("id", id).executeUpdate();
+	}
 }

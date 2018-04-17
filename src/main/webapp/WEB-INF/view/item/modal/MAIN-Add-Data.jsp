@@ -87,8 +87,8 @@ textarea.parsley-error {
   						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
  					<div>
    					 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>
-   					 <input id="images-input" type="file" name="..."></span>
-    					<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+   					 <input id="images-input" type="file" name="..." data-parsley-required></span>
+    					<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput" >Remove</a>
   						</div>
 						</div>
 					

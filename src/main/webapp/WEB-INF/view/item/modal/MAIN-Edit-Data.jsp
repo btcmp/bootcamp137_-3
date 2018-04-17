@@ -1,5 +1,9 @@
  <!-- Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
+$('.fileinput-new').fileinput();
+
+</script>
 
 <div class="modal fade" id="edit-itm" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -10,6 +14,8 @@
 			</div>
 			<div class="modal-body">
 			<input type="hidden" id="edit-item-input-id" class="form-control">			
+			<input type="hidden" id="edit-item-image" class="form-control">			
+				
 				<form style="border:none" class="form-all" id="form-main-edit-data">
 					
 						<div class="row" id="div-alert-edit-data" style="display:none;">
@@ -20,21 +26,20 @@
 						</div>
 					</div>
 					
-					<div style="float:left;margin-right:3%;width:30%">
-					<img id="images-edit" src="" style="width:100%">
-					</div> 
+					<!-- <div style="float:left;width:40%">
+					</div> --> 
 					
-				<!-- 	<div class="fileinput fileinput-new" data-provides="fileinput" style="float:left;width:40%">
-  						<img style="width: 200px; height: 150px" id="images-edit" src="" style="width:100%">
-  						<div style="display:none" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px"></div>
+						<div class="fileinput fileinput-new" data-provides="fileinput" style="float:left;width:40%">
+  						<img id="images-edit" src="" style="width: 200px; height: 150px;line-height: 150px;">
+  						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;display:none"></div>
  					<div>
-   					 <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span>
-   					 <input id="images-" type="file" name="..."></span>
-    					<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+   					 <span class="btn btn-default btn-file"><span class="fileinput-new">Change</span><span class="fileinput-exists">Change</span>
+   					 <input id="images-input-edit" type="file" name="..."></span>
+    					<a href="#" id="remove-image-edit" class="btn btn-default fileinput-exists">Remove</a>
   						</div>
-						</div> -->
+						</div>
 					
-					<div style="float:left;width:67%">
+					<div style="float:left;width:60%">
 					<div>
 						<label for="input-item-name">Item Name</label> <input type="text" 
 							class="form-control" id="edititem-item-name" placeholder="enter item name" data-parsley-required="true" required>
@@ -50,18 +55,21 @@
 							</c:forEach>
 						</select>
 					</div>
-					</div>
 					
-					<div style="clear:both"></div>
-
-					<div class="form-group">
-						<label for="input-active">Deactive Item</label>
+					<br/><div class="form-check">
 						<form id="input-active-edititem">
 							<input name="selector[]" id="edititem-checkbox" class="ads_Checkbox"
 								type="checkbox" value="false" > </input> 
+								<label for="input-active">Deactive Item</label>
+								<p style="color:red;font-size:80%">*item can be diactivated when current stock is zero</p>
 						</form>
 					</div>
 					
+					</div>
+					
+					
+					
+					<div style="clear:both"></div>
 					<div style="float:left"> 
 						<br/> <label for="input-active">Variant List</label>	
 					 </div>

@@ -462,7 +462,7 @@ textarea.parsley-error {
 								 		});
 									},
 									error : function(data){
-										alert('failed')
+										//alert('failed')
 									}
 					 			});
 					
@@ -493,7 +493,7 @@ textarea.parsley-error {
 					 			idz.push(idx)
 					 		});
 					 		
-					 		 idz.forEach(function(element){
+					 	/* 	 idz.forEach(function(element){
 					 			 //console.log(element)
 						   		$.ajax({
 					 				url : '${pageContext.request.contextPath }/transaction/transfer-stock/search-item-inventory?search='+element.id,
@@ -512,7 +512,7 @@ textarea.parsley-error {
 										alert('failed')
 									}
 					 			});  
-					 		 });
+					 		 }); */
 						}, error : function(){
 							alert('error to get data');
 						}

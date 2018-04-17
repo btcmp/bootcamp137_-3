@@ -160,7 +160,7 @@ public class ItemController {
 		long outId = outlet.getId();
 		if(itemInventories != null) {
 			for (ItemInventory ivt : itemInventories) {
-				if(ivt.getOutlet().getId() == outId) {
+				if(ivt.getOutlet().getId() == outId && ivt.getItemVariant().getActive()==true && ivt.getItemVariant().getItem().getActive()==true) {
 					invent.add(ivt);
 				}
 			}
@@ -188,6 +188,14 @@ public class ItemController {
 		ItemVariant itemVariant=itemVariantService.getOne(id);
 		return itemVariant;
 	}
+	
+	@RequestMapping(value="/update-variant-active/{id}")
+	@ResponseBody
+	public void updateActiveVariant(@PathVariable Long id) {
+		System.out.println(id);
+		itemVariantService.updateActiveVariant(id);
+	}
+	
 	//s
 	@RequestMapping(value="/update-variant",method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)

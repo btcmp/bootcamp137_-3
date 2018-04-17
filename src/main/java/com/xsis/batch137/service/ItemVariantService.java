@@ -86,4 +86,8 @@ public class ItemVariantService {
 	public int countSku(String sku) {
 		return itemVariantDao.countSku(sku);
 	}
+	public void updateActiveVariant(Long id) {
+		// TODO Auto-generated method stub
+		itemVariantDao.updateActiveVariant(id);
+	}
 }

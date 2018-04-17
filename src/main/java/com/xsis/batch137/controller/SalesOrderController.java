@@ -104,7 +104,7 @@ public class SalesOrderController {
 		long outId = outlet.getId();
 		if(itemInventory != null) {
 			for (ItemInventory ivt : itemInventory) {
-				if(ivt.getOutlet().getId() == outId && ivt.getEndingQty()>0) {
+				if((ivt.getOutlet().getId() == outId) && ivt.getEndingQty()>0) {
 					invent.add(ivt);
 				}
 			}
