@@ -304,20 +304,21 @@
 					$('#in-email').val(data.email);
 					emailEdit = data.email;
 					if(data.haveAccount == 1){
-						$('#cek-akun').prop('checked', true);
-						$('#buat-akun').fadeIn('fast');
 						$('#in-id-user').val(data.user.id);
 						$('#in-username').val(data.user.username);
 						userEdit = data.user.username;
 						$('#in-password').val(data.user.password);
 						$('#pilih-role').val(data.user.role.id);
-					}else if(data.haveAccount == 0 && data.user.active == 1){
+						if(data.user.active == 1){
+							$('#cek-akun').prop('checked', true);
+							$('#buat-akun').fadeIn('fast');
+						}else{
+							$('#cek-akun').prop('checked', false);
+							$('#buat-akun').fadeOut('fast');
+						}
+					}else if(data.haveAccount == 0){
 						$('#cek-akun').prop('checked', false);
 						$('#buat-akun').fadeOut('fast');
-						$('#in-id-user').val(data.user.id);
-						$('#in-username').val(data.user.username);
-						$('#in-password').val(data.user.password);
-						$('#pilih-role').val(data.user.role.id);
 					};
 					if(data.empOutlet!=null){
 						$.each(data.empOutlet, function(i, item){
@@ -396,7 +397,7 @@
 			console.log(oValid);
 			console.log(tValid);
 			console.log(rValid);
-			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1 && tvalid == 1 && rValid == 1){
+			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1 && tValid == 1 && rValid == 1){
 				validate = $('#form-emp').parsley();
 				validate.validate();
 				if(validate.isValid()){
