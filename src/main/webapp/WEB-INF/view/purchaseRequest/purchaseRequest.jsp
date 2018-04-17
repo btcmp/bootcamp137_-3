@@ -95,7 +95,7 @@
 				<div class="modal-body">
 				<form id="tambah-pr">
 					<h4>Tanggal Waktu Item Ready : </h4>
-					<div class="row" id="div-tanggal-1">
+					<div class="row form-group" id="div-tanggal-1">
 							<div class="col-xs-12">
 								<label class="control-label" for="pilih-tanggal" style="display:none" id="lbl-tanggal"><i class="fa fa-check"></i></label>
 	                		</div>
@@ -116,7 +116,7 @@
 	                <h4>Purchase Request</h4>
 	                <hr style="border-color:black;">
 	                <div class="row">
-		                <div class="col-xs-12" id="div-item">
+		                <div class="col-xs-12 form-group" id="div-item">
 		                	<label class="control-label" for="data-purchase-item" style="display:none" id="lbl-item"><i class="fa fa-check"></i></label>
 			                <table id="data-purchase-item" class="table table-striped table-bordered table-hover" style="display:none;">
 			                	<thead>
