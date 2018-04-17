@@ -501,6 +501,7 @@
 		var oValid = 1;
 		var tValid = 0;
 		var rValid = 1;
+		var tValid = 0;
 		
 		// cek username
 		$('#in-username').on('input',function(){
