@@ -155,8 +155,7 @@ public class PurchaseRequestService {
 				}
 			}
 			return prs;
-		}
-		 
+		} 
 	}
 	
 	public List<PurchaseRequest> selectByOutlet(){
@@ -223,9 +222,7 @@ public class PurchaseRequestService {
 		prDao.createPo(id);
 		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseRequest pr = prDao.getOne(id);
-		
 		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
-		
 		if(prds == null) {
 			
 		}else {
@@ -250,7 +247,6 @@ public class PurchaseRequestService {
 		}
 		int no = poDao.CountPOByMonth(bln, thn)+1;
 		String nomor;
-		
 		if(no < 10) {
 			nomor = "00"+no;
 		} else if(no < 100) {
@@ -258,9 +254,7 @@ public class PurchaseRequestService {
 		} else {
 			nomor = Integer.toString(no);
 		}
-		
 		String poNo = "PO"+thn+bulan+nomor;
-		
 		PurchaseOrder po = new PurchaseOrder();
 		po.setCreatedOn(new Date());
 		po.setNotes(pr.getNotes());
@@ -283,7 +277,6 @@ public class PurchaseRequestService {
 				podDao.save(pod);
 			}
 		}
-		
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(po.getCreatedOn());
 		poh.setCreatedBy(po.getCreatedBy());
@@ -310,7 +303,6 @@ public class PurchaseRequestService {
 		c.setTime(startDate); 
 		c.add(Calendar.DATE, -1);
 		startDate = c.getTime();
-		
 		Date endDate = akhir;
 		Calendar c2 = Calendar.getInstance(); 
 		c2.setTime(endDate); 
