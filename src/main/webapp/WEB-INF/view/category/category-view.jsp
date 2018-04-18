@@ -339,7 +339,7 @@
 		});
 		
 		
-		//validasi name di modal edit
+		//validasi name di modal edit 
 		$('#edit-category').on('input', function(e){
 			e.preventDefault();
 			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
