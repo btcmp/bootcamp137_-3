@@ -176,7 +176,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	public List<PurchaseRequest> searchPRByOneDate(Date date) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')";
+		String hql = "from PurchaseRequest where createdOn = :date";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("date", date).list();
 		if(prs.isEmpty()) {
 			return null;
@@ -188,7 +188,7 @@ public class PurchaseRequestDaoImpl implements PurchaseRequestDao {
 	public List<PurchaseRequest> searchPRByOneDateAndOutlet(Date date, Outlet outlet) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseRequest where (to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')) and outlet = :outlet";
+		String hql = "from PurchaseRequest where (where createdOn = :date) and outlet = :outlet";
 		List<PurchaseRequest> prs = session.createQuery(hql).setParameter("date", date).setParameter("outlet", outlet).list();
 		if(prs.isEmpty()) {
 			return null;

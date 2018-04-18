@@ -207,7 +207,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public List<PurchaseOrder> searchPOByOneDate(Date date) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD')";
+		String hql = "from PurchaseOrder where where createdOn = :date";
 		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("date", date).list();
 		if(pos.isEmpty()) {
 			return null;
@@ -219,7 +219,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public List<PurchaseOrder> searchApprovedPOByOneDate(Date date) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD') and status = 'Approved'";
+		String hql = "from PurchaseOrder where where createdOn = :date and status = 'Approved'";
 		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("date", date).list();
 		if(pos.isEmpty()) {
 			return null;
@@ -231,7 +231,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public List<PurchaseOrder> searchPOByOneDateAndOutlet(Date date, Outlet outlet) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from PurchaseOrder where to_char(createdOn, 'YYYY/MM/DD') = to_char(:date, 'YYYY/MM/DD') and outlet = :outlet";
+		String hql = "from PurchaseOrder where where createdOn = :date and outlet = :outlet";
 		List<PurchaseOrder> pos = session.createQuery(hql).setParameter("date", date).setParameter("outlet", outlet).list();
 		if(pos.isEmpty()) {
 			return null;
