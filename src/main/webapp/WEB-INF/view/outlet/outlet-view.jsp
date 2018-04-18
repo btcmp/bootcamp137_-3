@@ -48,6 +48,7 @@
 </div>
 <%@ include file="/WEB-INF/view/outlet/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/outlet/modal/edit.jsp"%>
+<%@ include file="/WEB-INF/view/outlet/modal/delete.jsp"%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -153,14 +154,22 @@
 				type : 'DELETE',
 				success : function(id){
 					console.log(id);
-					alert('Delete success..');
-					window.location = '${pageContext.request.contextPath}/master/outlet';
+					$('#delete-alert').removeClass('alert-gagal').addClass('alert-sukses');
+					$('#delete-alert').html('<strong>Delete Success!</strong>');
+					$('#delete-alert').fadeIn();
+					setTimeout(function(){
+						window.location = '${pageContext.request.contextPath}/master/outlet';
+					}, 2500);
 				},
 				error : function(id){
 					console.log(id);
 					alert('Failed to delete..')
 				}
 			});
+		});
+		
+		$('#tbl-trigger-delete').click(function(){
+			$('#modal-delete').modal();
 		});
 
 //======================================================Create Functions=============================================

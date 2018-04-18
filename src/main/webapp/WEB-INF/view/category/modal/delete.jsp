@@ -7,7 +7,7 @@
 				<div class="modal-header">
 					<div id="delete-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
 					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
-					<h3 id="judul-modal">Delete Category</h3>
+					<h3 id="judul-modal">Delete Outlet</h3>
 				</div>
 				
 				<div class="modal-body">
