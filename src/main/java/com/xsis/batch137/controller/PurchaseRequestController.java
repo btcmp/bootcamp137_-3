@@ -104,12 +104,6 @@ public class PurchaseRequestController {
 		return prService.getPRByDate(awal, akhir);
 	}
 	
-	@RequestMapping("/search-one-date")
-	@ResponseBody
-	public List<PurchaseRequest> getByOneDate(@RequestParam(value="date", defaultValue="") @DateTimeFormat(pattern="yyyy-MM-dd") Date date){
-		return prService.getPRByOneDate(date);
-	}
-	
 	@RequestMapping("/get-one/{id}")
 	@ResponseBody
 	public PurchaseRequest getOne(@PathVariable long id) {

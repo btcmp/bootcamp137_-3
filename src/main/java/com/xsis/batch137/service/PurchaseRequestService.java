@@ -88,24 +88,6 @@ public class PurchaseRequestService {
 		}
 		
 		String prNo = "PR"+thn+bulan+nomor;
-		int unique = 0;
-		while(unique == 0) {
-			prNo = "PR"+thn+bulan+nomor;
-			int unik = prDao.CountPrByPrNo(prNo);
-			if(unik == 0) {
-				unique = 1;
-			}else {
-				int number = Integer.parseInt(nomor);
-				number++;
-				if(number < 10) {
-					nomor = "00"+number;
-				} else if(number < 100) {
-					nomor = "0"+number;
-				} else {
-					nomor = Integer.toString(no);
-				}
-			}
-		}
 		
 		if(pureq.getId()!=0) {
 			pureq.setModifiedOn(new Date());
@@ -340,10 +322,5 @@ public class PurchaseRequestService {
 	public List<PurchaseRequest> searchGlobal(String search){
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		return prDao.searchPRByOutlet(search, outlet);
-	}
-	
-	public List<PurchaseRequest> getPRByOneDate(Date date){
-		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
-		return prDao.searchPRByOneDateAndOutlet(date, outlet);
 	}
 }

@@ -11,26 +11,26 @@
 			<div class="row">
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id">
-					<div class="form-group" id="div-firstname">
-						<label class="control-label" for="in-fisrtname" style="display:none" id="lbl-firstname"><i class="fa fa-check"></i></label>
-						<input type="text" class="form-control" id="in-firstname" placeholder="First Name" data-parsley-required="true" data-parsley-required-message="PLease insert your first name" required></div>
+					<div class="form-group" id="div-f">
+						<label class="control-label" for="in-fisrtname" style="display:none" id="lbl-f"><i class="fa fa-check"></i></label>
+						<input type="text" class="form-control" id="in-f" placeholder="First Name" data-parsley-required="true" data-parsley-required-message="PLease insert your first name" required></div>
 					</div>
 				<div class="col-xs-3">
-					<div class="form-group" id="div-lastname">
-						<label class="control-label" for="in-lastname" style="display:none" id="lbl-lastname"><i class="fa fa-check"></i></label>
-						<input type="text" class="form-control" id="in-lastname" placeholder="Last Name" data-parsley-required="true" data-parsley-required-message="Please insert last name" required>
-					</div>
-				</div>
-				<div class="col-xs-3">
-					<div class="form-group" id="div-email">
-						<label class="control-label" for="in-email" style="display:none" id="lbl-email"><i class="fa fa-check"></i></label>
-						<input type="email" class="form-control" id="in-email" placeholder="Email" data-parsley-required="true" data-parsley-type="email" data-parsley-required-message="Please insert your email" required>
+					<div class="form-group" id="div-l">
+						<label class="control-label" for="in-l" style="display:none" id="lbl-l"><i class="fa fa-check"></i></label>
+						<input type="text" class="form-control" id="in-l" placeholder="Last Name" data-parsley-required="true" data-parsley-required-message="Please insert last name" required>
 					</div>
 				</div>
 				<div class="col-xs-3">
-					<div class="form-group" id="div-title">
-						<label class="control-label" for="in-title" style="display:none" id="lbl-title"><i class="fa fa-check"></i></label>
-						<select id="in-title" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
+					<div class="form-group" id="div-e">
+						<label class="control-label" for="in-e" style="display:none" id="lbl-e"><i class="fa fa-check"></i></label>
+						<input type="email" class="form-control" id="in-e" placeholder="Email" data-parsley-required="true" data-parsley-type="email" data-parsley-required-message="Please insert your email" required>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group" id="div-t">
+						<label class="control-label" for="in-t" style="display:none" id="lbl-t"><i class="fa fa-check"></i></label>
+						<select id="in-t" class="form-control" style="font-size: 16px; font-family: raleway;" data-parsley-required="true" required >
 							<option disabled selected>Choose Title</option>
 							<option value="Mr.">Mr.</option>
 							<option value="Mrs.">Mrs.</option>
@@ -56,9 +56,9 @@
 			<hr style="border-color:black; border-top:1px dashed;">
 			<div class="row" id = "buat-akun" style="display:none;">
 				<div class="col-xs-3">
-					<div class="form-group" id="div-role">
-						<label class="control-label" for="pilih-role" style="display:none" id="lbl-role"><i class="fa fa-check"></i></label>
-						<select id = "pilih-role" class="form-control">
+					<div class="form-group" id="div-r">
+						<label class="control-label" for="in-r" style="display:none" id="lbl-r"><i class="fa fa-check"></i></label>
+						<select id = "in-r" class="form-control">
 							<option disabled selected>Choose Role</option>
 							<c:forEach items = "${roles }" var= "role">
 								<option value="${role.id }">${role.description }</option>
@@ -68,15 +68,15 @@
 				</div>
 				<div class="col-xs-3">
 					<input type="hidden" id="in-id-user">
-					<div class="form-group" id="div-username">
-						<label class="control-label" for="in-username" style="display:none" id="lbl-username"><i class="fa fa-check"></i></label>
-						<input type="text" placeholder="username" id="in-username" class="form-control" data-parsley-required="false">
+					<div class="form-group" id="div-u">
+						<label class="control-label" for="in-u" style="display:none" id="lbl-u"><i class="fa fa-check"></i></label>
+						<input type="text" placeholder="username" id="in-u" class="form-control" data-parsley-required="false">
 					</div>
 				</div>
 				<div class="col-xs-3">
-					<div class="form-group" id="div-password">
-						<label class="control-label" for="in-password" style="display:none" id="lbl-password"><i class="fa fa-check"></i></label>
-						<input type="password" placeholder="password" id="in-password" class="form-control" data-parsley-required="false">
+					<div class="form-group" id="div-p">
+						<label class="control-label" for="in-p" style="display:none" id="lbl-p"><i class="fa fa-check"></i></label>
+						<input type="password" placeholder="password" id="in-p" class="form-control" data-parsley-required="false">
 					</div>
 				</div>
 			</div>
@@ -179,7 +179,7 @@
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Non-aktifkan Employee ?</h4>
+					<h4 class="modal-t">Non-aktifkan Employee ?</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 				</div>
@@ -204,24 +204,24 @@
 		$('#cek-akun').change(function () {
 	        if (this.checked) {
 	            $('#buat-akun').fadeIn('fast');
-	        	$('#in-username').attr('data-parsley-required', true);
-	        	$('#in-username').prop('required', true);
-	        	$('#in-password').attr('data-parsley-required', true);
-	        	$('#in-password').prop('required', true);
-	        	$('#pilih-role').attr('data-parsley-required', true);
-        		$('#pilih-role').prop('required', true);
+	        	$('#in-u').attr('data-parsley-required', true);
+	        	$('#in-u').prop('required', true);
+	        	$('#in-p').attr('data-parsley-required', true);
+	        	$('#in-p').prop('required', true);
+	        	$('#in-r').attr('data-parsley-required', true);
+        		$('#in-r').prop('required', true);
 	        }else{ 
 	            $('#buat-akun').fadeOut('fast');
-	        	$('#in-username').attr('data-parsley-required', false);
-	        	$('#in-username').prop('required', false);
-        		$('#in-password').attr('data-parsley-required', false);
-        		$('#in-password').prop('required', false);
-        		$('#pilih-role').attr('data-parsley-required', false);
-        		$('#pilih-role').prop('required', false);
-        		userValid = 1;
-        		pValid = 1;
-        		oValid = 1;
-        		rValid = 1;
+	        	$('#in-u').attr('data-parsley-required', false);
+	        	$('#in-u').prop('required', false);
+        		$('#in-p').attr('data-parsley-required', false);
+        		$('#in-p').prop('required', false);
+        		$('#in-r').attr('data-parsley-required', false);
+        		$('#in-r').prop('required', false);
+        		uv = 1;
+        		pv = 1;
+        		ov = 1;
+        		rv = 1;
 	        }
 	    });
 	    $('#cek-akun').change();
@@ -232,26 +232,26 @@
 	    		$('#div-outlet').removeClass('has-error').addClass('has-success');
 				$('#lbl-outlet').html('<i class="fa fa-check"></i> Ok');
 				$('#lbl-outlet').fadeIn();
-				oValid = 1;
+				ov = 1;
 	    	}else if(outcb == 0 && $('#cek-akun').is(":checked")){
 	    		$('#div-outlet').removeClass('has-success').addClass('has-error');
 				$('#lbl-outlet').html('<i class="fa-times-circle-o"></i> Please choose outlet');
 				$('#lbl-outlet').fadeIn();
-				oValid = 0;
+				ov = 0;
 	    	}
 	    });
 	    $('.in-outlet').change();
 	    
 	    $('#btn-batal').click(function(){
 	    	$('#buat-akun').fadeOut('fast');
-	    	emailEdit = '';
-			userEdit = '';
-			emailValid = 0;
-			userValid = 0;
-			pValid = 0;
-			fValid = 0;
-			lValid = 0;
-			oValid = 1;
+	    	ee = '';
+			ue = '';
+			ev = 0;
+			uv = 0;
+			pv = 0;
+			fv = 0;
+			lv = 0;
+			ov = 1;
 	    });
 	    
 	    $('#data-emp').on('click', '.nonaktifkan', function(){
@@ -289,26 +289,26 @@
 				success : function(data){
 					console.log('sukses ambil data');
 					console.log(data);
-					userValid = 1;
-					emailValid = 1;
-					pValid = 1;
-					fValid = 1;
-					lValid = 1;
-					oValid = 1;
-					tValid = 1;
-					rValid = 1;
+					uv = 1;
+					ev = 1;
+					pv = 1;
+					fv = 1;
+					lv = 1;
+					ov = 1;
+					tv = 1;
+					rv = 1;
 					$('#in-id').val(data.id);
-					$('#in-firstname').val(data.firstName);
-					$('#in-lastname').val(data.lastName);
-					$('#in-title').val(data.title);
-					$('#in-email').val(data.email);
-					emailEdit = data.email;
+					$('#in-f').val(data.firstName);
+					$('#in-l').val(data.lastName);
+					$('#in-t').val(data.title);
+					$('#in-e').val(data.email);
+					ee = data.email;
 					if(data.haveAccount == 1){
 						$('#in-id-user').val(data.user.id);
-						$('#in-username').val(data.user.username);
-						userEdit = data.user.username;
-						$('#in-password').val(data.user.password);
-						$('#pilih-role').val(data.user.role.id);
+						$('#in-u').val(data.user.username);
+						ue = data.user.username;
+						$('#in-p').val(data.user.password);
+						$('#in-r').val(data.user.role.id);
 						if(data.user.active == 1){
 							$('#cek-akun').prop('checked', true);
 							$('#buat-akun').fadeIn('fast');
@@ -353,54 +353,54 @@
 				var akun = 1;
 				usr = {
 					"id" : $('#in-id-user').val(),
-					"username" : $('#in-username').val(),
-					"password" : $('#in-password').val(),
+					"username" : $('#in-u').val(),
+					"password" : $('#in-p').val(),
 					"active" : 1,
 					"role" : {
-						"id" : $('#pilih-role').val()
+						"id" : $('#in-r').val()
 					}
 				}
 				if(outcb > 0){
-					oValid = 1;
+					ov = 1;
 				}else{
-					oValid = 0;
+					ov = 0;
 				}
-				if($('#pilih-role').val() == null){
-					rValid = 0;
+				if($('#in-r').val() == null){
+					rv = 0;
 				}else{
-					rValid = 1;
+					rv = 1;
 				}
 			}else{
-				userValid = 1;
-				pValid = 1;
-				oValid = 1;
+				uv = 1;
+				pv = 1;
+				ov = 1;
 				rVAlid = 1;
 			};
 			
 			var employee = {
 				"id" : $('#in-id').val(),
-				"firstName" : $('#in-firstname').val(),
-				"lastName" : $('#in-lastname').val(),
-				"title" : $('#in-title').val(),
+				"firstName" : $('#in-f').val(),
+				"lastName" : $('#in-l').val(),
+				"title" : $('#in-t').val(),
 				"active" : 1,
-				"email" : $('#in-email').val(),
+				"email" : $('#in-e').val(),
 				"user" : usr,
 				"haveAccount" : akun,
 				"empOutlet" : empOut
 			};
 	
-			console.log(emailValid);
-			console.log(userValid);
-			console.log(fValid);
-			console.log(lValid);
-			console.log(pValid);
-			console.log(oValid);
-			console.log(tValid);
-			console.log(rValid);
-			if(emailValid == 1 && userValid == 1 && fValid == 1 && lValid == 1 && pValid == 1 && oValid == 1 && tValid == 1 && rValid == 1){
+			console.log(ev);
+			console.log(uv);
+			console.log(fv);
+			console.log(lv);
+			console.log(pv);
+			console.log(ov);
+			console.log(tv);
+			console.log(rv);
+			if(ev == 1 && uv == 1 && fv == 1 && lv == 1 && pv == 1 && ov == 1 && tv == 1 && rv == 1){
 				validate = $('#form-emp').parsley();
 				validate.validate();
-				if(validate.isValid()){
+				if(validate.isv()){
 					$.ajax({
 						type : 'post',
 						url : '${pageContext.request.contextPath}/master/employee/save',
@@ -432,112 +432,112 @@
 					$('#div-alert').fadeOut();
 				}, 4000);
 			}
-			if(emailValid == 0){
-				if($('#in-email').val().length < 7){
-					$('#div-email').removeClass('has-success').addClass('has-error');
-					$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> Please insert your email');
-					$('#lbl-email').fadeIn();
+			if(ev == 0){
+				if($('#in-e').val().length < 7){
+					$('#div-e').removeClass('has-success').addClass('has-error');
+					$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> Please insert your email');
+					$('#lbl-e').fadeIn();
 				}else{
-					$('#div-email').removeClass('has-success').addClass('has-error');
-					$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> email must be unique');
-					$('#lbl-email').fadeIn();
+					$('#div-e').removeClass('has-success').addClass('has-error');
+					$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> email must be unique');
+					$('#lbl-e').fadeIn();
 				}
 			}
-			if(emailValid == 2){
-				$('#div-email').removeClass('has-success').addClass('has-error');
-				$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
-				$('#lbl-email').fadeIn();
-				emailValid = 2;
+			if(ev == 2){
+				$('#div-e').removeClass('has-success').addClass('has-error');
+				$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
+				$('#lbl-e').fadeIn();
+				ev = 2;
 			}
-			if(userValid == 0){
-				if($('#in-username').val().length == 0){
-					$('#div-username').removeClass('has-success').addClass('has-error');
-					$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> Please insert username');
-					$('#lbl-username').fadeIn();
+			if(uv == 0){
+				if($('#in-u').val().length == 0){
+					$('#div-u').removeClass('has-success').addClass('has-error');
+					$('#lbl-u').html('<i class="fa fa-times-circle-o"></i> Please insert username');
+					$('#lbl-u').fadeIn();
 				}else{
-					$('#div-username').removeClass('has-success').addClass('has-error');
-					$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
-					$('#lbl-username').fadeIn();
+					$('#div-u').removeClass('has-success').addClass('has-error');
+					$('#lbl-u').html('<i class="fa fa-times-circle-o"></i> username must be unique');
+					$('#lbl-u').fadeIn();
 				}
 			}
-			if(pValid == 0){
-				$('#div-password').removeClass('has-success').addClass('has-error');
-				$('#lbl-password').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
-				$('#lbl-password').fadeIn();
+			if(pv == 0){
+				$('#div-p').removeClass('has-success').addClass('has-error');
+				$('#lbl-p').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
+				$('#lbl-p').fadeIn();
 			}
-			if(fValid == 0){
-				$('#div-firstname').removeClass('has-success').addClass('has-error');
-				$('#lbl-firstname').html('<i class="fa fa-times-circle-o"></i> please insert first name');
-				$('#lbl-firstname').fadeIn();
+			if(fv == 0){
+				$('#div-f').removeClass('has-success').addClass('has-error');
+				$('#lbl-f').html('<i class="fa fa-times-circle-o"></i> please insert first name');
+				$('#lbl-f').fadeIn();
 			}
-			if(lValid == 0){
-				$('#div-lastname').removeClass('has-success').addClass('has-error');
-				$('#lbl-lastname').html('<i class="fa fa-times-circle-o"></i> please insert last name');
-				$('#lbl-lastname').fadeIn();
+			if(lv == 0){
+				$('#div-l').removeClass('has-success').addClass('has-error');
+				$('#lbl-l').html('<i class="fa fa-times-circle-o"></i> please insert last name');
+				$('#lbl-l').fadeIn();
 			}
-			if(tValid == 0){
-				$('#div-title').removeClass('has-success').addClass('has-error');
-				$('#lbl-title').html('<i class="fa fa-times-circle-o"></i> Please select title');
-				$('#lbl-title').fadeIn();
+			if(tv == 0){
+				$('#div-t').removeClass('has-success').addClass('has-error');
+				$('#lbl-t').html('<i class="fa fa-times-circle-o"></i> Please select title');
+				$('#lbl-t').fadeIn();
 			}
-			if(rValid == 0){
-				$('#div-role').removeClass('has-success').addClass('has-error');
-				$('#lbl-role').html('<i class="fa fa-times-circle-o"></i> Please select user role');
-				$('#lbl-role').fadeIn();
+			if(rv == 0){
+				$('#div-r').removeClass('has-success').addClass('has-error');
+				$('#lbl-r').html('<i class="fa fa-times-circle-o"></i> Please select user role');
+				$('#lbl-r').fadeIn();
 			}
-			if(oValid == 0){
+			if(ov == 0){
 				$('#div-outlet').removeClass('has-success').addClass('has-error');
 				$('#lbl-outlet').html('<i class="fa fa-times-circle-o"></i> Please choose outlet');
 				$('#lbl-outlet').fadeIn();
 			}
 		}); // end fungsi simpan
 
-		var emailEdit = '';
-		var userEdit = '';
-		var emailValid = 0;
-		var userValid = 0;
-		var pValid = 0;
-		var fValid = 0;
-		var lValid = 0;
-		var oValid = 1;
-		var tValid = 0;
-		var rValid = 1;
-		var tValid = 0;
+		var ee = '';
+		var ue = '';
+		var ev = 0;
+		var uv = 0;
+		var pv = 0;
+		var fv = 0;
+		var lv = 0;
+		var ov = 1;
+		var tv = 0;
+		var rv = 1;
+		var tv = 0;
 		
 		// cek username
-		$('#in-username').on('input',function(){
-			var username = $('#in-username').val();
+		$('#in-u').on('input',function(){
+			var username = $('#in-u').val();
 			if(username.length > 0){
 				$.ajax({
 					type : 'get',
 					url : '${pageContext.request.contextPath}/master/employee/cek-user?user='+username,
 					success : function(data){
-						if((data > 0 && $('#cek-akun').is(":checked") && username != userEdit) || username == 'superadmin'){
-							$('#div-username').removeClass('has-success').addClass('has-error');
-							$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> username must be unique');
-							$('#lbl-username').fadeIn();
-							userValid = 0;
+						if((data > 0 && $('#cek-akun').is(":checked") && username != ue) || username == 'superadmin'){
+							$('#div-u').removeClass('has-success').addClass('has-error');
+							$('#lbl-u').html('<i class="fa fa-times-circle-o"></i> username must be unique');
+							$('#lbl-u').fadeIn();
+							uv = 0;
 						}else {
-							$('#div-username').removeClass('has-error').addClass('has-success');
-							$('#lbl-username').html('<i class="fa fa-check"></i> Ok');
-							$('#lbl-username').fadeIn();
-							userValid = 1;
+							$('#div-u').removeClass('has-error').addClass('has-success');
+							$('#lbl-u').html('<i class="fa fa-check"></i> Ok');
+							$('#lbl-u').fadeIn();
+							uv = 1;
 						}
 					}, error : function(){
 						console.log('gagal')
 					}
 				});
 			}else{
-				$('#div-username').removeClass('has-success').addClass('has-error');
-				$('#lbl-username').html('<i class="fa fa-times-circle-o"></i> please insert username');
-				$('#lbl-username').fadeIn();
-				userValid = 0;
+				$('#div-u').removeClass('has-success').addClass('has-error');
+				$('#lbl-u').html('<i class="fa fa-times-circle-o"></i> please insert username');
+				$('#lbl-u').fadeIn();
+				uv = 0;
 			}
 			
 		});
 		
-		$('#in-email').on('input',function(){
-			var email = $('#in-email').val();
+		$('#in-e').on('input',function(){
+			var email = $('#in-e').val();
 			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var valid =  regex.test(email);
 			$.ajax({
@@ -545,22 +545,22 @@
 				url : '${pageContext.request.contextPath}/master/employee/cek-email?email='+email,
 				success : function(data){
 					if(valid && email.length > 6){
-						if(data > 0 && email != emailEdit){
-							$('#div-email').removeClass('has-success').addClass('has-error');
-							$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> email must be unique');
-							$('#lbl-email').fadeIn();
-							emailValid = 0;
+						if(data > 0 && email != ee){
+							$('#div-e').removeClass('has-success').addClass('has-error');
+							$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> email must be unique');
+							$('#lbl-e').fadeIn();
+							ev = 0;
 						}else{
-							$('#div-email').removeClass('has-error').addClass('has-success');
-							$('#lbl-email').html('<i class="fa fa-check"></i> Ok');
-							$('#lbl-email').fadeIn();
-							emailValid = 1;
+							$('#div-e').removeClass('has-error').addClass('has-success');
+							$('#lbl-e').html('<i class="fa fa-check"></i> Ok');
+							$('#lbl-e').fadeIn();
+							ev = 1;
 						}
 					}else{
-						$('#div-email').removeClass('has-success').addClass('has-error');
-						$('#lbl-email').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
-						$('#lbl-email').fadeIn();
-						emailValid = 2;
+						$('#div-e').removeClass('has-success').addClass('has-error');
+						$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
+						$('#lbl-e').fadeIn();
+						ev = 2;
 					}
 				}, error : function(){
 					console.log('gagal')
@@ -568,73 +568,73 @@
 			});
 		});
 		
-		$('#in-firstname').on('input', function(){
+		$('#in-f').on('input', function(){
 			if($(this).val().length > 0){
-				$('#div-firstname').removeClass('has-error').addClass('has-success');
-				$('#lbl-firstname').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-firstname').fadeIn();
-				fValid = 1;
+				$('#div-f').removeClass('has-error').addClass('has-success');
+				$('#lbl-f').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-f').fadeIn();
+				fv = 1;
 			}else{
-				$('#div-firstname').removeClass('has-success').addClass('has-error');
-				$('#lbl-firstname').html('<i class="fa fa-times-circle-o"></i> please insert first name');
-				$('#lbl-firstname').fadeIn();
-				fValid = 0;
+				$('#div-f').removeClass('has-success').addClass('has-error');
+				$('#lbl-f').html('<i class="fa fa-times-circle-o"></i> please insert first name');
+				$('#lbl-f').fadeIn();
+				fv = 0;
 			}
 		});
 		
-		$('#in-lastname').on('input', function(){
+		$('#in-l').on('input', function(){
 			if($(this).val().length > 0){
-				$('#div-lastname').removeClass('has-error').addClass('has-success');
-				$('#lbl-lastname').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-lastname').fadeIn();
-				lValid = 1;
+				$('#div-l').removeClass('has-error').addClass('has-success');
+				$('#lbl-l').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-l').fadeIn();
+				lv = 1;
 			}else{
-				$('#div-lastname').removeClass('has-success').addClass('has-error');
-				$('#lbl-lastname').html('<i class="fa fa-times-circle-o"></i> please insert last name');
-				$('#lbl-lastname').fadeIn();
-				lValid = 0;
+				$('#div-l').removeClass('has-success').addClass('has-error');
+				$('#lbl-l').html('<i class="fa fa-times-circle-o"></i> please insert last name');
+				$('#lbl-l').fadeIn();
+				lv = 0;
 			}
 		});
 		
-		$('#in-password').on('input', function(){
+		$('#in-p').on('input', function(){
 			if($(this).val().length > 6){
-				$('#div-password').removeClass('has-error').addClass('has-success');
-				$('#lbl-password').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-password').fadeIn();
-				pValid = 1;
+				$('#div-p').removeClass('has-error').addClass('has-success');
+				$('#lbl-p').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-p').fadeIn();
+				pv = 1;
 			}else{
-				$('#div-password').removeClass('has-success').addClass('has-error');
-				$('#lbl-password').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
-				$('#lbl-password').fadeIn();
-				pValid = 0;
+				$('#div-p').removeClass('has-success').addClass('has-error');
+				$('#lbl-p').html('<i class="fa fa-times-circle-o"></i> Password must more than 6 characters');
+				$('#lbl-p').fadeIn();
+				pv = 0;
 			}
 		});
 		
-		$('#in-title').on('change', function(){
+		$('#in-t').on('change', function(){
 			if($(this).val() != ''){
-				$('#div-title').removeClass('has-error').addClass('has-success');
-				$('#lbl-title').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-title').fadeIn();
-				tValid = 1;
+				$('#div-t').removeClass('has-error').addClass('has-success');
+				$('#lbl-t').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-t').fadeIn();
+				tv = 1;
 			}else{
-				$('#div-title').removeClass('has-success').addClass('has-error');
-				$('#lbl-title').html('<i class="fa fa-times-circle-o"></i> Please select title');
-				$('#lbl-title').fadeIn();
-				tValid = 0;
+				$('#div-t').removeClass('has-success').addClass('has-error');
+				$('#lbl-t').html('<i class="fa fa-times-circle-o"></i> Please select title');
+				$('#lbl-t').fadeIn();
+				tv = 0;
 			}
 		});
 		
-		$('#pilih-role').on('change', function(){
+		$('#in-r').on('change', function(){
 			if($(this).val() != ''){
-				$('#div-role').removeClass('has-error').addClass('has-success');
-				$('#lbl-role').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-role').fadeIn();
-				rValid = 1;
+				$('#div-r').removeClass('has-error').addClass('has-success');
+				$('#lbl-r').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-r').fadeIn();
+				rv = 1;
 			}else{
-				$('#div-role').removeClass('has-success').addClass('has-error');
-				$('#lbl-role').html('<i class="fa fa-times-circle-o"></i> Please select user role');
-				$('#lbl-role').fadeIn();
-				rValid = 0;
+				$('#div-r').removeClass('has-success').addClass('has-error');
+				$('#lbl-r').html('<i class="fa fa-times-circle-o"></i> Please select user role');
+				$('#lbl-r').fadeIn();
+				rv = 0;
 			}
 		});
 	});
