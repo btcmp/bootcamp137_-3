@@ -11,13 +11,13 @@
 				
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
-						<div id="validasi-name">
+						<div id="validasi-name" class="form-group">
 							<div><h5>Outlet Name<label style="color: red; font:small-caption;">*</label></h5></div>
-							<label class="control-label" style="display:none" id="label-name"><i class="fa fa-check"></i></label>
+							<label class="control-label" for="outlet-name" style="display:none" id="label-name"><i class="fa fa-check"></i></label>
 							<div ><input type="text" class="form-control full-span" id="outlet-name" data-parsley-required="true" /></div>
 						</div>
 						
-						<div id="validasi-addr">
+						<div id="validasi-addr" class="form-group">
 							<div><h5>Outlet Address</h5></div>
 							<label class="control-label" style="display:none" id="label-address"><i class="fa fa-check"></i></label>
 							<div >
@@ -31,33 +31,30 @@
 							<div class="col-xs-3"><h5>Postel Code</h5></div>
 						</div>
 						
-						<div class="row">
-							<div class="col-xs-4" id="validasi-phone">
-							<label class="control-label" style="display:none" id="label-phone"><i class="fa fa-check"></i></label>
+						<div class="row ">
+							<div class="col-xs-4 form-group"" id="validasi-phone">
+								<label class="control-label" style="display:none" id="label-phone"><i class="fa fa-check"></i></label>
 								<div >
 									<input type="text" class="form-control" name="outlet-phone" id="outlet-phone" data-parsley-required="true" />
 								</div>
+								<label style="color: red; font:small-caption;">*must number</label>
 							</div>
 							
-							<div class="col-xs-4" id="validasi-email">
+							<div class="col-xs-4 form-group" id="validasi-email">
 								<label class="control-label" style="display:none" id="label-email"><i class="fa fa-check"></i></label>
 								<div >
 									<input class="form-control" type="text" name="outlet-email" id="outlet-email" data-parsley-required="true" />
 								</div>
+								<label style="color: red; font:small-caption;">*ex: rama@gmail.com</label>
 							</div>
 							
-							<div class="col-xs-4" id="validasi-postal">
+							<div class="col-xs-4 form-group" id="validasi-postal">
 								<label class="control-label" style="display:none" id="label-postal"><i class="fa fa-check"></i></label>
 								<div >
 									<input class="form-control" type="text" pattern="\d{1,6}" name="outlet-postal" id="outlet-postal" data-parsley-required="true" />
 								</div>
+								<label style="color: red; font:small-caption;">*max 6 characters</label>
 							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-xs-4"><label style="color: red; font:small-caption;">*must number</label></div>
-							<div class="col-xs-4"><label style="color: red; font:small-caption;">*ex: rama@gmail.com</label></div>
-							<div class="col-xs-3"><label style="color: red; font:small-caption;">*max 6 characters</label></div>
 						</div>
 						
 						<div class="row">
@@ -67,7 +64,7 @@
 						</div>
 						
 						<div class="row">
-							<div class=" col-xs-4" id="validasi-prov">
+							<div class=" col-xs-4 form-group" id="validasi-prov">
 							<label class="control-label" style="display:none" id="label-prov"><i class="fa fa-check"></i></label>
 								<select class="form-control" name="area" required="required" id="prov-id">
     							<option disabled selected value=""> Select A Province</option>
@@ -77,14 +74,14 @@
 								</select>
 							</div>
 						
-							<div class="col-xs-4" id="validasi-reg">
+							<div class="col-xs-4 form-group" id="validasi-reg">
 								<label class="control-label" style="display:none" id="label-reg"><i class="fa fa-check"></i></label>
 								<select name="area" class="form-control" required="required" id="reg-id">
     							<option disabled selected value=""> Select A Region </option>
 								</select>
 							</div>
 						
-							<div class="col-xs-4" id="validasi-dist">
+							<div class="col-xs-4 form-group" id="validasi-dist">
 								<label class="control-label" style="display:none" id="label-dist"><i class="fa fa-check"></i></label>
 								<select name="area" class="form-control" required="required" id="dist-id">
     								<option disabled selected value=""> Select A District </option>
