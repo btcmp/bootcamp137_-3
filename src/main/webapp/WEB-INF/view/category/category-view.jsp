@@ -61,12 +61,18 @@
 		
 		$('#tbl-reset').click(function(){
 			$('#create-category').val("");
+			$('#create-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#create-alert').hide();
 			mustNotEmpty('#validasi-name', '#label-name');
+			nameValid = 0;
 		});
 		
 		$('#tbl-cancel').click(function(){
 			$('#edit-category').val("");
+			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#edit-alert').hide();
 			mustNotEmpty('#validasi-edit', '#label-edit');
+			nameValid = 0;
 		});
 		
 		//Simpan
@@ -117,6 +123,7 @@
 				}
 			});
 			}
+			nameValid = 0;
 		});
 		
 		var nameEdit;
@@ -138,10 +145,14 @@
 					console.log(id);
 				}
 			});
+			
+			nameValid = 2;
+			
 			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
 			$('#edit-alert').hide();
-			$('#validasi-edit').removeClass('has-error').removeClass('has-success');
-			$('#label-edit').empty();
+			$('#validasi-edit').removeClass('has-error').addClass('has-success');
+			$('#label-edit').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit').fadeIn();
 			$('#modal-edit').modal();
 		});
 		
@@ -175,7 +186,7 @@
 			else if(nameValid == 2){
 			$.ajax({
 				url : '${pageContext.request.contextPath}/master/category/update',
-				type : 'POST',
+				type : 'PUT',
 				data : JSON.stringify(category),
 				contentType : 'application/json',
 				success : function(){
@@ -188,12 +199,14 @@
 					}, 2500);
 				},
 				error : function(){
+						console.log(category);
 						$('#edit-alert').removeClass('alert-sukses').addClass('alert-gagal');
 						$('#edit-alert').html('<strong>Error!</strong> Failed to save.');
 						$('#edit-alert').fadeIn(); 
 				}
 			});
 			}
+			nameVadid = 0;
 		});
 		
 		
@@ -288,6 +301,8 @@
 		
 		//validasi name di modal create
 		$('#create-category').on('input', function(){
+			$('#create-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#create-alert').hide();
 			var name = $('#create-category').val();
 			if(name.length > 0){
 				$.ajax({
@@ -327,6 +342,8 @@
 		//validasi name di modal edit
 		$('#edit-category').on('input', function(e){
 			e.preventDefault();
+			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#edit-alert').hide();
 			var name = $('#edit-category').val();
 			if(name.length > 0){
 				$.ajax({
