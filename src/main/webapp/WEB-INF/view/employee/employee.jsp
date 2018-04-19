@@ -199,6 +199,13 @@
 </body>
 
 <script>
+	var role = "${userLogin.role.name}";
+	var superr = "${superr}";
+	if(superr == 0 || role != 'ROLE_ADMIN'){
+		$('#form-emp').hide();
+		$('.tblupdate').hide();
+	}
+	
 	$(document).ready(function() {
 		
 		$('#cek-akun').change(function () {
