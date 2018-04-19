@@ -150,7 +150,7 @@
 				<script>
 					var role = "${userLogin.role.name}";
 					var superr = "${superr}";
-					if(superr == 0 || role != 'ROLE_ADMIN'){
+					if(superr == 0 && role != 'ROLE_ADMIN'){
 						$('.kolom-action').hide();
 					}
 				</script>
