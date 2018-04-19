@@ -4,7 +4,7 @@
 	<script>
 		var role = "${userLogin.role.name}";
 		var superr = "${superr}";
-		if(superr == 0 || role != 'ROLE_ADMIN'){
+		if(superr == 0 && role != 'ROLE_ADMIN'){
 			$('#form-emp').hide();
 		}
 	</script>
@@ -414,7 +414,7 @@
 			if(ev == 1 && uv == 1 && fv == 1 && lv == 1 && pv == 1 && ov == 1 && tv == 1 && rv == 1){
 				validate = $('#form-emp').parsley();
 				validate.validate();
-				if(validate.isv()){
+				if(validate.isValid()){
 					$.ajax({
 						type : 'post',
 						url : '${pageContext.request.contextPath}/master/employee/save',
