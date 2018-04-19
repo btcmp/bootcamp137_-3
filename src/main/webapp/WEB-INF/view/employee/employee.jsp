@@ -48,8 +48,8 @@
 			<br/>
 			<div class="row">
 				<div class="col-xs-3">
-					<div class="form-group" id="div-outlet">
-						<label class="control-label" for="btn-outlet" style="display:none" id="lbl-outlet"><i class="fa fa-check"></i></label>
+					<div class="form-group" id="div-o">
+						<label class="control-label" for="btn-outlet" style="display:none" id="lbl-o"><i class="fa fa-check"></i></label>
 						<input type="button" class="btn btn-info btn-block" id="btn-outlet" value="Assign Outlet">
 					</div>
 				</div>
@@ -174,7 +174,7 @@
 				<div class="modal-body">
 					<div class="form-check checkbox-teal">
 						<c:forEach items="${outlets }" var="outlet">
-							<input type="checkbox" id="outlet-${outlet.id }" class="in-outlet" class="form-check-input" name="in-outlet" value="${outlet.id }">
+							<input type="checkbox" id="outlet-${outlet.id }" class="in-o" class="form-check-input" name="in-o" value="${outlet.id }">
 							<label class="form-check-label" for="outlet-${outlet.id }">${outlet.name }</label><br/>
 						</c:forEach>
 					</div>
@@ -240,21 +240,21 @@
 	    });
 	    $('#cek-akun').change();
 	    
-	    $('.in-outlet').change(function(){
-	    	var outcb = $('input[name="in-outlet"]:checked').length;
+	    $('.in-o').change(function(){
+	    	var outcb = $('input[name="in-o"]:checked').length;
 	    	if(outcb > 0){
-	    		$('#div-outlet').removeClass('has-error').addClass('has-success');
-				$('#lbl-outlet').html('<i class="fa fa-check"></i> Ok');
-				$('#lbl-outlet').fadeIn();
+	    		$('#div-o').removeClass('has-error').addClass('has-success');
+				$('#lbl-o').html('<i class="fa fa-check"></i> Ok');
+				$('#lbl-o').fadeIn();
 				ov = 1;
 	    	}else if(outcb == 0 && $('#cek-akun').is(":checked")){
-	    		$('#div-outlet').removeClass('has-success').addClass('has-error');
-				$('#lbl-outlet').html('<i class="fa-times-circle-o"></i> Please choose outlet');
-				$('#lbl-outlet').fadeIn();
+	    		$('#div-o').removeClass('has-success').addClass('has-error');
+				$('#lbl-o').html('<i class="fa-times-circle-o"></i> Please choose outlet');
+				$('#lbl-o').fadeIn();
 				ov = 0;
 	    	}
 	    });
-	    $('.in-outlet').change();
+	    $('.in-o').change();
 	    
 	    $('#btn-batal').click(function(){
 	    	$('#buat-akun').fadeOut('fast');
@@ -336,7 +336,7 @@
 					};
 					if(data.empOutlet!=null){
 						$.each(data.empOutlet, function(i, item){
-							$('input[name="in-outlet"][value="'+data.empOutlet[i].outlet.id+'"]').prop('checked', true);
+							$('input[name="in-o"][value="'+data.empOutlet[i].outlet.id+'"]').prop('checked', true);
 						})
 					}
 				},
@@ -351,7 +351,7 @@
 			console.log('click tombol simpan');
 			evt.preventDefault();
 			var empOut = [];
-			$('.in-outlet:checked').each(function(){
+			$('.in-o:checked').each(function(){
 				var eo = {
 					outlet : {
 						id : $(this).val()
@@ -361,7 +361,7 @@
 			});
 			
 			var usr;
-			var outcb = $('input[name="in-outlet"]:checked').length;
+			var outcb = $('input[name="in-o"]:checked').length;
 			if ($('#cek-akun').is(":checked"))
 			{
 				var akun = 1;
@@ -500,9 +500,9 @@
 				$('#lbl-r').fadeIn();
 			}
 			if(ov == 0){
-				$('#div-outlet').removeClass('has-success').addClass('has-error');
-				$('#lbl-outlet').html('<i class="fa fa-times-circle-o"></i> Please choose outlet');
-				$('#lbl-outlet').fadeIn();
+				$('#div-o').removeClass('has-success').addClass('has-error');
+				$('#lbl-o').html('<i class="fa fa-times-circle-o"></i> Please choose outlet');
+				$('#lbl-o').fadeIn();
 			}
 		}); // end fungsi simpan
 
