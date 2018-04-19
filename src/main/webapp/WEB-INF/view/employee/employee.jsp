@@ -1,6 +1,13 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
 	<form id="form-emp">
+	<script>
+		var role = "${userLogin.role.name}";
+		var superr = "${superr}";
+		if(superr == 0 || role != 'ROLE_ADMIN'){
+			$('#form-emp').hide();
+		}
+	</script>
 		<div class="row" id="div-alert" style="display:none;">
 			<div class="col-xs-12">
 				<div class="alert alert-sukses" role="alert" id="tampilan-alert">
@@ -92,7 +99,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="box">
+	<div class="box content">
 	<h2>Staff List</h2>
 	<hr style="border-color:black; border-top:1px dashed;">
 	<table id="data-emp"
@@ -103,7 +110,7 @@
 			<th>Have Account</th>
 			<th>Outlet Access</th>
 			<th>Role</th>
-			<th>#</th>
+			<th class="kolom-action">#</th>
 		</thead>
 		<tbody id="isi-emp">
 			<c:forEach items="${emps }" var="emp">
@@ -137,9 +144,16 @@
 							}
 						</script>
 					</td>
-					<td><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
+					<td class="kolom-action"><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
 						<a href="#" key-id="${emp.id }" class="nonaktifkan btn btn-danger">&times;</a></td>
 				</tr>
+				<script>
+					var role = "${userLogin.role.name}";
+					var superr = "${superr}";
+					if(superr == 0 || role != 'ROLE_ADMIN'){
+						$('.kolom-action').hide();
+					}
+				</script>
 			</c:forEach>
 		</tbody>
 	</table>
@@ -199,13 +213,6 @@
 </body>
 
 <script>
-	var role = "${userLogin.role.name}";
-	var superr = "${superr}";
-	if(superr == 0 || role != 'ROLE_ADMIN'){
-		$('#form-emp').hide();
-		$('.tblupdate').hide();
-	}
-	
 	$(document).ready(function() {
 		
 		$('#cek-akun').change(function () {
