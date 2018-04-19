@@ -43,6 +43,25 @@ public class EmployeeService {
 		employee.setEmail(emp.getEmail());
 		employee.setTitle(emp.getTitle());
 		employee.setActive(emp.isActive());
+		if(employee.getId()!=0) {
+			employee.setModifiedBy(usrlogin);
+			employee.setModifiedOn(new Date());
+			if(emp.isHaveAccount()) {
+				employee.setHaveAccount(true);
+			}else {
+				User usr = uDao.getUserByEmployee(employee);
+				if(usr == null) {
+					employee.setHaveAccount(false);
+				}else {
+					employee.setHaveAccount(true);
+					uDao.nonaktif(usr.getId());
+				}
+			}
+		}else {
+			employee.setHaveAccount(emp.isHaveAccount());
+			employee.setCreatedOn(new Date());
+			employee.setCreatedBy(usrlogin);
+		}
 		empDao.save(employee);
 		
 		List<EmployeeOutlet> empos = eoDao.getEmployeeOutletByEmployee(employee);

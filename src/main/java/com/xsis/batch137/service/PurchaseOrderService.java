@@ -196,4 +196,9 @@ public class PurchaseOrderService {
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		return poDao.searchPOByOutlet(search, outlet);
 	}
+	
+	public List<PurchaseOrder> getPOByOneDate(Date date){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return poDao.searchPOByOneDateAndOutlet(date, outlet);
+	}
 }

@@ -88,6 +88,24 @@ public class PurchaseRequestService {
 		}
 		
 		String prNo = "PR"+thn+bulan+nomor;
+		int unique = 0;
+		while(unique == 0) {
+			prNo = "PR"+thn+bulan+nomor;
+			int unik = prDao.CountPrByPrNo(prNo);
+			if(unik == 0) {
+				unique = 1;
+			}else {
+				int number = Integer.parseInt(nomor);
+				number++;
+				if(number < 10) {
+					nomor = "00"+number;
+				} else if(number < 100) {
+					nomor = "0"+number;
+				} else {
+					nomor = Integer.toString(no);
+				}
+			}
+		}
 		
 		if(pureq.getId()!=0) {
 			pureq.setModifiedOn(new Date());
@@ -155,7 +173,8 @@ public class PurchaseRequestService {
 				}
 			}
 			return prs;
-		} 
+		}
+		 
 	}
 	
 	public List<PurchaseRequest> selectByOutlet(){
@@ -222,7 +241,9 @@ public class PurchaseRequestService {
 		prDao.createPo(id);
 		User user = (User)httpSession.getAttribute("userLogin");
 		PurchaseRequest pr = prDao.getOne(id);
+		
 		List<PurchaseRequestDetail> prds = prdDao.selectDetailByPr(pr);
+		
 		if(prds == null) {
 			
 		}else {
@@ -247,6 +268,7 @@ public class PurchaseRequestService {
 		}
 		int no = poDao.CountPOByMonth(bln, thn)+1;
 		String nomor;
+		
 		if(no < 10) {
 			nomor = "00"+no;
 		} else if(no < 100) {
@@ -254,7 +276,9 @@ public class PurchaseRequestService {
 		} else {
 			nomor = Integer.toString(no);
 		}
+		
 		String poNo = "PO"+thn+bulan+nomor;
+		
 		PurchaseOrder po = new PurchaseOrder();
 		po.setCreatedOn(new Date());
 		po.setNotes(pr.getNotes());
@@ -277,6 +301,7 @@ public class PurchaseRequestService {
 				podDao.save(pod);
 			}
 		}
+		
 		PurchaseOrderHistory poh = new PurchaseOrderHistory();
 		poh.setCreatedOn(po.getCreatedOn());
 		poh.setCreatedBy(po.getCreatedBy());
@@ -303,6 +328,7 @@ public class PurchaseRequestService {
 		c.setTime(startDate); 
 		c.add(Calendar.DATE, -1);
 		startDate = c.getTime();
+		
 		Date endDate = akhir;
 		Calendar c2 = Calendar.getInstance(); 
 		c2.setTime(endDate); 
@@ -314,5 +340,10 @@ public class PurchaseRequestService {
 	public List<PurchaseRequest> searchGlobal(String search){
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		return prDao.searchPRByOutlet(search, outlet);
+	}
+	
+	public List<PurchaseRequest> getPRByOneDate(Date date){
+		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
+		return prDao.searchPRByOneDateAndOutlet(date, outlet);
 	}
 }
