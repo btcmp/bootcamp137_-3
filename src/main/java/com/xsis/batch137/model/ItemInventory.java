@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,13 +21,7 @@ import com.sun.istack.Nullable;
 
 @Entity
 @Table(name="pos_item_inventory")
-public class ItemInventory {
-
-	public ItemInventory() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
-	}
-	
+public class ItemInventory {	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
@@ -47,12 +42,10 @@ public class ItemInventory {
 	@Column(name="alert_at_qty")
 	@NotNull
 	private int alertAtQty;
-	@Column(name="created_by")
-	private Long createdBy;
+
 	@Column(name="created_on")
 	private Date createdOn;
-	@Column(name="modified_by")
-	private Long modifiedBy;
+	
 	@Column(name="modified_on")
 	private Date modifiedOn;
 
@@ -66,6 +59,29 @@ public class ItemInventory {
 	@Transient
 	private int qtySalesOrder;
 	
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
+	
+	@ManyToOne
+	@JoinColumn(name="modified_by", nullable=true)
+	private User modifiedBy;
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 
 	public int getQtySalesOrder() {
 		return qtySalesOrder;
@@ -139,13 +155,7 @@ public class ItemInventory {
 		this.alertAtQty = alertAtQty;
 	}
 
-	public Long getCreatedBy() {
-		return createdBy;
-	}
 
-	public void setCreatedBy(Long createdBy) {
-		this.createdBy = createdBy;
-	}
 
 	public Date getCreatedOn() {
 		return createdOn;
@@ -155,13 +165,6 @@ public class ItemInventory {
 		this.createdOn = createdOn;
 	}
 
-	public Long getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(Long modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
 
 	public Date getModifiedOn() {
 		return modifiedOn;

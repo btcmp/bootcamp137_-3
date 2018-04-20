@@ -40,6 +40,7 @@ public class ItemVariantDaoImpl implements ItemVariantDao {
 
 	public void update(ItemVariant itemVariant) {
 		Session session=sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(itemVariant);
 		session.flush();
 	}

@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,12 +36,14 @@ public class SalesOrderService {
 		salesOrder.setSalesOrderDetail(null);
 		User usr = (User) httpSession.getAttribute("userLogin");
 		salesOrder.setCreatedBy(usr);
+		salesOrder.setCreatedOn(new Date());
 		salesOrderDao.save(salesOrder);
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 
 		for(SalesOrderDetail sod : salesOrderDetails) {
 			sod.setSalesOrder(salesOrder);
 			sod.setCreatedBy(usr);
+			sod.setCreatedOn(new Date());
 			salesOrderDetailDao.save(sod);
 			salesOrderDetailDao.updateSalesOrder(sod, outlet);
 		}

@@ -20,7 +20,7 @@
 					
 					<div class="form-group" style="float:left ;width:33%">
 					<label>Unit Price</label>
-					<input type="number" placeholder="Unit Price" id="edit-unit-price" required>
+					<input type="text" placeholder="Unit Price" id="edit-unit-price" required>
 					</div>
 					
 					<label>SKU</label>

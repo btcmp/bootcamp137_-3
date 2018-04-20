@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +38,9 @@ public class ItemService {
 		User usr = (User) httpSession.getAttribute("userLogin");
 		//System.out.println(usr.getId());
 		item.setCreatedBy(usr);
+		item.setModifiedBy(usr);
+		item.setCreatedOn(new Date());
+		item.setModifiedOn(new Date());
 		itemDao.save(item);
 		ItemInventory inventory;
 		
@@ -45,10 +49,18 @@ public class ItemService {
 			
 			ivar.setItemInventories(null);
 			ivar.setItem(item);
+			ivar.setCreatedBy(usr);
+			ivar.setModifiedBy(usr);
+			ivar.setModifiedOn(new Date());
+			ivar.setCreatedOn(new Date());
 			itemVariantDao.save(ivar);
 			
 			inventory.setItemVariant(ivar);
 			inventory.setEndingQty(inventory.getBeginning());
+			inventory.setCreatedBy(usr);
+			inventory.setModifiedBy(usr);
+			inventory.setCreatedOn(new Date());
+			inventory.setModifiedOn(new Date());
 			itemInventoryDao.save(inventory);
 		}
 		
@@ -100,8 +112,11 @@ public class ItemService {
 	List<ItemVariant> itemVariants = item.getItemVariants();
 		item.setItemVariants(null);
 		User usr = (User) httpSession.getAttribute("userLogin");
+		Item itemGetCreatedBy = itemDao.getOne(item);
+		item.setCreatedBy(itemGetCreatedBy.getCreatedBy());
 		item.setModifiedBy(usr);
-		//item.getCreatedBy();
+		item.setCreatedOn(itemGetCreatedBy.getCreatedOn());
+		item.setModifiedOn(new Date());
 		itemDao.update(item);
 		ItemInventory inventory;
 		for(ItemVariant ivar : itemVariants) {
@@ -109,13 +124,31 @@ public class ItemService {
 			ivar.setItemInventories(null);
 			ivar.setItem(item);
 			if(ivar.getId() == null) {
+				ivar.setCreatedBy(usr);
+				ivar.setModifiedBy(usr);
+				ivar.setCreatedOn(new Date());
+				ivar.setModifiedOn(new Date());
 				itemVariantDao.save(ivar);
 				inventory.setItemVariant(ivar);
 				inventory.setEndingQty(inventory.getBeginning());
+				inventory.setCreatedBy(usr);
+				inventory.setModifiedBy(usr);
+				inventory.setCreatedOn(new Date());
+				inventory.setModifiedOn(new Date());
 				itemInventoryDao.save(inventory);
 			} 
 			else {
+				ItemVariant variant = itemVariantDao.getOne(ivar);
+				ivar.setCreatedBy(variant.getCreatedBy());
+				ivar.setModifiedBy(usr);
+				ivar.setCreatedOn(variant.getCreatedOn());
+				ivar.setModifiedOn(new Date());
 				itemVariantDao.update(ivar);
+				ItemInventory invent = itemInventoryDao.getOne(inventory);
+				inventory.setCreatedBy(invent.getCreatedBy());
+				inventory.setCreatedOn(invent.getCreatedOn());
+				inventory.setModifiedBy(usr);
+				inventory.setModifiedOn(new Date());
 				inventory.setItemVariant(ivar);
 				itemInventoryDao.update(inventory);
 			

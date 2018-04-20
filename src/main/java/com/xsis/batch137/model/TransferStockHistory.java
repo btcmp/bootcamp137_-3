@@ -15,10 +15,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="pos_t_transfer_stock_history")
 public class TransferStockHistory {
-
-	public TransferStockHistory() {
-		this.createdOn = new Date();
-	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

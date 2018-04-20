@@ -1,5 +1,6 @@
 package com.xsis.batch137.controller;
 
+import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +26,14 @@ public class ItemPDFView extends AbstractPdfView {
 		   PdfPTable table = new PdfPTable(5);
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
-
-	
+			
+			HTMLWorker htmlWorker = new HTMLWorker(doc);
+			  String str = "<html><head></head><body>"+
+					"<br/>" +
+			        "<h1 style='text-align: center;'>Item Data</h1>" +
+			        "<br/>" +
+			        "</body></html>";
+			   htmlWorker.parse(new StringReader(str));
 			
 			table.addCell("Name");
 			table.addCell("Category");

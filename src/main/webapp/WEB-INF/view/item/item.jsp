@@ -61,7 +61,7 @@
 
 					<td>
 						<script>
-							document.write('Rp. ' + ${invent.itemVariant.price}.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+',-');
+							document.write('Rp' + ${invent.itemVariant.price}.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+',00');
 						</script>
 					</td>
 					<td>${invent.endingQty}</td>
@@ -123,6 +123,83 @@ $(document).ready(function(){
 			clearForm();
 		}
 	});
+	
+	//urusan input unit price
+    $('body').on('input', 'input#add-unit-price', function(evt){
+		var charge = $(this).val().match(/\d/g);
+		
+		if (charge!==null) {
+			if (charge[0]==0) {
+				chargeRp = 'Rp';
+			} else {
+				charge = charge.join('');
+				console.log(charge);
+				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				console.log(chargeRp)
+			}
+		} else {
+			chargeRp = 'Rp';
+		}
+		$(this).val(chargeRp);
+	})
+	
+	///
+	   $('body').on('input', 'input#edit-unit-price', function(evt){
+		var charge = $(this).val().match(/\d/g);
+		
+		if (charge!==null) {
+			if (charge[0]==0) {
+				chargeRp = 'Rp';
+			} else {
+				charge = charge.join('');
+				console.log(charge);
+				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				console.log(chargeRp)
+			}
+		} else {
+			chargeRp = 'Rp';
+		}
+		$(this).val(chargeRp);
+	})
+	
+	//
+	 $('body').on('input', 'input#edititem-add-unit-price', function(evt){
+		var charge = $(this).val().match(/\d/g);
+		
+		if (charge!==null) {
+			if (charge[0]==0) {
+				chargeRp = 'Rp';
+			} else {
+				charge = charge.join('');
+				console.log(charge);
+				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				console.log(chargeRp)
+			}
+		} else {
+			chargeRp = 'Rp';
+		}
+		$(this).val(chargeRp);
+	})
+	
+	//
+	 $('body').on('input', 'input#edititem-edit-unit-price', function(evt){
+		var charge = $(this).val().match(/\d/g);
+		
+		if (charge!==null) {
+			if (charge[0]==0) {
+				chargeRp = 'Rp';
+			} else {
+				charge = charge.join('');
+				console.log(charge);
+				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				console.log(chargeRp)
+			}
+		} else {
+			chargeRp = 'Rp';
+		}
+		$(this).val(chargeRp);
+	})
+
     
     $('#edititem-btn-add-variant').on('click', function(evt) {
     	evt.preventDefault();
@@ -142,8 +219,10 @@ $(document).ready(function(){
 			
 			if(validate.isValid() && skuValid==1){
 				index++;
+				
 				$('#modal-add-variant').modal('toggle');
-				$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td><p>'+
+				$('#isi-popup-itm').append('<tr id=tr-item' + index + '><td><p id=' + index + '>'+ $('#add-variant-name').val()+'</p></td><td style="display:none"><p>'+
+						$('#add-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 						$('#add-unit-price').val()+'</p></td><td><p>'+$('#add-sku').val()
 						+'</p></td><td><p>'+$('#add-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#add-alert-at').val()
 						+'</p></td> <td style="display:none"><p>'+$('#add-active-variant').val()+'</p></td>'
@@ -165,7 +244,8 @@ $(document).ready(function(){
 			if(validate.isValid()){
 				$('#edititem-modal-add-variant').modal('toggle');
 				index++;
-		    	$('#isi-popup-edit').append('<tr id="tr-item'+index+'"><td><p id='+index+'>'+ $('#edititem-add-variant-name').val()+'</p></td><td><p>'+
+		    	$('#isi-popup-edit').append('<tr id="tr-item'+index+'"><td><p id='+index+'>'+ $('#edititem-add-variant-name').val()+'</p></td><td style="display:none"><p>'+
+		    			$('#edititem-add-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 		    			$('#edititem-add-unit-price').val()+'</p></td><td><p>'+$('#edititem-add-sku').val()+'</p></td>'
 		    			+'<td><p>'+$('#edititem-add-beginning-stock').val()+'</p></td>'
 		    			+'<td style="display:none"><p>'+$('#edititem-add-alert-at').val()+'</p></td>'
@@ -174,7 +254,7 @@ $(document).ready(function(){
 		   				+'<td style="display:none"><p>null</p></td>'
 		   				+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
 		   				+'<td style="display:none"><p>null</p></td>'
-		   				+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data">Remove </a>'+'</td></tr>');
+		   				+'<td><a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data-remove">Remove </a>'+'</td></tr>');
 			}
 		 
 		});
@@ -192,7 +272,8 @@ $(document).ready(function(){
 				 $("#tr-item"+index).remove();
 			 	//reloadTableCreateEditVariant();
 			 	///index++;
-				$('#isi-popup-itm').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edit-variant-name').val()+'</p></td><td><p>'+
+				$('#isi-popup-itm').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ $('#edit-variant-name').val()+'</p></td><td  style="display:none"><p>'+
+							$('#edit-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 							$('#edit-unit-price').val()+'</p></td><td><p>'+$('#edit-sku').val()
 							+'</p></td><td><p>'+$('#edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edit-alert-at').val()
 							+'</p></td> <td style="display:none"><p>'+$('#edit-active-variant').val()+'</p></td>'
@@ -217,7 +298,8 @@ $(document).ready(function(){
 				 	//a$.each(xxx,function(key,val){})
 
 				 if(endingQty==0){
-					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td  style="display:none"><p>'+
+				    			$('#edititem-edit-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
 				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
 				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
@@ -229,7 +311,8 @@ $(document).ready(function(){
 				 }
 				 
 				 else if(isNaN(endingQty)){
-					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td style="display:none"><p>'+
+				    			$('#edititem-edit-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
 				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
 				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
@@ -237,11 +320,12 @@ $(document).ready(function(){
 				    			+'<td style="display:none"><p>'+$('#inventory-id').val()+'</p></td>'
 				    			+'<td style="display:none"><p>'+$('#outlet-id').val()+'</p></td>'
 				    			+'<td style="display:none"><p>'+$('#ending-qty').val()+'</p></td>'
-				    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data"> Remove </a>'+'</td></tr>');
+				    			+'<td> <a href="#" id="edititem-tombol-edit-variant"> Edit </a> | <a href="#" id="edititem-delete-variant-data-remove"> Remove </a>'+'</td></tr>');
 				 }
 				 
 				 else{
-					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td><p>'+
+					 $('#isi-popup-edit').append('<tr id=tr-item'+indexRemove+'><td><p id='+indexRemove+'>'+ $('#edititem-edit-variant-name').val()+'</p></td><td  style="display:none"><p>'+
+				    			$('#edititem-edit-unit-price').val().match(/\d/g).join('')+'</p></td><td><p>'+
 				    			$('#edititem-edit-unit-price').val()+'</p></td><td><p>'+$('#edititem-edit-sku').val()
 				    			+'</p></td><td><p>'+$('#edititem-edit-beginning-stock').val()+'</p></td><td style="display:none"><p>'+$('#edititem-edit-alert-at').val()
 				    			+'</p></td><td style="display:none"><p>'+$('#edititem-edit-active-variant').val()+'</p></td>'
@@ -264,7 +348,7 @@ $(document).ready(function(){
 	 $("#isi-popup-itm").on('click','#delete-variant-data',function(){
 	        $(this).parent().parent().remove();
 	        var element = $(this).parent().parent();
-	        var skuToDelete = element.find('td').eq(2).find('p').text();
+	        var skuToDelete = element.find('td').eq(3).find('p').text();
 			var a = uniqueSku.indexOf(skuToDelete.toString());
 			uniqueSku.splice(a,1);
 
@@ -275,9 +359,15 @@ $(document).ready(function(){
 
 	 });
 	    
+	 $("#isi-popup-edit").on('click','#edititem-delete-variant-data-remove',function(){
+		 var element = $(this).parent().parent(); //dari a ke td baru ke tr
+	        var id = element.find('td').eq(7).find('p').text();
+	    	$(this).parent().parent().remove();	
+	 });
+	 
 	 $("#isi-popup-edit").on('click','#edititem-delete-variant-data',function(){
 	        var element = $(this).parent().parent(); //dari a ke td baru ke tr
-	        var id = element.find('td').eq(6).find('p').text();
+	        var id = element.find('td').eq(7).find('p').text();
 	        
 	        if(confirm('Are you sure to deactive this variant?')){
 	        	 if(id=='null') {
@@ -314,7 +404,7 @@ $(document).ready(function(){
 	 
 	 $("#edititem-btn-cancel").on('click',function(){
 		 $('#dt-popup-edit > tbody > tr').each(function(index,data){
-		    	var idInventory = $(data).find('td').eq(6).text()
+		    	var idInventory = $(data).find('td').eq(7).text()
 		    	 idClear.push(idInventory);
 		    });
 		 
@@ -331,11 +421,11 @@ $(document).ready(function(){
 	        console.log(select)
 	        $('#modal-edit-variant').modal({backdrop: 'static', keyboard: false});
 	        $('#edit-variant-name').val(element.find('td').eq(0).find('p').text());
-	        $('#edit-unit-price').val(element.find('td').eq(1).find('p').text());
-	        $('#edit-sku').val(element.find('td').eq(2).find('p').text());
-	        $('#edit-beginning-stock').val(element.find('td').eq(3).find('p').text());
-	   	   	$('#edit-alert-at').val(element.find('td').eq(4).find('p').text());
-	   		$('#edit-active-variant').val(element.find('td').eq(5).find('p').text());
+	        $('#edit-unit-price').val(element.find('td').eq(2).find('p').text());
+	        $('#edit-sku').val(element.find('td').eq(3).find('p').text());
+	        $('#edit-beginning-stock').val(element.find('td').eq(4).find('p').text());
+	   	   	$('#edit-alert-at').val(element.find('td').eq(5).find('p').text());
+	   		$('#edit-active-variant').val(element.find('td').eq(6).find('p').text());
 	   		$('#id-item-hidden-variant-edit').val(element.find('td').eq(0).find('p').attr('id'));
 	        console.log(element.find('td').eq(0).find('p').attr('id'))
 	    });
@@ -345,14 +435,14 @@ $(document).ready(function(){
 	        var element = $(this).parent().parent();
 	        $('#edititem-modal-edit-variant').modal({backdrop: 'static', keyboard: false});
 	        $('#edititem-edit-variant-name').val(element.find('td').eq(0).find('p').text());
-	        $('#edititem-edit-unit-price').val(element.find('td').eq(1).find('p').text());
-	        $('#edititem-edit-sku').val(element.find('td').eq(2).find('p').text());
-	        $('#edititem-edit-beginning-stock').val(element.find('td').eq(3).find('p').text());
-	   	   	$('#edititem-edit-alert-at').val(element.find('td').eq(4).find('p').text());
-	   		$('#edititem-edit-active-variant').val(element.find('td').eq(5).find('p').text());
-	   		$('#variant-id').val(element.find('td').eq(6).find('p').text());
-	   		$('#inventory-id').val(element.find('td').eq(7).find('p').text());
-	   		$('#ending-qty').val(element.find('td').eq(9).find('p').text());
+	        $('#edititem-edit-unit-price').val(element.find('td').eq(2).find('p').text());
+	        $('#edititem-edit-sku').val(element.find('td').eq(3).find('p').text());
+	        $('#edititem-edit-beginning-stock').val(element.find('td').eq(4).find('p').text());
+	   	   	$('#edititem-edit-alert-at').val(element.find('td').eq(5).find('p').text());
+	   		$('#edititem-edit-active-variant').val(element.find('td').eq(6).find('p').text());
+	   		$('#variant-id').val(element.find('td').eq(7).find('p').text());
+	   		$('#inventory-id').val(element.find('td').eq(8).find('p').text());
+	   		$('#ending-qty').val(element.find('td').eq(10).find('p').text());
 	   		$('#id-item-hidden').val(element.find('td').eq(0).find('p').attr('id'));
 	    });
 	    
@@ -391,8 +481,8 @@ $(document).ready(function(){
 		    
 		    $('#dt-popup-item > tbody > tr').each(function(index,data){
 		    	var itemInventory = {
-						 beginning :$(data).find('td').eq(3).text(),
-					     alertAtQty :$(data).find('td').eq(4).text(),
+						 beginning :$(data).find('td').eq(4).text(),
+					     alertAtQty :$(data).find('td').eq(5).text(),
 					     outlet : {
 					    	 id : $('#add-outlet').val()
 					     }
@@ -401,8 +491,8 @@ $(document).ready(function(){
 				 var itemVariant = {
 						 name : $(data).find('td').eq(0).text(),
 						 price : $(data).find('td').eq(1).text(),
-					     sku : $(data).find('td').eq(2).text(),
-					     active : $(data).find('td').eq(5).text(),
+					     sku : $(data).find('td').eq(3).text(),
+					     active : $(data).find('td').eq(6).text(),
 					     itemInventories : [itemInventory]
 				 };
 				 itemVar.push(itemVariant)
@@ -593,12 +683,12 @@ $(document).ready(function(){
 								//ID OUTLET BELUM
 							    $('#dt-popup-edit > tbody > tr').each(function(index,data){
 							    	var itemInventory = {
-							    			 id : $(data).find('td').eq(7).text(),
-											 beginning :$(data).find('td').eq(3).text(),
-										     alertAtQty :$(data).find('td').eq(4).text(),
-										     endingQty :$(data).find('td').eq(9).text(),
+							    			 id : $(data).find('td').eq(8).text(),
+											 beginning :$(data).find('td').eq(4).text(),
+										     alertAtQty :$(data).find('td').eq(5).text(),
+										     endingQty :$(data).find('td').eq(10).text(),
 										     itemVariant : {
-										    	 id : $(data).find('td').eq(6).text()
+										    	 id : $(data).find('td').eq(7).text()
 										     },
 							    			 outlet : {
 							    				id : $('#add-outlet').val()
@@ -607,14 +697,14 @@ $(document).ready(function(){
 									 }
 							    	
 									 var itemVariant = {
-							    			 id : $(data).find('td').eq(6).text(),
+							    			 id : $(data).find('td').eq(7).text(),
 											 name : $(data).find('td').eq(0).text(),
 											 price : $(data).find('td').eq(1).text(),
-										     sku : $(data).find('td').eq(2).text(),
+										     sku : $(data).find('td').eq(3).text(),
 										     active : 1,
 										     itemInventories : [itemInventory],
 										     item : {
-										    	id : $(data).find('td').eq(6).text()
+										    	id : $(data).find('td').eq(7).text()
 										     }
 									 };
 									 itemVar.push(itemVariant)
@@ -631,13 +721,10 @@ $(document).ready(function(){
 							    	},
 							    	itemVariants : itemVar,
 							    	image : data
-
 							    }
 							        
 						    	console.log(item)
-							    	//console.log(item.name)
-								
-								
+	
 								$.ajax({
 							    	url:'${pageContext.request.contextPath}/master/item/update',
 							    	type : 'PUT',
@@ -649,23 +736,21 @@ $(document).ready(function(){
 							    		$('#div-alert-edit-data').fadeIn();
 							    		
 							    		
-							    	    if(idDelete!=""){
-								    		idDelete.forEach(function(element){
-										    	$.ajax({
-													url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
-													type:'GET',
-													success : function (){
-														//alert('delete successfully'+element);
-														//window.location = '${pageContext.request.contextPath}/master/item/';
-													},
-													
-													error : function(){
-														//alert('delete failed');
-													} 
-													  
-												});
-									    	});
-								    };
+							    		if(idDelete!=""){
+							    			$.ajax({
+												url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+idDelete,
+												type:'GET',
+												success : function (){
+													//alert('delete successfully'+element);
+													//window.location = '${pageContext.request.contextPath}/master/item/';
+												},
+												
+												error : function(){
+													//alert('delete failed');
+												} 
+												  
+											});
+							    		}
 							    	  
 								    if (idClear!=""){
 								        idClear.forEach(function(element){
@@ -710,12 +795,12 @@ $(document).ready(function(){
 				    else{
 					    $('#dt-popup-edit > tbody > tr').each(function(index,data){
 					    	var itemInventory = {
-					    			 id : $(data).find('td').eq(7).text(),
-									 beginning :$(data).find('td').eq(3).text(),
-								     alertAtQty :$(data).find('td').eq(4).text(),
-								     endingQty :$(data).find('td').eq(9).text(),
+					    			 id : $(data).find('td').eq(8).text(),
+									 beginning :$(data).find('td').eq(4).text(),
+								     alertAtQty :$(data).find('td').eq(5).text(),
+								     endingQty :$(data).find('td').eq(10).text(),
 								     itemVariant : {
-								    	 id : $(data).find('td').eq(6).text()
+								    	 id : $(data).find('td').eq(7).text()
 								     },
 					    			 outlet : {
 					    				id : $('#add-outlet').val()
@@ -724,14 +809,14 @@ $(document).ready(function(){
 							 }
 					    	
 							 var itemVariant = {
-					    			 id : $(data).find('td').eq(6).text(),
+					    			 id : $(data).find('td').eq(7).text(),
 									 name : $(data).find('td').eq(0).text(),
 									 price : $(data).find('td').eq(1).text(),
-								     sku : $(data).find('td').eq(2).text(),
+								     sku : $(data).find('td').eq(3).text(),
 								     active : 1,
 								     itemInventories : [itemInventory],
 								     item : {
-								    	id : $(data).find('td').eq(6).text()
+								    	id : $(data).find('td').eq(7).text()
 								     }
 							 };
 							 itemVar.push(itemVariant)
@@ -748,7 +833,6 @@ $(document).ready(function(){
 					    	},
 					    	itemVariants : itemVar,
 					    	image : $('#edit-item-image').val()
-
 					    }
 					        
 				    	console.log(item)
@@ -765,24 +849,22 @@ $(document).ready(function(){
 					    		$('#tampilan-alert-edit-data').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
 					    		$('#div-alert-edit-data').fadeIn();
 					    		
-					    		
-					    	    if(idDelete!=""){
-						    		idDelete.forEach(function(element){
-								    	$.ajax({
-											url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+element,
-											type:'GET',
-											success : function (){
-												//alert('delete successfully'+element);
-												//window.location = '${pageContext.request.contextPath}/master/item/';
-											},
-											
-											error : function(){
-												//alert('delete failed');
-											} 
-											  
-										});
-							    	});
-						    };
+					    		if(idDelete!=""){
+					    			$.ajax({
+										url : '${pageContext.request.contextPath}/master/item/update-variant-active/'+idDelete,
+										type:'GET',
+										success : function (){
+											//alert('delete successfully'+element);
+											//window.location = '${pageContext.request.contextPath}/master/item/';
+										},
+										
+										error : function(){
+											//alert('delete failed');
+										} 
+										  
+									});
+					    		}
+					    			
 					    	  
 						    if (idClear!=""){
 						        idClear.forEach(function(element){
@@ -851,8 +933,9 @@ $(document).ready(function(){
 						
 						if(val.itemVariant.active==1){
 							if(val.endingQty==0){
-								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
-										val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
+								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td style="display:none"><p>'+
+										val.itemVariant.price +'</p></td><td><p>'+
+										'Rp'+val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</p></td><td><p>'+val.itemVariant.sku
 										+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
 										+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
 										+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'
@@ -864,8 +947,9 @@ $(document).ready(function(){
 							}
 							
 							else{
-								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td><p>'+
-										val.itemVariant.price +'</p></td><td><p>'+val.itemVariant.sku
+								$('#isi-popup-edit').append('<tr id=tr-item'+index+'><td><p id='+index+'>'+ val.itemVariant.name +'</p></td><td style="display:none"><p>'+
+										val.itemVariant.price +'</p></td><td><p>'+
+										'Rp'+val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</p></td><td><p>'+val.itemVariant.sku
 										+'</p></td><td><p>'+val.beginning+'</p></td><td style="display:none"><p>'+val.alertAtQty
 										+'</p></td> <td style="display:none"><p>'+val.itemVariant.active+'</p></td>'
 										+'<td style="display:none"><p>'+val.itemVariant.id+'</p></td>'

@@ -31,7 +31,7 @@ public class TransferStockPDFView extends AbstractPdfView {
 		// TODO Auto-generated method stub
 		List<TransferStock> tss = (List<TransferStock>) model.get("tss");
 		   
-		   PdfPTable table = new PdfPTable(4);
+		   PdfPTable table = new PdfPTable(5);
 			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 		
@@ -46,6 +46,7 @@ public class TransferStockPDFView extends AbstractPdfView {
 			table.addCell("Transfer Date");
 			table.addCell("From Outlet");
 			table.addCell("To Outlet");
+			table.addCell("Status");
 			table.addCell("Notes");
 
 			
@@ -53,6 +54,7 @@ public class TransferStockPDFView extends AbstractPdfView {
 				table.addCell(String.valueOf(tsss.getCreatedOn()));
 				table.addCell(tsss.getFromOutlet().getName());
 				table.addCell(tsss.getToOutlet().getName());
+				table.addCell(tsss.getStatus());
 				table.addCell(tsss.getNotes());
 				
 				List<TransferStockDetail> tsd = tsss.getTransferStockDetail();

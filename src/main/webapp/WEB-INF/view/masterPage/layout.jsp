@@ -135,6 +135,8 @@ input.parsley-error {
 <script
 	src="${pageContext.request.contextPath}/resources/js/jspdf.min.js"></script>
 <script
+	src="${pageContext.request.contextPath}/resources/js/jquery.currency.js"></script>
+<script
 	src="${pageContext.request.contextPath}/resources/easyAutoComplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/plugins/jasny-bootstrap/js/jasny-bootstrap.js"></script>

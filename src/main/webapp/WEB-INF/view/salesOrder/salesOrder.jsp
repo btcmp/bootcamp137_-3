@@ -189,8 +189,8 @@ $(document).ready(function() {
 							+	'<tr>'
 							+		'<th>Name</th>'
 							+		'<th>Email</th>'
-							+		'<th>phone</th>'
-							+		'<th>#</th>'
+							+		'<th>Phone</th>'
+							+		'<th>Action</th>'
 							+	'</tr>'
 						+	'</thead>'
 						+	'<tbody id="search-customer-tbl">'
@@ -204,7 +204,7 @@ $(document).ready(function() {
 					});
 				}, 
 				error : function(){
-					$('##table-cust').empty();
+					$('#table-cust').empty();
 					//alert('show selected transferStock data in modal failed');
 				}
 			})
@@ -234,15 +234,15 @@ $(document).ready(function() {
 					$('#item-tbl').empty();
 					$.each(data, function(key, val) {
 						if(added.indexOf(val.id.toString()) == -1) {
-							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td><td id="td-qty'+ val.id +'"><input id="'+val.id+'" type="number" class="input-add-item add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp'
+									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</td><td id="td-qty'+ val.id +'"><input id="'+val.id+'" type="number" class="input-add-item add-item-qty'+ val.id +'" value="1" min="1" max="'+val.endingQty+'" data-parsley-required="true" required /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button 	type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
 						} else {
 							var a = added.indexOf(val.id.toString());
-							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
-									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
+							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp'
+									+ val.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">&#10004;</button><button type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn btn-success">&#10004;</button></td></tr>');
 							$('.btn-add-item'+val.id).hide();
@@ -288,22 +288,22 @@ $(document).ready(function() {
 						}
 						
 						$('#salesOrder-tbl-body').append('<tr id="tr-salesOrder'+ data.id +'"><td id="'+ data.itemVariant.id +'">'+ data.itemVariant.item.name +'-'+ data.itemVariant.name +'</td>'
-								+'<td style="display:none">Rp.'+data.itemVariant.price+'</td>'
-								+'<td>Rp.'+ data.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</td><td>'+ transQty +'</td><td style="display:none">Rp.'+ data.itemVariant.price*transQty +'</td>'
-								+'<td>'+'Rp.'+(data.itemVariant.price*transQty).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-'+'</td>'
+								+'<td style="display:none">Rp'+data.itemVariant.price+'</td>'
+								+'<td>Rp'+ data.itemVariant.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</td><td>'+ transQty +'</td><td style="display:none">Rp'+ data.itemVariant.price*transQty +'</td>'
+								+'<td>'+'Rp'+(data.itemVariant.price*transQty).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</td>'
 								+'<td><button type="button" id="'+ data.id +'" class="btn-cancel-item'
 								+ data.id +' btn-cancel-item btn btn-danger" max="'+data.endingQty+'""> &#10006;</button></td></tr>');
 						$('#salesOrder-tbl-foot').empty();
 						var total = 0;
 						
 						$('#salesOrder-tbl-body > tr').each(function(index, data){
-							var price = $(data).find('td').eq(4).text().split("Rp.")[1];
+							var price = $(data).find('td').eq(4).text().split("Rp")[1];
 							total = total + parseInt(price);
 						})
 						
-						$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-' +'</th></tr>');
-						$('#charge-tampilan').text("Charge Rp. "+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+',-');
-						$('#charge').text("Charge Rp."+total);
+						$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp'+ total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')+'</th></tr>');
+						$('#charge-tampilan').text("Charge Rp"+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+						$('#charge').text("Charge Rp"+total);
 					},
 					error : function(){
 						alert('get one item inventory failed');
@@ -334,11 +334,11 @@ $(document).ready(function() {
 		$('#salesOrder-tbl-foot').empty();
 		var total = 0;
 		$('#salesOrder-tbl-body > tr').each(function(index, data){
-			var price = $(data).find('td').eq(4).text().split("Rp.")[1];
+			var price = $(data).find('td').eq(4).text().split("Rp")[1];
 			total = total + parseInt(price);
 		})
-		$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ total +'</th></tr>');
-		$('#charge').text("Charge Rp."+total)
+		$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp'+ total +'</th></tr>');
+		$('#charge').text("Charge Rp"+total)
 	})
 	
 	//btn clear
@@ -347,7 +347,7 @@ $(document).ready(function() {
 		added = [];
 		addedQty = [];
 		$('#salesOrder-tbl-foot').empty();
-		$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp. '+ 0 +'</th></tr>');
+		$('#salesOrder-tbl-foot').append('<tr id="tr-total-item"><th colspan="3">TOTAL</th><th colspan="2">Rp'+ 0 +'</th></tr>');
 		$('#charge').text("Charge");
 		document.getElementById("charge").disabled = true;
 		var word = $('#search').val();
@@ -362,14 +362,14 @@ $(document).ready(function() {
 					$('#item-tbl').empty();
 					$.each(data, function(key, val) {
 						if(added.indexOf(val.id.toString()) == -1) {
-							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
+							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp'
 									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'"><input id="'+val.id+'" type="number" class="add-item-qty'+ val.id +' input-add-item" value="1" min="1" max="'+val.endingQty+'" /></td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn">Added</button></td></tr>');
 							$('.btn-added-item'+val.id).hide();
 						} else {
 							var a = added.indexOf(val.id.toString());
-							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp.'
+							$('#item-tbl').append('<tr><td>'+ val.itemVariant.item.name +'-'+ val.itemVariant.name +'</td><td>Rp'
 									+ val.itemVariant.price +'</td><td id="td-qty'+ val.id +'">'+addedQty[a]+'</td><td><button type="button" id="'+ val.id +'" class="btn-add-item'
 									+ val.id +' btn-add-item btn btn-primary">Add</button><button type="button" id="'+ val.id +'" class="btn-added-item'
 									+ val.id +' btn-added-item btn">Added</button></td></tr>');
@@ -387,15 +387,35 @@ $(document).ready(function() {
 	
 	//charge
 		$('#charge-tampilan').on('click',function(){
-		
-		var total = parseInt($('#charge').text().split("Rp.")[1]);
+		var total = parseInt($('#charge').text().split("Rp")[1]);
+		var totalTampil = 'Rp'+total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 		if ($('.customer').attr("id") === undefined) {
 			alert("choose customer first");
 		}else {
-			$('#div-charge-cash').append( "<input type='number' class='form-control' id='charge-cash' value="+total+" min="+total+" data-parsley-required='true' required>");
+			$('#div-charge-cash').append( "<input type='text' class='form-control' id='charge-cash' value="+totalTampil+">");
 			$('#modal-charge-sales-order').modal({backdrop: 'static', keyboard: false});
 		}
 	});
+	
+
+	$('body').on('input', 'input#charge-cash', function(evt){
+		var charge = $(this).val().match(/\d/g);
+		
+		if (charge!==null) {
+			if (charge[0]==0) {
+				chargeRp = 'Rp';
+			} else {
+				charge = charge.join('');
+				console.log(charge);
+				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				console.log(chargeRp)
+			}
+		} else {
+			chargeRp = 'Rp';
+		}
+		$(this).val(chargeRp);
+	})
+	
 	
 	$('#charge-cancel').click(function(){
 		$('#modal-charge-sales-order').modal("toggle");
@@ -410,10 +430,11 @@ $(document).ready(function() {
 		validate.validate();
 		
 		if(validate.isValid()){
-			var cash = parseInt($('#charge-cash').val());
-			var total = parseInt($('#charge').text().split("Rp.")[1]);
-			document.getElementById("receipt-cash").innerHTML = "Out of Rp."+cash;
-			document.getElementById("receipt-change").innerHTML = "Rp."+(cash-total);
+			var cash = parseInt($('#charge-cash').val().match(/\d/g).join(''));
+			console.log('cash='+cash)
+			var total = parseInt($('#charge').text().split("Rp")[1]);
+			document.getElementById("receipt-cash").innerHTML = "Out of Rp"+cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+			document.getElementById("receipt-change").innerHTML = "Rp"+(cash-total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 			
 			var salesOrderDetail = [];
 			$('#salesOrder-tbl-body > tr').each(function(index, data){
@@ -422,8 +443,8 @@ $(document).ready(function() {
 							id : $(data).find('td').eq(0).attr('id')
 						},
 						qty : $(data).find('td').eq(3).text(),
-						unitPrice : $(data).find('td').eq(1).text().split("Rp.")[1],
-						subTotal : $(data).find('td').eq(4).text().split("Rp.")[1]
+						unitPrice : $(data).find('td').eq(1).text().split("Rp")[1],
+						subTotal : $(data).find('td').eq(4).text().split("Rp")[1]
 				}
 				salesOrderDetail.push(sod);
 
@@ -433,12 +454,12 @@ $(document).ready(function() {
 					customer : {
 						id : $('.customer').attr('id')
 					},
-					grandTotal : $('#charge').text().split("Rp.")[1],
+					grandTotal : $('#charge').text().split("Rp")[1],
 					salesOrderDetail : salesOrderDetail
 			}
 			console.log(salesOrder);
 			
-			$.ajax({
+		$.ajax({
 				url : '${pageContext.request.contextPath }/transaction/sales-order/save',
 				type : 'POST',
 				data : JSON.stringify(salesOrder),
@@ -449,15 +470,15 @@ $(document).ready(function() {
 		    		$('#tampilan-alert-so').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
 		    		$('#div-alert-so').fadeIn();
 		    		
-		    		/* setTimeout(function(){
+		    /* 	setTimeout(function(){
 			    		window.location = '${pageContext.request.contextPath}/master/item/';
 			    		},1000); */
 					//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
 				}, error : function(){
 					$('#tampilan-alert-so').removeClass('alert-sukses').addClass('alert-gagal');
 		    		$('#tampilan-alert-so').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-		    		$('#div-alert-so').fadeIn(); 				}
-				
+		    		$('#div-alert-so').fadeIn();
+		    		}
 			}) 		
 			
 			$('#modal-receipt-sales-order').modal({backdrop: 'static', keyboard: false});
@@ -539,7 +560,7 @@ $(document).ready(function() {
 						<tfoot id="salesOrder-tbl-foot">
 							<tr>
 								<th colspan="3">TOTAL</th>
-								<th colspan="2">Rp. 0</th>
+								<th colspan="2">Rp0</th>
 							</tr>
 						</tfoot>
 					</table>

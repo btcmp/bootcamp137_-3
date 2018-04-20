@@ -1,5 +1,6 @@
 package com.xsis.batch137.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -39,12 +40,16 @@ public class TransferStockService {
 		User usr = (User) httpSession.getAttribute("userLogin");
 		transferStock.setCreatedBy(usr);
 		transferStock.setModifiedBy(usr);
+		transferStock.setCreatedOn(new Date());
+		transferStock.setModifiedOn(new Date());
 		transferStockDao.save(transferStock);	
 		
 		for(TransferStockDetail tsd: transferStockDetails) {
 			tsd.setTransferStock(transferStock);
 			tsd.setCreatedBy(usr);
 			tsd.setModifiedBy(usr);
+			tsd.setCreatedOn(new Date());
+			tsd.setModifiedOn(new Date());
 			transferStockDetailDao.save(tsd);
 		}
 		
@@ -52,6 +57,7 @@ public class TransferStockService {
 		tsh.setStatus(transferStock.getStatus());
 		tsh.setTransferStock(transferStock);
 		tsh.setCreatedBy(usr);
+		tsh.setCreatedOn(new Date());
 		transferStockHistoryDao.save(tsh);
 		
 	}
@@ -81,6 +87,7 @@ public class TransferStockService {
 		User usr = (User) httpSession.getAttribute("userLogin");
 		tsh.setCreatedBy(usr);
 		tsh.setTransferStock(transferStock);
+		tsh.setCreatedOn(new Date());
 		transferStockHistoryDao.save(tsh);
 	}
 	public List<TransferStock> getTransferStockByOutletId(Long search) {

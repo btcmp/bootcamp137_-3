@@ -1,6 +1,9 @@
 package com.xsis.batch137.dao;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,12 +15,16 @@ import com.xsis.batch137.model.ItemVariant;
 import com.xsis.batch137.model.Outlet;
 import com.xsis.batch137.model.TransferStock;
 import com.xsis.batch137.model.TransferStockDetail;
+import com.xsis.batch137.model.User;
 //
 @Repository
 public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 	@Autowired
 	SessionFactory sessionFactory;
-
+	
+	@Autowired
+	HttpSession httpSession;
+	
 	public void save(TransferStockDetail transferStockDetail) {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(transferStockDetail);
@@ -66,6 +73,8 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 	public void updateInventory(ItemVariant iv, TransferStock ts, TransferStockDetail tsd) {
 		Session session=sessionFactory.getCurrentSession(); 
 		List<ItemInventory> itemInventories = session.createCriteria(ItemInventory.class).list();
+		Date modifiedOn = new Date();
+		User usr = (User) httpSession.getAttribute("userLogin");
 		int aa = 0;
 		for(ItemInventory ivz : itemInventories) {
 			
@@ -74,12 +83,12 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 			}
 		}
 		
-		String hql="update ItemInventory set transferStockQty=transferStockQty + :tsQty, endingQty=endingQty - :eQty where itemVariant=:iv and outlet = :fromOutlet";
-		session.createQuery(hql).setParameter("tsQty",tsd.getTransferQty()).setParameter("eQty", tsd.getTransferQty()).setParameter("fromOutlet", ts.getFromOutlet()).setParameter("iv", iv).executeUpdate();
+		String hql="update ItemInventory set modifiedOn= :modifiedOn, modifiedBy= :modifiedBy, transferStockQty=transferStockQty + :tsQty, endingQty=endingQty - :eQty where itemVariant=:iv and outlet = :fromOutlet";
+		session.createQuery(hql).setParameter("modifiedBy", usr).setParameter("modifiedOn", modifiedOn).setParameter("tsQty",tsd.getTransferQty()).setParameter("eQty", tsd.getTransferQty()).setParameter("fromOutlet", ts.getFromOutlet()).setParameter("iv", iv).executeUpdate();
 		
 		if(aa == 1) {
-			String hql2 = "update ItemInventory set endingQty = endingQty + :tsQty2 where itemVariant=:iv2 and outlet = :toOutlet";
-			session.createQuery(hql2).setParameter("tsQty2", tsd.getTransferQty()).setParameter("iv2",iv).setParameter("toOutlet", ts.getToOutlet()).executeUpdate();
+			String hql2 = "update ItemInventory set modifiedOn= :modifiedOn, modifiedBy= :modifiedBy, endingQty = endingQty + :tsQty2 where itemVariant=:iv2 and outlet = :toOutlet";
+			session.createQuery(hql2).setParameter("modifiedBy", usr).setParameter("modifiedOn", modifiedOn).setParameter("tsQty2", tsd.getTransferQty()).setParameter("iv2",iv).setParameter("toOutlet", ts.getToOutlet()).executeUpdate();
 		}
 		
 		else {
@@ -89,6 +98,10 @@ public class TransferStockDetailDaoImpl implements TransferStockDetailDao {
 			ivNoData.setEndingQty(tsd.getTransferQty());
 			ivNoData.setItemVariant(iv);
 			ivNoData.setOutlet(ts.getToOutlet());
+			ivNoData.setCreatedBy(usr);
+			ivNoData.setModifiedBy(usr);
+			ivNoData.setCreatedOn(new Date());
+			ivNoData.setModifiedOn(new Date());
 			ivNoData.setTransferStockQty(0);
 			session.save(ivNoData);
 			session.flush();

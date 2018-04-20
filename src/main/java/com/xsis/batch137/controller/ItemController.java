@@ -155,7 +155,7 @@ public class ItemController {
 	@ResponseBody
 	public List<ItemInventory> searchItem(@RequestParam(value="search", defaultValue="") String search){
 		List<ItemInventory > itemInventories = itemInventoryService.searchItemInventoryByItemName(search);
-		List<ItemInventory> invent = new ArrayList<>();
+		List<ItemInventory> invent = new ArrayList();
 		Outlet outlet = (Outlet) httpSession.getAttribute("outletLogin");
 		long outId = outlet.getId();
 		if(itemInventories != null) {
@@ -191,9 +191,11 @@ public class ItemController {
 	
 	@RequestMapping(value="/update-variant-active/{id}")
 	@ResponseBody
-	public void updateActiveVariant(@PathVariable Long id) {
-		System.out.println(id);
-		itemVariantService.updateActiveVariant(id);
+	public void updateActiveVariant(@PathVariable List<Long> id) {
+		
+		for(Long newId : id) {
+			itemVariantService.updateActiveVariant(newId);
+		}
 	}
 	
 	//s

@@ -41,6 +41,7 @@ public class ItemInventoryDaoImpl implements ItemInventoryDao {
 
 	public void update(ItemInventory itemInventory) {
 		Session session=sessionFactory.getCurrentSession();
+		session.clear();
 		session.saveOrUpdate(itemInventory);
 		session.flush();
 	}

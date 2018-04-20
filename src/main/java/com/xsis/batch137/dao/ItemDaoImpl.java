@@ -39,6 +39,7 @@ public class ItemDaoImpl implements ItemDao {
 
 	public void update(Item item) {
 		Session session=sessionFactory.getCurrentSession();
+		session.clear();
 		session.update(item);
 		session.flush();
 	}

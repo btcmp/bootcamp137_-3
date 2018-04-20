@@ -25,13 +25,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="pos_mst_item")
-public class Item {
-
-	public Item() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
-	}
-	
+public class Item {	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;

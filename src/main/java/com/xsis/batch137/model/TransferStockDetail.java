@@ -17,11 +17,6 @@ import com.sun.istack.NotNull;
 @Table(name="pos_t_transfer_stock_detail")
 public class TransferStockDetail {
 	//
-	public TransferStockDetail() {
-		this.createdOn = new Date();
-		this.modifiedOn = new Date();
-	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long id;

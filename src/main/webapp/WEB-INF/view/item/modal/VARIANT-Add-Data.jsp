@@ -17,9 +17,8 @@
 					</div>
 					
 					<div class="form-group" style="float:left ;width:30%;margin-right:3%">
-					<input class="form-control" type="number" placeholder="Unit Price" id="add-unit-price" data-parsley-required-message="Please insert the unit price"
-							data-parsley-required min="1"></span>					
-					
+					<input class="form-control" type="text" placeholder="Unit Price" id="add-unit-price" data-parsley-required-message="Please insert the unit price"
+							data-parsley-required>			
 					<!-- 	<label for="input-variant-name">Unit Price</label>  -->
 <!-- 						<span class="currencyinput" style="border: 1px inset #ccc">$<input style="border: 0" type="number" class="form-control" id="add-unit-price"></span>
  -->					</div>
