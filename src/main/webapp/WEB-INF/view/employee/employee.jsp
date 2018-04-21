@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-	<form id="form-emp">
+	<form id="form-emp" style="display:none;">
 	<script>
 		var role = "${userLogin.role.name}";
 		var superr = "${superr}";
-		if(superr == 0 && role != 'ROLE_ADMIN'){
-			$('#form-emp').hide();
+		if(superr == 1 || role == 'ROLE_ADMIN'){
+			$('#form-emp').show();
 		}
 	</script>
 		<div class="row" id="div-alert" style="display:none;">
@@ -110,7 +110,7 @@
 			<th>Have Account</th>
 			<th>Outlet Access</th>
 			<th>Role</th>
-			<th class="kolom-action">#</th>
+			<th class="kolom-action" style="display:none">#</th>
 		</thead>
 		<tbody id="isi-emp">
 			<c:forEach items="${emps }" var="emp">
@@ -144,14 +144,14 @@
 							}
 						</script>
 					</td>
-					<td class="kolom-action"><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
+					<td class="kolom-action" style="display:none"><a href="#" key-id="${emp.id }" class="tblupdate btn btn-info">Edit</a> | 
 						<a href="#" key-id="${emp.id }" class="nonaktifkan btn btn-danger">&times;</a></td>
 				</tr>
 				<script>
 					var role = "${userLogin.role.name}";
 					var superr = "${superr}";
-					if(superr == 0 && role != 'ROLE_ADMIN'){
-						$('.kolom-action').hide();
+					if(superr == 1 || role == 'ROLE_ADMIN'){
+						$('.kolom-action').show();
 					}
 				</script>
 			</c:forEach>
