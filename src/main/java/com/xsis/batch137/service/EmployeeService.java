@@ -137,7 +137,7 @@ public class EmployeeService {
 		empDao.nonaktif(id);
 	}
 	
-	public List<Employee> getEmployeeByEmail(String email) {
+	public Employee getEmployeeByEmail(String email) {
 		return empDao.getEmployeeByEmail(email);
 	}
 	
@@ -168,5 +168,10 @@ public class EmployeeService {
 	
 	public User getUserByEmployee(Employee emp) {
 		return uDao.getUserByEmployee(emp);
+	}
+	
+	public void ubahPassword(String email, String password) {
+		Employee emp = empDao.getEmployeeByEmail(email);
+		uDao.ubahPassword(password, uDao.getUserByEmployee(emp).getId());
 	}
 }

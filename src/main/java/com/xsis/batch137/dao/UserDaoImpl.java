@@ -97,4 +97,13 @@ public class UserDaoImpl implements UserDao {
 		session.flush();
 	}
 
+	@Override
+	public void ubahPassword(String password, long id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update User set password = :password where id = :id";
+		session.createQuery(hql).setParameter("password", password).setParameter("id", id).executeUpdate();
+		session.flush();
+	}
+
 }

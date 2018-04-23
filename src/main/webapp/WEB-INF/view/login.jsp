@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Kelompok 3</title>
+<title>Login - POS Kelompok 3</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -143,7 +143,7 @@
 	      </div>
 	      <div class="row">
 	        <div class="col-xs-8">
-	         
+	         	<a data-toggle="modal" data-target="#modal-forgot">Forgot Password</a>
 	        </div>
 	        <!-- /.col -->
 	        <div class="col-xs-4">
@@ -157,5 +157,80 @@
 	  <!-- /.login-box-body -->
 	</div>
 	<!-- /.login-box -->
+	
+	<!-- forgot password -->
+	<div class="modal fade" id="modal-forgot" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<div id="create-alert" class="alert alert-sukses" role="alert" style="display:none"></div>
+					<button type="button" class="close modalcancel" data-dismiss="modal">&times;</button>
+					<h3 id="judul-modal">Change Password</h3>
+				</div>
+				
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-3">
+							Email
+						</div>
+						<div class="col-xs-9">
+							<div class="form-group has-feedback">
+								<input type="email" class="form-control" id="in-email" placeholder="email" name="email"/>
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-3">
+							New Password
+						</div>
+						<div class="col-xs-9">
+							<input type="password" class="form-control full-span" id="in-password" placeholder="new password"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-3">
+							Re-type Password
+						</div>
+						<div class="col-xs-9">
+							<input type="password" class="form-control full-span" id="in-repassword" placeholder="re-type password"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-xs-10">
+						
+						</div>
+						<div class="col-xs-2">
+							<button type="button" class="btn btn-info" id="tbl-pswd">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+<script>
+	$(function(){
+		$('#tbl-pswd').on('click', function(){
+			var email = $('#in-email').val();
+			var password = $('#in-password').val();
+			console.log(email);
+			console.log(password);
+			$.ajax({
+				type : 'get',
+				url : '${pageContext.request.contextPath}/login/ubah-password?password='+password+'&email='+email,
+				success : function(){
+					alert('berhasil')
+				},
+				error : function(){
+					alert('gagal')
+				}
+			})
+		})
+	})
+</script>
 </html>

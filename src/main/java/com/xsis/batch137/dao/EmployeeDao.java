@@ -18,7 +18,7 @@ public interface EmployeeDao {
 
 	void nonaktif(long id);
 	
-	List<Employee> getEmployeeByEmail(String email);
+	Employee getEmployeeByEmail(String email);
 	
 	int countEmployeeByEmail(String email);
 	
