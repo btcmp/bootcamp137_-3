@@ -1,5 +1,7 @@
 package com.xsis.batch137.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,29 @@ public class DashboardService {
 	
 	public List<PurchaseOrder> getApprovedPO() {
 		return pod.searchPOByStatus("Approved");
+	}
+	
+	public List<PurchaseOrder> searchApprovedPO(String search){
+		return pod.searchApprovedPO(search);
+	}
+	
+	public List<PurchaseOrder> searchApprovedPOByDate(Date awal, Date akhir){
+		//Date startDate = awal;
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(awal); 
+		c.add(Calendar.DATE, -1);
+		awal = c.getTime();
+		
+		//Date endDate = akhir;
+		Calendar c2 = Calendar.getInstance(); 
+		c2.setTime(akhir); 
+		c2.add(Calendar.DATE, 1);
+		akhir = c2.getTime();
+		return pod.searchApprovedPOByDate(awal, akhir);
+	}
+	
+	public List<PurchaseOrder> searchApprovedPOByOneDate(Date date){
+		return pod.searchApprovedPOByOneDate(date);
 	}
 	
 	// SO

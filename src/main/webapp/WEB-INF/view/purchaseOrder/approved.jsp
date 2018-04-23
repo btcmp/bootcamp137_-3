@@ -92,8 +92,12 @@
 		        $('#pilih-tanggal-range').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
 		        awal = start.format('YYYY-MM-DD');
 		        akhir = end.format('YYYY-MM-DD');
-		        ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search-date?awal='+awal+'&akhir='+akhir;
-		        search();
+		        if(awal == akhir){
+		        	ur = '${pageContext.request.contextPath}/dashboard/po/search-one-date?date='+awal;
+		        }else{
+		        	ur = '${pageContext.request.contextPath}/dashboard/po/search-date?awal='+awal+'&akhir='+akhir;
+		        }
+		        search();;
 		      }
 	    );
 		
@@ -129,10 +133,10 @@
 		$('#cari-pr').on('keyup', function(){
 			var word = $(this).val();
 			if (word=="") {
-				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/get-all';
+				ur = '${pageContext.request.contextPath}/dashboard/po/get-all';
 				search();
 			} else {
-				ur = '${pageContext.request.contextPath}/transaksi/purchase-order/search?search='+word;
+				ur = '${pageContext.request.contextPath}/dashboard/po/search?search='+word;
 				search();
 			}
 		});
