@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
 <section class="content">
-<div class="box">
+<div class="box content">
 <div class="row">
 	<div class="col-xs-9">
 		<h3>PURCHASE ORDER DETAIL</h3>
