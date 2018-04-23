@@ -141,6 +141,21 @@ public class EmployeeService {
 		return empDao.getEmployeeByEmail(email);
 	}
 	
+	public int cekEmpByEmail(String email) {
+		Employee emp = empDao.getEmployeeByEmail(email);
+		if(emp == null) {
+			return 0;
+		}else if(emp.isHaveAccount() == true) {
+			if(emp.getUser().isActive() == true) {
+				return 1;
+			}else {
+				return 2;
+			}
+		}else {
+			return 3;
+		}
+	}
+	
 	public int countEmployeeByEmail(String email) {
 		return empDao.countEmployeeByEmail(email);
 	}
@@ -171,7 +186,6 @@ public class EmployeeService {
 	}
 	
 	public void ubahPassword(String email, String password) {
-		Employee emp = empDao.getEmployeeByEmail(email);
-		uDao.ubahPassword(password, uDao.getUserByEmployee(emp).getId());
+		uDao.ubahPassword(password, email);
 	}
 }
