@@ -16,6 +16,7 @@
 							<label class="control-label" for="in-username" style="display:none" id="label-edit"><i class="fa fa-check"></i></label>
 							<div ><input type="text" class="form-control full-span" id="edit-category" data-parsley-required="true" /></div>
 							<input type="hidden" name="id-edit" id="id-edit">
+							<label>*required</label>
 						</div>
 						
 					</form>
