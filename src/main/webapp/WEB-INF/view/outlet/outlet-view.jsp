@@ -1,9 +1,12 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
+<section class="content">
+
+<div class="box content">
 
 <div><h1>OUTLET</h1></div>
 <hr style="border-color:black; border-top:1px dashed;">
 
-<div id="container">
+
 
 	<div class="row">
 		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
@@ -14,6 +17,13 @@
 		<div style="float:right; margin-right:60px;">
 			<div class="form-group">
 				<a href="" id="tbl-create" class="btn btn-info" >Create</a>
+				<script>
+					var role = "${userLogin.role.name}";
+					var superior = "${superr}";
+					if(superior == 0 && role != 'ROLE_ADMIN'){
+						$('#tbl-create').hide();
+					}
+				</script>
 			</div>
 		</div>
 	</div>
@@ -25,7 +35,7 @@
 			<th>Address</th>
 			<th>Phone</th>
 			<th>Email</th>
-			<th>#</th>
+			<th class="differ">#</th>
 		</tr>
 		</thead>
 		<tbody id="list-outlet">
@@ -35,13 +45,18 @@
 				<td>${out.address }</td>
 				<td>${out.phone }</td>
 				<td>${out.email }</td>
-				<td>
+				<td class="differ">
 					<script type="text/javascript">
 						console.log(${out.id});
 					</script>
 					<a href="" id="${out.id }" class="btn-edit btn btn-success">Edit</a>
 				</td>
 			<tr>
+			<script>
+				if(superior == 0 && role != 'ROLE_ADMIN'){
+					$('.differ').hide();
+				}
+			</script>
 		</c:forEach>
 		</tbody>
 	</table>
@@ -49,6 +64,8 @@
 <%@ include file="/WEB-INF/view/outlet/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/outlet/modal/edit.jsp"%>
 <%@ include file="/WEB-INF/view/outlet/modal/delete.jsp"%>
+
+</section>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -125,8 +142,6 @@
 			$('#dist-edit').append('<option disabled selected value=\"\">Select A District</option>');
 			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
 			$('#edit-alert').hide();
-			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
-			$('#edit-alert').hide();
 			$('#validasi-edit-name').removeClass('has-success').removeClass('has-error');
 			$('#label-edit-name').hide();
 			$('#validasi-edit-addr').removeClass('has-success').removeClass('has-error');
@@ -176,6 +191,44 @@
 		//Munculkan modal create
 		$('#tbl-create').on('click', function(e){
 			e.preventDefault();
+			provValid = 0;
+			regValid = 0;
+			distValid = 0;
+			nameValid = 0;
+			emailValid = 3;
+			postalValid = 3;
+			phoneValid = 1;
+			
+			$('#outlet-name').val("");
+			$('#outlet-address').val("");
+			$('#outlet-phone').val("");
+			$('#outlet-email').val("");
+			$('#outlet-postal').val("");
+			$('#prov-id option').prop('selected', function() {
+		        return this.defaultSelected;
+		    });
+			$('#reg-id').empty();
+			$('#dist-id').empty();
+			$('#reg-id').append('<option disabled selected value=\"\">Select A Region</option>');
+			$('#dist-id').append('<option disabled selected value=\"\">Select A District</option>');
+			$('#create-alert').removeClass('alert-sukses').removeClass('alert-gagal');
+			$('#create-alert').hide();
+			$('#validasi-name').removeClass('has-success').removeClass('has-error');
+			$('#label-name').hide();
+			$('#validasi-addr').removeClass('has-success').removeClass('has-error');
+			$('#label-address').hide();
+			$('#validasi-phone').removeClass('has-success').removeClass('has-error');
+			$('#label-phone').hide();
+			$('#validasi-email').removeClass('has-success').removeClass('has-error');
+			$('#label-email').hide();
+			$('#validasi-postal').removeClass('has-success').removeClass('has-error');
+			$('#label-postal').hide();
+			$('#validasi-prov').removeClass('has-success').removeClass('has-error');
+			$('#label-prov').hide();
+			$('#validasi-reg').removeClass('has-success').removeClass('has-error');
+			$('#label-reg').hide();
+			$('#validasi-dist').removeClass('has-success').removeClass('has-error');
+			$('#label-dist').hide();
 			$('#modal-create').modal();
 		});
 		
@@ -235,22 +288,22 @@
 				$('#create-alert').fadeIn();
 				if(nameValid != 3){
 					$('#validasi-name').removeClass('has-success').addClass('has-error');
-					$('#label-name').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-name').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-name').fadeIn();
 				}
 				if(provValid != 1){
 					$('#validasi-prov').removeClass('has-success').addClass('has-error');
-					$('#label-prov').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-prov').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-prov').fadeIn();
 				}
 				if(regValid != 1){
 					$('#validasi-reg').removeClass('has-success').addClass('has-error');
-					$('#label-reg').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-reg').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-reg').fadeIn();
 				}
 				if(distValid != 1){
 					$('#validasi-dist').removeClass('has-success').addClass('has-error');
-					$('#label-dist').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-dist').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-dist').fadeIn();
 				}
 			}
@@ -392,39 +445,39 @@
 					var validy =  regexy.test(outMail);
 					if(validx){
 						$('#validasi-edit-phone').addClass('has-success').removeClass('has-error');
-						$('#label-edit-phone').html('<i class="fa fa-check-circle-o"></i> Ok');
+						$('#label-edit-phone').html('<i class="fa fa-check-circle"></i> Ok');
 						$('#label-edit-phone').fadeIn();
 						phoneValid = 1;
 						
 					}
 					else{
 						$('#validasi-edit-phone').addClass('has-error').removeClass('has-success');
-						$('#label-edit-phone').html('<i class="fa fa-times-circle-o"></i> Must number');
+						$('#label-edit-phone').html('<i class="fa fa-times-circle"></i> Must number');
 						$('#label-edit-phone').fadeIn();
 						phoneValid = 0;
 						
 					}
 					if(validy){
 						$('#validasi-edit-email').addClass('has-success').removeClass('has-error');
-						$('#label-edit-email').html('<i class="fa fa-check-circle-o"></i> Ok');
+						$('#label-edit-email').html('<i class="fa fa-check-circle"></i> Ok');
 						$('#label-edit-email').fadeIn();
 						emailValid = 3;
 					}
 					else{
 						$('#validasi-edit-email').addClass('has-error').removeClass('has-success');
-						$('#label-edit-email').html('<i class="fa fa-times-circle-o"></i> The format must be valid');
+						$('#label-edit-email').html('<i class="fa fa-times-circle"></i> The format must be valid');
 						$('#label-edit-email').fadeIn();
 						emailValid = 2;
 					}
 					if(outPostal.length > 0 && outPostal.length < 7){
 						$('#validasi-edit-postal').addClass('has-success').removeClass('has-error');
-						$('#label-edit-postal').html('<i class="fa fa-check-circle-o"></i> Ok');
+						$('#label-edit-postal').html('<i class="fa fa-check-circle"></i> Ok');
 						$('#label-edit-postal').fadeIn();
 						postalValid = 3;
 					}
 					else{
 						$('#validasi-edit-postal').addClass('has-error').removeClass('has-success');
-						$('#label-edit-postal').html('<i class="fa fa-times-circle-o"></i> The format must be valid');
+						$('#label-edit-postal').html('<i class="fa fa-times-circle"></i> The format must be valid');
 						$('#label-edit-postal').fadeIn();
 						postalValid = 2;
 					}
@@ -434,19 +487,19 @@
 				}
 			});
 			$('#validasi-edit-name').addClass('has-success').removeClass('has-error');
-			$('#label-edit-name').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit-name').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit-name').fadeIn();
 			$('#validasi-edit-addr').addClass('has-success').removeClass('has-error');
-			$('#label-edit-address').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit-address').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit-address').fadeIn();
 			$('#validasi-edit-prov').addClass('has-success').removeClass('has-error');
-			$('#label-edit-prov').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit-prov').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit-prov').fadeIn();
 			$('#validasi-edit-reg').addClass('has-success').removeClass('has-error');
-			$('#label-edit-reg').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit-reg').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit-reg').fadeIn();
 			$('#validasi-edit-dist').addClass('has-success').removeClass('has-error');
-			$('#label-edit-dist').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit-dist').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit-dist').fadeIn();
 			
 			provValid = 1;
@@ -555,7 +608,7 @@
 					success : function(){
 						console.log(outlet);
 						$('#edit-alert').removeClass('alert-gagal').addClass('alert-sukses');
-						$('#edit-alert').html('<strong>Save Success!</strong>');
+						$('#edit-alert').html('<strong>Update Success!</strong>');
 						$('#edit-alert').fadeIn();
 						setTimeout(function(){
 							window.location = '${pageContext.request.contextPath}/master/outlet';
@@ -582,22 +635,22 @@
 				$('#edit-alert').fadeIn();
 				if(nameValid != 3){
 					$('#validasi-edit-name').removeClass('has-success').addClass('has-error');
-					$('#label-edit-name').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-edit-name').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-edit-name').fadeIn();
 				}
 				if(provValid != 1){
 					$('#validasi-edit-prov').removeClass('has-success').addClass('has-error');
-					$('#label-edit-prov').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-edit-prov').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-edit-prov').fadeIn();
 				}
 				if(regValid != 1){
 					$('#validasi-edit-reg').removeClass('has-success').addClass('has-error');
-					$('#label-edit-reg').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-edit-reg').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-edit-reg').fadeIn();
 				}
 				if(distValid != 1){
 					$('#validasi-edit-dist').removeClass('has-success').addClass('has-error');
-					$('#label-edit-dist').html('<i class="fa fa-times-circle-o"></i> Required');
+					$('#label-edit-dist').html('<i class="fa fa-times-circle"></i> Required');
 					$('#label-edit-dist').fadeIn();
 				}
 			}
@@ -606,6 +659,12 @@
 
 		
 //===============================================SEARCH==========================================
+		function sembunyi(){
+			if(superior == 0 && role != 'ROLE_ADMIN'){
+				$('.differ').hide();
+			}
+		}
+	
 		//Search
 		$('#outlet-search').on('input', function(){
 			var search = $(this).val();
@@ -622,8 +681,9 @@
 							+ '<td>'+out.address+'</td>'
 							+ '<td>'+out.phone+'</td>'
 							+ '<td>'+out.email+'</td>'
-							+ '<td><a href="" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
+							+ '<td class="differ"><a href="" id="' + out.id + '" class="btn-edit btn btn-success">Edit</a></td>'
 							+ '</tr>');
+						sembunyi();
 						console.log(out.id);
 					});
 					
@@ -637,31 +697,31 @@
 //===========================================Tools for Validation==============================================
 		function notEmpty(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> Cannot empty');
+			$(label).html('<i class="fa fa-times-circle"></i> Cannot empty');
 			$(label).fadeIn();
 		}
 		
 		function mustUnique(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> This must be unique');
+			$(label).html('<i class="fa fa-times-circle"></i> This must be unique');
 			$(label).fadeIn();
 		}
 		
 		function oke(validasi, label){
 			$(validasi).removeClass('has-error').addClass('has-success');
-			$(label).html('<i class="fa fa-check-circle-o"></i> Ok');
+			$(label).html('<i class="fa fa-check-circle"></i> Ok');
 			$(label).fadeIn();
 		}
 		
 		function notValid(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> The format must be valid');
+			$(label).html('<i class="fa fa-times-circle"></i> The format must be valid');
 			$(label).fadeIn();
 		}
 		
 		function mustNumber(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> Must number');
+			$(label).html('<i class="fa fa-times-circle"></i> Must number');
 			$(label).fadeIn();
 		}
 		
