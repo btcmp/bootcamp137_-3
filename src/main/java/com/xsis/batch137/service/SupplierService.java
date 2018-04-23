@@ -98,5 +98,15 @@ public class SupplierService {
 		// TODO Auto-generated method stub
 		return supplierDao.searchSupplier(search);
 	}
+
+	public int countName(String name) {
+		// TODO Auto-generated method stub
+		return supplierDao.countName(name);
+	}
+
+	public int countEmail(String email) {
+		// TODO Auto-generated method stub
+		return supplierDao.countEmail(email);
+	}
 	
 }

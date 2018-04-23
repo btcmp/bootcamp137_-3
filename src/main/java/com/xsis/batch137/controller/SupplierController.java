@@ -82,4 +82,16 @@ public class SupplierController {
 		List<Supplier> suppliers = supplierService.searchSupplier(search);
 		return suppliers;
 	}
+	
+	@RequestMapping(value="/count")
+	@ResponseBody
+	public int countName(@RequestParam(value="name") String name) {
+		return supplierService.countName(name);
+	}
+	
+	@RequestMapping(value="/counts")
+	@ResponseBody
+	public int countEmail(@RequestParam(value="email") String email) {
+		return supplierService.countEmail(email);
+	}
 }
