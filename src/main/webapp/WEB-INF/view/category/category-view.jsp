@@ -1,9 +1,12 @@
 <%@ include file="/WEB-INF/view/masterPage/layout.jsp"%>
+<section class="content">
+<div class="box content">
+
 
 <div><h1>CATEGORY</h1></div>
 <hr style="border-color:black; border-top:1px dashed;">
 
-<div id="container">
+
 	
 	<div class="row">
 		<div class="col-xs-3" style="margin-right:300px; margin-left:50px;">
@@ -44,6 +47,8 @@
 <%@ include file="/WEB-INF/view/category/modal/create.jsp"%>
 <%@ include file="/WEB-INF/view/category/modal/edit.jsp"%>
 <%@ include file="/WEB-INF/view/category/modal/delete.jsp"%>
+
+</section>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -88,7 +93,7 @@
 				$('#create-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-name').removeClass('has-success').addClass('has-error');
-				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Required');
+				$('#label-name').html('<i class="fa fa-times-circle"></i> Required');
 				$('#label-name').fadeIn();
 			}
 			else if(nameValid == 1){
@@ -98,7 +103,7 @@
 				$('#create-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-name').removeClass('has-success').addClass('has-error');
-				$('#label-name').html('<i class="fa fa-times-circle-o"></i> Category name must be unique.');
+				$('#label-name').html('<i class="fa fa-times-circle"></i> Category name must be unique.');
 				$('#label-name').fadeIn();
 			}
 			else {
@@ -151,7 +156,7 @@
 			$('#edit-alert').removeClass('alert-sukses').removeClass('alert-gagal');
 			$('#edit-alert').hide();
 			$('#validasi-edit').removeClass('has-error').addClass('has-success');
-			$('#label-edit').html('<i class="fa fa-check-circle-o"></i> Ok');
+			$('#label-edit').html('<i class="fa fa-check-circle"></i> Ok');
 			$('#label-edit').fadeIn();
 			$('#modal-edit').modal();
 		});
@@ -170,7 +175,7 @@
 				$('#edit-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-edit').removeClass('has-success').addClass('has-error');
-				$('#label-edit').html('<i class="fa fa-times-circle-o"></i> Required');
+				$('#label-edit').html('<i class="fa fa-times-circle"></i> Required');
 				$('#label-edit').fadeIn();
 			}
 			else if(nameValid == 1){
@@ -180,7 +185,7 @@
 				$('#edit-alert').fadeIn();
 				//Validasi salah
 				$('#validasi-edit').removeClass('has-success').addClass('has-error');
-				$('#label-edit').html('<i class="fa fa-times-circle-o"></i> Category name must be unique.');
+				$('#label-edit').html('<i class="fa fa-times-circle"></i> Category name must be unique.');
 				$('#label-edit').fadeIn();
 			}
 			else if(nameValid == 2){
@@ -280,21 +285,21 @@
 		
 		function mustUnique(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> Category name must be unique.');
+			$(label).html('<i class="fa fa-times-circle"></i> Category name must be unique.');
 			$(label).fadeIn();
 			nameValid = 1;
 		}
 		
 		function mustNotEmpty(validasi, label){
 			$(validasi).removeClass('has-success').addClass('has-error');
-			$(label).html('<i class="fa fa-times-circle-o"></i> Cannot empty');
+			$(label).html('<i class="fa fa-times-circle"></i> Cannot empty');
 			$(label).fadeIn();
 			nameValid = 0;
 		}
 		
 		function kirim(validasi, label){
 			$(validasi).removeClass('has-error').addClass('has-success');
-			$(label).html('<i class="fa fa-check-circle-o"></i> Ok');
+			$(label).html('<i class="fa fa-check-circle"></i> Ok');
 			$(label).fadeIn();
 			nameValid = 2;
 		}
