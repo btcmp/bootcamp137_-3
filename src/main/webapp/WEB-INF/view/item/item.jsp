@@ -61,7 +61,7 @@
 
 					<td>
 						<script>
-							document.write('Rp' + ${invent.itemVariant.price}.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+',00');
+							document.write('Rp' + ${invent.itemVariant.price}.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
 						</script>
 					</td>
 					<td>${invent.endingQty}</td>
@@ -93,8 +93,8 @@
 $(document).ready(function(){
 	
 	$('#dt-view-item').DataTable({
-		searching : false,
-        "dom": 'rt<"bottom"flp><"clear">'
+		  dom: "<'row'<'col-sm-12'tr>>" +
+	         "<'row'<'col-sm-4'l><'col-sm-4'i><'col-sm-4'p>>"	
 	});
 	
 	var index=0;
@@ -427,6 +427,9 @@ $(document).ready(function(){
 	   	   	$('#edit-alert-at').val(element.find('td').eq(5).find('p').text());
 	   		$('#edit-active-variant').val(element.find('td').eq(6).find('p').text());
 	   		$('#id-item-hidden-variant-edit').val(element.find('td').eq(0).find('p').attr('id'));
+	   		
+	   		var maxVal = element.find('td').eq(4).find('p').text();
+	   		$('#edit-alert-at').attr("max", maxVal);
 	        console.log(element.find('td').eq(0).find('p').attr('id'))
 	    });
 	    
@@ -1051,13 +1054,26 @@ $(document).ready(function(){
 				//alert('ok')
 				//$('#full-data-utama').empty();
 				$.each(data,function(key,val){
-				$('#full-data-utama').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
-						+ '<td>'+val.itemVariant.item.category.name+'</td>'
-						+ '<td>'+val.itemVariant.price+'</td>'
-						+ '<td>'+val.endingQty+'</td>'
-						+ '<td>LOW</td>'
-						+ '<td> <a href="#" id='+val.itemVariant.item.id +' class="edit-data">Edit</a></td>'
-						+ '</tr>');
+				if(val.alertAtQty<val.endingQty){
+					$('#full-data-utama').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+							+ '<td>'+val.itemVariant.item.category.name+'</td>'
+							+ '<td>'+val.itemVariant.price+'</td>'
+							+ '<td>'+val.endingQty+'</td>'
+							+ '<td><p style="color:red">LOW</p></td>'
+							+ '<td> <a href="#" id='+val.itemVariant.item.id +' class="edit-data">Edit</a></td>'
+							+ '</tr>');
+				}
+				
+				else{
+					$('#full-data-utama').append('<tr><td>'+val.itemVariant.item.name+'-'+val.itemVariant.name+'</td>'
+							+ '<td>'+val.itemVariant.item.category.name+'</td>'
+							+ '<td>'+val.itemVariant.price+'</td>'
+							+ '<td>'+val.endingQty+'</td>'
+							+ '<td><p>OK</p></td>'
+							+ '<td> <a href="#" id='+val.itemVariant.item.id +' class="edit-data">Edit</a></td>'
+							+ '</tr>');
+				}
+					
 				});
 			},
 			error : function (){

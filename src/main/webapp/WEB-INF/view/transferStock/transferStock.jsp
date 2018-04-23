@@ -67,8 +67,8 @@ textarea.parsley-error {
 				<button id="create-transfer-stock" class="btn btn-primary btn-md">Create Transfer Stock Data</button>
 			</div>
 
-
 		</div>
+		<div style="clear:both"></div>
 
 		<div>
 			<table id="transfer-stock-list"
@@ -127,8 +127,8 @@ textarea.parsley-error {
 		
 		
 		$('#transfer-stock-list').DataTable({
-			paging : true,
-			searching : false
+			 dom: "<'row'<'col-sm-12'tr>>" +
+	         "<'row'<'col-sm-4'l><'col-sm-4'i><'col-sm-4'p>>"	
 		});
 		
 		

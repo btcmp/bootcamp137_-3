@@ -1,8 +1,8 @@
  <!-- Modal -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <script>
 $('.fileinput-new').fileinput();
-
 </script>
 
 <div class="modal fade" id="edit-itm" tabindex="-1" role="dialog"
@@ -30,7 +30,7 @@ $('.fileinput-new').fileinput();
 					</div> --> 
 					
 						<div class="fileinput fileinput-new" data-provides="fileinput" style="float:left;width:40%">
-  						<img id="images-edit" src="" style="width: 200px; height: 150px;line-height: 150px;">
+  						<img class="thumbnail" id="images-edit" src="" style="width: 200px; height: 150px;line-height: 150px;">
   						<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;display:none"></div>
  					<div>
    					 <span class="btn btn-default btn-file"><span class="fileinput-new">Change</span><span class="fileinput-exists">Change</span>
@@ -96,7 +96,6 @@ $('.fileinput-new').fileinput();
 							
 						</tbody>
 					</table>
-
 
 					<div class="modal-footer">
 						<button type="button" id=btn-back-edit class="btn btn-primary" data-dismiss="modal">Back</button>
