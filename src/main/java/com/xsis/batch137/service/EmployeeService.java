@@ -185,7 +185,20 @@ public class EmployeeService {
 		return uDao.getUserByEmployee(emp);
 	}
 	
-	public void ubahPassword(String email, String password) {
-		uDao.ubahPassword(password, email);
+	public int ubahPassword(String email, String password) {
+		Employee emp = empDao.getEmployeeByEmail(email);
+		if(emp == null) {
+			return 0;
+		}else {
+			if(emp.isHaveAccount()) {
+				if(emp.getUser().isActive()) {
+					return uDao.ubahPassword(password, emp.getUser().getId());
+				}else {
+					return 2;
+				}
+			}else {
+				return 3;
+			}
+		}
 	}
 }
