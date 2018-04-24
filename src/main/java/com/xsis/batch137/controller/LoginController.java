@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.xsis.batch137.model.Employee;
 import com.xsis.batch137.service.EmployeeService;
 
 @Controller
@@ -40,10 +42,15 @@ public class LoginController {
 		return "access-denied";
 	}
 	
-
 	@RequestMapping("/ubah-password")
-	@ResponseStatus(HttpStatus.OK)
-	public void ubahPassword(@RequestParam(value="password", defaultValue="") String password, @RequestParam(value="email", defaultValue="") String email) {
-		empService.ubahPassword(email, password);
+	@ResponseBody
+	public int ubahPassword(@RequestParam(value="password", defaultValue="") String password, @RequestParam(value="email", defaultValue="") String email) {
+		return empService.ubahPassword(email, password);
+	}
+	
+	@RequestMapping("/get-emp-email")
+	@ResponseBody
+	public Employee getEmpByEmail(@RequestParam(value="email", defaultValue="") String email) {
+		return empService.getEmployeeByEmail(email);
 	}
 }
