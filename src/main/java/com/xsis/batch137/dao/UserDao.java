@@ -25,5 +25,5 @@ public interface UserDao {
 	
 	void nonaktif(long id);
 	
-	void ubahPassword(String password, String email);
+	int ubahPassword(String password, long id);
 }
