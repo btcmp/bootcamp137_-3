@@ -68,4 +68,32 @@ public class SupplierDaoImpl implements SupplierDao{
 			return sups;
 		}
 	}
+
+	@Override
+	public int countName(String name) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Supplier where lower(name) = nama";
+		List<Supplier> sups = session.createQuery(hql).setParameter("nama", name).list();
+		if (sups.isEmpty()) {
+			return 0;
+		}
+		else {
+			return sups.size();
+		}
+	}
+
+	@Override
+	public int countEmail(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Supplier where lower(email) = emails";
+		List<Supplier> sups = session.createQuery(hql).setParameter("emails", email).list();
+		if (sups.isEmpty()) {
+			return 0;
+		}
+		else {
+			return sups.size();
+		}
+	}
 }

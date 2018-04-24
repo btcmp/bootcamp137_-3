@@ -65,16 +65,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		session.flush();
 	}
 
-	public List<Employee> getEmployeeByEmail(String email) {
+	public Employee getEmployeeByEmail(String email) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Employee where lower(email) = :email";
-		List<Employee> emps = session.createQuery(hql).setParameter("email", email).list();
+		List<Employee> emps = session.createQuery(hql).setParameter("email", email.toLowerCase()).list();
 		if(emps.isEmpty()) {
 			return null;
 		}
 		else{
-			return emps;
+			return emps.get(0);
 		}
 	}
 

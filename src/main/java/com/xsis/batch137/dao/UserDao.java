@@ -24,4 +24,6 @@ public interface UserDao {
 	int countUserByUsername(String user);
 	
 	void nonaktif(long id);
+	
+	void ubahPassword(String password, String email);
 }

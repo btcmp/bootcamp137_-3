@@ -17,4 +17,8 @@ public interface SupplierDao {
 	public Supplier getOne(long id);
 
 	public List<Supplier> searchSupplier(String search);
+
+	public int countName(String name);
+
+	public int countEmail(String email);
 }

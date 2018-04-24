@@ -11,11 +11,12 @@
 				<div class="modal-body">
 					<form id="formdepartemen" data-parsley-validate method="post">
 						
-						<div id="validasi-edit">
+						<div id="validasi-edit" class="form-group" >
 							<div><h4>Category Name</h4></div>
 							<label class="control-label" for="in-username" style="display:none" id="label-edit"><i class="fa fa-check"></i></label>
 							<div ><input type="text" class="form-control full-span" id="edit-category" data-parsley-required="true" /></div>
 							<input type="hidden" name="id-edit" id="id-edit">
+							<label>*required</label>
 						</div>
 						
 					</form>

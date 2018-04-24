@@ -162,11 +162,12 @@ input.parsley-error {
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<!-- User Account: style can be found in dropdown.less -->
-				<li class="dropdown user user-menu"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="${pageContext.request.contextPath}/resources/dist/img/avatar5.png"
-						class="user-image" alt="User Image"> <span class="hidden-xs">Batch
-							137 Kel 3</span>
+				<li class="dropdown user user-menu">
+					<a href="#"class="dropdown-toggle" data-toggle="dropdown"> 
+					<img src="${pageContext.request.contextPath}/resources/dist/img/avatar5.png" class="user-image" alt="User Image"> 
+					<span class="hidden-xs">
+						Menu
+					</span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
@@ -174,7 +175,14 @@ input.parsley-error {
 							src="${pageContext.request.contextPath}/resources/dist/img/user2-160x160.jpg"
 							class="img-circle" alt="User Image">
 							<div class="row text-center">
-								Halo, ${empLogin.firstName } ${empLogin.lastName } <br>
+								<script>
+									if(superr == 1){
+										document.write('Halo, Super Admin');
+									}else{
+										document.write('Halo, '+'${empLogin.firstName}'+' '+'${empLogin.lastName}');
+									}
+								</script>
+								 <br>
 								Anda memiliki akses ke ${outletLogin.name }
 							</div> <!-- /.row --> <!-- Menu Footer-->
 						<li class="user-footer">
@@ -205,7 +213,15 @@ input.parsley-error {
 					class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>Batch 137 Kel 3</p>
+				<p>
+					<script>
+						if(superr == 1){
+							document.write('Super Admin');
+						}else{
+							document.write('${empLogin.firstName}'+' '+'${empLogin.lastName}');
+						}
+					</script>
+				</p>
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
 		</div>
