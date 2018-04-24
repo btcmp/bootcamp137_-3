@@ -57,14 +57,7 @@ public class EmployeeController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody Employee emp) {
-	//public String save(@Valid @ModelAttribute("employee") Employee emp, BindingResult binding, Model model) {
-		/*if(binding.hasErrors()) {
-			List<Employee> emps = empService.selectAll();
-			model.addAttribute("emps", emps);
-			return "employee";
-		}*/
 		empService.save(emp);
-		//return "redirrect:/employee";
 	}
 	
 	@RequestMapping("/get-all")
@@ -96,5 +89,11 @@ public class EmployeeController {
 	@ResponseBody
 	public int getUserByUsername(@RequestParam(value="user", defaultValue="") String username) {
 		return empService.countUserByUsername(username);
+	}
+	
+	@RequestMapping("/get-emp-email")
+	@ResponseBody
+	public Employee getEmpByEmail(@RequestParam(value="email", defaultValue="") String email) {
+		return empService.getEmployeeByEmail(email);
 	}
 }
