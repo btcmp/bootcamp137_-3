@@ -40,15 +40,28 @@ textarea.parsley-error {
 			</div>
 			<div class="modal-body">
 				<form id="form-add-customer" style="border:none">
-					<div class="form-group">
-						<label>PROFILE</label>
-						<input type="text" class="form-control" id="save-name-cust" placeholder="Customer Name" data-parsley-required-message="Please insert the customer name"
+					
+						<!-- <label>PROFILE</label> -->
+						<div>
+							<label>Customer Name</label>
+								<input type="text" class="form-control" id="save-name-cust" placeholder="Customer Name" data-parsley-required-message="Please insert the customer name"
 							data-parsley-required/>
-						<input type="email" class="form-control" id="save-email-cust" placeholder="Email" data-parsley-required-message="Please insert the email"
-							data-parsley-required/>
-						<input type="text" class="form-control" id="save-phone-cust" placeholder="Phone" data-parsley-required-message="Please insert the phone number"
-							data-parsley-required/>
-					</div>
+						</div>
+						
+						<div id="div-email">
+							<label>Email</label>
+								<input type="email" class="form-control" id="save-email-cust" placeholder="Email" data-parsley-required-message="Please insert the email"
+								data-parsley-required/>
+							<p style="display:none"  class="control-label" for="in-sku"id="lbl-email"><i class="fa fa-check"></i></p>
+						
+						</div>
+						
+						<div>
+							<label>Phone</label>
+								<input type="text" class="form-control" id="save-phone-cust" placeholder="Phone" data-parsley-required-message="Please insert the phone number"
+								data-parsley-required/>
+						</div>
+						
 					
 					<div class="form-group">
 						<label>Day Of Birth</label>
@@ -68,7 +81,6 @@ textarea.parsley-error {
 						<input type="text" class="form-control" id="save-address-cust" placeholder="address" data-parsley-required-message="Please insert the address"
 							data-parsley-required/>
 					</div>
-					
 					<div>		
 						<div style="width:30%;float:left;margin-right:5%">
 							<select name="area" id="prov-id" class="form-control" data-parsley-required>
@@ -91,11 +103,6 @@ textarea.parsley-error {
     						<option disabled selected value="">Select A District</option>
 							</select>
 						</div>
-												
-						
-						
-						
-						
 					</div>
 				</form>
 			</div>

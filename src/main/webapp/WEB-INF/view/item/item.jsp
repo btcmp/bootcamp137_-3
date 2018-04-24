@@ -1097,6 +1097,7 @@ $(document).ready(function(){
  		$('.fileinput-preview').hide();
 		$('#images-edit').show();
 		$('#remove-image-edit').hide();  
+		$('#images-input-edit').val("");
 		imageStatus=0;
 	});
 	

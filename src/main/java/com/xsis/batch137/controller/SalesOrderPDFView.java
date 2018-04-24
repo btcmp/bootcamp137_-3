@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.HeaderFooter;
-import com.lowagie.text.Phrase;
+
 import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -57,7 +59,7 @@ public class SalesOrderPDFView extends AbstractPdfView {
 				 	        "<h1 style='text-align: center;'>Sales Order</h1>" +
 				 	        "<br/>" +
 				 	        "<p style='text-align: left ;'>Customer : "+customer+"</p>"+
-				 	        "<p style=''text-align: right ;'>Date : "+date+"</p>"+
+				 	        "<p style=''text-align: right ;'>Date : "+date+"</p><br/>"+
 				 	        "</body></html>";
 				 	      htmlWorker.parse(new StringReader(str));
 			
@@ -67,16 +69,19 @@ public class SalesOrderPDFView extends AbstractPdfView {
 			 table.addCell("Total");
 
 			for (SalesOrderDetail salesOrderDetail : sod) {
+				String price = String.format("Rp%,.0f", salesOrderDetail.getUnitPrice()).replaceAll(",", ".");
+				String subTotal = String.format("Rp%,.0f", salesOrderDetail.getSubTotal()).replaceAll(",", ".");
 				table.addCell(salesOrderDetail.getItemVariant().getItem().getName() +" - "+salesOrderDetail.getItemVariant().getName());
-				table.addCell(String.valueOf(salesOrderDetail.getUnitPrice())); 
+				table.addCell(price); 
 				table.addCell(String.valueOf(salesOrderDetail.getQty())); 
-				table.addCell(String.valueOf(salesOrderDetail.getSubTotal())); 
+				table.addCell(subTotal); 
 			}
-			
+			String totalFinal = String.format("Rp%,.0f", total).replaceAll(",", ".");
 			table.addCell("Total Pembayaran");
+			PdfPCell test = new PdfPCell(new Phrase("x"));
 			table.addCell("");
 			table.addCell("");
-			table.addCell(String.valueOf(total));
+			table.addCell(totalFinal);
 			doc.add(table);
 	}
 }

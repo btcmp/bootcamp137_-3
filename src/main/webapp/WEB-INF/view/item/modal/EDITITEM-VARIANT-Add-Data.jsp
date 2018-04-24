@@ -43,8 +43,8 @@
 
 
 					<div class="modal-footer">
-						<button type="button" id="edititem-btn-add-data-variant" class="btn btn-primary">Add</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+						<button type="button" id="edititem-btn-add-data-variant" class="btn btn-primary">Add</button>
 					</div>
 				</form>
 

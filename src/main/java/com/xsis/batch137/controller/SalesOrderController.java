@@ -119,4 +119,11 @@ public class SalesOrderController {
 		List<Customer> customers = customerService.getCustomerBySearchName(search);
 		return customers;
 	}
+	
+	//email
+	@RequestMapping("/cek-email")
+	@ResponseBody
+	public int geEmail(@RequestParam(value="email", defaultValue="") String email) {
+		return customerService.getCustomerEmail(email);
+	}
 }

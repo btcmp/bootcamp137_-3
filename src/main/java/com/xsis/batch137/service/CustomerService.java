@@ -50,7 +50,10 @@ public class CustomerService {
 		// TODO Auto-generated method stub
 		return customerDao.getCustomerBySearchName(search);
 	}
-	
-	
+
+	public int getCustomerEmail(String email) {
+		// TODO Auto-generated method stub
+		return customerDao.getCustomerEmail(email);
+	}
 	
 }

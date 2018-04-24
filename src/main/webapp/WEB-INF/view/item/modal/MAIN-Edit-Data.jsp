@@ -99,7 +99,6 @@ $('.fileinput-new').fileinput();
 
 					<div class="modal-footer">
 						<button type="button" id=btn-back-edit class="btn btn-primary" data-dismiss="modal">Back</button>
-						<button type="submit" id="edititem-btn-cancel" class="btn btn-primary">Cancel</button>
 						<button type="submit" id="edititem-btn-create-data" class="btn btn-primary">Save</button>
 					</div>
 				</form>

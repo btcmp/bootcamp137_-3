@@ -21,27 +21,27 @@ $(document).ready(function() {
 		$('#new-cust').modal({backdrop: 'static', keyboard: false});
 	})
 	
-	
-	
 	//validate email
+	var skuValid;
 		$('#save-email-cust').on('input',function(){
 			var email = $('#save-email-cust').val();
 			$.ajax({
 				type : 'get',
-				url : '${pageContext.request.contextPath}/transaction/sales-order/cek-sku?sku='+sku,
+				url : '${pageContext.request.contextPath}/transaction/sales-order/cek-email?email='+email,
 				success : function(data){
+					console.log(data)
 					if(data>0){
-						$('#div-add-sku').removeClass('has-success').addClass('has-error');
-						$('#lbl-sku').html('SKU must be unique');
-						$('#lbl-sku').fadeIn();
+						$('#div-email').removeClass('has-success').addClass('has-error');
+						$('#lbl-email').html('Email must be unique');
+						$('#lbl-email').fadeIn();
 						skuValid = 0;
 					}
 					
 					else{
 						console.log('oke')
-						$('#div-add-sku').removeClass('has-success').addClass('has-error');
+						$('#div-email').removeClass('has-success').addClass('has-error');
 						// $('#lbl-sku').html('SKU must be unique');
-						$('#lbl-sku').fadeOut();
+						$('#lbl-email').fadeOut();
 						skuValid = 1;
 					}
 				}, error : function(){
@@ -56,7 +56,7 @@ $(document).ready(function() {
 		validate=$('#form-add-customer').parsley();
 		validate.validate();
 		
-		if(validate.isValid()){
+		if(validate.isValid() && skuValid==1){
 			var customer = {
 					name : $('#save-name-cust').val(),
 					email : $('#save-email-cust').val(),
@@ -83,7 +83,13 @@ $(document).ready(function() {
 				contentType : 'application/json',
 				data : JSON.stringify(customer),
 				success : function(data) {
-					alert('save success');
+					//alert('save success');
+					$('#tampilan-alert-cust').removeClass('alert-gagal').addClass('alert-sukses');
+			    		$('#tampilan-alert-cust').html('<strong>Sukses!</strong>');
+			    		$('#div-alert-cust').fadeIn();
+			    		
+					$('#new-cust').modal("toggle");
+				   	document.getElementById('form-add-customer').reset();
 				},
 				error : function() {
 					alert('saving failed!');
@@ -400,20 +406,19 @@ $(document).ready(function() {
 
 	$('body').on('input', 'input#charge-cash', function(evt){
 		var charge = $(this).val().match(/\d/g);
-		
-		if (charge!==null) {
-			if (charge[0]==0) {
-				chargeRp = 'Rp';
+			if (charge!==null) {
+				if (charge[0]==0) {
+					chargeRp = 'Rp';
+				} else {
+					charge = charge.join('');
+					console.log(charge);
+					var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+					console.log(chargeRp)
+				}
 			} else {
-				charge = charge.join('');
-				console.log(charge);
-				var chargeRp = 'Rp'+charge.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-				console.log(chargeRp)
+				chargeRp = 'Rp';
 			}
-		} else {
-			chargeRp = 'Rp';
-		}
-		$(this).val(chargeRp);
+			$(this).val(chargeRp);	
 	})
 	
 	
@@ -425,64 +430,77 @@ $(document).ready(function() {
 	
 	//done
 		$('#charge-done').click(function(){
-
-		validate=$('#form-charge-so').parsley();
-		validate.validate();
-		
-		if(validate.isValid()){
-			var cash = parseInt($('#charge-cash').val().match(/\d/g).join(''));
-			console.log('cash='+cash)
-			var total = parseInt($('#charge').text().split("Rp")[1]);
-			document.getElementById("receipt-cash").innerHTML = "Out of Rp"+cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-			document.getElementById("receipt-change").innerHTML = "Rp"+(cash-total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-			
-			var salesOrderDetail = [];
-			$('#salesOrder-tbl-body > tr').each(function(index, data){
-				var sod = {
-						itemVariant : {
-							id : $(data).find('td').eq(0).attr('id')
-						},
-						qty : $(data).find('td').eq(3).text(),
-						unitPrice : $(data).find('td').eq(1).text().split("Rp")[1],
-						subTotal : $(data).find('td').eq(4).text().split("Rp")[1]
-				}
-				salesOrderDetail.push(sod);
-
-			})
-			
-			var salesOrder = {
-					customer : {
-						id : $('.customer').attr('id')
-					},
-					grandTotal : $('#charge').text().split("Rp")[1],
-					salesOrderDetail : salesOrderDetail
-			}
-			console.log(salesOrder);
-			
-		$.ajax({
-				url : '${pageContext.request.contextPath }/transaction/sales-order/save',
-				type : 'POST',
-				data : JSON.stringify(salesOrder),
-				contentType : 'application/json',
-				success : function(data){
-					idSo = data;
-					$('#tampilan-alert-so').removeClass('alert-gagal').addClass('alert-sukses');
-		    		$('#tampilan-alert-so').html('<strong>Sukses!</strong> Berhasil Menyimpan ke Database');
-		    		$('#div-alert-so').fadeIn();
-		    		
-		    /* 	setTimeout(function(){
-			    		window.location = '${pageContext.request.contextPath}/master/item/';
-			    		},1000); */
-					//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
-				}, error : function(){
-					$('#tampilan-alert-so').removeClass('alert-sukses').addClass('alert-gagal');
-		    		$('#tampilan-alert-so').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
-		    		$('#div-alert-so').fadeIn();
-		    		}
-			}) 		
-			
-			$('#modal-receipt-sales-order').modal({backdrop: 'static', keyboard: false});
+		var cash = parseInt($('#charge-cash').val().match(/\d/g).join(''));
+		var total = parseInt($('#charge').text().split("Rp")[1]);
+		console.log('cash='+cash)
+		if(cash<total){
+			//alert('error');
+			$('#tampilan-alert-charge').removeClass('alert-sukses').addClass('alert-gagal');
+    		$('#tampilan-alert-charge').html('<strong>Warning!</strong> Check the money again');
+    		$('#div-alert-charge').fadeIn(); 
 		}
+		
+		else{
+			$('#div-alert-charge').fadeOut(); 
+			$('#modal-charge-sales-order').modal("toggle");  
+			validate=$('#form-charge-so').parsley();
+			validate.validate();
+
+			if(validate.isValid()){
+				var total = parseInt($('#charge').text().split("Rp")[1]);
+				document.getElementById("receipt-cash").innerHTML = "Out of Rp"+cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				document.getElementById("receipt-change").innerHTML = "Rp"+(cash-total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+				
+				var salesOrderDetail = [];
+				$('#salesOrder-tbl-body > tr').each(function(index, data){
+					var sod = {
+							itemVariant : {
+								id : $(data).find('td').eq(0).attr('id')
+							},
+							qty : $(data).find('td').eq(3).text(),
+							unitPrice : $(data).find('td').eq(1).text().split("Rp")[1],
+							subTotal : $(data).find('td').eq(4).text().split("Rp")[1]
+					}
+					salesOrderDetail.push(sod);
+
+				})
+				
+				var salesOrder = {
+						customer : {
+							id : $('.customer').attr('id')
+						},
+						grandTotal : $('#charge').text().split("Rp")[1],
+						salesOrderDetail : salesOrderDetail
+				}
+				console.log(salesOrder);
+				
+			$.ajax({
+					url : '${pageContext.request.contextPath }/transaction/sales-order/save',
+					type : 'POST',
+					data : JSON.stringify(salesOrder),
+					contentType : 'application/json',
+					success : function(data){
+						idSo = data;
+						$('#tampilan-alert-so').removeClass('alert-gagal').addClass('alert-sukses');
+			    		$('#tampilan-alert-so').html('<strong>Transaction Sucess!</strong>');
+			    		$('#div-alert-so').fadeIn();
+			    		
+			    /* 	setTimeout(function(){
+				    		window.location = '${pageContext.request.contextPath}/master/item/';
+				    		},1000); */
+						//window.location = "${pageContext.request.contextPath}/transaction/sales-order";
+					}, error : function(){
+						$('#tampilan-alert-so').removeClass('alert-sukses').addClass('alert-gagal');
+			    		$('#tampilan-alert-so').html('<strong>Error!</strong> Gagal Menyimpan ke Database');
+			    		$('#div-alert-so').fadeIn();
+			    		}
+				}) 		
+				
+				$('#modal-receipt-sales-order').modal({backdrop: 'static', keyboard: false});
+			}
+		}
+		
+		
 		
 	})
 	

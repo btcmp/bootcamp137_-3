@@ -7,6 +7,15 @@
 			</div>
 			<div class="modal-body">
 				<form action="#" style="border:none">
+				
+				<div class="row" id="div-alert-cust" style="display:none;">
+						<div class="col-xs-12">
+							<div id="tampilan-alert-cust" class="alert alert-sukses" role="alert">
+								<strong>Sukses!</strong> Data Berhasil Disimpan.
+							</div>
+						</div>
+					</div>
+				
 					<div class="form-group">
 						<div style="float:left;width:70%;margin-right:5%">
 							<input type="text" class="form-control" id="name-cust" aria-describedby="emailHelp" placeholder="Search Customer" />

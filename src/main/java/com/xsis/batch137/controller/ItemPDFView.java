@@ -42,9 +42,10 @@ public class ItemPDFView extends AbstractPdfView {
 			table.addCell("Stock Alert");
 
 			for (ItemInventory ivts : ivt) {
+				String price = String.format("Rp%,.0f", ivts.getItemVariant().getPrice()).replaceAll(",", ".");
 				table.addCell(ivts.getItemVariant().getName());
 				table.addCell(ivts.getItemVariant().getItem().getCategory().getName());
-				table.addCell(String.valueOf(ivts.getItemVariant().getPrice()));
+				table.addCell(price);
 				table.addCell(String.valueOf(ivts.getEndingQty()));
 				if(ivts.getEndingQty() < ivts.getAlertAtQty()) {
 					table.addCell("LOW");
@@ -56,5 +57,7 @@ public class ItemPDFView extends AbstractPdfView {
 				
 			}
 			doc.add(table);
+			
+			//System.out.println(mataUang);
 	}
 }
