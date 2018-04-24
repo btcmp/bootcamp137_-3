@@ -554,11 +554,11 @@
 			var email = $('#in-e').val();
 			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var valid =  regex.test(email);
-			$.ajax({
-				type : 'get',
-				url : '${pageContext.request.contextPath}/master/employee/cek-email?email='+email,
-				success : function(data){
-					if(valid && email.length > 6){
+			if(email.length > 6 && valid){
+				$.ajax({
+					type : 'get',
+					url : '${pageContext.request.contextPath}/master/employee/cek-email?email='+email,
+					success : function(data){
 						if(data > 0 && email != ee){
 							$('#div-e').removeClass('has-success').addClass('has-error');
 							$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> email must be unique');
@@ -570,16 +570,17 @@
 							$('#lbl-e').fadeIn();
 							ev = 1;
 						}
-					}else{
-						$('#div-e').removeClass('has-success').addClass('has-error');
-						$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
-						$('#lbl-e').fadeIn();
-						ev = 2;
+					},
+					error : function(){
+						
 					}
-				}, error : function(){
-					console.log('gagal')
-				}
-			});
+				});
+			}else{
+				$('#div-e').removeClass('has-success').addClass('has-error');
+				$('#lbl-e').html('<i class="fa fa-times-circle-o"></i> please insert valid email');
+				$('#lbl-e').fadeIn();
+				ev = 2;
+			}
 		});
 		
 		$('#in-f').on('input', function(){
